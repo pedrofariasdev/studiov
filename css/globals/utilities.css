@@ -1,0 +1,87 @@
+/* ==========================================================
+   Container
+========================================================== */
+
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin-inline: auto;
+    padding-inline: var(--container-padding);
+}
+
+/* ==========================================================
+   Display
+========================================================== */
+
+.flex {
+    display: flex;
+}
+
+.grid {
+    display: grid;
+}
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+/* ==========================================================
+   Alignment
+========================================================== */
+
+.items-center {
+    align-items: center;
+}
+.justify-center {
+    justify-content: center;
+}
+.justify-between {
+    justify-content: space-between;
+}
+
+/* ==========================================================
+   Text Alignment
+========================================================== */
+
+.text-left {
+    text-align: left;
+}
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+
+/* ==========================================================
+   Visibility
+========================================================== */
+
+.hidden {
+    display: none;
+}
+.invisible {
+    visibility: hidden;
+}
+
+/* ==========================================================
+   Accessibility
+========================================================== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    white-space: nowrap;
+    border: 0;
+}
