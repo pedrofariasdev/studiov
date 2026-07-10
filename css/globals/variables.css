@@ -56,6 +56,7 @@
     --font-size-h3: 28px;
     --font-size-h4: 24px;
     --font-size-h5: 20px;
+    --font-size-h6: 18px;
 
     --font-size-body-large: 18px;
     --font-size-body: 16px;
@@ -70,6 +71,7 @@
     --line-height-h3: 36px;
     --line-height-h4: 32px;
     --line-height-h5: 28px;
+    --line-height-h6: 24px:
 
     --line-height-body-large: 28px;
     --line-height-body: 24px;
@@ -82,6 +84,7 @@
     --letter-spacing-h1: -0.02em;
     --letter-spacing-h2: -0.01em;
     --letter-spacing-h3: -0.01em;
+    --letter-spacing-h6: 0;
 
     --letter-spacing-body: 0;
     --letter-spacing-small: 0;
