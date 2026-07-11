@@ -1,0 +1,71 @@
+/* ==========================================================
+   Base Button
+========================================================== */
+
+.btn {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-semibold);
+    display: inline-flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    border-radius: var(--radius-full);
+    align-items: center;
+    border: none;
+    transition: var(--transition-fast);
+    padding: 12px 24px;
+}
+
+/* ==========================================================
+   Primary Button
+========================================================== */
+
+.btn-primary {
+    color: var(--color-text-primary-light);
+    background-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+    background-color:var(--color-primary-hover);
+}
+
+/* ==========================================================
+   Secondary Button
+========================================================== */
+
+.btn-secondary {
+    background-color: var(--color-primary-light);
+    color: var(--color-text-secondary-dark);
+    border: 1px solid var(--color-accent);
+}
+
+.btn-secondary:hover {
+    background-color:var(--color-accent);
+}
+
+/* ==========================================================
+   Outline Button
+========================================================== */
+
+
+/* ==========================================================
+   Sizes
+========================================================== */
+
+
+/* ==========================================================
+   States
+========================================================== */
+
+.nav-link {
+    color: var(--color-text-primary);
+    padding: 10px 16px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-full);
+}
+
+.nav-link:hover {
+    color: var(--color-primary-light);
+    border-color: var(--color-primary);
+}
