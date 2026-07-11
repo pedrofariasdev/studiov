@@ -1,43 +1,44 @@
 <header class="navbar">
-
     <div class="container">
 
-        <a href="/" class="navbar-logo">
-            StudioV
+        <a href="/html/landing/home.html" class="navbar-logo">
+            <img
+                src="/assets/logos/svg/logo-studiov2000.png"
+                alt="StudioV"
+            >
         </a>
 
-        <nav class="navbar-menu">
-
-            <a href="#">
-                Recursos
-            </a>
-
-            <a href="#">
-                Preços
-            </a>
-
-            <a href="#">
-                FAQ
-            </a>
-
-            <a href="#">
-                Contato
-            </a>
-
+        <nav class="navbar-menu" aria-label="Main navigation">
+            <a href="/html/landing/features.html">Recursos</a>
+            <a href="/html/landing/pricing.html">Preços</a>
+            <a href="/html/landing/faq.html">FAQ</a>
+            <a href="/html/landing/contact.html">Contato</a>
         </nav>
 
         <div class="navbar-actions">
-
-            <a href="#">
+            <a
+                href="/html/auth/login.html"
+                class="btn btn-secondary"
+            >
                 Entrar
             </a>
 
-            <a class="btn btn-primary">
+            <a
+                href="/html/auth/register.html"
+                class="btn btn-primary"
+            >
                 Criar conta
             </a>
-
         </div>
 
-    </div>
+        <button
+            class="navbar-toggle"
+            type="button"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+        >
+            <span class="sr-only">Abrir menu</span>
+        </button>
 
+    </div>
 </header>
