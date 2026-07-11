@@ -23,25 +23,28 @@
 
 .btn-primary {
     color: var(--color-text-primary-dark);
-    background-color: var(--color-primary);
+    border: 1px solid var(--color-accent);
 }
 
 .btn-primary:hover {
-    background-color: var(--color-primary-hover);
+    background-color: var(--color-accent);
 }
+
+
 
 /* ==========================================================
    Secondary Button
 ========================================================== */
 
 .btn-secondary {
-    background-color: var(--color-primary-light);
     color: var(--color-text-secondary-dark);
-    border: 1px solid var(--color-accent);
+   
 }
 
 .btn-secondary:hover {
     background-color:var(--color-accent);
+    color: var(--color-text-primary-dark);
+
 }
 
 /* ==========================================================
@@ -59,7 +62,7 @@
 ========================================================== */
 
 .nav-link {
-    color: var(--color-text-primary);
+    color: var(--color-text-primary-dark);
     padding: 10px 16px;
     border: 1px solid transparent;
     border-radius: var(--radius-full);

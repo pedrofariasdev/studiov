@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/css/globals/utilities.css">
 <link rel="stylesheet" href="/css/components/button.css">
 <link rel="stylesheet" href="/css/components/navbar.css">
+<link rel="stylesheet" href="/css/landing/hero.css"
 
 <link rel="stylesheet" href="/css/pages/style.css">
 
@@ -64,11 +65,69 @@
                 aria-label="Abrir menu"
                 aria-expanded="false"
             >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <button
+                class="navbar-toggle"
+                type="button"
+                aria-label="Abrir menu"
+                aria-expanded="false"
+            >
                 <span class="sr-only">Abrir menu</span>
             </button>
 
         </div>
     </header>
+
+    <section class="hero">
+        <div class="container">
+
+            <div class="hero-content">
+
+                <span class="hero-badge">
+                    Plataforma inteligente para criadores
+                </span>
+
+                <h1 class="hero-title">
+                    Crie, organize e publique conteúdo em um só lugar.
+                </h1>
+
+                <p class="hero-description">
+                    Planeje suas ideias, produza conteúdos com inteligência
+                    artificial e publique em diferentes plataformas.
+                </p>
+
+                <div class="hero-actions">
+                    <a
+                        href="/html/auth/register.html"
+                        class="btn btn-primary btn-lg"
+                    >
+                        Começar gratuitamente
+                    </a>
+
+                    <a
+                        href="#demo"
+                        class="btn btn-secondary btn-lg"
+                    >
+                        Ver demonstração
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="hero-preview" id="demo">
+                <video width="1920" height="1080" autoplay muted loop playsinline>
+                    <source src="/assets/videos/mockup1.mp4" type="video/webm">
+                    <p>Seu navegador não suporta o elemento de vídeo.</p>
+                </video>
+            </div>
+        </div>
+    </section>
+
+
 
 </body>
 </html>

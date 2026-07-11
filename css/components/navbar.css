@@ -5,8 +5,8 @@
 .navbar {
     width: 100%;
     height: 70px;
+    position: fixed;
 
-    position: sticky;
     top: 0;
 
     background-color: var(--color-background-page-dark);
@@ -39,7 +39,6 @@
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
-    padding-left: -200px;
 }
 
 .navbar-logo img {
@@ -68,7 +67,7 @@
 
 .navbar-menu a:hover {
     color: var(--color-primary-light);
-    transform: translatey(-2px)
+    transform: translateY(-2px);
 }
 
 
@@ -81,10 +80,7 @@
     align-items: center;
     gap: 16px;
     font-size: var(--font-size-body-large);
-    ;
-
 }
-
 
 /* ==========================================================
    Mobile Toggle
@@ -92,4 +88,48 @@
 
 .navbar-toggle {
     display: none;
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-right: -90px;
+    gap: 6px;
+}
+
+.navbar-toggle span {
+    display: block;
+
+    width: 24px;
+    height: 2px;
+
+    background-color: var(--color-text-primary-dark);
+
+    border-radius: var(--radius-full);
+
+    transition: var(--transition-fast);
+}
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+@media (max-width: 992px) {
+
+    .navbar-menu,
+    .navbar-actions {
+        display: none;
+    }
+
+    .navbar-toggle {
+        display: flex;
+    }
+
 }

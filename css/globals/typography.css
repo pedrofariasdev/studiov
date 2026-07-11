@@ -3,11 +3,12 @@
 ========================================================== */
 
 body {
-    font-family: "Inter", Arial, sans-serif !important;
+    font-family: var(--font-family-primary);
     font-size: var(--font-size-body);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-body);
-    background: var(--color-background-page-light);
+
+    background-color: var(--color-background-page-light);
     color: var(--color-text-primary-light);
 }
 
@@ -15,6 +16,16 @@ body {
 /* ==========================================================
    Headings
 ========================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-family-heading);
+    color: inherit;
+}
 
 h1 {
     font-size: var(--font-size-h1);
@@ -49,6 +60,12 @@ h5 {
     line-height: var(--line-height-h5);
 }
 
+h6 {
+    font-size: var(--font-size-h6);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-h6);
+}
+
 
 /* ==========================================================
    Paragraphs
@@ -58,7 +75,6 @@ p {
     font-size: var(--font-size-body);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-body);
-
     color: inherit;
 }
 
@@ -70,12 +86,6 @@ p {
 a {
     color: inherit;
     text-decoration: none;
-
-    transition: var(--transition-fast);
-}
-
-a:hover {
-    color: var(--color-primary);
 }
 
 
@@ -114,10 +124,20 @@ pre {
 
 
 /* ==========================================================
+   Small Text
+========================================================== */
+
+small {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+}
+
+
+/* ==========================================================
    Selection
 ========================================================== */
 
 ::selection {
-    background: var(--color-primary);
+    background-color: var(--color-primary);
     color: var(--color-background-surface-light);
 }
