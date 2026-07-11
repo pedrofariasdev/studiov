@@ -22,12 +22,12 @@
 ========================================================== */
 
 .btn-primary {
-    color: var(--color-text-primary-light);
+    color: var(--color-text-primary-dark);
     background-color: var(--color-primary);
 }
 
 .btn-primary:hover {
-    background-color:var(--color-primary-hover);
+    background-color: var(--color-primary-hover);
 }
 
 /* ==========================================================
