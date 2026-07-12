@@ -197,9 +197,9 @@
 
     position: absolute;
     top: 50%;
-    right: -40px;
+    right: -34px;
 
-    width: 40px;
+    width: 28px;
     height: 2px;
 
     background: linear-gradient(
@@ -209,7 +209,7 @@
     );
 
     transform: translateY(-50%);
-    pointer-events: none;
+
 }
 
 /* Cria a ponta da seta */
@@ -218,16 +218,15 @@
 
     position: absolute;
     top: 50%;
-    right: -36px;
+    right: -34px;
 
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
 
     border-top: 2px solid var(--color-primary-light);
     border-right: 2px solid var(--color-primary-light);
 
     transform: translateY(-50%) rotate(45deg);
-    pointer-events: none;
 }
 
 /* ==========================================================

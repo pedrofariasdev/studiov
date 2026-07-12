@@ -1,0 +1,258 @@
+/* ==========================================================
+   Dashboard Preview
+========================================================== */
+
+.dashboard-preview {
+    padding: 120px 0;
+    background: var(--color-background-page-light);
+}
+
+
+/* ==========================================================
+   Container
+========================================================== */
+
+.dashboard-preview .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* ==========================================================
+   Header
+========================================================== */
+
+.dashboard-preview-header {
+
+    max-width: 760px;
+
+    margin-bottom: 70px;
+
+    text-align: center;
+
+}
+
+
+/* ==========================================================
+   Eyebrow
+========================================================== */
+
+.dashboard-preview-eyebrow {
+
+    display: inline-block;
+
+    margin-bottom: 18px;
+    padding: 8px 18px;
+
+    border-radius: var(--radius-full);
+
+    background: rgba(109,40,217,.08);
+
+    color: var(--color-primary);
+
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-semibold);
+
+}
+
+
+/* ==========================================================
+   Title
+========================================================== */
+
+.dashboard-preview-title {
+
+    margin-bottom: 20px;
+
+    color: var(--color-text-primary-light);
+
+}
+
+
+/* ==========================================================
+   Description
+========================================================== */
+
+.dashboard-preview-description {
+
+    color: var(--color-text-secondary-light);
+
+}
+
+
+/* ==========================================================
+   Media
+========================================================== */
+
+.dashboard-preview-media {
+
+    width: 100%;
+    max-width: 1400px;
+
+    margin-bottom: 70px;
+
+    border-radius: var(--radius-xl);
+
+    overflow: hidden;
+
+    border: 1px solid var(--color-border-light);
+
+    box-shadow:
+        0 30px 70px rgba(15,23,42,.12);
+
+}
+
+
+/* ==========================================================
+   Dashboard Image
+========================================================== */
+
+.dashboard-preview-media img {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+}
+
+
+/* ==========================================================
+   Highlights
+========================================================== */
+
+.dashboard-preview-highlights {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 30px;
+
+}
+
+
+/* ==========================================================
+   Highlight
+========================================================== */
+
+.dashboard-highlight {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding: 30px;
+
+    border-radius: var(--radius-lg);
+
+    background: white;
+
+    border: 1px solid var(--color-border-light);
+
+    transition: var(--transition-normal);
+
+}
+
+
+.dashboard-highlight:hover {
+
+    transform: translateY(-8px);
+
+    border-color: rgba(109,40,217,.35);
+
+    box-shadow:
+        0 20px 40px rgba(15,23,42,.08);
+
+}
+
+
+/* ==========================================================
+   Icon
+========================================================== */
+
+.dashboard-highlight i,
+.dashboard-highlight svg {
+
+    color: var(--color-primary);
+
+    width: 34px;
+
+    height: 34px;
+
+    flex-shrink: 0;
+
+}
+
+
+/* ==========================================================
+   Title
+========================================================== */
+
+.dashboard-highlight h3 {
+
+    margin-bottom: 10px;
+
+    color: var(--color-text-primary-light);
+
+}
+
+
+/* ==========================================================
+   Text
+========================================================== */
+
+.dashboard-highlight p {
+
+    color: var(--color-text-secondary-light);
+
+    line-height: 1.7;
+
+}
+
+
+/* ==========================================================
+   Responsive Tablet
+========================================================== */
+
+@media (max-width:992px){
+
+    .dashboard-preview-highlights{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+/* ==========================================================
+   Responsive Mobile
+========================================================== */
+
+@media (max-width:768px){
+
+    .dashboard-preview{
+
+        padding:80px 0;
+
+    }
+
+    .dashboard-preview-header{
+
+        margin-bottom:50px;
+
+    }
+
+    .dashboard-preview-media{
+
+        margin-bottom:50px;
+
+    }
+
+}
