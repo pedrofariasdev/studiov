@@ -23,7 +23,6 @@
         );
 }
 
-
 /* ==========================================================
    Decorative Glow
 ========================================================== */
@@ -55,7 +54,6 @@
     background: rgba(139, 92, 246, 0.14);
 }
 
-
 /* ==========================================================
    Container
 ========================================================== */
@@ -73,7 +71,6 @@
     text-align: center;
 }
 
-
 /* ==========================================================
    Content
 ========================================================== */
@@ -86,7 +83,6 @@
     flex-direction: column;
     align-items: center;
 }
-
 
 /* ==========================================================
    Badge
@@ -115,7 +111,6 @@
     backdrop-filter: blur(10px);
 }
 
-
 /* ==========================================================
    Title
 ========================================================== */
@@ -133,7 +128,6 @@
     color: var(--color-text-primary-light);
 }
 
-
 /* ==========================================================
    Description
 ========================================================== */
@@ -148,7 +142,6 @@
 
     color: var(--color-text-secondary-light);
 }
-
 
 /* ==========================================================
    Actions
@@ -198,7 +191,6 @@
     transform: translateY(-2px);
 }
 
-
 /* ==========================================================
    Preview
 ========================================================== */
@@ -245,7 +237,6 @@
     border-radius: 20px;
 }
 
-
 /* ==========================================================
    Initial Animation
 ========================================================== */
@@ -286,6 +277,139 @@
     }
 }
 
+/* ==========================================================
+   Preview
+========================================================== */
+
+.hero-preview {
+    position: relative;
+
+    width: 100%;
+    max-width: 1100px;
+    margin-inline: auto;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 30px 80px rgba(15, 23, 42, 0.2),
+        0 14px 40px rgba(109, 40, 217, 0.16);
+}
+
+/* ==========================================================
+   Browser Window
+========================================================== */
+
+.browser-window {
+    width: 100%;
+    overflow: hidden;
+
+    background-color: var(--color-background-surface-dark);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+}
+
+/* ==========================================================
+   Browser Header
+========================================================== */
+
+.browser-header {
+    position: relative;
+
+    min-height: 52px;
+    padding: 0 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(15, 23, 42, 0.96);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================
+   Browser Controls
+========================================================== */
+
+.browser-controls {
+    position: absolute;
+    left: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.browser-controls span {
+    display: block;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: var(--radius-full);
+}
+
+.browser-controls span:nth-child(1) {
+    background-color: #ff5f57;
+}
+
+.browser-controls span:nth-child(2) {
+    background-color: #febc2e;
+}
+
+.browser-controls span:nth-child(3) {
+    background-color: #28c840;
+}
+
+/* ==========================================================
+   Browser Title
+========================================================== */
+
+.browser-title {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.01em;
+
+    color: var(--color-text-secondary-dark);
+}
+
+/* ==========================================================
+   Browser Content
+========================================================== */
+
+.browser-content {
+    width: 100%;
+
+    background-color: #000;
+}
+
+.browser-content video {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    object-fit: cover;
+}
+
+/* ==========================================================
+   Browser Glow
+========================================================== */
+
+.hero-preview::before {
+    content: "";
+
+    position: absolute;
+    inset: 12% 8% -28px;
+    z-index: -1;
+
+    background-color: rgba(109, 40, 217, 0.28);
+
+    border-radius: 40px;
+    filter: blur(45px);
+
+    pointer-events: none;
+}
 
 /* ==========================================================
    Tablet
@@ -305,7 +429,6 @@
         max-width: 900px;
     }
 }
-
 
 /* ==========================================================
    Mobile
@@ -362,6 +485,34 @@
     }
 }
 
+@media (max-width: 768px) {
+    .hero-preview {
+        border-radius: 16px;
+    }
+
+    .browser-window {
+        border-radius: 16px;
+    }
+
+    .browser-header {
+        min-height: 44px;
+        padding: 0 14px;
+    }
+
+    .browser-controls {
+        left: 14px;
+        gap: 6px;
+    }
+
+    .browser-controls span {
+        width: 9px;
+        height: 9px;
+    }
+
+    .browser-title {
+        font-size: 12px;
+    }
+}
 
 /* ==========================================================
    Reduced Motion

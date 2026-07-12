@@ -1,124 +1,126 @@
 /* ==========================================================
-   Features
+   How it Works
 ========================================================== */
 
-.features {
+.how-it-works {
     padding: 120px 0;
-    background: var(--color-background-page-light);
+    background: var(--color-background-page-dark);
 }
-
 
 /* ==========================================================
    Container
 ========================================================== */
 
-.features .container {
+.how-it-works .container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-
 /* ==========================================================
    Header
 ========================================================== */
 
-.features-header {
-    max-width: 1440px;
-    margin-bottom: 72px;
+.how-it-works-header {
+    max-width: 760px;
+    margin-bottom: 80px;
 
     text-align: center;
 }
-
 
 /* ==========================================================
    Eyebrow
 ========================================================== */
 
-.features-eyebrow {
+.how-it-works-eyebrow {
     display: inline-block;
-
     margin-bottom: 18px;
     padding: 8px 18px;
-
     border-radius: var(--radius-full);
-
-    background: rgba(109,40,217,.08);
-    color: var(--color-primary);
-
+    background: rgba(139,92,246,.12);
+    color: var(--color-primary-light);
     font-size: var(--font-size-small);
     font-weight: var(--font-weight-semibold);
 }
-
 
 /* ==========================================================
    Title
 ========================================================== */
 
-.features-title {
+.how-it-works-title {
     margin-bottom: 20px;
-
-    color: var(--color-text-primary-light);
+    color: var(--color-text-primary-dark);
 }
-
 
 /* ==========================================================
    Description
 ========================================================== */
 
-.features-description {
-    color: var(--color-text-secondary-light);
+.how-it-works-description {
+    color: var(--color-text-secondary-dark);
 }
-
 
 /* ==========================================================
    Grid
 ========================================================== */
 
-.features-grid {
+.how-it-works-grid {
 
     width: 100%;
 
     display: grid;
+
     grid-template-columns: repeat(3,1fr);
 
-    gap: 28px;
+    gap: 40px;
 }
 
-
 /* ==========================================================
-   Card
+   Step
 ========================================================== */
 
-.feature-card {
+.how-it-works-step {
 
-    padding: 36px;
+    position: relative;
 
-    background: var(--color-background-surface-light);
-
-    border: 1px solid var(--color-border-light);
+    padding: 40px;
 
     border-radius: var(--radius-xl);
 
+    background: rgba(255,255,255,.03);
+
+    border: 1px solid rgba(255,255,255,.08);
+
     transition: var(--transition-normal);
 
-    cursor: pointer;
 }
 
+.how-it-works-step:hover {
+
+    transform: translateY(-10px);
+
+    border-color: rgba(139,92,246,.35);
+
+    box-shadow: 0 25px 45px rgba(0,0,0,.25);
+
+}
 
 /* ==========================================================
-   Card Hover
+   Number
 ========================================================== */
 
-.feature-card:hover {
+.step-number {
 
-    transform: translateY(-8px);
+    position: absolute;
 
-    border-color: rgba(109,40,217,.35);
+    top: 24px;
+    right: 24px;
 
-    box-shadow:
-        0 20px 40px rgba(15,23,42,.08),
-        0 8px 20px rgba(109,40,217,.08);
+    font-size: 46px;
+
+    font-weight: var(--font-weight-bold);
+
+    color: rgba(255,255,255,.05);
 
 }
 
@@ -126,18 +128,19 @@
    Icon
 ========================================================== */
 
-.feature-icon {
+.step-icon {
 
-    width: 64px;
-    height: 64px;
+    width: 70px;
+    height: 70px;
 
     margin-bottom: 28px;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
 
-    border-radius: 18px;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
 
     background: linear-gradient(
         135deg,
@@ -147,40 +150,48 @@
 
     color: white;
 
-    font-size: 28px;
+}
+
+.step-icon svg{
+
+    width:32px;
+    height:32px;
+
 }
 
 /* ==========================================================
-   Card Title
+   Title
 ========================================================== */
 
-.feature-card h3 {
+.how-it-works-step h3{
 
-    margin-bottom: 14px;
+    margin-bottom:16px;
 
-    color: var(--color-text-primary-light);
+    color:var(--color-text-primary-dark);
+
 }
 
 /* ==========================================================
-   Card Text
+   Text
 ========================================================== */
 
-.feature-card p {
+.how-it-works-step p{
 
-    color: var(--color-text-secondary-light);
+    color:var(--color-text-secondary-dark);
 
-    line-height: 1.7;
+    line-height:1.7;
+
 }
 
 /* ==========================================================
    Responsive Tablet
 ========================================================== */
 
-@media (max-width: 992px) {
+@media (max-width:992px){
 
-    .features-grid {
+    .how-it-works-grid{
 
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns:1fr;
 
     }
 
@@ -192,23 +203,21 @@
 
 @media (max-width:768px){
 
-    .features{
+    .how-it-works{
 
         padding:80px 0;
 
     }
 
-    .features-header{
+    .how-it-works-header{
 
         margin-bottom:50px;
 
     }
 
-    .features-grid{
+    .how-it-works-step{
 
-        grid-template-columns:1fr;
-
-        gap:20px;
+        padding:32px;
 
     }
 
