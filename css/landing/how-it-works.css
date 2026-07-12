@@ -184,6 +184,53 @@
 }
 
 /* ==========================================================
+   Step Connections
+========================================================== */
+
+.how-it-works-step {
+    position: relative;
+}
+
+/* Cria a linha entre os cards */
+.how-it-works-step:not(:last-child)::after {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    right: -40px;
+
+    width: 40px;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        rgba(139, 92, 246, 0.25),
+        var(--color-primary-light)
+    );
+
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Cria a ponta da seta */
+.how-it-works-step:not(:last-child)::before {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    right: -36px;
+
+    width: 9px;
+    height: 9px;
+
+    border-top: 2px solid var(--color-primary-light);
+    border-right: 2px solid var(--color-primary-light);
+
+    transform: translateY(-50%) rotate(45deg);
+    pointer-events: none;
+}
+
+/* ==========================================================
    Responsive Tablet
 ========================================================== */
 
@@ -194,6 +241,13 @@
         grid-template-columns:1fr;
 
     }
+
+    .how-it-works-step::before,
+    .how-it-works-step::after {
+
+    display: none;
+
+}
 
 }
 
