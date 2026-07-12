@@ -3,17 +3,14 @@
 ========================================================== */
 
 .navbar {
-    width: 100%;
-    height: 70px;
     position: fixed;
-
-    top: 0;
-
-    background-color: var(--color-background-page-dark);
-    border-bottom: 1px solid var(--color-border-dark);
-
+    inset: 0 0 auto 0;
     z-index: var(--z-navbar);
-    transition: var(--transition-normal);
+    width: 100%;
+    height: 64px;
+    background-color: rgba(15, 23, 42, 0.96);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+    backdrop-filter: blur(14px);
 }
 
 /* ==========================================================
@@ -22,11 +19,10 @@
 
 .navbar .container {
     height: 100%;
+    max-width: 1800px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1800px;
-    
 }
 
 /* ==========================================================
@@ -40,7 +36,6 @@
 }
 
 .navbar-logo img {
-    display: block;
     width: 180px;
     height: auto;
 }
@@ -52,20 +47,37 @@
 .navbar-menu {
     display: flex;
     align-items: center;
-    gap: 55px;
-    font-size: var(--font-size-body-large);
+    gap: 48px;
     color: var(--color-text-primary-dark);
+    font-size: var(--font-size-body);
 }
 
 .navbar-menu a {
+    position: relative;
     padding: 8px 0;
-    transition: var(--transition-fast);
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.navbar-menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary-light);
+    border-radius: var(--radius-full);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform var(--transition-fast);
 }
 
 .navbar-menu a:hover {
     color: var(--color-primary-light);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
+
+.navbar-menu a:hover::after { transform: scaleX(1); }
 
 /* ==========================================================
    Actions
@@ -74,8 +86,13 @@
 .navbar-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
-    font-size: var(--font-size-body-large);
+    gap: 14px;
+}
+
+.navbar-actions .btn {
+    min-height: 42px;
+    padding: 10px 20px;
+    font-size: 15px;
 }
 
 /* ==========================================================
@@ -88,34 +105,29 @@
 
 .navbar-toggle {
     display: none;
-
-    width: 48px;
-    height: 48px;
-
-    border: none;
-    background: transparent;
-
-    cursor: pointer;
-
+    width: 44px;
+    height: 44px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 6px;
-
     flex-shrink: 0;
+    border-radius: var(--radius-md);
 }
 
-.navbar-toggle > span:not(.sr-only) {
-    display: block;
+.navbar-toggle:hover { background-color: rgba(255,255,255,.06); }
 
+.navbar-toggle > span:not(.sr-only) {
     width: 24px;
     height: 2px;
-
     background-color: var(--color-text-primary-dark);
-
     border-radius: var(--radius-full);
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
 
-    transition: var(--transition-fast);
+.navbar-toggle:focus-visible {
+    outline: 3px solid rgba(167, 139, 250, 0.45);
+    outline-offset: 2px;
 }
 
 /* ==========================================================
@@ -124,11 +136,11 @@
 
 @media (max-width: 992px) {
     .navbar-menu,
-    .navbar-actions {
-        display: none;
-    }
+    .navbar-actions { display: none; }
 
-    .navbar-toggle {
-        display: flex;
-    }
+    .navbar-toggle { display: flex; }
+}
+
+@media (max-width: 768px) {
+    .navbar-logo img { width: 150px; }
 }

@@ -1,14 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-
 :root {
-    /* Brand colors */
- 
     --color-primary: #6D28D9;
     --color-primary-hover: #5B21B6;
     --color-primary-light: #8B5CF6;
     --color-accent: #A78BFA;
-
-    /* Background colors */
 
     --color-background-page-dark: #0F172A;
     --color-background-surface-dark: #111827;
@@ -16,42 +10,28 @@
     --color-background-page-light: #F8FAFC;
     --color-background-surface-light: #FFFFFF;
 
-    /* Text colors */
-
     --color-text-primary-dark: #F8FAFC;
     --color-text-secondary-dark: #CBD5E1;
     --color-text-muted-dark: #94A3B8;
-
     --color-text-primary-light: #111827;
     --color-text-secondary-light: #475569;
     --color-text-muted-light: #64748B;
-
-    /* Feedback colors */
 
     --color-success: #22C55E;
     --color-warning: #F59E0B;
     --color-error: #EF4444;
     --color-info: #0EA5E9;
 
-    /* Borders */
-
     --color-border-dark: #334155;
     --color-border-light: #E2E8F0;
 
-    /* TYPOGRAPHY */
-    /* Primary Font */
-
     --font-family-primary: "Inter", sans-serif;
     --font-family-heading: "Space Grotesk", sans-serif;
-
-    /* Font weights */
 
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
-    
-    /* Font sizes */
 
     --font-size-display: 48px;
     --font-size-h1: 40px;
@@ -60,13 +40,10 @@
     --font-size-h4: 24px;
     --font-size-h5: 20px;
     --font-size-h6: 18px;
-
     --font-size-body-large: 18px;
     --font-size-body: 16px;
     --font-size-small: 14px;
     --font-size-caption: 12px;
-
-    /* Line heights */
 
     --line-height-display: 56px;
     --line-height-h1: 48px;
@@ -74,29 +51,22 @@
     --line-height-h3: 36px;
     --line-height-h4: 32px;
     --line-height-h5: 28px;
-    --line-height-h6: 24px:
-
+    --line-height-h6: 24px;
     --line-height-body-large: 28px;
     --line-height-body: 24px;
     --line-height-small: 20px;
     --line-height-caption: 18px;
 
-    /* Letter spacing */
-
     --letter-spacing-display: -0.02em;
     --letter-spacing-h1: -0.02em;
     --letter-spacing-h2: -0.01em;
     --letter-spacing-h3: -0.01em;
-    --letter-spacing-h6: 0;
 
+    --spacing-xs: 4px;
     --spacing-sm: 8px;
     --spacing-md: 12px;
-
-    --letter-spacing-body: 0;
-    --letter-spacing-small: 0;
-    --letter-spacing-caption: 0;
-
-    /* Border radius */
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
 
     --radius-sm: 6px;
     --radius-md: 10px;
@@ -104,33 +74,21 @@
     --radius-xl: 24px;
     --radius-full: 9999px;
 
-    /* Transitions */
-
     --transition-fast: 0.15s ease;
     --transition-normal: 0.25s ease;
     --transition-slow: 0.4s ease;
 
-    /* Container */
-
-    --container-width: 1280px;
+    --container-width: 1440px;
     --container-padding: 24px;
 
-    /* Shadows */
-
-    --shadow-sm: 
-    --shadow-md: 
-    --shadow-lg: 
-
-    /* Z-index */
+    --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.08);
+    --shadow-md: 0 18px 40px rgba(15, 23, 42, 0.12);
+    --shadow-lg: 0 30px 80px rgba(15, 23, 42, 0.18);
 
     --z-base: 1;
-
     --z-dropdown: 100;
     --z-navbar: 200;
     --z-modal: 300;
     --z-toast: 400;
     --z-tooltip: 500;
-
-    --test-white: #F8FAFC;
-
 }

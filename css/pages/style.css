@@ -12,3 +12,6 @@ h5 {
     font-family: var(--font-family-heading);
 }
 
+body { padding-top: 64px; }
+
+section { scroll-margin-top: 80px; }

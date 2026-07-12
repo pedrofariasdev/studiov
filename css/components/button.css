@@ -3,18 +3,33 @@
 ========================================================== */
 
 .btn {
+    min-height: 46px;
+    padding: 11px 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
     font-family: var(--font-family-primary);
     font-size: var(--font-size-body);
     font-weight: var(--font-weight-semibold);
-    display: inline-flex;
-    justify-content: center;
-    gap: var(--spacing-sm);
-    cursor: pointer;
+    line-height: 1;
+    border: 1px solid transparent;
     border-radius: var(--radius-full);
-    align-items: center;
-    border: none;
-    transition: var(--transition-fast);
-    padding: 12px 24px;
+    cursor: pointer;
+    transition:
+        transform var(--transition-fast),
+        background-color var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn:focus-visible {
+    outline: 3px solid rgba(167, 139, 250, 0.45);
+    outline-offset: 3px;
 }
 
 /* ==========================================================
@@ -23,11 +38,15 @@
 
 .btn-primary {
     color: var(--color-text-primary-dark);
-    border: 1px solid var(--color-accent);
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 10px 26px rgba(109, 40, 217, 0.22);
 }
 
 .btn-primary:hover {
-    background-color: var(--color-accent);
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    box-shadow: 0 14px 34px rgba(109, 40, 217, 0.30);
 }
 
 
@@ -37,14 +56,22 @@
 ========================================================== */
 
 .btn-secondary {
-    color: var(--color-text-secondary-dark);
-   
+    color: var(--color-text-primary-dark);
+    background-color: transparent;
+    border-color: rgba(167, 139, 250, 0.75);
 }
 
 .btn-secondary:hover {
-    background-color:var(--color-accent);
     color: var(--color-text-primary-dark);
+    background-color: rgba(167, 139, 250, 0.16);
+    border-color: var(--color-accent);
+}
 
+.btn:disabled,
+.btn[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 /* ==========================================================
@@ -62,8 +89,8 @@
 ========================================================== */
 
 .nav-link {
-    color: var(--color-text-primary-dark);
     padding: 10px 16px;
+    color: var(--color-text-primary-dark);
     border: 1px solid transparent;
     border-radius: var(--radius-full);
 }
