@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+Disallow: /html/auth/
+Disallow: /html/dashboard/
+Disallow: /html/onboarding/
+
 Sitemap: https://studiov.pt/sitemap.xml
