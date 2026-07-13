@@ -1,0 +1,325 @@
+/* ==========================================================
+   Terms of Service
+   Complemento de legal-page.css
+========================================================== */
+
+/* ==========================================================
+   Summary Grid
+========================================================== */
+
+.terms-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+
+    margin-bottom: 72px;
+}
+
+.terms-summary-grid article {
+    min-height: 210px;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+
+    background-color: var(--color-background-surface-light);
+
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+
+    transition:
+        transform var(--transition-normal),
+        border-color var(--transition-normal),
+        box-shadow var(--transition-normal);
+}
+
+.terms-summary-grid article:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(109, 40, 217, 0.3);
+
+    box-shadow:
+        0 18px 38px rgba(15, 23, 42, 0.08),
+        0 8px 20px rgba(109, 40, 217, 0.06);
+}
+
+.terms-summary-grid article > svg {
+    width: 44px;
+    height: 44px;
+
+    padding: 10px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--color-primary),
+            var(--color-primary-light)
+        );
+
+    border-radius: 13px;
+
+    box-shadow: 0 10px 24px rgba(109, 40, 217, 0.2);
+}
+
+.terms-summary-grid h2 {
+    margin-bottom: 9px;
+
+    color: var(--color-text-primary-light);
+
+    font-family: var(--font-family-primary);
+    font-size: 17px;
+    line-height: 1.4;
+}
+
+.terms-summary-grid p {
+    color: var(--color-text-secondary-light);
+
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+/* ==========================================================
+   Highlight
+========================================================== */
+
+.terms-highlight {
+    margin-top: 26px;
+    padding: 20px 22px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    background-color: rgba(109, 40, 217, 0.06);
+
+    border: 1px solid rgba(109, 40, 217, 0.16);
+    border-radius: var(--radius-md);
+}
+
+.terms-highlight > svg {
+    width: 21px;
+    height: 21px;
+
+    flex-shrink: 0;
+
+    margin-top: 2px;
+
+    color: var(--color-primary);
+}
+
+.terms-highlight p {
+    color: var(--color-text-secondary-light);
+
+    font-size: var(--font-size-small);
+    line-height: 1.65;
+}
+
+/* ==========================================================
+   Prohibited Use Grid
+========================================================== */
+
+.terms-prohibited-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+
+    margin: 30px 0;
+}
+
+.terms-prohibited-grid article {
+    padding: 24px;
+
+    background-color: var(--color-background-surface-light);
+
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.035);
+
+    transition:
+        transform var(--transition-normal),
+        border-color var(--transition-normal),
+        box-shadow var(--transition-normal);
+}
+
+.terms-prohibited-grid article:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(239, 68, 68, 0.25);
+
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.07);
+}
+
+.terms-prohibited-grid article > svg {
+    width: 28px;
+    height: 28px;
+
+    margin-bottom: 18px;
+
+    color: var(--color-primary);
+}
+
+.terms-prohibited-grid h3 {
+    margin-bottom: 10px;
+
+    color: var(--color-text-primary-light);
+
+    font-family: var(--font-family-primary);
+    font-size: 17px;
+    line-height: 1.4;
+}
+
+.terms-prohibited-grid p {
+    color: var(--color-text-secondary-light);
+
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+/* ==========================================================
+   Contact List
+========================================================== */
+
+.terms-contact-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+
+    margin: 28px 0;
+}
+
+.terms-contact-list > a {
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    color: var(--color-text-primary-light);
+    background-color: var(--color-background-surface-light);
+
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+
+    transition:
+        transform var(--transition-normal),
+        color var(--transition-fast),
+        border-color var(--transition-normal),
+        box-shadow var(--transition-normal);
+}
+
+.terms-contact-list > a:hover {
+    transform: translateY(-4px);
+
+    color: var(--color-primary);
+    border-color: rgba(109, 40, 217, 0.3);
+
+    box-shadow: 0 15px 32px rgba(15, 23, 42, 0.07);
+}
+
+.terms-contact-list > a > svg {
+    width: 24px;
+    height: 24px;
+
+    flex-shrink: 0;
+
+    color: var(--color-primary);
+}
+
+.terms-contact-list span {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    overflow-wrap: anywhere;
+
+    font-weight: var(--font-weight-semibold);
+}
+
+.terms-contact-list small {
+    color: var(--color-text-muted-light);
+
+    font-size: var(--font-size-caption);
+    font-weight: var(--font-weight-regular);
+}
+
+/* ==========================================================
+   Current Legal Link
+========================================================== */
+
+.footer-links a[aria-current="page"] {
+    color: var(--color-primary-light);
+}
+
+/* ==========================================================
+   Responsive — Tablet
+========================================================== */
+
+@media (max-width: 1100px) {
+    .terms-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .terms-summary-grid article {
+        min-height: auto;
+
+        flex-direction: row;
+    }
+}
+
+/* ==========================================================
+   Responsive — Mobile
+========================================================== */
+
+@media (max-width: 768px) {
+    .terms-summary-grid {
+        margin-bottom: 55px;
+    }
+
+    .terms-summary-grid article {
+        padding: 22px;
+    }
+
+    .terms-prohibited-grid,
+    .terms-contact-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================
+   Responsive — Mobile pequeno
+========================================================== */
+
+@media (max-width: 520px) {
+    .terms-summary-grid article {
+        flex-direction: column;
+    }
+
+    .terms-highlight {
+        flex-direction: column;
+    }
+}
+
+/* ==========================================================
+   Reduced Motion
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .terms-summary-grid article,
+    .terms-prohibited-grid article,
+    .terms-contact-list > a {
+        transition: none;
+    }
+
+    .terms-summary-grid article:hover,
+    .terms-prohibited-grid article:hover,
+    .terms-contact-list > a:hover {
+        transform: none;
+    }
+}
