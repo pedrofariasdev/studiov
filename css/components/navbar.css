@@ -19,7 +19,6 @@
 
 .navbar .container {
     height: 100%;
-    max-width: 1800px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -36,7 +35,7 @@
 }
 
 .navbar-logo img {
-    width: 180px;
+    width: 160px;
     height: auto;
 }
 
@@ -99,20 +98,22 @@
    Mobile Toggle
 ========================================================== */
 
-/* ==========================================================
-   Mobile Toggle
-========================================================== */
-
 .navbar-toggle {
     display: none;
     width: 44px;
     height: 44px;
+    padding: 0;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 6px;
     flex-shrink: 0;
+    color: inherit;
+    background: transparent;
+    border: 0;
     border-radius: var(--radius-md);
+    cursor: pointer;
+    
 }
 
 .navbar-toggle:hover { background-color: rgba(255,255,255,.06); }
@@ -142,5 +143,5 @@
 }
 
 @media (max-width: 768px) {
-    .navbar-logo img { width: 150px; }
+    .navbar-logo img { width: 145px; }
 }
