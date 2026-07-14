@@ -1,11 +1,460 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-PT">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Entrar | StudioV</title>
+
+    <meta
+        name="description"
+        content="Entre na sua conta StudioV para gerir marcas, conteúdos, calendário e inteligência artificial."
+    >
+
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#6D28D9">
+
+    <!-- Favicons -->
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="96x96"
+        href="/assets/icons/favicon-96x96.png"
+    >
+
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        sizes="any"
+        href="/assets/icons/favicon.svg"
+    >
+
+    <link
+        rel="icon"
+        href="/assets/icons/favicon.ico"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="/assets/icons/apple-touch-icon.png"
+    >
+
+    <link
+        rel="manifest"
+        href="/assets/icons/site.webmanifest"
+    >
+
+    <!-- Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS global -->
+    <link
+        rel="stylesheet"
+        href="/css/globals/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/globals/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/globals/typography.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/globals/utilities.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/components/button.css"
+    >
+
+    <!-- Login -->
+    <link
+        rel="stylesheet"
+        href="/css/pages/login.css"
+    >
 </head>
+
 <body>
-    
+
+    <main class="auth-layout">
+
+        <!-- ==================================================
+             Área visual
+        =================================================== -->
+
+        <section
+            class="auth-showcase"
+            aria-label="Apresentação da StudioV"
+        >
+
+            <div class="auth-showcase-content">
+
+                <a
+                    href="/index.html"
+                    class="auth-logo"
+                    aria-label="Voltar para a página inicial"
+                >
+                    <img
+                        src="/assets/logos/svg/logo-studiov2000.png"
+                        alt="StudioV"
+                    >
+                </a>
+
+                <div class="auth-showcase-message">
+
+                    <span class="auth-eyebrow">
+                        Plataforma inteligente de conteúdo
+                    </span>
+
+                    <h1>
+                        Transforme ideias em conteúdos que geram resultados.
+                    </h1>
+
+                    <p>
+                        Planeie, crie, organize e acompanhe marcas e conteúdos
+                        em um único ambiente.
+                    </p>
+
+                </div>
+
+                <div class="auth-feature-list">
+
+                    <article class="auth-feature">
+
+                        <span class="auth-feature-icon">
+                            <i data-lucide="calendar-days"></i>
+                        </span>
+
+                        <div>
+                            <strong>Planeamento centralizado</strong>
+
+                            <p>
+                                Organize campanhas, ideias e publicações.
+                            </p>
+                        </div>
+
+                    </article>
+
+                    <article class="auth-feature">
+
+                        <span class="auth-feature-icon">
+                            <i data-lucide="sparkles"></i>
+                        </span>
+
+                        <div>
+                            <strong>Inteligência artificial</strong>
+
+                            <p>
+                                Gere e adapte conteúdos para cada marca.
+                            </p>
+                        </div>
+
+                    </article>
+
+                    <article class="auth-feature">
+
+                        <span class="auth-feature-icon">
+                            <i data-lucide="chart-no-axes-combined"></i>
+                        </span>
+
+                        <div>
+                            <strong>Resultados no mesmo painel</strong>
+
+                            <p>
+                                Acompanhe métricas e evolução da estratégia.
+                            </p>
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+            <p class="auth-showcase-footer">
+                © <span id="current-year">2026</span> StudioV
+            </p>
+
+        </section>
+
+        <!-- ==================================================
+             Formulário
+        =================================================== -->
+
+        <section class="auth-form-section">
+
+            <div class="auth-form-container">
+
+                <a
+                    href="/index.html"
+                    class="auth-mobile-logo"
+                    aria-label="Voltar para a página inicial"
+                >
+                    <img
+                        src="/assets/logos/svg/logo-studiov2000.png"
+                        alt="StudioV"
+                    >
+                </a>
+
+                <div class="auth-header">
+
+                    <span class="auth-eyebrow">
+                        Bem-vindo de volta
+                    </span>
+
+                    <h2>
+                        Entre na sua conta
+                    </h2>
+
+                    <p>
+                        Introduza os seus dados para continuar na StudioV.
+                    </p>
+
+                </div>
+
+                <form
+                    class="auth-form"
+                    id="login-form"
+                    novalidate
+                >
+
+                    <div class="auth-field">
+
+                        <label for="login-email">
+                            Email
+                        </label>
+
+                        <div class="auth-input-wrapper">
+
+                            <i data-lucide="mail"></i>
+
+                            <input
+                                type="email"
+                                id="login-email"
+                                name="email"
+                                placeholder="nome@exemplo.com"
+                                autocomplete="email"
+                                maxlength="254"
+                                required
+                            >
+
+                        </div>
+
+                        <small
+                            class="auth-field-error"
+                            id="login-email-error"
+                        ></small>
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <div class="auth-label-row">
+
+                            <label for="login-password">
+                                Palavra-passe
+                            </label>
+
+                            <a
+                                href="/html/auth/forgot-password.html"
+                                class="auth-forgot-link"
+                            >
+                                Esqueceu a palavra-passe?
+                            </a>
+
+                        </div>
+
+                        <div class="auth-input-wrapper">
+
+                            <i data-lucide="lock-keyhole"></i>
+
+                            <input
+                                type="password"
+                                id="login-password"
+                                name="password"
+                                placeholder="Introduza a sua palavra-passe"
+                                autocomplete="current-password"
+                                minlength="6"
+                                required
+                            >
+
+                            <button
+                                class="auth-password-toggle"
+                                id="login-password-toggle"
+                                type="button"
+                                aria-label="Mostrar palavra-passe"
+                                aria-pressed="false"
+                            >
+                                <i data-lucide="eye"></i>
+                            </button>
+
+                        </div>
+
+                        <small
+                            class="auth-field-error"
+                            id="login-password-error"
+                        ></small>
+
+                    </div>
+
+                    <label class="auth-checkbox">
+
+                        <input
+                            type="checkbox"
+                            id="remember-session"
+                            name="remember"
+                            checked
+                        >
+
+                        <span class="auth-checkbox-control">
+                            <i data-lucide="check"></i>
+                        </span>
+
+                        <span>
+                            Manter sessão iniciada
+                        </span>
+
+                    </label>
+
+                    <div
+                        class="auth-general-error hidden"
+                        id="login-general-error"
+                        role="alert"
+                    ></div>
+
+                    <button
+                        class="btn btn-primary auth-submit-button"
+                        id="login-submit-button"
+                        type="submit"
+                    >
+                        <span id="login-submit-text">
+                            Entrar
+                        </span>
+
+                        <span
+                            class="auth-button-loader hidden"
+                            id="login-button-loader"
+                            aria-hidden="true"
+                        ></span>
+                    </button>
+
+                </form>
+
+                <div class="auth-divider">
+                    <span>ou</span>
+                </div>
+
+                <button
+                    class="auth-provider-button"
+                    id="google-login-button"
+                    type="button"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="20"
+                        height="20"
+                        aria-hidden="true"
+                    >
+                        <path
+                            fill="#4285F4"
+                            d="M21.6 12.227c0-.709-.064-1.391-.182-2.045H12v3.873h5.382a4.6 4.6 0 0 1-1.996 3.018v2.509h3.232c1.891-1.741 2.982-4.305 2.982-7.355Z"
+                        ></path>
+
+                        <path
+                            fill="#34A853"
+                            d="M12 22c2.7 0 4.964-.895 6.618-2.418l-3.232-2.509c-.895.6-2.041.955-3.386.955-2.605 0-4.809-1.759-5.596-4.123H3.064v2.591A10 10 0 0 0 12 22Z"
+                        ></path>
+
+                        <path
+                            fill="#FBBC05"
+                            d="M6.404 13.905A6.01 6.01 0 0 1 6.091 12c0-.664.114-1.309.313-1.905V7.504h-3.34A10 10 0 0 0 2 12c0 1.614.386 3.141 1.064 4.496l3.34-2.591Z"
+                        ></path>
+
+                        <path
+                            fill="#EA4335"
+                            d="M12 5.973c1.468 0 2.786.504 3.823 1.491l2.868-2.868C16.959 2.982 14.695 2 12 2a10 10 0 0 0-8.936 5.504l3.34 2.591C7.191 7.732 9.395 5.973 12 5.973Z"
+                        ></path>
+                    </svg>
+
+                    Continuar com Google
+                </button>
+
+                <p class="auth-register-text">
+                    Ainda não tem uma conta?
+
+                    <a href="/html/auth/register.html">
+                        Criar conta
+                    </a>
+                </p>
+
+                <p class="auth-legal-text">
+                    Ao continuar, confirma que aceita os
+
+                    <a href="/html/legal/terms-of-service.html">
+                        Termos de utilização
+                    </a>
+
+                    e a
+
+                    <a href="/html/legal/privacy-policy.html">
+                        Política de privacidade
+                    </a>.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Ícones -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        lucide.createIcons();
+
+        const currentYear =
+            document.getElementById("current-year");
+
+        if (currentYear) {
+            currentYear.textContent =
+                new Date().getFullYear();
+        }
+    </script>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="/js/services/supabase.js"></script>
+
+    <!-- Login -->
+    <script src="/js/auth/login.js"></script>
+
 </body>
+
 </html>

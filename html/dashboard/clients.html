@@ -9,11 +9,11 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Marcas | StudioV</title>
+    <title>Clientes | StudioV</title>
 
     <meta
         name="description"
-        content="Gerencie as marcas do seu workspace na StudioV."
+        content="Gerencie os clientes do seu workspace na StudioV."
     >
 
     <meta name="robots" content="noindex, nofollow">
@@ -30,7 +30,6 @@
     <link
         rel="icon"
         type="image/svg+xml"
-        sizes="any"
         href="/assets/icons/favicon.svg"
     >
 
@@ -92,16 +91,16 @@
         href="/css/components/button.css"
     >
 
-    <!-- Dashboard CSS -->
+    <!-- Dashboard -->
     <link
         rel="stylesheet"
         href="/css/pages/dashboard.css"
     >
 
-    <!-- Brands CSS -->
+    <!-- Clientes -->
     <link
         rel="stylesheet"
-        href="/css/pages/brands.css"
+        href="/css/pages/clients.css"
     >
 </head>
 
@@ -176,8 +175,7 @@
                         <li>
                             <a
                                 href="/html/dashboard/brands.html"
-                                class="sidebar-link is-active"
-                                aria-current="page"
+                                class="sidebar-link"
                             >
                                 <i data-lucide="palette"></i>
                                 <span>Marcas</span>
@@ -186,8 +184,9 @@
 
                         <li>
                             <a
-                               href="/html/dashboard/clients.html"
-                                class="sidebar-link"
+                                href="/html/dashboard/clients.html"
+                                class="sidebar-link is-active"
+                                aria-current="page"
                             >
                                 <i data-lucide="users"></i>
                                 <span>Clientes</span>
@@ -384,19 +383,25 @@
                             aria-haspopup="listbox"
                             aria-expanded="false"
                         >
+
                             <span class="workspace-selector-icon">
                                 <i data-lucide="building-2"></i>
                             </span>
 
                             <span class="workspace-selector-content">
-                                <small>Workspace</small>
+
+                                <small>
+                                    Workspace
+                                </small>
 
                                 <strong id="current-workspace-name">
                                     Meu Workspace
                                 </strong>
+
                             </span>
 
                             <i data-lucide="chevrons-up-down"></i>
+
                         </button>
 
                     </div>
@@ -452,14 +457,16 @@
                     <div class="page-header-content">
 
                         <span class="page-eyebrow">
-                            Gestão de marcas
+                            Gestão de clientes
                         </span>
 
-                        <h1>Marcas</h1>
+                        <h1>
+                            Clientes
+                        </h1>
 
                         <p>
-                            Organize as identidades, informações e estratégias
-                            das marcas geridas pelo seu workspace.
+                            Centralize contactos, empresas, observações
+                            e marcas associadas aos seus clientes.
                         </p>
 
                     </div>
@@ -468,11 +475,11 @@
 
                         <button
                             class="btn btn-primary"
-                            id="create-brand-button"
+                            id="create-client-button"
                             type="button"
                         >
-                            <i data-lucide="plus"></i>
-                            Nova marca
+                            <i data-lucide="user-plus"></i>
+                            Novo cliente
                         </button>
 
                     </div>
@@ -482,19 +489,26 @@
                 <!-- Resumo -->
 
                 <section
-                    class="brands-summary"
-                    aria-label="Resumo das marcas"
+                    class="clients-summary"
+                    aria-label="Resumo dos clientes"
                 >
 
                     <article class="summary-card">
 
                         <div class="summary-card-icon">
-                            <i data-lucide="palette"></i>
+                            <i data-lucide="users"></i>
                         </div>
 
                         <div class="summary-card-content">
-                            <span>Total de marcas</span>
-                            <strong id="total-brands-count">0</strong>
+
+                            <span>
+                                Total de clientes
+                            </span>
+
+                            <strong id="total-clients-count">
+                                0
+                            </strong>
+
                         </div>
 
                     </article>
@@ -506,8 +520,15 @@
                         </div>
 
                         <div class="summary-card-content">
-                            <span>Marcas ativas</span>
-                            <strong id="active-brands-count">0</strong>
+
+                            <span>
+                                Clientes ativos
+                            </span>
+
+                            <strong id="active-clients-count">
+                                0
+                            </strong>
+
                         </div>
 
                     </article>
@@ -519,8 +540,15 @@
                         </div>
 
                         <div class="summary-card-content">
-                            <span>Arquivadas</span>
-                            <strong id="archived-brands-count">0</strong>
+
+                            <span>
+                                Arquivados
+                            </span>
+
+                            <strong id="archived-clients-count">
+                                0
+                            </strong>
+
                         </div>
 
                     </article>
@@ -529,68 +557,68 @@
 
                 <!-- Pesquisa e filtros -->
 
-                <section class="brands-toolbar">
+                <section class="clients-toolbar">
 
-                    <div class="brands-search">
+                    <div class="clients-search">
 
                         <label
-                            for="brands-search-input"
+                            for="clients-search-input"
                             class="sr-only"
                         >
-                            Pesquisar marcas
+                            Pesquisar clientes
                         </label>
 
                         <i data-lucide="search"></i>
 
                         <input
                             type="search"
-                            id="brands-search-input"
-                            placeholder="Pesquisar por nome ou segmento..."
+                            id="clients-search-input"
+                            placeholder="Pesquisar por nome, empresa ou email..."
                             autocomplete="off"
                         >
 
                     </div>
 
-                    <div class="brands-filters">
+                    <div class="clients-filters">
 
                         <label
-                            for="brands-status-filter"
+                            for="clients-status-filter"
                             class="sr-only"
                         >
                             Filtrar por estado
                         </label>
 
-                        <select id="brands-status-filter">
+                        <select id="clients-status-filter">
 
                             <option value="all">
-                                Todas
+                                Todos
                             </option>
 
                             <option value="active">
-                                Ativas
+                                Ativos
                             </option>
 
                             <option value="archived">
-                                Arquivadas
+                                Arquivados
                             </option>
 
                         </select>
 
                         <label
-                            for="brands-sort-select"
+                            for="clients-sort-select"
                             class="sr-only"
                         >
-                            Ordenar marcas
+                            Ordenar clientes
                         </label>
 
-                        <select id="brands-sort-select">
+                        <select id="clients-sort-select">
 
                             <option value="newest">
                                 Mais recentes
                             </option>
 
                             <option value="oldest">
-                                Mais antigas
+                                Mais antigos
                             </option>
 
                             <option value="name-asc">
@@ -610,16 +638,16 @@
                 <!-- Carregamento -->
 
                 <section
-                    class="brands-loading"
-                    id="brands-loading"
+                    class="clients-loading"
+                    id="clients-loading"
                     aria-live="polite"
                 >
 
-                    <div class="brands-loading-grid">
+                    <div class="clients-loading-grid">
 
-                        <article class="brand-card-skeleton"></article>
-                        <article class="brand-card-skeleton"></article>
-                        <article class="brand-card-skeleton"></article>
+                        <article class="client-card-skeleton"></article>
+                        <article class="client-card-skeleton"></article>
+                        <article class="client-card-skeleton"></article>
 
                     </div>
 
@@ -628,31 +656,31 @@
                 <!-- Estado vazio -->
 
                 <section
-                    class="brands-empty hidden"
-                    id="brands-empty"
+                    class="clients-empty hidden"
+                    id="clients-empty"
                     aria-live="polite"
                 >
 
-                    <div class="brands-empty-icon">
-                        <i data-lucide="palette"></i>
+                    <div class="clients-empty-icon">
+                        <i data-lucide="users"></i>
                     </div>
 
                     <h2>
-                        Ainda não existem marcas
+                        Ainda não existem clientes
                     </h2>
 
                     <p>
-                        Crie a primeira marca para centralizar identidade visual,
-                        público, tom de voz e conteúdos.
+                        Adicione o primeiro cliente para organizar os
+                        seus contactos e associar as marcas geridas.
                     </p>
 
                     <button
                         class="btn btn-primary"
-                        id="empty-create-brand-button"
+                        id="empty-create-client-button"
                         type="button"
                     >
-                        <i data-lucide="plus"></i>
-                        Criar primeira marca
+                        <i data-lucide="user-plus"></i>
+                        Criar primeiro cliente
                     </button>
 
                 </section>
@@ -660,26 +688,27 @@
                 <!-- Nenhum resultado -->
 
                 <section
-                    class="brands-no-results hidden"
-                    id="brands-no-results"
+                    class="clients-no-results hidden"
+                    id="clients-no-results"
                     aria-live="polite"
                 >
 
-                    <div class="brands-empty-icon">
+                    <div class="clients-empty-icon">
                         <i data-lucide="search-x"></i>
                     </div>
 
                     <h2>
-                        Nenhuma marca encontrada
+                        Nenhum cliente encontrado
                     </h2>
 
                     <p>
-                        Altere os termos da pesquisa ou remova os filtros aplicados.
+                        Altere os termos da pesquisa ou remova os
+                        filtros aplicados.
                     </p>
 
                     <button
                         class="button button-secondary"
-                        id="clear-brand-filters-button"
+                        id="clear-client-filters-button"
                         type="button"
                     >
                         Limpar filtros
@@ -690,9 +719,9 @@
                 <!-- Lista -->
 
                 <section
-                    class="brands-grid hidden"
-                    id="brands-grid"
-                    aria-label="Lista de marcas"
+                    class="clients-grid hidden"
+                    id="clients-grid"
+                    aria-label="Lista de clientes"
                 >
                     <!-- Cartões inseridos pelo JavaScript -->
                 </section>
@@ -704,15 +733,15 @@
     </div>
 
     <!-- ==================================================
-         Modal: criar ou editar marca
+         Modal: criar ou editar cliente
     =================================================== -->
 
     <div
         class="modal-overlay hidden"
-        id="brand-modal"
+        id="client-modal"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="brand-modal-title"
+        aria-labelledby="client-modal-title"
         aria-hidden="true"
     >
 
@@ -723,18 +752,18 @@
                 <div>
 
                     <span class="modal-eyebrow">
-                        Gestão de marca
+                        Gestão de cliente
                     </span>
 
-                    <h2 id="brand-modal-title">
-                        Nova marca
+                    <h2 id="client-modal-title">
+                        Novo cliente
                     </h2>
 
                 </div>
 
                 <button
                     class="modal-close-button"
-                    id="brand-modal-close"
+                    id="client-modal-close"
                     type="button"
                     aria-label="Fechar janela"
                 >
@@ -744,237 +773,153 @@
             </div>
 
             <form
-                class="brand-form"
-                id="brand-form"
+                class="client-form"
+                id="client-form"
                 novalidate
             >
 
                 <input
                     type="hidden"
-                    id="brand-id"
-                    name="brand_id"
+                    id="client-id"
+                    name="client_id"
                 >
 
                 <div class="form-grid">
 
                     <!-- Nome -->
 
-                    <div class="form-field form-field-full">
+                    <div class="form-field">
 
-                        <label for="brand-name">
-                            Nome da marca
+                        <label for="client-name">
+                            Nome do cliente
                             <span aria-hidden="true">*</span>
                         </label>
 
                         <input
                             type="text"
-                            id="brand-name"
+                            id="client-name"
                             name="name"
-                            placeholder="Ex.: StudioV"
-                            maxlength="100"
+                            placeholder="Ex.: Maria Silva"
+                            maxlength="120"
                             required
                         >
 
                         <small
                             class="form-error"
-                            id="brand-name-error"
+                            id="client-name-error"
                         ></small>
 
                     </div>
 
-                    <!-- Segmento -->
+                    <!-- Empresa -->
 
                     <div class="form-field">
 
-                        <label for="brand-industry">
-                            Segmento
+                        <label for="client-company-name">
+                            Empresa
                         </label>
 
                         <input
                             type="text"
-                            id="brand-industry"
-                            name="industry"
-                            placeholder="Ex.: Tecnologia"
-                            maxlength="120"
+                            id="client-company-name"
+                            name="company_name"
+                            placeholder="Ex.: Empresa Digital"
+                            maxlength="160"
                         >
 
                     </div>
 
-                    <!-- Idioma -->
+                    <!-- Email -->
 
                     <div class="form-field">
 
-                        <label for="brand-language">
-                            Idioma principal
+                        <label for="client-email">
+                            Email
                         </label>
 
-                        <select
-                            id="brand-language"
-                            name="default_language"
+                        <input
+                            type="email"
+                            id="client-email"
+                            name="email"
+                            placeholder="cliente@empresa.com"
+                            maxlength="254"
+                            autocomplete="email"
                         >
 
-                            <option value="pt-PT">
-                                Português — Portugal
-                            </option>
-
-                            <option value="pt-BR">
-                                Português — Brasil
-                            </option>
-
-                            <option value="en-US">
-                                Inglês — Estados Unidos
-                            </option>
-
-                            <option value="en-GB">
-                                Inglês — Reino Unido
-                            </option>
-
-                            <option value="es-ES">
-                                Espanhol — Espanha
-                            </option>
-
-                            <option value="fr-FR">
-                                Francês — França
-                            </option>
-
-                            <option value="de-DE">
-                                Alemão — Alemanha
-                            </option>
-
-                            <option value="it-IT">
-                                Italiano — Itália
-                            </option>
-
-                        </select>
+                        <small
+                            class="form-error"
+                            id="client-email-error"
+                        ></small>
 
                     </div>
 
-                    <!-- Descrição -->
+                    <!-- Telefone -->
 
-                    <div class="form-field form-field-full">
+                    <div class="form-field">
 
-                        <label for="brand-description">
-                            Descrição
+                        <label for="client-phone">
+                            Telefone
                         </label>
 
-                        <textarea
-                            id="brand-description"
-                            name="description"
-                            rows="4"
-                            maxlength="1000"
-                            placeholder="Descreva brevemente a marca, os seus produtos ou serviços."
-                        ></textarea>
-
-                        <div class="form-field-footer">
-
-                            <small>
-                                Informação utilizada na organização da marca.
-                            </small>
-
-                            <small id="brand-description-counter">
-                                0/1000
-                            </small>
-
-                        </div>
+                        <input
+                            type="tel"
+                            id="client-phone"
+                            name="phone"
+                            placeholder="+351 912 345 678"
+                            maxlength="40"
+                            autocomplete="tel"
+                        >
 
                     </div>
 
                     <!-- Website -->
 
-                    <div class="form-field">
+                    <div class="form-field form-field-full">
 
-                        <label for="brand-website">
+                        <label for="client-website">
                             Website
                         </label>
 
                         <input
                             type="url"
-                            id="brand-website"
-                            name="website"
-                            placeholder="https://exemplo.com"
+                            id="client-website"
+                            name="website_url"
+                            placeholder="https://empresa.com"
                             maxlength="300"
                         >
 
                         <small
                             class="form-error"
-                            id="brand-website-error"
+                            id="client-website-error"
                         ></small>
 
                     </div>
 
-                    <!-- Logótipo -->
+                    <!-- Observações -->
 
-                    <div class="form-field">
+                    <div class="form-field form-field-full">
 
-                        <label for="brand-logo-url">
-                            URL do logótipo
+                        <label for="client-notes">
+                            Observações
                         </label>
 
-                        <input
-                            type="url"
-                            id="brand-logo-url"
-                            name="logo_url"
-                            placeholder="https://exemplo.com/logotipo.png"
-                            maxlength="500"
-                        >
+                        <textarea
+                            id="client-notes"
+                            name="notes"
+                            rows="5"
+                            maxlength="2000"
+                            placeholder="Registe informações importantes sobre o cliente."
+                        ></textarea>
 
-                    </div>
+                        <div class="form-field-footer">
 
-                    <!-- Cor principal -->
+                            <small>
+                                Informação interna do workspace.
+                            </small>
 
-                    <div class="form-field">
-
-                        <label for="brand-primary-color">
-                            Cor principal
-                        </label>
-
-                        <div class="color-input-group">
-
-                            <input
-                                type="color"
-                                id="brand-primary-color-picker"
-                                value="#6D28D9"
-                                aria-label="Selecionar cor principal"
-                            >
-
-                            <input
-                                type="text"
-                                id="brand-primary-color"
-                                name="primary_color"
-                                value="#6D28D9"
-                                maxlength="7"
-                                pattern="^#[0-9A-Fa-f]{6}$"
-                            >
-
-                        </div>
-
-                    </div>
-
-                    <!-- Cor secundária -->
-
-                    <div class="form-field">
-
-                        <label for="brand-secondary-color">
-                            Cor secundária
-                        </label>
-
-                        <div class="color-input-group">
-
-                            <input
-                                type="color"
-                                id="brand-secondary-color-picker"
-                                value="#A78BFA"
-                                aria-label="Selecionar cor secundária"
-                            >
-
-                            <input
-                                type="text"
-                                id="brand-secondary-color"
-                                name="secondary_color"
-                                value="#A78BFA"
-                                maxlength="7"
-                                pattern="^#[0-9A-Fa-f]{6}$"
-                            >
+                            <small id="client-notes-counter">
+                                0/2000
+                            </small>
 
                         </div>
 
@@ -984,7 +929,7 @@
 
                 <div
                     class="form-general-error hidden"
-                    id="brand-form-error"
+                    id="client-form-error"
                     role="alert"
                 ></div>
 
@@ -992,7 +937,7 @@
 
                     <button
                         class="button button-secondary"
-                        id="brand-form-cancel"
+                        id="client-form-cancel"
                         type="button"
                     >
                         Cancelar
@@ -1000,17 +945,17 @@
 
                     <button
                         class="btn btn-primary"
-                        id="brand-form-submit"
+                        id="client-form-submit"
                         type="submit"
                     >
 
-                        <span id="brand-form-submit-text">
-                            Criar marca
+                        <span id="client-form-submit-text">
+                            Criar cliente
                         </span>
 
                         <span
                             class="button-loader hidden"
-                            id="brand-form-loader"
+                            id="client-form-loader"
                             aria-hidden="true"
                         ></span>
 
@@ -1025,16 +970,112 @@
     </div>
 
     <!-- ==================================================
+         Modal: gerir marcas do cliente
+    =================================================== -->
+
+    <div
+        class="modal-overlay hidden"
+        id="client-brands-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="client-brands-modal-title"
+        aria-hidden="true"
+    >
+
+        <div class="modal-container modal-container-medium">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="modal-eyebrow">
+                        Marcas associadas
+                    </span>
+
+                    <h2 id="client-brands-modal-title">
+                        Gerir marcas
+                    </h2>
+
+                    <p class="modal-header-description">
+                        Cliente:
+                        <strong id="client-brands-client-name">
+                            —
+                        </strong>
+                    </p>
+
+                </div>
+
+                <button
+                    class="modal-close-button"
+                    id="client-brands-modal-close"
+                    type="button"
+                    aria-label="Fechar janela"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <div class="client-brands-content">
+
+                <div
+                    class="client-brands-loading"
+                    id="client-brands-loading"
+                >
+                    A carregar marcas...
+                </div>
+
+                <div
+                    class="client-brands-empty hidden"
+                    id="client-brands-empty"
+                >
+                    Ainda não existem marcas neste workspace.
+                </div>
+
+                <div
+                    class="client-brands-list hidden"
+                    id="client-brands-list"
+                >
+                    <!-- Opções inseridas pelo JavaScript -->
+                </div>
+
+            </div>
+
+            <div class="modal-footer client-brands-footer">
+
+                <button
+                    class="button button-secondary"
+                    id="client-brands-cancel"
+                    type="button"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    id="client-brands-save"
+                    type="button"
+                >
+                    Guardar associações
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ==================================================
          Modal: confirmar arquivamento
     =================================================== -->
 
     <div
         class="modal-overlay hidden"
-        id="archive-brand-modal"
+        id="archive-client-modal"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="archive-brand-modal-title"
-        aria-describedby="archive-brand-modal-description"
+        aria-labelledby="archive-client-modal-title"
+        aria-describedby="archive-client-modal-description"
         aria-hidden="true"
     >
 
@@ -1051,13 +1092,13 @@
 
             <div class="confirmation-content">
 
-                <h2 id="archive-brand-modal-title">
-                    Arquivar marca?
+                <h2 id="archive-client-modal-title">
+                    Arquivar cliente?
                 </h2>
 
-                <p id="archive-brand-modal-description">
-                    A marca deixará de aparecer entre as marcas ativas,
-                    mas poderá ser restaurada posteriormente.
+                <p id="archive-client-modal-description">
+                    O cliente deixará de aparecer entre os clientes
+                    ativos, mas poderá ser restaurado posteriormente.
                 </p>
 
             </div>
@@ -1067,7 +1108,7 @@
                 <button
                     type="button"
                     class="button button-secondary"
-                    id="archive-brand-cancel"
+                    id="archive-client-cancel"
                 >
                     Cancelar
                 </button>
@@ -1075,9 +1116,9 @@
                 <button
                     type="button"
                     class="btn btn-danger"
-                    id="archive-brand-confirm"
+                    id="archive-client-confirm"
                 >
-                    Arquivar marca
+                    Arquivar cliente
                 </button>
 
             </div>
@@ -1105,11 +1146,11 @@
 
     <script src="/js/services/supabase.js"></script>
 
-    <!-- Proteção de autenticação -->
+    <!-- Proteção -->
     <script src="/js/auth/auth-guard.js"></script>
 
-    <!-- Brands -->
-    <script src="/js/dashboard/brands.js"></script>
+    <!-- Clientes -->
+    <script src="/js/dashboard/clients.js"></script>
 
 </body>
 
