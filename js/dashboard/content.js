@@ -115,6 +115,31 @@ document.addEventListener(
                 "create-content-button"
             );
 
+        const deleteContentModal =
+            document.getElementById(
+                "delete-content-modal"
+            );
+
+
+        const deleteContentCancel =
+            document.getElementById(
+                "delete-content-cancel"
+            );
+
+
+        const deleteContentConfirm =
+            document.getElementById(
+                "delete-content-confirm"
+            );
+
+
+        let contentToDelete = null;            
+            
+
+        /* ==================================================
+           Modal de criação e edição
+        ================================================== */
+
         const manualContentModal =
             document.getElementById(
                 "manual-content-modal"
@@ -125,9 +150,19 @@ document.addEventListener(
                 "manual-content-modal-close"
             );
 
+        const manualContentModalTitle =
+            document.getElementById(
+                "manual-content-modal-title"
+            );
+
         const manualContentForm =
             document.getElementById(
                 "manual-content-form"
+            );
+
+        const manualContentIdInput =
+            document.getElementById(
+                "manual-content-id"
             );
 
         const manualContentBrandInput =
@@ -223,6 +258,11 @@ document.addEventListener(
                 "content-details-cancel"
             );
 
+        const contentDetailsEdit =
+            document.getElementById(
+                "content-details-edit"
+            );
+
         const contentDetailsTitle =
             document.getElementById(
                 "content-details-title"
@@ -274,6 +314,7 @@ document.addEventListener(
         let brands = [];
 
         let lastFocusedElement = null;
+        let selectedContentId = null;
 
         /* ==================================================
            Mapas
@@ -318,9 +359,13 @@ document.addEventListener(
            Utilitários
         ================================================== */
 
-        function escapeHtml(value = "") {
+        function escapeHtml(
+            value = ""
+        ) {
             const element =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
             element.textContent =
                 String(value);
@@ -364,7 +409,9 @@ document.addEventListener(
             );
         }
 
-        function getContentType(content) {
+        function getContentType(
+            content
+        ) {
             return (
                 content.content_type ||
                 content.type ||
@@ -380,7 +427,8 @@ document.addEventListener(
                     content.target_platforms
                 )
             ) {
-                return content.target_platforms;
+                return content
+                    .target_platforms;
             }
 
             if (
@@ -394,23 +442,36 @@ document.addEventListener(
             return [];
         }
 
-        function getContentStatus(content) {
-            return content.status || "draft";
+        function getContentStatus(
+            content
+        ) {
+            return (
+                content.status ||
+                "draft"
+            );
         }
 
-        function getBrandById(brandId) {
-            return brands.find(
-                brand =>
-                    brand.id === brandId
-            ) || null;
+        function getBrandById(
+            brandId
+        ) {
+            return (
+                brands.find(
+                    brand =>
+                        brand.id === brandId
+                ) ||
+                null
+            );
         }
 
-        function formatDate(value) {
+        function formatDate(
+            value
+        ) {
             if (!value) {
                 return "Data indisponível";
             }
 
-            const date = new Date(value);
+            const date =
+                new Date(value);
 
             if (
                 Number.isNaN(
@@ -471,6 +532,7 @@ document.addEventListener(
                 </div>
 
                 <div class="toast-content">
+
                     <strong>
                         ${escapeHtml(title)}
                     </strong>
@@ -478,6 +540,7 @@ document.addEventListener(
                     <p>
                         ${escapeHtml(message)}
                     </p>
+
                 </div>
 
                 <button
@@ -517,14 +580,19 @@ document.addEventListener(
         async function loadUserProfile(
             userId
         ) {
-            const { data, error } =
-                await supabaseClient
-                    .from("profiles")
-                    .select(
-                        "id, full_name"
-                    )
-                    .eq("id", userId)
-                    .maybeSingle();
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("profiles")
+                .select(
+                    "id, full_name"
+                )
+                .eq(
+                    "id",
+                    userId
+                )
+                .maybeSingle();
 
             if (error) {
                 console.warn(
@@ -571,7 +639,8 @@ document.addEventListener(
             }
 
             if (
-                !membership?.workspace_id
+                !membership
+                    ?.workspace_id
             ) {
                 throw new Error(
                     "O utilizador não possui um workspace ativo."
@@ -602,7 +671,8 @@ document.addEventListener(
 
             return {
                 ...workspace,
-                role: membership.role
+                role:
+                    membership.role
             };
         }
 
@@ -612,8 +682,11 @@ document.addEventListener(
             workspace
         ) {
             const fullName =
-                profile?.full_name?.trim() ||
-                user.email?.split("@")[0] ||
+                profile
+                    ?.full_name
+                    ?.trim() ||
+                user.email
+                    ?.split("@")[0] ||
                 "Utilizador";
 
             const email =
@@ -626,27 +699,32 @@ document.addEventListener(
                     .toUpperCase();
 
             if (currentWorkspaceName) {
-                currentWorkspaceName.textContent =
+                currentWorkspaceName
+                    .textContent =
                     workspace.name;
             }
 
             if (sidebarUserName) {
-                sidebarUserName.textContent =
+                sidebarUserName
+                    .textContent =
                     fullName;
             }
 
             if (sidebarUserEmail) {
-                sidebarUserEmail.textContent =
+                sidebarUserEmail
+                    .textContent =
                     email;
             }
 
             if (sidebarUserAvatar) {
-                sidebarUserAvatar.textContent =
+                sidebarUserAvatar
+                    .textContent =
                     avatarLetter;
             }
 
             if (topbarAvatar) {
-                topbarAvatar.textContent =
+                topbarAvatar
+                    .textContent =
                     avatarLetter;
             }
         }
@@ -659,23 +737,30 @@ document.addEventListener(
             }
 
             const user =
-                await window.studioVAuthReady;
+                await window
+                    .studioVAuthReady;
 
             if (!user) {
                 return false;
             }
 
-            currentUser = user;
+            currentUser =
+                user;
 
             const [
                 profile,
                 workspace
             ] = await Promise.all([
-                loadUserProfile(user.id),
-                loadCurrentWorkspace(user.id)
+                loadUserProfile(
+                    user.id
+                ),
+                loadCurrentWorkspace(
+                    user.id
+                )
             ]);
 
-            currentWorkspace = workspace;
+            currentWorkspace =
+                workspace;
 
             updateDashboardIdentity(
                 user,
@@ -686,11 +771,15 @@ document.addEventListener(
             console.log(
                 "Contexto de Conteúdos carregado:",
                 {
-                    userId: user.id,
+                    userId:
+                        user.id,
+
                     workspaceId:
                         workspace.id,
+
                     workspaceName:
                         workspace.name,
+
                     role:
                         workspace.role
                 }
@@ -703,26 +792,36 @@ document.addEventListener(
            Estados visuais
         ================================================== */
 
-        function setContentView(view) {
-            contentLoading?.classList.toggle(
-                "hidden",
-                view !== "loading"
-            );
+        function setContentView(
+            view
+        ) {
+            contentLoading
+                ?.classList
+                .toggle(
+                    "hidden",
+                    view !== "loading"
+                );
 
-            contentEmpty?.classList.toggle(
-                "hidden",
-                view !== "empty"
-            );
+            contentEmpty
+                ?.classList
+                .toggle(
+                    "hidden",
+                    view !== "empty"
+                );
 
-            contentNoResults?.classList.toggle(
-                "hidden",
-                view !== "no-results"
-            );
+            contentNoResults
+                ?.classList
+                .toggle(
+                    "hidden",
+                    view !== "no-results"
+                );
 
-            contentGrid?.classList.toggle(
-                "hidden",
-                view !== "grid"
-            );
+            contentGrid
+                ?.classList
+                .toggle(
+                    "hidden",
+                    view !== "grid"
+                );
         }
 
         /* ==================================================
@@ -734,26 +833,48 @@ document.addEventListener(
                 return;
             }
 
+            const previousValue =
+                contentBrandFilter.value;
+
             contentBrandFilter.innerHTML = `
                 <option value="all">
                     Todas as marcas
                 </option>
             `;
 
-            brands.forEach(brand => {
-                const option =
-                    document.createElement(
-                        "option"
-                    );
+            brands.forEach(
+                brand => {
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
 
-                option.value = brand.id;
-                option.textContent =
-                    brand.name;
+                    option.value =
+                        brand.id;
 
-                contentBrandFilter.appendChild(
-                    option
+                    option.textContent =
+                        brand.name;
+
+                    contentBrandFilter
+                        .appendChild(
+                            option
+                        );
+                }
+            );
+
+            const optionExists =
+                Array.from(
+                    contentBrandFilter.options
+                ).some(
+                    option =>
+                        option.value ===
+                        previousValue
                 );
-            });
+
+            contentBrandFilter.value =
+                optionExists
+                    ? previousValue
+                    : "all";
         }
 
         function hasActiveFilters() {
@@ -763,13 +884,16 @@ document.addEventListener(
                     .trim() ||
 
                 contentBrandFilter
-                    ?.value !== "all" ||
+                    ?.value !==
+                    "all" ||
 
                 contentStatusFilter
-                    ?.value !== "all" ||
+                    ?.value !==
+                    "all" ||
 
                 contentTypeFilter
-                    ?.value !== "all"
+                    ?.value !==
+                    "all"
             );
         }
 
@@ -777,27 +901,39 @@ document.addEventListener(
             const searchTerm =
                 normalizeSearchText(
                     contentSearchInput
-                        ?.value || ""
+                        ?.value ||
+                    ""
                 );
 
             const selectedBrand =
                 contentBrandFilter
-                    ?.value || "all";
+                    ?.value ||
+                "all";
 
             const selectedStatus =
                 contentStatusFilter
-                    ?.value || "all";
+                    ?.value ||
+                "all";
 
             const selectedType =
                 contentTypeFilter
-                    ?.value || "all";
+                    ?.value ||
+                "all";
 
-            return contents.filter(
-                content => {
+                return contents.filter(
+                    content => {
                     const status =
                         getContentStatus(
                             content
                         );
+                    
+                    // Oculta conteúdos arquivados da listagem principal
+                    if (
+                        status === "archived" &&
+                        selectedStatus !== "archived"
+                    ) {
+                        return false;
+                    }
 
                     const type =
                         getContentType(
@@ -808,21 +944,25 @@ document.addEventListener(
                         normalizeSearchText(
                             [
                                 content.title,
+                                content.brief,
                                 getContentMainText(
                                     content
                                 ),
                                 type,
                                 status
                             ]
-                                .filter(Boolean)
+                                .filter(
+                                    Boolean
+                                )
                                 .join(" ")
                         );
 
                     const matchesSearch =
                         searchTerm === "" ||
-                        searchableText.includes(
-                            searchTerm
-                        );
+                        searchableText
+                            .includes(
+                                searchTerm
+                            );
 
                     const matchesBrand =
                         selectedBrand ===
@@ -857,55 +997,71 @@ document.addEventListener(
         ================================================== */
 
         function updateContentCounters() {
-            const drafts =
+
+            const activeContents =
                 contents.filter(
+                    content =>
+                        getContentStatus(
+                            content
+                        ) !== "archived"
+                );
+
+
+            const draftCount =
+                activeContents.filter(
                     content =>
                         getContentStatus(
                             content
                         ) === "draft"
-                );
+                ).length;
 
-            const review =
-                contents.filter(
+
+            const reviewCount =
+                activeContents.filter(
                     content =>
                         getContentStatus(
                             content
                         ) === "review"
-                );
+                ).length;
 
-            const published =
-                contents.filter(
+
+            const publishedCount =
+                activeContents.filter(
                     content =>
                         getContentStatus(
                             content
                         ) === "published"
-                );
+                ).length;
+
 
             if (contentTotalCount) {
                 contentTotalCount.textContent =
                     String(
-                        contents.length
+                        activeContents.length
                     );
             }
+
 
             if (contentDraftCount) {
                 contentDraftCount.textContent =
                     String(
-                        drafts.length
+                        draftCount
                     );
             }
+
 
             if (contentReviewCount) {
                 contentReviewCount.textContent =
                     String(
-                        review.length
+                        reviewCount
                     );
             }
+
 
             if (contentPublishedCount) {
                 contentPublishedCount.textContent =
                     String(
-                        published.length
+                        publishedCount
                     );
             }
         }
@@ -953,6 +1109,7 @@ document.addEventListener(
             card.dataset.contentId =
                 content.id;
 
+
             const platformsHtml =
                 platforms.length > 0
                     ? platforms
@@ -970,26 +1127,27 @@ document.addEventListener(
                             `
                         )
                         .join("")
-                    : `
-                        <span class="content-platform">
-                            Sem plataforma
-                        </span>
-                    `;
+                    :
+                        `
+                            <span class="content-platform">
+                                Sem plataforma
+                            </span>
+                        `;
+
 
             card.innerHTML = `
+
                 <header class="content-card-header">
 
                     <div class="content-card-brand">
 
                         <span
                             class="content-brand-color"
-                            style="background-color: ${
-                                getSafeColor(
-                                    brand
-                                        ?.primary_color
-                                )
-                            }"
+                            style="background-color:${getSafeColor(
+                                brand?.primary_color
+                            )}"
                         ></span>
+
 
                         <span class="content-brand-name">
                             ${escapeHtml(
@@ -999,6 +1157,7 @@ document.addEventListener(
                         </span>
 
                     </div>
+
 
                     <span
                         class="content-status-badge is-${escapeHtml(
@@ -1015,12 +1174,14 @@ document.addEventListener(
 
                 </header>
 
+
                 <h2 class="content-card-title">
                     ${escapeHtml(
                         content.title ||
                         "Conteúdo sem título"
                     )}
                 </h2>
+
 
                 <p class="content-card-text">
                     ${escapeHtml(
@@ -1029,9 +1190,11 @@ document.addEventListener(
                     )}
                 </p>
 
+
                 <div class="content-card-meta">
 
                     <span class="content-meta-badge">
+
                         <i data-lucide="file-text"></i>
 
                         ${escapeHtml(
@@ -1040,91 +1203,213 @@ document.addEventListener(
                             ] ||
                             type
                         )}
+
                     </span>
+
 
                     ${
                         content.source
-                            ? `
-                                <span class="content-meta-badge">
-                                    <i data-lucide="git-branch"></i>
-
-                                    ${escapeHtml(
-                                        content.source
-                                    )}
-                                </span>
+                            ?
                             `
-                            : ""
+                            <span class="content-meta-badge">
+
+                                <i data-lucide="git-branch"></i>
+
+                                ${escapeHtml(
+                                    content.source
+                                )}
+
+                            </span>
+                            `
+                            :
+                            ""
                     }
 
                 </div>
 
+
                 <div class="content-platforms">
+
                     ${platformsHtml}
+
                 </div>
+
 
                 <footer class="content-card-footer">
 
-                    <span class="content-card-date">
-                        <i data-lucide="clock-3"></i>
+                <span class="content-card-date">
 
-                        ${escapeHtml(
-                            formatDate(
-                                content.updated_at ||
-                                content.created_at
-                            )
-                        )}
-                    </span>
+                    <i data-lucide="clock-3"></i>
+
+                    ${escapeHtml(
+                        formatDate(
+                            content.updated_at ||
+                            content.created_at
+                        )
+                    )}
+
+                </span>
+
+
+                <div class="content-card-actions">
+
 
                     <button
                         type="button"
                         class="content-view-button"
                         data-content-action="view"
                     >
+
                         <i data-lucide="eye"></i>
-                        Ver conteúdo
+
+                        Ver
+
                     </button>
 
-                </footer>
-            `;
 
-            return card;
+
+                    <div class="content-menu-wrapper">
+
+
+                        <button
+                            type="button"
+                            class="content-menu-button"
+                            aria-label="Ações do conteúdo"
+                            data-content-menu-toggle
+                        >
+
+                            <i data-lucide="ellipsis"></i>
+
+                        </button>
+
+
+
+                        <div class="content-menu hidden">
+
+
+                            ${
+                                status !== "archived"
+                                    ?
+                                    `
+                                    <button
+                                        type="button"
+                                        data-content-action="edit"
+                                    >
+
+                                        <i data-lucide="pencil"></i>
+
+                                        Editar
+
+                                    </button>
+                                    `
+                                    :
+                                    ""
+                            }
+
+                            ${
+                                status === "archived"
+                                    ? `
+                                        <button
+                                            type="button"
+                                            data-content-action="restore"
+                                        >
+                                            <i data-lucide="rotate-ccw"></i>
+                                            Restaurar
+                                        </button>
+                                    `
+                                    : ""
+                            }
+
+
+
+                            <button
+                                type="button"
+                                data-content-action="duplicate"
+                            >
+
+                                <i data-lucide="copy"></i>
+
+                                Duplicar
+
+                            </button>
+
+
+
+                            ${
+                                status !== "archived"
+                                    ?
+                                    `
+                                    <button
+                                        type="button"
+                                        data-content-action="archive"
+                                    >
+
+                                        <i data-lucide="archive"></i>
+
+                                        Arquivar
+
+                                    </button>
+                                    `
+                                    :
+                                    ""
+                            }
+
+
+
+                            <button
+                                type="button"
+                                class="danger"
+                                data-content-action="delete"
+                            >
+
+                                <i data-lucide="trash-2"></i>
+
+                                Excluir
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </footer>
+
+        `;
+
+        return card;
         }
 
-        function renderContents(items) {
-            if (!contentGrid) {
-                return;
-            }
 
-            contentGrid.innerHTML = "";
-
-            items.forEach(content => {
-                contentGrid.appendChild(
-                    createContentCard(
-                        content
-                    )
-                );
-            });
-
-            setContentView("grid");
-
-            window.lucide?.createIcons();
-        }
+        /* ==================================================
+        Aplicar filtros
+        ================================================== */
 
         function applyContentFilters() {
+
             if (
                 contents.length === 0 &&
                 !hasActiveFilters()
             ) {
-                setContentView("empty");
+                setContentView(
+                    "empty"
+                );
+
                 return;
             }
+
 
             const filteredContents =
                 getFilteredContents();
 
+
             if (
-                filteredContents.length ===
-                0
+                filteredContents.length === 0
             ) {
                 setContentView(
                     "no-results"
@@ -1133,202 +1418,632 @@ document.addEventListener(
                 return;
             }
 
+
             renderContents(
                 filteredContents
             );
         }
 
+    async function archiveContent(
+        contentId
+    ) {
+
+        try {
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .rpc(
+                    "archive_content",
+                    {
+                        content_id_value:
+                            contentId
+                    }
+                );
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            console.log(
+                "Conteúdo arquivado:",
+                data
+            );
+
+
+            await loadContentData();
+
+
+            showToast(
+                "success",
+                "Conteúdo arquivado",
+                "O conteúdo foi movido para arquivados."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Erro ao arquivar conteúdo:",
+                error
+            );
+
+
+            showToast(
+                "error",
+                "Erro ao arquivar",
+                error.message ||
+                "Não foi possível arquivar o conteúdo."
+            );
+
+        }
+
+    }
+
+
     /* ==================================================
-    Criação manual
+    Renderizar conteúdos
     ================================================== */
 
-    function populateManualContentBrands() {
-        if (!manualContentBrandInput) {
+    function renderContents(
+        items
+    ) {
+
+        if (!contentGrid) {
             return;
         }
 
-        manualContentBrandInput.innerHTML = `
-            <option value="">
-                Selecione uma marca
-            </option>
-        `;
 
-        brands
-            .filter(
-                brand =>
-                    brand.status === "active"
-            )
-            .forEach(brand => {
-                const option =
-                    document.createElement(
-                        "option"
+        contentGrid.innerHTML = "";
+
+
+        items.forEach(
+            content => {
+
+                const card =
+                    createContentCard(
+                        content
                     );
 
-                option.value = brand.id;
-                option.textContent =
-                    brand.name;
-
-                manualContentBrandInput.appendChild(
-                    option
+                contentGrid.appendChild(
+                    card
                 );
-            });
-    }
 
-    function getSelectedManualPlatforms() {
-        return Array.from(
-            document.querySelectorAll(
-                'input[name="manual_content_platforms"]:checked'
-            )
-        ).map(input => input.value);
-    }
-
-    function clearManualContentErrors() {
-        manualContentBrandInput?.classList.remove(
-            "is-invalid"
+            }
         );
 
-        manualContentTitleInput?.classList.remove(
-            "is-invalid"
+
+        setContentView(
+            "grid"
         );
 
-        if (manualContentBrandError) {
-            manualContentBrandError.textContent =
-                "";
-        }
 
-        if (manualContentTitleError) {
-            manualContentTitleError.textContent =
-                "";
-        }
+        window.lucide
+            ?.createIcons();
+    }   
+    
+    /* ==================================================
+    Exclusão de conteúdo
+    ================================================== */
 
-        if (manualContentFormError) {
-            manualContentFormError.textContent =
-                "";
 
-            manualContentFormError.classList.add(
-                "hidden"
-            );
-        }
-    }
-
-    function resetManualContentForm() {
-        manualContentForm?.reset();
-
-        if (manualContentTypeInput) {
-            manualContentTypeInput.value =
-                "post";
-        }
-
-        if (manualContentSubmit) {
-            manualContentSubmit.disabled =
-                false;
-
-            manualContentSubmit.textContent =
-                "Criar conteúdo";
-        }
-
-        clearManualContentErrors();
-    }
-
-    function openManualContentModal() {
-        const activeBrands =
-            brands.filter(
-                brand =>
-                    brand.status === "active"
-            );
-
-        if (activeBrands.length === 0) {
-            showToast(
-                "warning",
-                "Nenhuma marca disponível",
-                "Crie ou restaure uma marca antes de criar conteúdos."
-            );
-
-            return;
-        }
-
-        resetManualContentForm();
-        populateManualContentBrands();
-
-        openModal(manualContentModal);
-
-        window.setTimeout(
-            () =>
-                manualContentTitleInput?.focus(),
-            100
-        );
-    }
-
-    function closeManualContentModal() {
-        closeModal(manualContentModal);
-        resetManualContentForm();
-    }
-
-    function setManualContentSubmitting(
-        isSubmitting
+    function openDeleteContentModal(
+        contentId
     ) {
-        if (!manualContentSubmit) {
+
+        contentToDelete =
+            contentId;
+
+
+        openModal(
+            deleteContentModal
+        );
+
+    }
+
+
+
+    function closeDeleteContentModal() {
+
+        contentToDelete =
+            null;
+
+
+        closeModal(
+            deleteContentModal
+        );
+
+    }
+
+
+
+    async function deleteContent() {
+
+        if (!contentToDelete) {
             return;
         }
 
-        manualContentSubmit.disabled =
-            isSubmitting;
 
-        manualContentSubmit.setAttribute(
-            "aria-busy",
-            String(isSubmitting)
-        );
+        try {
 
-        manualContentSubmit.textContent =
-            isSubmitting
-                ? "A criar..."
-                : "Criar conteúdo";
-    }
-
-    function validateManualContentForm() {
-        clearManualContentErrors();
-
-        let isValid = true;
-
-        const brandId =
-            manualContentBrandInput?.value ||
-            "";
-
-        const title =
-            manualContentTitleInput?.value.trim() ||
-            "";
-
-        if (!brandId) {
-            manualContentBrandInput?.classList.add(
-                "is-invalid"
+            const {
+                error
+            } =
+            await supabaseClient.rpc(
+                "delete_content",
+                {
+                    content_id_value:
+                        contentToDelete
+                }
             );
+
+
+            if(error){
+                throw error;
+            }
+
+
+            await loadContentData();
+
+
+            showToast(
+                "success",
+                "Conteúdo excluído",
+                "O conteúdo foi removido com sucesso."
+            );
+
+
+            closeDeleteContentModal();
+
+
+        } catch(error) {
+
+            console.error(
+                "Erro ao excluir conteúdo:",
+                error
+            );
+
+
+            showToast(
+                "error",
+                "Erro ao excluir",
+                error.message ||
+                "Não foi possível excluir o conteúdo."
+            );
+
+        }
+
+    }    
+
+    /* ==================================================
+        Criação e edição
+    ================================================== */
+
+        function populateManualContentBrands() {
+
+            if (!manualContentBrandInput) {
+                return;
+            }
+
+            manualContentBrandInput.innerHTML =
+                '<option value="">Selecione uma marca</option>';
+
+            brands
+                .filter(
+                    brand =>
+                        brand.status === "active"
+                )
+                .forEach(
+                    brand => {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value = brand.id;
+                        option.textContent =
+                            brand.name;
+
+                        manualContentBrandInput.appendChild(
+                            option
+                        );
+                    }
+                );
+        }
+
+        function getSelectedManualPlatforms() {
+            return Array.from(
+                document.querySelectorAll(
+                    'input[name="manual_content_platforms"]:checked'
+                )
+            ).map(
+                input =>
+                    input.value
+            );
+        }
+
+        function setSelectedManualPlatforms(
+            platforms = []
+        ) {
+            const normalizedPlatforms =
+                Array.isArray(platforms)
+                    ? platforms
+                    : [];
+
+            document
+                .querySelectorAll(
+                    'input[name="manual_content_platforms"]'
+                )
+                .forEach(
+                    input => {
+                        input.checked =
+                            normalizedPlatforms
+                                .includes(
+                                    input.value
+                                );
+                    }
+                );
+        }
+
+        function clearManualContentErrors() {
+            manualContentBrandInput
+                ?.classList
+                .remove(
+                    "is-invalid"
+                );
+
+            manualContentTitleInput
+                ?.classList
+                .remove(
+                    "is-invalid"
+                );
 
             if (manualContentBrandError) {
-                manualContentBrandError.textContent =
-                    "Selecione uma marca.";
+                manualContentBrandError
+                    .textContent =
+                    "";
             }
-
-            isValid = false;
-        }
-
-        if (
-            title.length < 2 ||
-            title.length > 160
-        ) {
-            manualContentTitleInput?.classList.add(
-                "is-invalid"
-            );
 
             if (manualContentTitleError) {
-                manualContentTitleError.textContent =
-                    "O título deve ter entre 2 e 160 caracteres.";
+                manualContentTitleError
+                    .textContent =
+                    "";
             }
 
-            isValid = false;
+            if (manualContentFormError) {
+                manualContentFormError
+                    .textContent =
+                    "";
+
+                manualContentFormError
+                    .classList
+                    .add(
+                        "hidden"
+                    );
+            }
         }
 
-        return isValid;
-    }        
+        function resetManualContentForm() {
+            manualContentForm
+                ?.reset();
+
+            if (manualContentIdInput) {
+                manualContentIdInput
+                    .value =
+                    "";
+            }
+
+            if (manualContentModalTitle) {
+                manualContentModalTitle
+                    .textContent =
+                    "Novo conteúdo";
+            }
+
+            if (manualContentTypeInput) {
+                manualContentTypeInput
+                    .value =
+                    "post";
+            }
+
+            if (manualContentBrandInput) {
+                manualContentBrandInput
+                    .disabled =
+                    false;
+            }
+
+            if (manualContentSubmit) {
+                manualContentSubmit
+                    .disabled =
+                    false;
+
+                manualContentSubmit
+                    .textContent =
+                    "Criar conteúdo";
+            }
+
+            setSelectedManualPlatforms(
+                []
+            );
+
+            clearManualContentErrors();
+        }
+
+        function openManualContentModal() {
+            const activeBrands =
+                brands.filter(
+                    brand =>
+                        brand.status ===
+                        "active"
+                );
+
+            if (
+                activeBrands.length ===
+                0
+            ) {
+                showToast(
+                    "warning",
+                    "Nenhuma marca disponível",
+                    "Crie ou restaure uma marca antes de criar conteúdos."
+                );
+
+                return;
+            }
+
+            resetManualContentForm();
+
+            populateManualContentBrands();
+
+            openModal(
+                manualContentModal
+            );
+
+            window.setTimeout(
+                () =>
+                    manualContentTitleInput
+                        ?.focus(),
+                100
+            );
+        }
+
+        function openEditContentModal(
+            contentId
+        ) {
+            const content =
+                contents.find(
+                    item =>
+                        item.id ===
+                        contentId
+                );
+
+            if (!content) {
+                showToast(
+                    "error",
+                    "Conteúdo não encontrado",
+                    "Não foi possível localizar o conteúdo selecionado."
+                );
+
+                return;
+            }
+
+            if (
+                content.status ===
+                "archived"
+            ) {
+                showToast(
+                    "warning",
+                    "Edição indisponível",
+                    "Conteúdos arquivados não podem ser editados."
+                );
+
+                return;
+            }
+
+            resetManualContentForm();
+
+            populateManualContentBrands();
+
+            if (manualContentIdInput) {
+                manualContentIdInput
+                    .value =
+                    content.id;
+            }
+
+            if (manualContentModalTitle) {
+                manualContentModalTitle
+                    .textContent =
+                    "Editar conteúdo";
+            }
+
+            if (manualContentBrandInput) {
+                manualContentBrandInput
+                    .value =
+                    content.brand_id ||
+                    "";
+
+                manualContentBrandInput
+                    .disabled =
+                    true;
+            }
+
+            if (manualContentTitleInput) {
+                manualContentTitleInput
+                    .value =
+                    content.title ||
+                    "";
+            }
+
+            if (manualContentBriefInput) {
+                manualContentBriefInput
+                    .value =
+                    content.brief ||
+                    "";
+            }
+
+            if (manualContentMainTextInput) {
+                manualContentMainTextInput
+                    .value =
+                    content.main_text ||
+                    "";
+            }
+
+            if (manualContentTypeInput) {
+                manualContentTypeInput
+                    .value =
+                    getContentType(
+                        content
+                    );
+            }
+
+            setSelectedManualPlatforms(
+                getContentPlatforms(
+                    content
+                )
+            );
+
+            if (manualContentSubmit) {
+                manualContentSubmit
+                    .textContent =
+                    "Guardar alterações";
+            }
+
+            if (
+                contentDetailsModal
+                    ?.classList
+                    .contains(
+                        "is-open"
+                    )
+            ) {
+                closeModal(
+                    contentDetailsModal
+                );
+            }
+
+            openModal(
+                manualContentModal
+            );
+
+            window.setTimeout(
+                () =>
+                    manualContentTitleInput
+                        ?.focus(),
+                100
+            );
+        }
+
+        function closeManualContentModal() {
+            closeModal(
+                manualContentModal
+            );
+
+            resetManualContentForm();
+        }
+
+        function setManualContentSubmitting(
+            isSubmitting
+        ) {
+            if (!manualContentSubmit) {
+                return;
+            }
+
+            const isEditing =
+                Boolean(
+                    manualContentIdInput
+                        ?.value
+                        .trim()
+                );
+
+            manualContentSubmit.disabled =
+                isSubmitting;
+
+            manualContentSubmit
+                .setAttribute(
+                    "aria-busy",
+                    String(
+                        isSubmitting
+                    )
+                );
+
+            if (isSubmitting) {
+                manualContentSubmit
+                    .textContent =
+                    isEditing
+                        ? "A guardar..."
+                        : "A criar...";
+
+                return;
+            }
+
+            manualContentSubmit
+                .textContent =
+                isEditing
+                    ? "Guardar alterações"
+                    : "Criar conteúdo";
+        }
+
+        function validateManualContentForm() {
+            clearManualContentErrors();
+
+            let isValid =
+                true;
+
+            const brandId =
+                manualContentBrandInput
+                    ?.value ||
+                "";
+
+            const title =
+                manualContentTitleInput
+                    ?.value
+                    .trim() ||
+                "";
+
+            if (!brandId) {
+                manualContentBrandInput
+                    ?.classList
+                    .add(
+                        "is-invalid"
+                    );
+
+                if (
+                    manualContentBrandError
+                ) {
+                    manualContentBrandError
+                        .textContent =
+                        "Selecione uma marca.";
+                }
+
+                isValid =
+                    false;
+            }
+
+            if (
+                title.length < 2 ||
+                title.length > 160
+            ) {
+                manualContentTitleInput
+                    ?.classList
+                    .add(
+                        "is-invalid"
+                    );
+
+                if (
+                    manualContentTitleError
+                ) {
+                    manualContentTitleError
+                        .textContent =
+                        "O título deve ter entre 2 e 160 caracteres.";
+                }
+
+                isValid =
+                    false;
+            }
+
+            return isValid;
+        }
 
         /* ==================================================
            Carregamento
@@ -1336,12 +2051,15 @@ document.addEventListener(
 
         async function loadContentData() {
             if (
-                !currentWorkspace?.id
+                !currentWorkspace
+                    ?.id
             ) {
                 return;
             }
 
-            setContentView("loading");
+            setContentView(
+                "loading"
+            );
 
             try {
                 const [
@@ -1370,22 +2088,33 @@ document.addEventListener(
                         )
                 ]);
 
-                if (brandsResult.error) {
-                    throw brandsResult.error;
+                if (
+                    brandsResult.error
+                ) {
+                    throw brandsResult
+                        .error;
                 }
 
-                if (contentsResult.error) {
-                    throw contentsResult.error;
+                if (
+                    contentsResult.error
+                ) {
+                    throw contentsResult
+                        .error;
                 }
 
                 brands =
-                    brandsResult.data || [];
+                    brandsResult.data ||
+                    [];
 
                 contents =
-                    contentsResult.data || [];
+                    contentsResult.data ||
+                    [];
 
                 contents.sort(
-                    (first, second) => {
+                    (
+                        first,
+                        second
+                    ) => {
                         const firstDate =
                             new Date(
                                 first.updated_at ||
@@ -1408,8 +2137,11 @@ document.addEventListener(
                 );
 
                 populateBrandFilter();
+
                 populateManualContentBrands();
+
                 updateContentCounters();
+
                 applyContentFilters();
 
                 console.log(
@@ -1417,6 +2149,7 @@ document.addEventListener(
                     {
                         contents:
                             contents.length,
+
                         brands:
                             brands.length
                     }
@@ -1427,7 +2160,9 @@ document.addEventListener(
                     error
                 );
 
-                setContentView(null);
+                setContentView(
+                    null
+                );
 
                 showToast(
                     "error",
@@ -1439,10 +2174,12 @@ document.addEventListener(
         }
 
         /* ==================================================
-           Modal
+           Modais
         ================================================== */
 
-        function openModal(modal) {
+        function openModal(
+            modal
+        ) {
             if (!modal) {
                 return;
             }
@@ -1468,7 +2205,9 @@ document.addEventListener(
             );
         }
 
-        function closeModal(modal) {
+        function closeModal(
+            modal
+        ) {
             if (!modal) {
                 return;
             }
@@ -1486,12 +2225,28 @@ document.addEventListener(
                 "true"
             );
 
-            body.classList.remove(
-                "modal-open"
-            );
+            const anotherModalOpen =
+                document.querySelector(
+                    ".modal-overlay.is-open"
+                );
+
+            if (!anotherModalOpen) {
+                body.classList.remove(
+                    "modal-open"
+                );
+            }
 
             lastFocusedElement
                 ?.focus();
+        }
+
+        function closeContentDetailsModal() {
+            closeModal(
+                contentDetailsModal
+            );
+
+            selectedContentId =
+                null;
         }
 
         function openContentDetails(
@@ -1514,6 +2269,9 @@ document.addEventListener(
                 return;
             }
 
+            selectedContentId =
+                content.id;
+
             const brand =
                 getBrandById(
                     content.brand_id
@@ -1535,16 +2293,19 @@ document.addEventListener(
                 );
 
             if (contentDetailsTitle) {
-                contentDetailsTitle.textContent =
+                contentDetailsTitle
+                    .textContent =
                     content.title ||
                     "Conteúdo sem título";
             }
 
             if (contentDetailsStatus) {
-                contentDetailsStatus.className =
+                contentDetailsStatus
+                    .className =
                     `content-status-badge is-${status}`;
 
-                contentDetailsStatus.textContent =
+                contentDetailsStatus
+                    .textContent =
                     statusLabels[
                         status
                     ] ||
@@ -1552,13 +2313,15 @@ document.addEventListener(
             }
 
             if (contentDetailsBrand) {
-                contentDetailsBrand.textContent =
+                contentDetailsBrand
+                    .textContent =
                     brand?.name ||
                     "Marca indisponível";
             }
 
             if (contentDetailsType) {
-                contentDetailsType.textContent =
+                contentDetailsType
+                    .textContent =
                     contentTypeLabels[
                         type
                     ] ||
@@ -1568,7 +2331,8 @@ document.addEventListener(
             if (
                 contentDetailsPlatforms
             ) {
-                contentDetailsPlatforms.innerHTML =
+                contentDetailsPlatforms
+                    .innerHTML =
                     platforms.length > 0
                         ? platforms
                             .map(
@@ -1591,8 +2355,11 @@ document.addEventListener(
                         `;
             }
 
-            if (contentDetailsMainText) {
-                contentDetailsMainText.textContent =
+            if (
+                contentDetailsMainText
+            ) {
+                contentDetailsMainText
+                    .textContent =
                     getContentMainText(
                         content
                     ).trim() ||
@@ -1602,7 +2369,8 @@ document.addEventListener(
             if (
                 contentDetailsCreatedAt
             ) {
-                contentDetailsCreatedAt.textContent =
+                contentDetailsCreatedAt
+                    .textContent =
                     `Criado em ${formatDate(
                         content.created_at
                     )}`;
@@ -1611,133 +2379,278 @@ document.addEventListener(
             if (
                 contentDetailsUpdatedAt
             ) {
-                contentDetailsUpdatedAt.textContent =
+                contentDetailsUpdatedAt
+                    .textContent =
                     `Atualizado em ${formatDate(
                         content.updated_at
                     )}`;
+            }
+
+            if (contentDetailsEdit) {
+                contentDetailsEdit
+                    .classList
+                    .toggle(
+                        "hidden",
+                        status ===
+                        "archived"
+                    );
             }
 
             openModal(
                 contentDetailsModal
             );
 
-            window.lucide?.createIcons();
+            window.lucide
+                ?.createIcons();
         }
 
-        manualContentForm?.addEventListener(
-            "submit",
-            async event => {
-                event.preventDefault();
+        /* ==================================================
+           Envio do formulário
+        ================================================== */
 
-                if (!validateManualContentForm()) {
-                    showToast(
-                        "error",
-                        "Verifique o formulário",
-                        "Existem campos obrigatórios que precisam ser corrigidos."
+        manualContentForm
+            ?.addEventListener(
+                "submit",
+                async event => {
+                    event.preventDefault();
+
+                    if (
+                        !validateManualContentForm()
+                    ) {
+                        showToast(
+                            "error",
+                            "Verifique o formulário",
+                            "Existem campos obrigatórios que precisam ser corrigidos."
+                        );
+
+                        return;
+                    }
+
+                    if (
+                        !currentWorkspace
+                            ?.id
+                    ) {
+                        showToast(
+                            "error",
+                            "Workspace indisponível",
+                            "Não foi possível identificar o workspace atual."
+                        );
+
+                        return;
+                    }
+
+                    const editingContentId =
+                        manualContentIdInput
+                            ?.value
+                            .trim() ||
+                        null;
+
+                    const isEditing =
+                        Boolean(
+                            editingContentId
+                        );
+
+                    setManualContentSubmitting(
+                        true
                     );
 
-                    return;
-                }
+                    try {
+                        let data =
+                            null;
 
-                if (!currentWorkspace?.id) {
-                    showToast(
-                        "error",
-                        "Workspace indisponível",
-                        "Não foi possível identificar o workspace atual."
-                    );
+                        if (isEditing) {
+                            const originalContent =
+                                contents.find(
+                                    content =>
+                                        content.id ===
+                                        editingContentId
+                                );
 
-                    return;
-                }
-
-                setManualContentSubmitting(true);
-
-                try {
-                    const { data, error } =
-                        await supabaseClient.rpc(
-                            "create_manual_content",
-                            {
-                                workspace_id_value:
-                                    currentWorkspace.id,
-
-                                brand_id_value:
-                                    manualContentBrandInput.value,
-
-                                assigned_to_value:
-                                    null,
-
-                                title_value:
-                                    manualContentTitleInput.value.trim(),
-
-                                brief_value:
-                                    manualContentBriefInput?.value.trim() ||
-                                    null,
-
-                                main_text_value:
-                                    manualContentMainTextInput?.value.trim() ||
-                                    null,
-
-                                content_type_value:
-                                    manualContentTypeInput?.value ||
-                                    "post",
-
-                                target_platforms_value:
-                                    getSelectedManualPlatforms(),
-
-                                metadata_value:
-                                    {}
+                            if (
+                                !originalContent
+                            ) {
+                                throw new Error(
+                                    "Conteúdo não encontrado para edição."
+                                );
                             }
+
+                            const {
+                                data: updatedContent,
+                                error: updateError
+                            } =
+                                await supabaseClient
+                                    .rpc(
+                                        "update_content",
+                                        {
+                                            content_id_value:
+                                                editingContentId,
+
+                                            title_value:
+                                                manualContentTitleInput
+                                                    .value
+                                                    .trim(),
+
+                                            brief_value:
+                                                manualContentBriefInput
+                                                    ?.value
+                                                    .trim() ||
+                                                null,
+
+                                            main_text_value:
+                                                manualContentMainTextInput
+                                                    ?.value
+                                                    .trim() ||
+                                                null,
+
+                                            content_type_value:
+                                                manualContentTypeInput
+                                                    ?.value ||
+                                                "post",
+
+                                            target_platforms_value:
+                                                getSelectedManualPlatforms(),
+
+                                            metadata_value:
+                                                originalContent.metadata &&
+                                                typeof originalContent.metadata ===
+                                                    "object" &&
+                                                !Array.isArray(
+                                                    originalContent.metadata
+                                                )
+                                                    ? originalContent.metadata
+                                                    : {}
+                                        }
+                                    );
+
+                            if (updateError) {
+                                throw updateError;
+                            }
+
+                            data =
+                                updatedContent;
+                        } else {
+                            const {
+                                data: createdContent,
+                                error: createError
+                            } =
+                                await supabaseClient
+                                    .rpc(
+                                        "create_manual_content",
+                                        {
+                                            workspace_id_value:
+                                                currentWorkspace.id,
+
+                                            brand_id_value:
+                                                manualContentBrandInput.value,
+
+                                            assigned_to_value:
+                                                null,
+
+                                            title_value:
+                                                manualContentTitleInput
+                                                    .value
+                                                    .trim(),
+
+                                            brief_value:
+                                                manualContentBriefInput
+                                                    ?.value
+                                                    .trim() ||
+                                                null,
+
+                                            main_text_value:
+                                                manualContentMainTextInput
+                                                    ?.value
+                                                    .trim() ||
+                                                null,
+
+                                            content_type_value:
+                                                manualContentTypeInput
+                                                    ?.value ||
+                                                "post",
+
+                                            target_platforms_value:
+                                                getSelectedManualPlatforms(),
+
+                                            metadata_value:
+                                                {}
+                                        }
+                                    );
+
+                            if (createError) {
+                                throw createError;
+                            }
+
+                            data =
+                                createdContent;
+                        }
+
+                        console.log(
+                            isEditing
+                                ? "Conteúdo atualizado:"
+                                : "Conteúdo manual criado:",
+                            data
                         );
 
-                    if (error) {
-                        throw error;
-                    }
+                        closeManualContentModal();
 
-                    console.log(
-                        "Conteúdo manual criado:",
-                        data
-                    );
+                        await loadContentData();
 
-                    closeManualContentModal();
+                        showToast(
+                            "success",
+                            isEditing
+                                ? "Conteúdo atualizado"
+                                : "Conteúdo criado",
+                            isEditing
+                                ? "As alterações foram guardadas com sucesso."
+                                : "O conteúdo foi criado como rascunho."
+                        );
+                    } catch (error) {
+                        console.error(
+                            isEditing
+                                ? "Erro ao atualizar conteúdo:"
+                                : "Erro ao criar conteúdo manual:",
+                            error
+                        );
 
-                    await loadContentData();
+                        const message =
+                            error?.message ||
+                            (
+                                isEditing
+                                    ? "Não foi possível atualizar o conteúdo."
+                                    : "Não foi possível criar o conteúdo."
+                            );
 
-                    showToast(
-                        "success",
-                        "Conteúdo criado",
-                        "O conteúdo foi criado como rascunho."
-                    );
-                } catch (error) {
-                    console.error(
-                        "Erro ao criar conteúdo manual:",
-                        error
-                    );
+                        if (
+                            manualContentFormError
+                        ) {
+                            manualContentFormError
+                                .textContent =
+                                message;
 
-                    const message =
-                        error?.message ||
-                        "Não foi possível criar o conteúdo.";
+                            manualContentFormError
+                                .classList
+                                .remove(
+                                    "hidden"
+                                );
+                        }
 
-                    if (manualContentFormError) {
-                        manualContentFormError.textContent =
-                            message;
-
-                        manualContentFormError.classList.remove(
-                            "hidden"
+                        showToast(
+                            "error",
+                            isEditing
+                                ? "Erro ao atualizar conteúdo"
+                                : "Erro ao criar conteúdo",
+                            message
+                        );
+                    } finally {
+                        setManualContentSubmitting(
+                            false
                         );
                     }
-
-                    showToast(
-                        "error",
-                        "Erro ao criar conteúdo",
-                        message
-                    );
-                } finally {
-                    setManualContentSubmitting(false);
                 }
-            }
-        );        
+            );
 
         /* ==================================================
-           Eventos
+           Eventos dos filtros
         ================================================== */
 
         contentSearchInput
@@ -1806,108 +2719,549 @@ document.addEventListener(
                 }
             );
 
-        contentGrid?.addEventListener(
+
+    async function restoreContent(
+        contentId
+    ) {
+        if (!contentId) {
+            return;
+        }
+
+        try {
+            const {
+                data,
+                error
+            } = await supabaseClient.rpc(
+                "restore_content",
+                {
+                    content_id_value:
+                        contentId
+                }
+            );
+
+            if (error) {
+                throw error;
+            }
+
+            console.log(
+                "Conteúdo restaurado:",
+                data
+            );
+
+            await loadContentData();
+
+            showToast(
+                "success",
+                "Conteúdo restaurado",
+                "O conteúdo voltou para a listagem ativa."
+            );
+        } catch (error) {
+            console.error(
+                "Erro ao restaurar conteúdo:",
+                error
+            );
+
+            showToast(
+                "error",
+                "Erro ao restaurar",
+                error?.message ||
+                "Não foi possível restaurar o conteúdo."
+            );
+        }
+    }
+
+
+    /* ==================================================
+    Duplicar conteúdo
+    ================================================== */
+
+    async function duplicateContent(contentId) {
+
+        const content =
+            contents.find(
+                item =>
+                    item.id === contentId
+            );
+
+
+        if (!content) {
+
+            showToast(
+                "error",
+                "Conteúdo não encontrado",
+                "Não foi possível duplicar este conteúdo."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .rpc(
+                    "duplicate_content",
+                    {
+                        content_id_value:
+                            contentId
+                    }
+                );
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            console.log(
+                "Conteúdo duplicado:",
+                data
+            );
+
+
+            await loadContentData();
+
+
+            showToast(
+                "success",
+                "Conteúdo duplicado",
+                "Uma cópia do conteúdo foi criada com sucesso."
+            );
+
+
+        } catch(error) {
+
+            console.error(
+                "Erro ao duplicar conteúdo:",
+                error
+            );
+
+
+            showToast(
+                "error",
+                "Erro ao duplicar",
+                error.message ||
+                "Não foi possível duplicar o conteúdo."
+            );
+
+        }
+
+    }  
+    
+    /* ==================================================
+    Ações dos conteúdos
+    ================================================== */
+
+    async function archiveContent(
+        contentId
+    ) {
+
+        try {
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .rpc(
+                    "archive_content",
+                    {
+                        content_id_value:
+                            contentId
+                    }
+                );
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            console.log(
+                "Conteúdo arquivado:",
+                data
+            );
+
+
+            await loadContentData();
+
+
+            showToast(
+                "success",
+                "Conteúdo arquivado",
+                "O conteúdo foi movido para arquivados."
+            );
+
+
+        } catch(error) {
+
+            console.error(
+                "Erro ao arquivar conteúdo:",
+                error
+            );
+
+
+            showToast(
+                "error",
+                "Erro ao arquivar",
+                error.message ||
+                "Não foi possível arquivar o conteúdo."
+            );
+
+        }
+
+    }    
+
+
+    /* ==================================================
+    Eventos dos cartões
+    ================================================== */
+
+    contentGrid
+        ?.addEventListener(
             "click",
-            event => {
-                const viewButton =
+            async event => {
+
+                // Abrir / fechar menu dos 3 pontos
+                const menuButton =
                     event.target.closest(
-                        '[data-content-action="view"]'
+                        "[data-content-menu-toggle]"
                     );
 
-                if (!viewButton) {
+
+                if (menuButton) {
+
+                    const currentCard =
+                        menuButton.closest(
+                            "[data-content-id]"
+                        );
+
+
+                    const currentMenu =
+                        currentCard?.querySelector(
+                            ".content-menu"
+                        );
+
+
+                    document
+                        .querySelectorAll(
+                            ".content-menu"
+                        )
+                        .forEach(
+                            menu => {
+
+                                if (
+                                    menu !== currentMenu
+                                ) {
+                                    menu.classList.add(
+                                        "hidden"
+                                    );
+                                }
+
+                            }
+                        );
+
+
+                    currentMenu?.classList.toggle(
+                        "hidden"
+                    );
+
+
                     return;
                 }
 
+
+
+                // Ações do conteúdo
+                const actionButton =
+                    event.target.closest(
+                        "[data-content-action]"
+                    );
+
+
+                if (!actionButton) {
+                    return;
+                }
+
+
                 const card =
-                    viewButton.closest(
+                    actionButton.closest(
                         "[data-content-id]"
                     );
 
+
                 const contentId =
-                    card?.dataset
-                        .contentId;
+                    card?.dataset.contentId;
+
+
+                const action =
+                    actionButton.dataset
+                        .contentAction;
+
 
                 if (!contentId) {
                     return;
                 }
 
-                openContentDetails(
-                    contentId
-                );
+
+
+                if (
+                    action === "view"
+                ) {
+
+                    openContentDetails(
+                        contentId
+                    );
+
+                    return;
+                }
+
+
+
+                if (
+                    action === "edit"
+                ) {
+
+                    openEditContentModal(
+                        contentId
+                    );
+
+                    return;
+                }
+
+
+
+                if (
+                    action === "duplicate"
+                ) {
+
+                    duplicateContent(
+                        contentId
+                    );
+
+                    return;
+                }
+
+
+
+                if (
+                    action === "archive"
+                ) {
+
+                    archiveContent(
+                        contentId
+                    );
+
+                    return;
+                }
+
+                if (
+                    action === "restore"
+                ) {
+                    await restoreContent(
+                        contentId
+                    );
+
+                    return;
+                }
+
+                if (
+                    action === "delete"
+                ) {
+
+                    openDeleteContentModal(
+                        contentId
+                    );
+
+                    return;
+                }
+
             }
         );
 
-        createContentButton?.addEventListener(
-            "click",
-            openManualContentModal
-        );
 
-        manualContentModalClose?.addEventListener(
-            "click",
-            closeManualContentModal
-        );
 
-        manualContentCancel?.addEventListener(
-            "click",
-            closeManualContentModal
-        );
+    /* Fecha menus ao clicar fora */
 
-        manualContentModal?.addEventListener(
-            "click",
-            event => {
-                if (
-                    event.target ===
-                    manualContentModal
-                ) {
+    document.addEventListener(
+        "click",
+        event => {
+
+            if (
+                !event.target.closest(
+                    ".content-menu-wrapper"
+                )
+            ) {
+
+                document
+                    .querySelectorAll(
+                        ".content-menu"
+                    )
+                    .forEach(
+                        menu => {
+
+                            menu.classList.add(
+                                "hidden"
+                            );
+
+                        }
+                    );
+
+            }
+
+        }
+    );
+
+
+    
+    deleteContentCancel
+    ?.addEventListener(
+        "click",
+        () => {
+
+            closeDeleteContentModal();
+
+        }
+    );
+
+
+
+    deleteContentConfirm
+    ?.addEventListener(
+        "click",
+        () => {
+
+            deleteContent();
+
+        }
+    );
+
+        /* ==================================================
+           Eventos do modal manual
+        ================================================== */
+
+        createContentButton
+            ?.addEventListener(
+                "click",
+                openManualContentModal
+            );
+
+        manualContentModalClose
+            ?.addEventListener(
+                "click",
+                event => {
+                    event.preventDefault();
+
                     closeManualContentModal();
                 }
-            }
-        );
+            );
 
-        manualContentBrandInput?.addEventListener(
-            "change",
-            () => {
-                manualContentBrandInput.classList.remove(
-                    "is-invalid"
-                );
+        manualContentCancel
+            ?.addEventListener(
+                "click",
+                event => {
+                    event.preventDefault();
 
-                if (manualContentBrandError) {
-                    manualContentBrandError.textContent =
-                        "";
+                    closeManualContentModal();
                 }
-            }
-        );
+            );
 
-        manualContentTitleInput?.addEventListener(
-            "input",
-            () => {
-                manualContentTitleInput.classList.remove(
-                    "is-invalid"
-                );
-
-                if (manualContentTitleError) {
-                    manualContentTitleError.textContent =
-                        "";
+        manualContentModal
+            ?.addEventListener(
+                "click",
+                event => {
+                    if (
+                        event.target ===
+                        manualContentModal
+                    ) {
+                        closeManualContentModal();
+                    }
                 }
-            }
-        );
+            );
+
+        manualContentBrandInput
+            ?.addEventListener(
+                "change",
+                () => {
+                    manualContentBrandInput
+                        .classList
+                        .remove(
+                            "is-invalid"
+                        );
+
+                    if (
+                        manualContentBrandError
+                    ) {
+                        manualContentBrandError
+                            .textContent =
+                            "";
+                    }
+                }
+            );
+
+        manualContentTitleInput
+            ?.addEventListener(
+                "input",
+                () => {
+                    manualContentTitleInput
+                        .classList
+                        .remove(
+                            "is-invalid"
+                        );
+
+                    if (
+                        manualContentTitleError
+                    ) {
+                        manualContentTitleError
+                            .textContent =
+                            "";
+                    }
+                }
+            );
+
+        /* ==================================================
+           Eventos do modal de detalhes
+        ================================================== */
 
         contentDetailsClose
             ?.addEventListener(
                 "click",
-                () =>
-                    closeModal(
-                        contentDetailsModal
-                    )
+                event => {
+                    event.preventDefault();
+
+                    closeContentDetailsModal();
+                }
             );
 
         contentDetailsCancel
             ?.addEventListener(
                 "click",
-                () =>
-                    closeModal(
-                        contentDetailsModal
-                    )
+                event => {
+                    event.preventDefault();
+
+                    closeContentDetailsModal();
+                }
+            );
+
+        contentDetailsEdit
+            ?.addEventListener(
+                "click",
+                event => {
+                    event.preventDefault();
+
+                    const contentId =
+                        selectedContentId;
+
+                    if (!contentId) {
+                        return;
+                    }
+
+                    openEditContentModal(
+                        contentId
+                    );
+                }
             );
 
         contentDetailsModal
@@ -1918,9 +3272,7 @@ document.addEventListener(
                         event.target ===
                         contentDetailsModal
                     ) {
-                        closeModal(
-                            contentDetailsModal
-                        );
+                        closeContentDetailsModal();
                     }
                 }
             );
@@ -1971,6 +3323,10 @@ document.addEventListener(
                 closeSidebar
             );
 
+        /* ==================================================
+           Tecla Escape
+        ================================================== */
+
         document.addEventListener(
             "keydown",
             event => {
@@ -1989,6 +3345,7 @@ document.addEventListener(
                         )
                 ) {
                     closeManualContentModal();
+
                     return;
                 }
 
@@ -1999,9 +3356,7 @@ document.addEventListener(
                             "is-open"
                         )
                 ) {
-                    closeModal(
-                        contentDetailsModal
-                    );
+                    closeContentDetailsModal();
 
                     return;
                 }
@@ -2033,7 +3388,9 @@ document.addEventListener(
                 error
             );
 
-            setContentView(null);
+            setContentView(
+                null
+            );
 
             showToast(
                 "error",
@@ -2043,6 +3400,7 @@ document.addEventListener(
             );
         }
 
-        window.lucide?.createIcons();
+        window.lucide
+            ?.createIcons();
     }
 );

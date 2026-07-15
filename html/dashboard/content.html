@@ -875,6 +875,15 @@
                     Fechar
                 </button>
 
+                <button
+                    class="btn btn-primary"
+                    id="content-details-edit"
+                    type="button"
+                >
+                    <i data-lucide="pencil"></i>
+                    Editar conteúdo
+                </button>
+
             </div>
 
         </div>
@@ -927,6 +936,11 @@
                 class="manual-content-form"
                 id="manual-content-form"
                 novalidate
+            >
+
+            <input
+                type="hidden"
+                id="manual-content-id"
             >
 
                 <div class="content-form-grid">
@@ -1185,6 +1199,62 @@
                 </div>
 
             </form>
+
+        </div>
+
+    </div>
+
+        <!-- Modal confirmação exclusão -->
+    <div
+        class="modal-overlay hidden"
+        id="delete-content-modal"
+        aria-hidden="true"
+    >
+
+        <div class="modal-card delete-modal">
+
+            <div class="modal-header">
+
+                <h2>
+                    Excluir conteúdo
+                </h2>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <p>
+                    Tem certeza que deseja excluir este conteúdo?
+                </p>
+
+                <div class="delete-warning-box">
+                    Esta ação não poderá ser desfeita.
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="button-secondary"
+                    id="delete-content-cancel"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                    type="button"
+                    class="button-danger"
+                    id="delete-content-confirm"
+                >
+                    Excluir definitivamente
+                </button>
+
+            </div>
 
         </div>
 
