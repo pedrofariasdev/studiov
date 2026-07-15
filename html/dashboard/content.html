@@ -883,12 +883,312 @@
 
     <!-- Toasts -->
 
+    <!-- ==================================================
+        Modal: criar conteúdo manual
+    =================================================== -->
+
     <div
-        class="toast-container"
-        id="toast-container"
-        aria-live="polite"
-        aria-atomic="true"
-    ></div>
+        class="modal-overlay hidden"
+        id="manual-content-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="manual-content-modal-title"
+        aria-hidden="true"
+    >
+
+        <div class="modal-container manual-content-modal-container">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="modal-eyebrow">
+                        Produção
+                    </span>
+
+                    <h2 id="manual-content-modal-title">
+                        Novo conteúdo
+                    </h2>
+
+                </div>
+
+                <button
+                    class="modal-close-button"
+                    id="manual-content-modal-close"
+                    type="button"
+                    aria-label="Fechar janela"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <form
+                class="manual-content-form"
+                id="manual-content-form"
+                novalidate
+            >
+
+                <div class="content-form-grid">
+
+                    <div class="form-field">
+
+                        <label for="manual-content-brand">
+                            Marca
+                            <span aria-hidden="true">*</span>
+                        </label>
+
+                        <select
+                            id="manual-content-brand"
+                            required
+                        >
+                            <option value="">
+                                Selecione uma marca
+                            </option>
+                        </select>
+
+                        <small
+                            class="form-error"
+                            id="manual-content-brand-error"
+                        ></small>
+
+                    </div>
+
+                    <div class="form-field">
+
+                        <label for="manual-content-type">
+                            Tipo
+                        </label>
+
+                        <select id="manual-content-type">
+
+                            <option value="post">
+                                Publicação
+                            </option>
+
+                            <option value="carousel">
+                                Carrossel
+                            </option>
+
+                            <option value="story">
+                                Story
+                            </option>
+
+                            <option value="reel">
+                                Reel
+                            </option>
+
+                            <option value="short">
+                                Short
+                            </option>
+
+                            <option value="video">
+                                Vídeo
+                            </option>
+
+                            <option value="article">
+                                Artigo
+                            </option>
+
+                            <option value="email">
+                                Email
+                            </option>
+
+                            <option value="other">
+                                Outro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-field form-field-full">
+
+                        <label for="manual-content-title">
+                            Título
+                            <span aria-hidden="true">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="manual-content-title"
+                            minlength="2"
+                            maxlength="160"
+                            placeholder="Ex.: Reel de apresentação da marca"
+                            required
+                        >
+
+                        <small
+                            class="form-error"
+                            id="manual-content-title-error"
+                        ></small>
+
+                    </div>
+
+                    <div class="form-field form-field-full">
+
+                        <label for="manual-content-brief">
+                            Brief
+                        </label>
+
+                        <textarea
+                            id="manual-content-brief"
+                            rows="4"
+                            maxlength="10000"
+                            placeholder="Objetivo, público e orientações do conteúdo."
+                        ></textarea>
+
+                    </div>
+
+                    <div class="form-field form-field-full">
+
+                        <label for="manual-content-main-text">
+                            Texto principal
+                        </label>
+
+                        <textarea
+                            id="manual-content-main-text"
+                            rows="7"
+                            placeholder="Escreva a legenda, roteiro ou texto principal..."
+                        ></textarea>
+
+                    </div>
+
+                    <fieldset class="form-field form-field-full">
+
+                        <legend>
+                            Plataformas
+                        </legend>
+
+                        <div class="content-platform-options">
+
+                            <label class="content-platform-option">
+                                <input
+                                    type="checkbox"
+                                    name="manual_content_platforms"
+                                    value="instagram"
+                                >
+                                <span>Instagram</span>
+                            </label>
+
+                            <label class="content-platform-option">
+                                <input
+                                    type="checkbox"
+                                    name="manual_content_platforms"
+                                    value="facebook"
+                                >
+                                <span>Facebook</span>
+                            </label>
+
+                            <label class="content-platform-option">
+                                <input
+                                    type="checkbox"
+                                    name="manual_content_platforms"
+                                    value="linkedin"
+                                >
+                                <span>LinkedIn</span>
+                            </label>
+
+                            <label class="content-platform-option">
+                                <input
+                                    type="checkbox"
+                                    name="manual_content_platforms"
+                                    value="tiktok"
+                                >
+                                <span>TikTok</span>
+                            </label>
+
+                            <label class="content-platform-option">
+                                <input
+                                    type="checkbox"
+                                    name="manual_content_platforms"
+                                    value="youtube"
+                                >
+                                <span>YouTube</span>
+                            </label>
+
+                            <label class="content-platform-option">
+                                <input
+                                    type="checkbox"
+                                    name="manual_content_platforms"
+                                    value="pinterest"
+                                >
+                                <span>Pinterest</span>
+                            </label>
+
+                            <label class="content-platform-option">
+                                <input
+                                    type="checkbox"
+                                    name="manual_content_platforms"
+                                    value="threads"
+                                >
+                                <span>Threads</span>
+                            </label>
+
+                            <label class="content-platform-option">
+                                <input
+                                    type="checkbox"
+                                    name="manual_content_platforms"
+                                    value="x"
+                                >
+                                <span>X</span>
+                            </label>
+
+                            <label class="content-platform-option">
+                                <input
+                                    type="checkbox"
+                                    name="manual_content_platforms"
+                                    value="blog"
+                                >
+                                <span>Blog</span>
+                            </label>
+
+                            <label class="content-platform-option">
+                                <input
+                                    type="checkbox"
+                                    name="manual_content_platforms"
+                                    value="email"
+                                >
+                                <span>Email</span>
+                            </label>
+
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+                <div
+                    class="form-general-error hidden"
+                    id="manual-content-form-error"
+                    role="alert"
+                ></div>
+
+                <div class="modal-footer">
+
+                    <button
+                        class="button button-secondary"
+                        id="manual-content-cancel"
+                        type="button"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        class="btn btn-primary"
+                        id="manual-content-submit"
+                        type="submit"
+                    >
+                        Criar conteúdo
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
 
     <!-- Lucide -->
 

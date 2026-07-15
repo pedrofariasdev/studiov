@@ -115,6 +115,71 @@ document.addEventListener(
                 "create-content-button"
             );
 
+        const manualContentModal =
+            document.getElementById(
+                "manual-content-modal"
+            );
+
+        const manualContentModalClose =
+            document.getElementById(
+                "manual-content-modal-close"
+            );
+
+        const manualContentForm =
+            document.getElementById(
+                "manual-content-form"
+            );
+
+        const manualContentBrandInput =
+            document.getElementById(
+                "manual-content-brand"
+            );
+
+        const manualContentBrandError =
+            document.getElementById(
+                "manual-content-brand-error"
+            );
+
+        const manualContentTypeInput =
+            document.getElementById(
+                "manual-content-type"
+            );
+
+        const manualContentTitleInput =
+            document.getElementById(
+                "manual-content-title"
+            );
+
+        const manualContentTitleError =
+            document.getElementById(
+                "manual-content-title-error"
+            );
+
+        const manualContentBriefInput =
+            document.getElementById(
+                "manual-content-brief"
+            );
+
+        const manualContentMainTextInput =
+            document.getElementById(
+                "manual-content-main-text"
+            );
+
+        const manualContentFormError =
+            document.getElementById(
+                "manual-content-form-error"
+            );
+
+        const manualContentCancel =
+            document.getElementById(
+                "manual-content-cancel"
+            );
+
+        const manualContentSubmit =
+            document.getElementById(
+                "manual-content-submit"
+            );
+
         /* ==================================================
            Contadores
         ================================================== */
@@ -1073,6 +1138,198 @@ document.addEventListener(
             );
         }
 
+    /* ==================================================
+    Criação manual
+    ================================================== */
+
+    function populateManualContentBrands() {
+        if (!manualContentBrandInput) {
+            return;
+        }
+
+        manualContentBrandInput.innerHTML = `
+            <option value="">
+                Selecione uma marca
+            </option>
+        `;
+
+        brands
+            .filter(
+                brand =>
+                    brand.status === "active"
+            )
+            .forEach(brand => {
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value = brand.id;
+                option.textContent =
+                    brand.name;
+
+                manualContentBrandInput.appendChild(
+                    option
+                );
+            });
+    }
+
+    function getSelectedManualPlatforms() {
+        return Array.from(
+            document.querySelectorAll(
+                'input[name="manual_content_platforms"]:checked'
+            )
+        ).map(input => input.value);
+    }
+
+    function clearManualContentErrors() {
+        manualContentBrandInput?.classList.remove(
+            "is-invalid"
+        );
+
+        manualContentTitleInput?.classList.remove(
+            "is-invalid"
+        );
+
+        if (manualContentBrandError) {
+            manualContentBrandError.textContent =
+                "";
+        }
+
+        if (manualContentTitleError) {
+            manualContentTitleError.textContent =
+                "";
+        }
+
+        if (manualContentFormError) {
+            manualContentFormError.textContent =
+                "";
+
+            manualContentFormError.classList.add(
+                "hidden"
+            );
+        }
+    }
+
+    function resetManualContentForm() {
+        manualContentForm?.reset();
+
+        if (manualContentTypeInput) {
+            manualContentTypeInput.value =
+                "post";
+        }
+
+        if (manualContentSubmit) {
+            manualContentSubmit.disabled =
+                false;
+
+            manualContentSubmit.textContent =
+                "Criar conteúdo";
+        }
+
+        clearManualContentErrors();
+    }
+
+    function openManualContentModal() {
+        const activeBrands =
+            brands.filter(
+                brand =>
+                    brand.status === "active"
+            );
+
+        if (activeBrands.length === 0) {
+            showToast(
+                "warning",
+                "Nenhuma marca disponível",
+                "Crie ou restaure uma marca antes de criar conteúdos."
+            );
+
+            return;
+        }
+
+        resetManualContentForm();
+        populateManualContentBrands();
+
+        openModal(manualContentModal);
+
+        window.setTimeout(
+            () =>
+                manualContentTitleInput?.focus(),
+            100
+        );
+    }
+
+    function closeManualContentModal() {
+        closeModal(manualContentModal);
+        resetManualContentForm();
+    }
+
+    function setManualContentSubmitting(
+        isSubmitting
+    ) {
+        if (!manualContentSubmit) {
+            return;
+        }
+
+        manualContentSubmit.disabled =
+            isSubmitting;
+
+        manualContentSubmit.setAttribute(
+            "aria-busy",
+            String(isSubmitting)
+        );
+
+        manualContentSubmit.textContent =
+            isSubmitting
+                ? "A criar..."
+                : "Criar conteúdo";
+    }
+
+    function validateManualContentForm() {
+        clearManualContentErrors();
+
+        let isValid = true;
+
+        const brandId =
+            manualContentBrandInput?.value ||
+            "";
+
+        const title =
+            manualContentTitleInput?.value.trim() ||
+            "";
+
+        if (!brandId) {
+            manualContentBrandInput?.classList.add(
+                "is-invalid"
+            );
+
+            if (manualContentBrandError) {
+                manualContentBrandError.textContent =
+                    "Selecione uma marca.";
+            }
+
+            isValid = false;
+        }
+
+        if (
+            title.length < 2 ||
+            title.length > 160
+        ) {
+            manualContentTitleInput?.classList.add(
+                "is-invalid"
+            );
+
+            if (manualContentTitleError) {
+                manualContentTitleError.textContent =
+                    "O título deve ter entre 2 e 160 caracteres.";
+            }
+
+            isValid = false;
+        }
+
+        return isValid;
+    }        
+
         /* ==================================================
            Carregamento
         ================================================== */
@@ -1151,6 +1408,7 @@ document.addEventListener(
                 );
 
                 populateBrandFilter();
+                populateManualContentBrands();
                 updateContentCounters();
                 applyContentFilters();
 
@@ -1366,6 +1624,118 @@ document.addEventListener(
             window.lucide?.createIcons();
         }
 
+        manualContentForm?.addEventListener(
+            "submit",
+            async event => {
+                event.preventDefault();
+
+                if (!validateManualContentForm()) {
+                    showToast(
+                        "error",
+                        "Verifique o formulário",
+                        "Existem campos obrigatórios que precisam ser corrigidos."
+                    );
+
+                    return;
+                }
+
+                if (!currentWorkspace?.id) {
+                    showToast(
+                        "error",
+                        "Workspace indisponível",
+                        "Não foi possível identificar o workspace atual."
+                    );
+
+                    return;
+                }
+
+                setManualContentSubmitting(true);
+
+                try {
+                    const { data, error } =
+                        await supabaseClient.rpc(
+                            "create_manual_content",
+                            {
+                                workspace_id_value:
+                                    currentWorkspace.id,
+
+                                brand_id_value:
+                                    manualContentBrandInput.value,
+
+                                assigned_to_value:
+                                    null,
+
+                                title_value:
+                                    manualContentTitleInput.value.trim(),
+
+                                brief_value:
+                                    manualContentBriefInput?.value.trim() ||
+                                    null,
+
+                                main_text_value:
+                                    manualContentMainTextInput?.value.trim() ||
+                                    null,
+
+                                content_type_value:
+                                    manualContentTypeInput?.value ||
+                                    "post",
+
+                                target_platforms_value:
+                                    getSelectedManualPlatforms(),
+
+                                metadata_value:
+                                    {}
+                            }
+                        );
+
+                    if (error) {
+                        throw error;
+                    }
+
+                    console.log(
+                        "Conteúdo manual criado:",
+                        data
+                    );
+
+                    closeManualContentModal();
+
+                    await loadContentData();
+
+                    showToast(
+                        "success",
+                        "Conteúdo criado",
+                        "O conteúdo foi criado como rascunho."
+                    );
+                } catch (error) {
+                    console.error(
+                        "Erro ao criar conteúdo manual:",
+                        error
+                    );
+
+                    const message =
+                        error?.message ||
+                        "Não foi possível criar o conteúdo.";
+
+                    if (manualContentFormError) {
+                        manualContentFormError.textContent =
+                            message;
+
+                        manualContentFormError.classList.remove(
+                            "hidden"
+                        );
+                    }
+
+                    showToast(
+                        "error",
+                        "Erro ao criar conteúdo",
+                        message
+                    );
+                } finally {
+                    setManualContentSubmitting(false);
+                }
+            }
+        );        
+
         /* ==================================================
            Eventos
         ================================================== */
@@ -1467,17 +1837,60 @@ document.addEventListener(
             }
         );
 
-        createContentButton
-            ?.addEventListener(
-                "click",
-                () => {
-                    showToast(
-                        "info",
-                        "Criação manual",
-                        "A criação manual será implementada no próximo passo."
-                    );
+        createContentButton?.addEventListener(
+            "click",
+            openManualContentModal
+        );
+
+        manualContentModalClose?.addEventListener(
+            "click",
+            closeManualContentModal
+        );
+
+        manualContentCancel?.addEventListener(
+            "click",
+            closeManualContentModal
+        );
+
+        manualContentModal?.addEventListener(
+            "click",
+            event => {
+                if (
+                    event.target ===
+                    manualContentModal
+                ) {
+                    closeManualContentModal();
                 }
-            );
+            }
+        );
+
+        manualContentBrandInput?.addEventListener(
+            "change",
+            () => {
+                manualContentBrandInput.classList.remove(
+                    "is-invalid"
+                );
+
+                if (manualContentBrandError) {
+                    manualContentBrandError.textContent =
+                        "";
+                }
+            }
+        );
+
+        manualContentTitleInput?.addEventListener(
+            "input",
+            () => {
+                manualContentTitleInput.classList.remove(
+                    "is-invalid"
+                );
+
+                if (manualContentTitleError) {
+                    manualContentTitleError.textContent =
+                        "";
+                }
+            }
+        );
 
         contentDetailsClose
             ?.addEventListener(
@@ -1565,6 +1978,17 @@ document.addEventListener(
                     event.key !==
                     "Escape"
                 ) {
+                    return;
+                }
+
+                if (
+                    manualContentModal
+                        ?.classList
+                        .contains(
+                            "is-open"
+                        )
+                ) {
+                    closeManualContentModal();
                     return;
                 }
 
