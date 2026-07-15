@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Conteúdos | StudioV</title>
+
+    <meta
+        name="description"
+        content="Crie, organize e acompanhe os conteúdos da StudioV."
+    >
+
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#6D28D9">
+
+    <!-- Favicons -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="96x96"
+        href="/assets/icons/favicon-96x96.png"
+    >
+
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="/assets/icons/favicon.svg"
+    >
+
+    <link
+        rel="icon"
+        href="/assets/icons/favicon.ico"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="/assets/icons/apple-touch-icon.png"
+    >
+
+    <link
+        rel="manifest"
+        href="/assets/icons/site.webmanifest"
+    >
+
+    <!-- Fontes -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS global -->
+
+    <link
+        rel="stylesheet"
+        href="/css/globals/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/globals/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/globals/typography.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/globals/utilities.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/components/button.css"
+    >
+
+    <!-- Dashboard -->
+
+    <link
+        rel="stylesheet"
+        href="/css/pages/dashboard.css"
+    >
+
+    <!-- Conteúdos -->
+
+    <link
+        rel="stylesheet"
+        href="/css/pages/content.css"
+    >
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- ==================================================
+             Sidebar
+        =================================================== -->
+
+        <aside
+            class="dashboard-sidebar"
+            id="dashboard-sidebar"
+            aria-label="Navegação principal"
+        >
+
+            <div class="sidebar-header">
+
+                <a
+                    href="/html/dashboard/home.html"
+                    class="sidebar-logo"
+                    aria-label="StudioV Dashboard"
+                >
+                    <img
+                        src="/assets/logos/svg/logo-studiov2000.png"
+                        alt="StudioV"
+                    >
+                </a>
+
+                <button
+                    class="sidebar-close"
+                    id="sidebar-close"
+                    type="button"
+                    aria-label="Fechar menu"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <nav class="sidebar-navigation">
+
+                <div class="sidebar-section">
+
+                    <span class="sidebar-section-title">
+                        Principal
+                    </span>
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/home.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="layout-dashboard"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/projects.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="building-2"></i>
+                                <span>Workspace</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/brands.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="palette"></i>
+                                <span>Marcas</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/clients.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="users"></i>
+                                <span>Clientes</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="sidebar-section">
+
+                    <span class="sidebar-section-title">
+                        Conteúdo
+                    </span>
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/planner.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="clipboard-list"></i>
+                                <span>Planner</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/calendar.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="calendar-days"></i>
+                                <span>Calendário</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/content.html"
+                                class="sidebar-link is-active"
+                                aria-current="page"
+                            >
+                                <i data-lucide="files"></i>
+                                <span>Conteúdos</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/media.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="images"></i>
+                                <span>Biblioteca</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/publishing.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="send"></i>
+                                <span>Publicações</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="sidebar-section">
+
+                    <span class="sidebar-section-title">
+                        Inteligência
+                    </span>
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/ai.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="sparkles"></i>
+                                <span>Inteligência Artificial</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/analytics.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="chart-no-axes-combined"></i>
+                                <span>Analytics</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="sidebar-section sidebar-section-bottom">
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/settings.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="settings"></i>
+                                <span>Configurações</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </nav>
+
+            <div class="sidebar-user">
+
+                <div
+                    class="sidebar-user-avatar"
+                    id="sidebar-user-avatar"
+                    aria-hidden="true"
+                >
+                    U
+                </div>
+
+                <div class="sidebar-user-info">
+
+                    <strong id="sidebar-user-name">
+                        Utilizador
+                    </strong>
+
+                    <span id="sidebar-user-email">
+                        utilizador@studiov.pt
+                    </span>
+
+                </div>
+
+                <a
+                    href="/html/dashboard/profile.html"
+                    class="sidebar-user-action"
+                    aria-label="Abrir perfil"
+                >
+                    <i data-lucide="chevron-right"></i>
+                </a>
+
+            </div>
+
+        </aside>
+
+        <div
+            class="sidebar-overlay"
+            id="sidebar-overlay"
+            aria-hidden="true"
+        ></div>
+
+        <!-- ==================================================
+             Área principal
+        =================================================== -->
+
+        <div class="dashboard-main">
+
+            <header class="dashboard-topbar">
+
+                <div class="topbar-left">
+
+                    <button
+                        class="topbar-menu-button"
+                        id="topbar-menu-button"
+                        type="button"
+                        aria-label="Abrir menu"
+                        aria-controls="dashboard-sidebar"
+                        aria-expanded="false"
+                    >
+                        <i data-lucide="menu"></i>
+                    </button>
+
+                    <div class="workspace-selector">
+
+                        <button
+                            class="workspace-selector-button"
+                            id="workspace-selector-button"
+                            type="button"
+                            aria-haspopup="listbox"
+                            aria-expanded="false"
+                        >
+
+                            <span class="workspace-selector-icon">
+                                <i data-lucide="building-2"></i>
+                            </span>
+
+                            <span class="workspace-selector-content">
+
+                                <small>
+                                    Workspace
+                                </small>
+
+                                <strong id="current-workspace-name">
+                                    Meu Workspace
+                                </strong>
+
+                            </span>
+
+                            <i data-lucide="chevrons-up-down"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="topbar-actions">
+
+                    <button
+                        class="topbar-icon-button"
+                        id="global-search-button"
+                        type="button"
+                        aria-label="Pesquisar"
+                    >
+                        <i data-lucide="search"></i>
+                    </button>
+
+                    <a
+                        href="/html/dashboard/notifications.html"
+                        class="topbar-icon-button"
+                        aria-label="Notificações"
+                    >
+                        <i data-lucide="bell"></i>
+                    </a>
+
+                    <a
+                        href="/html/dashboard/profile.html"
+                        class="topbar-avatar"
+                        id="topbar-avatar"
+                        aria-label="Abrir perfil"
+                    >
+                        U
+                    </a>
+
+                </div>
+
+            </header>
+
+            <main class="dashboard-content content-page">
+
+                <!-- Cabeçalho -->
+
+                <section class="page-header">
+
+                    <div class="page-header-content">
+
+                        <span class="page-eyebrow">
+                            Produção
+                        </span>
+
+                        <h1>
+                            Conteúdos
+                        </h1>
+
+                        <p>
+                            Acompanhe os conteúdos criados manualmente
+                            ou convertidos a partir do Planner.
+                        </p>
+
+                    </div>
+
+                    <div class="page-header-actions">
+
+                        <button
+                            class="btn btn-primary"
+                            id="create-content-button"
+                            type="button"
+                        >
+                            <i data-lucide="plus"></i>
+                            Novo conteúdo
+                        </button>
+
+                    </div>
+
+                </section>
+
+                <!-- Resumo -->
+
+                <section
+                    class="content-summary"
+                    aria-label="Resumo dos conteúdos"
+                >
+
+                    <article class="content-summary-card">
+
+                        <div class="content-summary-icon">
+                            <i data-lucide="files"></i>
+                        </div>
+
+                        <div>
+                            <span>Total</span>
+                            <strong id="content-total-count">0</strong>
+                        </div>
+
+                    </article>
+
+                    <article class="content-summary-card">
+
+                        <div class="content-summary-icon">
+                            <i data-lucide="file-pen-line"></i>
+                        </div>
+
+                        <div>
+                            <span>Rascunhos</span>
+                            <strong id="content-draft-count">0</strong>
+                        </div>
+
+                    </article>
+
+                    <article class="content-summary-card">
+
+                        <div class="content-summary-icon">
+                            <i data-lucide="scan-eye"></i>
+                        </div>
+
+                        <div>
+                            <span>Em revisão</span>
+                            <strong id="content-review-count">0</strong>
+                        </div>
+
+                    </article>
+
+                    <article class="content-summary-card">
+
+                        <div class="content-summary-icon">
+                            <i data-lucide="send"></i>
+                        </div>
+
+                        <div>
+                            <span>Publicados</span>
+                            <strong id="content-published-count">0</strong>
+                        </div>
+
+                    </article>
+
+                </section>
+
+                <!-- Ferramentas -->
+
+                <section class="content-toolbar">
+
+                    <div class="content-search">
+
+                        <label
+                            for="content-search-input"
+                            class="sr-only"
+                        >
+                            Pesquisar conteúdos
+                        </label>
+
+                        <i data-lucide="search"></i>
+
+                        <input
+                            type="search"
+                            id="content-search-input"
+                            placeholder="Pesquisar por título ou texto..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                    <div class="content-filters">
+
+                        <label
+                            for="content-brand-filter"
+                            class="sr-only"
+                        >
+                            Filtrar por marca
+                        </label>
+
+                        <select id="content-brand-filter">
+
+                            <option value="all">
+                                Todas as marcas
+                            </option>
+
+                        </select>
+
+                        <label
+                            for="content-status-filter"
+                            class="sr-only"
+                        >
+                            Filtrar por estado
+                        </label>
+
+                        <select id="content-status-filter">
+
+                            <option value="all">
+                                Todos os estados
+                            </option>
+
+                            <option value="draft">
+                                Rascunho
+                            </option>
+
+                            <option value="in_progress">
+                                Em produção
+                            </option>
+
+                            <option value="review">
+                                Em revisão
+                            </option>
+
+                            <option value="approved">
+                                Aprovado
+                            </option>
+
+                            <option value="scheduled">
+                                Agendado
+                            </option>
+
+                            <option value="published">
+                                Publicado
+                            </option>
+
+                            <option value="archived">
+                                Arquivado
+                            </option>
+
+                        </select>
+
+                        <label
+                            for="content-type-filter"
+                            class="sr-only"
+                        >
+                            Filtrar por tipo
+                        </label>
+
+                        <select id="content-type-filter">
+
+                            <option value="all">
+                                Todos os tipos
+                            </option>
+
+                            <option value="post">
+                                Publicação
+                            </option>
+
+                            <option value="carousel">
+                                Carrossel
+                            </option>
+
+                            <option value="story">
+                                Story
+                            </option>
+
+                            <option value="reel">
+                                Reel
+                            </option>
+
+                            <option value="short">
+                                Short
+                            </option>
+
+                            <option value="video">
+                                Vídeo
+                            </option>
+
+                            <option value="article">
+                                Artigo
+                            </option>
+
+                            <option value="email">
+                                Email
+                            </option>
+
+                            <option value="other">
+                                Outro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </section>
+
+                <!-- Carregamento -->
+
+                <section
+                    class="content-loading"
+                    id="content-loading"
+                    aria-live="polite"
+                >
+
+                    <div class="content-loading-card"></div>
+                    <div class="content-loading-card"></div>
+                    <div class="content-loading-card"></div>
+                    <div class="content-loading-card"></div>
+                    <div class="content-loading-card"></div>
+                    <div class="content-loading-card"></div>
+
+                </section>
+
+                <!-- Estado vazio -->
+
+                <section
+                    class="content-empty hidden"
+                    id="content-empty"
+                    aria-live="polite"
+                >
+
+                    <div class="content-empty-icon">
+                        <i data-lucide="file-plus-2"></i>
+                    </div>
+
+                    <h2>
+                        Nenhum conteúdo criado
+                    </h2>
+
+                    <p>
+                        Converta um item aprovado no Planner
+                        para começar a produzir conteúdos.
+                    </p>
+
+                    <a
+                        href="/html/dashboard/planner.html"
+                        class="btn btn-primary"
+                    >
+                        <i data-lucide="clipboard-list"></i>
+                        Abrir Planner
+                    </a>
+
+                </section>
+
+                <!-- Nenhum resultado -->
+
+                <section
+                    class="content-no-results hidden"
+                    id="content-no-results"
+                    aria-live="polite"
+                >
+
+                    <div class="content-empty-icon">
+                        <i data-lucide="search-x"></i>
+                    </div>
+
+                    <h2>
+                        Nenhum conteúdo encontrado
+                    </h2>
+
+                    <p>
+                        Altere a pesquisa ou os filtros aplicados.
+                    </p>
+
+                    <button
+                        class="button button-secondary"
+                        id="clear-content-filters-button"
+                        type="button"
+                    >
+                        Limpar filtros
+                    </button>
+
+                </section>
+
+                <!-- Lista -->
+
+                <section
+                    class="content-grid hidden"
+                    id="content-grid"
+                    aria-label="Lista de conteúdos"
+                ></section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- ==================================================
+         Modal: visualizar conteúdo
+    =================================================== -->
+
+    <div
+        class="modal-overlay hidden"
+        id="content-details-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="content-details-title"
+        aria-hidden="true"
+    >
+
+        <div class="modal-container content-details-modal-container">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="modal-eyebrow">
+                        Conteúdo
+                    </span>
+
+                    <h2 id="content-details-title">
+                        Detalhes do conteúdo
+                    </h2>
+
+                </div>
+
+                <button
+                    class="modal-close-button"
+                    id="content-details-close"
+                    type="button"
+                    aria-label="Fechar janela"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <div class="content-details-body">
+
+                <div class="content-details-meta">
+
+                    <span
+                        class="content-status-badge"
+                        id="content-details-status"
+                    >
+                        Rascunho
+                    </span>
+
+                    <span id="content-details-brand">
+                        Marca indisponível
+                    </span>
+
+                    <span id="content-details-type">
+                        Publicação
+                    </span>
+
+                </div>
+
+                <div
+                    class="content-details-platforms"
+                    id="content-details-platforms"
+                ></div>
+
+                <div class="content-details-text">
+
+                    <h3>
+                        Texto principal
+                    </h3>
+
+                    <p id="content-details-main-text">
+                        Sem texto principal.
+                    </p>
+
+                </div>
+
+                <div class="content-details-footer">
+
+                    <span id="content-details-created-at">
+                        Criado em data indisponível
+                    </span>
+
+                    <span id="content-details-updated-at">
+                        Atualizado em data indisponível
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="button button-secondary"
+                    id="content-details-cancel"
+                    type="button"
+                >
+                    Fechar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Toasts -->
+
+    <div
+        class="toast-container"
+        id="toast-container"
+        aria-live="polite"
+        aria-atomic="true"
+    ></div>
+
+    <!-- Lucide -->
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="/js/services/supabase.js"></script>
+
+    <!-- Proteção -->
+
+    <script src="/js/auth/auth-guard.js"></script>
+
+    <!-- Conteúdos -->
+
+    <script src="/js/dashboard/content.js"></script>
+
+</body>
+
+</html>
