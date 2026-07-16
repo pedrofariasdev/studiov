@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Calendário | StudioV</title>
+
+    <meta
+        name="description"
+        content="Planeie e acompanhe eventos, conteúdos e prazos no calendário editorial da StudioV."
+    >
+
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#6D28D9">
+
+    <!-- Favicons -->
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="96x96"
+        href="/assets/icons/favicon-96x96.png"
+    >
+
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="/assets/icons/favicon.svg"
+    >
+
+    <link
+        rel="icon"
+        href="/assets/icons/favicon.ico"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="/assets/icons/apple-touch-icon.png"
+    >
+
+    <link
+        rel="manifest"
+        href="/assets/icons/site.webmanifest"
+    >
+
+    <!-- Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Global CSS -->
+    <link
+        rel="stylesheet"
+        href="/css/globals/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/globals/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/globals/typography.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/globals/utilities.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/components/button.css"
+    >
+
+    <!-- Dashboard -->
+    <link
+        rel="stylesheet"
+        href="/css/pages/dashboard.css"
+    >
+
+    <!-- Calendar -->
+    <link
+        rel="stylesheet"
+        href="/css/pages/calendar.css"
+    >
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- ==================================================
+             Sidebar
+        =================================================== -->
+
+        <aside
+            class="dashboard-sidebar"
+            id="dashboard-sidebar"
+            aria-label="Navegação principal"
+        >
+
+            <div class="sidebar-header">
+
+                <a
+                    href="/html/dashboard/home.html"
+                    class="sidebar-logo"
+                    aria-label="StudioV Dashboard"
+                >
+                    <img
+                        src="/assets/logos/svg/logo-studiov2000.png"
+                        alt="StudioV"
+                    >
+                </a>
+
+                <button
+                    class="sidebar-close"
+                    id="sidebar-close"
+                    type="button"
+                    aria-label="Fechar menu"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <nav class="sidebar-navigation">
+
+                <div class="sidebar-section">
+
+                    <span class="sidebar-section-title">
+                        Principal
+                    </span>
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/home.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="layout-dashboard"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/projects.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="building-2"></i>
+                                <span>Workspace</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/brands.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="palette"></i>
+                                <span>Marcas</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/clients.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="users"></i>
+                                <span>Clientes</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="sidebar-section">
+
+                    <span class="sidebar-section-title">
+                        Conteúdo
+                    </span>
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/planner.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="clipboard-list"></i>
+                                <span>Planner</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/calendar.html"
+                                class="sidebar-link is-active"
+                                aria-current="page"
+                            >
+                                <i data-lucide="calendar-days"></i>
+                                <span>Calendário</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/content.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="files"></i>
+                                <span>Conteúdos</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/media.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="images"></i>
+                                <span>Biblioteca</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/publishing.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="send"></i>
+                                <span>Publicações</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="sidebar-section">
+
+                    <span class="sidebar-section-title">
+                        Inteligência
+                    </span>
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/ai.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="sparkles"></i>
+                                <span>Inteligência Artificial</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/analytics.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="chart-no-axes-combined"></i>
+                                <span>Analytics</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="sidebar-section sidebar-section-bottom">
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/settings.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="settings"></i>
+                                <span>Configurações</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </nav>
+
+            <div class="sidebar-user">
+
+                <div
+                    class="sidebar-user-avatar"
+                    id="sidebar-user-avatar"
+                    aria-hidden="true"
+                >
+                    U
+                </div>
+
+                <div class="sidebar-user-info">
+
+                    <strong id="sidebar-user-name">
+                        Utilizador
+                    </strong>
+
+                    <span id="sidebar-user-email">
+                        utilizador@studiov.pt
+                    </span>
+
+                </div>
+
+                <a
+                    href="/html/dashboard/profile.html"
+                    class="sidebar-user-action"
+                    aria-label="Abrir perfil"
+                >
+                    <i data-lucide="chevron-right"></i>
+                </a>
+
+            </div>
+
+        </aside>
+
+        <div
+            class="sidebar-overlay"
+            id="sidebar-overlay"
+            aria-hidden="true"
+        ></div>
+
+        <!-- ==================================================
+             Área principal
+        =================================================== -->
+
+        <div class="dashboard-main">
+
+            <!-- Topbar -->
+
+            <header class="dashboard-topbar">
+
+                <div class="topbar-left">
+
+                    <button
+                        class="topbar-menu-button"
+                        id="topbar-menu-button"
+                        type="button"
+                        aria-label="Abrir menu"
+                        aria-controls="dashboard-sidebar"
+                        aria-expanded="false"
+                    >
+                        <i data-lucide="menu"></i>
+                    </button>
+
+                    <div class="workspace-selector">
+
+                        <button
+                            class="workspace-selector-button"
+                            id="workspace-selector-button"
+                            type="button"
+                            aria-haspopup="listbox"
+                            aria-expanded="false"
+                        >
+
+                            <span class="workspace-selector-icon">
+                                <i data-lucide="building-2"></i>
+                            </span>
+
+                            <span class="workspace-selector-content">
+
+                                <small>
+                                    Workspace
+                                </small>
+
+                                <strong id="current-workspace-name">
+                                    Meu Workspace
+                                </strong>
+
+                            </span>
+
+                            <i data-lucide="chevrons-up-down"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="topbar-actions">
+
+                    <button
+                        class="topbar-icon-button"
+                        id="global-search-button"
+                        type="button"
+                        aria-label="Pesquisar"
+                    >
+                        <i data-lucide="search"></i>
+                    </button>
+
+                    <a
+                        href="/html/dashboard/notifications.html"
+                        class="topbar-icon-button topbar-notification-button"
+                        aria-label="Notificações"
+                    >
+                        <i data-lucide="bell"></i>
+
+                        <span
+                            class="notification-indicator hidden"
+                            id="notification-indicator"
+                            aria-hidden="true"
+                        ></span>
+                    </a>
+
+                    <a
+                        href="/html/dashboard/profile.html"
+                        class="topbar-avatar"
+                        id="topbar-avatar"
+                        aria-label="Abrir perfil"
+                    >
+                        U
+                    </a>
+
+                </div>
+
+            </header>
+
+            <!-- Conteúdo -->
+
+            <main class="dashboard-content calendar-page">
+
+                <!-- Cabeçalho -->
+
+                <section class="page-header">
+
+                    <div class="page-header-content">
+
+                        <span class="page-eyebrow">
+                            Calendário editorial
+                        </span>
+
+                        <h1>
+                            Calendário
+                        </h1>
+
+                        <p>
+                            Organize conteúdos, eventos, lembretes e prazos
+                            num único calendário.
+                        </p>
+
+                    </div>
+
+                    <div class="page-header-actions">
+
+                        <button
+                            class="btn btn-primary"
+                            id="create-calendar-event-button"
+                            type="button"
+                        >
+                            <i data-lucide="plus"></i>
+                            Novo evento
+                        </button>
+
+                    </div>
+
+                </section>
+
+                <!-- Resumo -->
+
+                <section
+                    class="calendar-summary"
+                    aria-label="Resumo do calendário"
+                >
+
+                    <article class="calendar-summary-card">
+
+                        <div class="calendar-summary-icon">
+                            <i data-lucide="calendar-range"></i>
+                        </div>
+
+                        <div>
+                            <span>Eventos ativos</span>
+                            <strong id="calendar-total-count">0</strong>
+                        </div>
+
+                    </article>
+
+                    <article class="calendar-summary-card">
+
+                        <div class="calendar-summary-icon">
+                            <i data-lucide="clock-3"></i>
+                        </div>
+
+                        <div>
+                            <span>Próximos</span>
+                            <strong id="calendar-upcoming-count">0</strong>
+                        </div>
+
+                    </article>
+
+                    <article class="calendar-summary-card">
+
+                        <div class="calendar-summary-icon">
+                            <i data-lucide="circle-check-big"></i>
+                        </div>
+
+                        <div>
+                            <span>Concluídos</span>
+                            <strong id="calendar-completed-count">0</strong>
+                        </div>
+
+                    </article>
+
+                    <article class="calendar-summary-card">
+
+                        <div class="calendar-summary-icon">
+                            <i data-lucide="archive"></i>
+                        </div>
+
+                        <div>
+                            <span>Arquivados</span>
+                            <strong id="calendar-archived-count">0</strong>
+                        </div>
+
+                    </article>
+
+                </section>
+
+                <!-- Barra de navegação -->
+
+                <section class="calendar-navigation">
+
+                    <div class="calendar-month-navigation">
+
+                        <button
+                            type="button"
+                            class="calendar-navigation-button"
+                            id="calendar-previous-button"
+                            aria-label="Mês anterior"
+                        >
+                            <i data-lucide="chevron-left"></i>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="calendar-today-button"
+                            id="calendar-today-button"
+                        >
+                            Hoje
+                        </button>
+
+                        <button
+                            type="button"
+                            class="calendar-navigation-button"
+                            id="calendar-next-button"
+                            aria-label="Próximo mês"
+                        >
+                            <i data-lucide="chevron-right"></i>
+                        </button>
+
+                    </div>
+
+                    <h2 id="calendar-month-label">
+                        Mês
+                    </h2>
+
+                    <div class="calendar-view-label">
+                        <i data-lucide="calendar-days"></i>
+                        Vista mensal
+                    </div>
+
+                </section>
+
+                <!-- Filtros -->
+
+                <section class="calendar-toolbar">
+
+                    <div class="calendar-search">
+
+                        <label
+                            for="calendar-search-input"
+                            class="sr-only"
+                        >
+                            Pesquisar eventos
+                        </label>
+
+                        <i data-lucide="search"></i>
+
+                        <input
+                            type="search"
+                            id="calendar-search-input"
+                            placeholder="Pesquisar por título ou descrição..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                    <div class="calendar-filters">
+
+                        <label
+                            for="calendar-brand-filter"
+                            class="sr-only"
+                        >
+                            Filtrar por marca
+                        </label>
+
+                        <select id="calendar-brand-filter">
+
+                            <option value="all">
+                                Todas as marcas
+                            </option>
+
+                        </select>
+
+                        <label
+                            for="calendar-status-filter"
+                            class="sr-only"
+                        >
+                            Filtrar por estado
+                        </label>
+
+                        <select id="calendar-status-filter">
+
+                            <option value="all">
+                                Todos os estados
+                            </option>
+
+                            <option value="planned">
+                                Planeado
+                            </option>
+
+                            <option value="confirmed">
+                                Confirmado
+                            </option>
+
+                            <option value="completed">
+                                Concluído
+                            </option>
+
+                            <option value="cancelled">
+                                Cancelado
+                            </option>
+
+                            <option value="archived">
+                                Arquivado
+                            </option>
+
+                        </select>
+
+                        <label
+                            for="calendar-type-filter"
+                            class="sr-only"
+                        >
+                            Filtrar por tipo
+                        </label>
+
+                        <select id="calendar-type-filter">
+
+                            <option value="all">
+                                Todos os tipos
+                            </option>
+
+                            <option value="content">
+                                Conteúdo
+                            </option>
+
+                            <option value="deadline">
+                                Prazo
+                            </option>
+
+                            <option value="event">
+                                Evento
+                            </option>
+
+                            <option value="reminder">
+                                Lembrete
+                            </option>
+
+                        </select>
+
+                        <label
+                            for="calendar-platform-filter"
+                            class="sr-only"
+                        >
+                            Filtrar por plataforma
+                        </label>
+
+                        <select id="calendar-platform-filter">
+
+                            <option value="all">
+                                Todas as plataformas
+                            </option>
+
+                            <option value="instagram">
+                                Instagram
+                            </option>
+
+                            <option value="facebook">
+                                Facebook
+                            </option>
+
+                            <option value="linkedin">
+                                LinkedIn
+                            </option>
+
+                            <option value="tiktok">
+                                TikTok
+                            </option>
+
+                            <option value="youtube">
+                                YouTube
+                            </option>
+
+                            <option value="pinterest">
+                                Pinterest
+                            </option>
+
+                            <option value="threads">
+                                Threads
+                            </option>
+
+                            <option value="x">
+                                X
+                            </option>
+
+                            <option value="blog">
+                                Blog
+                            </option>
+
+                            <option value="email">
+                                Email
+                            </option>
+
+                        </select>
+
+                        <button
+                            type="button"
+                            class="calendar-clear-filters"
+                            id="clear-calendar-filters-button"
+                        >
+                            <i data-lucide="filter-x"></i>
+                            Limpar
+                        </button>
+
+                    </div>
+
+                </section>
+
+                <!-- Loading -->
+
+                <section
+                    class="calendar-loading"
+                    id="calendar-loading"
+                    aria-live="polite"
+                >
+
+                    <div class="calendar-loading-header"></div>
+
+                    <div class="calendar-loading-grid">
+
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+
+                    </div>
+
+                </section>
+
+                <!-- Aviso vazio -->
+
+                <section
+                    class="calendar-empty hidden"
+                    id="calendar-empty"
+                    aria-live="polite"
+                >
+
+                    <div class="calendar-empty-icon">
+                        <i data-lucide="calendar-plus"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            O calendário ainda está vazio
+                        </h2>
+
+                        <p>
+                            Crie o primeiro evento para começar a organizar
+                            o planeamento editorial.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="btn btn-primary"
+                        id="empty-create-calendar-event-button"
+                        type="button"
+                    >
+                        <i data-lucide="plus"></i>
+                        Criar primeiro evento
+                    </button>
+
+                </section>
+
+                <!-- Nenhum resultado -->
+
+                <section
+                    class="calendar-no-results hidden"
+                    id="calendar-no-results"
+                    aria-live="polite"
+                >
+
+                    <div class="calendar-empty-icon">
+                        <i data-lucide="search-x"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Nenhum evento encontrado
+                        </h2>
+
+                        <p>
+                            Altere a pesquisa ou remova os filtros aplicados.
+                        </p>
+
+                    </div>
+
+                </section>
+
+                <!-- Calendário -->
+
+                <section
+                    class="calendar-board hidden"
+                    id="calendar-board"
+                    aria-label="Calendário mensal"
+                >
+
+                    <div class="calendar-board-scroll">
+
+                        <div class="calendar-weekdays">
+
+                            <span>Seg</span>
+                            <span>Ter</span>
+                            <span>Qua</span>
+                            <span>Qui</span>
+                            <span>Sex</span>
+                            <span>Sáb</span>
+                            <span>Dom</span>
+
+                        </div>
+
+                        <div
+                            class="calendar-grid"
+                            id="calendar-grid"
+                        ></div>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- ==================================================
+         Modal: criar ou editar evento
+    =================================================== -->
+
+    <div
+        class="modal-overlay hidden"
+        id="calendar-event-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="calendar-event-modal-title"
+        aria-hidden="true"
+    >
+
+        <div class="modal-container calendar-event-modal-container">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="modal-eyebrow">
+                        Calendário editorial
+                    </span>
+
+                    <h2 id="calendar-event-modal-title">
+                        Novo evento
+                    </h2>
+
+                </div>
+
+                <button
+                    class="modal-close-button"
+                    id="calendar-event-modal-close"
+                    type="button"
+                    aria-label="Fechar janela"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <form
+                class="calendar-event-form"
+                id="calendar-event-form"
+                novalidate
+            >
+
+                <input
+                    type="hidden"
+                    id="calendar-event-id"
+                >
+
+                <div class="calendar-event-form-grid">
+
+                    <!-- Marca -->
+
+                    <div class="form-field">
+
+                        <label for="calendar-event-brand">
+                            Marca
+                            <span aria-hidden="true">*</span>
+                        </label>
+
+                        <select
+                            id="calendar-event-brand"
+                            required
+                        >
+                            <option value="">
+                                Selecione uma marca
+                            </option>
+                        </select>
+
+                        <small
+                            class="form-error"
+                            id="calendar-event-brand-error"
+                        ></small>
+
+                    </div>
+
+                    <!-- Responsável -->
+
+                    <div class="form-field">
+
+                        <label for="calendar-event-assigned-to">
+                            Responsável
+                        </label>
+
+                        <select id="calendar-event-assigned-to">
+
+                            <option value="">
+                                Sem responsável
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Título -->
+
+                    <div class="form-field form-field-full">
+
+                        <label for="calendar-event-title">
+                            Título
+                            <span aria-hidden="true">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="calendar-event-title"
+                            minlength="2"
+                            maxlength="160"
+                            placeholder="Ex.: Publicar Reel da StudioV"
+                            required
+                        >
+
+                        <small
+                            class="form-error"
+                            id="calendar-event-title-error"
+                        ></small>
+
+                    </div>
+
+                    <!-- Descrição -->
+
+                    <div class="form-field form-field-full">
+
+                        <label for="calendar-event-description">
+                            Descrição
+                        </label>
+
+                        <textarea
+                            id="calendar-event-description"
+                            rows="4"
+                            maxlength="10000"
+                            placeholder="Adicione informações importantes sobre o evento."
+                        ></textarea>
+
+                    </div>
+
+                    <!-- Tipo -->
+
+                    <div class="form-field">
+
+                        <label for="calendar-event-type">
+                            Tipo de evento
+                        </label>
+
+                        <select id="calendar-event-type">
+
+                            <option value="content">
+                                Conteúdo
+                            </option>
+
+                            <option value="deadline">
+                                Prazo
+                            </option>
+
+                            <option value="event">
+                                Evento
+                            </option>
+
+                            <option value="reminder">
+                                Lembrete
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Plataforma -->
+
+                    <div class="form-field">
+
+                        <label for="calendar-event-platform">
+                            Plataforma
+                        </label>
+
+                        <select id="calendar-event-platform">
+
+                            <option value="">
+                                Sem plataforma
+                            </option>
+
+                            <option value="instagram">
+                                Instagram
+                            </option>
+
+                            <option value="facebook">
+                                Facebook
+                            </option>
+
+                            <option value="linkedin">
+                                LinkedIn
+                            </option>
+
+                            <option value="tiktok">
+                                TikTok
+                            </option>
+
+                            <option value="youtube">
+                                YouTube
+                            </option>
+
+                            <option value="pinterest">
+                                Pinterest
+                            </option>
+
+                            <option value="threads">
+                                Threads
+                            </option>
+
+                            <option value="x">
+                                X
+                            </option>
+
+                            <option value="blog">
+                                Blog
+                            </option>
+
+                            <option value="email">
+                                Email
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Início -->
+
+                    <div class="form-field">
+
+                        <label for="calendar-event-start">
+                            Início
+                            <span aria-hidden="true">*</span>
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            id="calendar-event-start"
+                            required
+                        >
+
+                        <small
+                            class="form-error"
+                            id="calendar-event-start-error"
+                        ></small>
+
+                    </div>
+
+                    <!-- Fim -->
+
+                    <div class="form-field">
+
+                        <label for="calendar-event-end">
+                            Fim
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            id="calendar-event-end"
+                        >
+
+                        <small
+                            class="form-error"
+                            id="calendar-event-end-error"
+                        ></small>
+
+                    </div>
+
+                    <!-- Estado -->
+
+                    <div class="form-field">
+
+                        <label for="calendar-event-status">
+                            Estado
+                        </label>
+
+                        <select id="calendar-event-status">
+
+                            <option value="planned">
+                                Planeado
+                            </option>
+
+                            <option value="confirmed">
+                                Confirmado
+                            </option>
+
+                            <option value="completed">
+                                Concluído
+                            </option>
+
+                            <option value="cancelled">
+                                Cancelado
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Fuso -->
+
+                    <div class="form-field">
+
+                        <label for="calendar-event-timezone">
+                            Fuso horário
+                        </label>
+
+                        <select id="calendar-event-timezone">
+
+                            <option value="Europe/Lisbon">
+                                Europa/Lisboa
+                            </option>
+
+                            <option value="Europe/Madrid">
+                                Europa/Madrid
+                            </option>
+
+                            <option value="America/Sao_Paulo">
+                                América/São Paulo
+                            </option>
+
+                            <option value="UTC">
+                                UTC
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Planner -->
+
+                    <div class="form-field form-field-full">
+
+                        <label for="calendar-event-plan-item">
+                            Item do Planner
+                        </label>
+
+                        <select id="calendar-event-plan-item">
+
+                            <option value="">
+                                Sem item associado
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Dia inteiro -->
+
+                    <div class="form-field form-field-full">
+
+                        <label class="calendar-all-day-option">
+
+                            <input
+                                type="checkbox"
+                                id="calendar-event-all-day"
+                            >
+
+                            <span class="calendar-all-day-control">
+                                <i data-lucide="calendar-check"></i>
+                            </span>
+
+                            <span>
+                                <strong>Evento de dia inteiro</strong>
+                                <small>
+                                    O horário será tratado como informação secundária.
+                                </small>
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="form-general-error hidden"
+                    id="calendar-event-form-error"
+                    role="alert"
+                ></div>
+
+                <div class="modal-footer">
+
+                    <button
+                        class="class="btn btn-secondary"
+                        id="calendar-event-form-cancel"
+                        type="button"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        class="btn btn-primary"
+                        id="calendar-event-form-submit"
+                        type="submit"
+                    >
+
+                        <span id="calendar-event-form-submit-text">
+                            Criar evento
+                        </span>
+
+                        <span
+                            class="button-loader hidden"
+                            id="calendar-event-form-loader"
+                            aria-hidden="true"
+                        ></span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ==================================================
+         Modal: detalhes do evento
+    =================================================== -->
+
+    <div
+        class="modal-overlay hidden"
+        id="calendar-event-details-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="calendar-event-details-title"
+        aria-hidden="true"
+    >
+
+        <div class="modal-container calendar-details-modal-container">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="modal-eyebrow">
+                        Detalhes do evento
+                    </span>
+
+                    <h2 id="calendar-event-details-title">
+                        Evento
+                    </h2>
+
+                </div>
+
+                <button
+                    class="modal-close-button"
+                    id="calendar-event-details-close"
+                    type="button"
+                    aria-label="Fechar janela"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <div class="calendar-event-details-body">
+
+                <div class="calendar-event-details-main">
+
+                    <div class="calendar-event-details-status-row">
+
+                        <span
+                            class="calendar-status-badge"
+                            id="calendar-event-details-status"
+                        >
+                            Planeado
+                        </span>
+
+                        <select
+                            id="calendar-event-details-status-select"
+                            aria-label="Alterar estado do evento"
+                        >
+
+                            <option value="planned">
+                                Planeado
+                            </option>
+
+                            <option value="confirmed">
+                                Confirmado
+                            </option>
+
+                            <option value="completed">
+                                Concluído
+                            </option>
+
+                            <option value="cancelled">
+                                Cancelado
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="calendar-event-details-description">
+
+                        <h3>Descrição</h3>
+
+                        <p id="calendar-event-details-description">
+                            Sem descrição.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <dl class="calendar-event-details-grid">
+
+                    <div>
+                        <dt>Marca</dt>
+                        <dd id="calendar-event-details-brand">—</dd>
+                    </div>
+
+                    <div>
+                        <dt>Tipo</dt>
+                        <dd id="calendar-event-details-type">—</dd>
+                    </div>
+
+                    <div>
+                        <dt>Plataforma</dt>
+                        <dd id="calendar-event-details-platform">—</dd>
+                    </div>
+
+                    <div>
+                        <dt>Responsável</dt>
+                        <dd id="calendar-event-details-assignee">—</dd>
+                    </div>
+
+                    <div>
+                        <dt>Data e horário</dt>
+                        <dd id="calendar-event-details-date">—</dd>
+                    </div>
+
+                    <div>
+                        <dt>Planner</dt>
+                        <dd id="calendar-event-details-plan-item">—</dd>
+                    </div>
+
+                </dl>
+
+            </div>
+
+            <div class="modal-footer calendar-details-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    id="calendar-event-details-cancel"
+                    type="button"
+                >
+                    Fechar
+                </button>
+
+                <button
+                    class="button calendar-restore-button hidden"
+                    id="calendar-event-details-restore"
+                    type="button"
+                >
+                    <i data-lucide="rotate-ccw"></i>
+                    Restaurar
+                </button>
+
+                <button
+                    class="button calendar-archive-button"
+                    id="calendar-event-details-archive"
+                    type="button"
+                >
+                    <i data-lucide="archive"></i>
+                    Arquivar
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    id="calendar-event-details-edit"
+                    type="button"
+                >
+                    <i data-lucide="pencil"></i>
+                    Editar evento
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ==================================================
+         Modal: arquivar evento
+    =================================================== -->
+
+    <div
+        class="modal-overlay hidden"
+        id="archive-calendar-event-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="archive-calendar-event-modal-title"
+        aria-hidden="true"
+    >
+
+        <div class="modal-container calendar-confirmation-modal">
+
+            <div class="calendar-confirmation-icon">
+                <i data-lucide="archive"></i>
+            </div>
+
+            <div class="calendar-confirmation-content">
+
+                <h2 id="archive-calendar-event-modal-title">
+                    Arquivar evento?
+                </h2>
+
+                <p>
+                    O evento será removido da visualização principal,
+                    mas poderá ser restaurado posteriormente.
+                </p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    id="archive-calendar-event-cancel"
+                    type="button"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    class="btn calendar-confirm-archive-button"
+                    id="archive-calendar-event-confirm"
+                    type="button"
+                >
+                    Arquivar evento
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Toasts -->
+
+    <div
+        class="toast-container"
+        id="toast-container"
+        aria-live="polite"
+        aria-atomic="true"
+    ></div>
+
+    <!-- Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="/js/services/supabase.js"></script>
+
+    <!-- Proteção -->
+    <script src="/js/auth/auth-guard.js"></script>
+
+    <!-- Calendar -->
+    <script src="/js/dashboard/calendar.js"></script>
+
+</body>
+
+</html>

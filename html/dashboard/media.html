@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Biblioteca | StudioV</title>
+
+    <meta
+        name="description"
+        content="Organize imagens, vídeos, áudios e documentos na Biblioteca da StudioV."
+    >
+
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#6D28D9">
+
+    <!-- Favicons -->
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="96x96"
+        href="/assets/icons/favicon-96x96.png"
+    >
+
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="/assets/icons/favicon.svg"
+    >
+
+    <link
+        rel="icon"
+        href="/assets/icons/favicon.ico"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="/assets/icons/apple-touch-icon.png"
+    >
+
+    <link
+        rel="manifest"
+        href="/assets/icons/site.webmanifest"
+    >
+
+    <!-- Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/css/globals/variables.css">
+    <link rel="stylesheet" href="/css/globals/reset.css">
+    <link rel="stylesheet" href="/css/globals/typography.css">
+    <link rel="stylesheet" href="/css/globals/utilities.css">
+
+    <link rel="stylesheet" href="/css/components/button.css">
+
+    <!-- Dashboard -->
+    <link rel="stylesheet" href="/css/pages/dashboard.css">
+
+    <!-- Biblioteca -->
+    <link rel="stylesheet" href="/css/pages/media.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- ==================================================
+             Sidebar
+        =================================================== -->
+
+        <aside
+            class="dashboard-sidebar"
+            id="dashboard-sidebar"
+            aria-label="Navegação principal"
+        >
+
+            <div class="sidebar-header">
+
+                <a
+                    href="/html/dashboard/home.html"
+                    class="sidebar-logo"
+                    aria-label="StudioV Dashboard"
+                >
+                    <img
+                        src="/assets/logos/svg/logo-studiov2000.png"
+                        alt="StudioV"
+                    >
+                </a>
+
+                <button
+                    class="sidebar-close"
+                    id="sidebar-close"
+                    type="button"
+                    aria-label="Fechar menu"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <nav class="sidebar-navigation">
+
+                <div class="sidebar-section">
+
+                    <span class="sidebar-section-title">
+                        Principal
+                    </span>
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/home.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="layout-dashboard"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/projects.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="building-2"></i>
+                                <span>Workspace</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/brands.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="palette"></i>
+                                <span>Marcas</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/clients.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="users"></i>
+                                <span>Clientes</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="sidebar-section">
+
+                    <span class="sidebar-section-title">
+                        Conteúdo
+                    </span>
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/planner.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="clipboard-list"></i>
+                                <span>Planner</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/calendar.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="calendar-days"></i>
+                                <span>Calendário</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/content.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="files"></i>
+                                <span>Conteúdos</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/media.html"
+                                class="sidebar-link is-active"
+                                aria-current="page"
+                            >
+                                <i data-lucide="images"></i>
+                                <span>Biblioteca</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/publishing.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="send"></i>
+                                <span>Publicações</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="sidebar-section">
+
+                    <span class="sidebar-section-title">
+                        Inteligência
+                    </span>
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/ai.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="sparkles"></i>
+                                <span>Inteligência Artificial</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/html/dashboard/analytics.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="chart-no-axes-combined"></i>
+                                <span>Analytics</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="sidebar-section sidebar-section-bottom">
+
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a
+                                href="/html/dashboard/settings.html"
+                                class="sidebar-link"
+                            >
+                                <i data-lucide="settings"></i>
+                                <span>Configurações</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </nav>
+
+            <div class="sidebar-user">
+
+                <div
+                    class="sidebar-user-avatar"
+                    id="sidebar-user-avatar"
+                >
+                    U
+                </div>
+
+                <div class="sidebar-user-info">
+
+                    <strong id="sidebar-user-name">
+                        Utilizador
+                    </strong>
+
+                    <span id="sidebar-user-email">
+                        utilizador@studiov.pt
+                    </span>
+
+                </div>
+
+                <a
+                    href="/html/dashboard/profile.html"
+                    class="sidebar-user-action"
+                    aria-label="Abrir perfil"
+                >
+                    <i data-lucide="chevron-right"></i>
+                </a>
+
+            </div>
+
+        </aside>
+
+        <div
+            class="sidebar-overlay"
+            id="sidebar-overlay"
+            aria-hidden="true"
+        ></div>
+
+        <!-- ==================================================
+             Conteúdo principal
+        =================================================== -->
+
+        <div class="dashboard-main">
+
+            <header class="dashboard-topbar">
+
+                <div class="topbar-left">
+
+                    <button
+                        class="topbar-menu-button"
+                        id="topbar-menu-button"
+                        type="button"
+                        aria-label="Abrir menu"
+                    >
+                        <i data-lucide="menu"></i>
+                    </button>
+
+                    <div class="workspace-selector">
+
+                        <button
+                            class="workspace-selector-button"
+                            type="button"
+                        >
+
+                            <span class="workspace-selector-icon">
+                                <i data-lucide="building-2"></i>
+                            </span>
+
+                            <span class="workspace-selector-content">
+
+                                <small>
+                                    Workspace
+                                </small>
+
+                                <strong id="current-workspace-name">
+                                    Meu Workspace
+                                </strong>
+
+                            </span>
+
+                            <i data-lucide="chevrons-up-down"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="topbar-actions">
+
+                    <button
+                        class="topbar-icon-button"
+                        type="button"
+                        aria-label="Pesquisar"
+                    >
+                        <i data-lucide="search"></i>
+                    </button>
+
+                    <a
+                        href="/html/dashboard/notifications.html"
+                        class="topbar-icon-button"
+                        aria-label="Notificações"
+                    >
+                        <i data-lucide="bell"></i>
+                    </a>
+
+                    <a
+                        href="/html/dashboard/profile.html"
+                        class="topbar-avatar"
+                        id="topbar-avatar"
+                        aria-label="Abrir perfil"
+                    >
+                        U
+                    </a>
+
+                </div>
+
+            </header>
+
+            <main class="dashboard-content media-page">
+
+                <!-- Cabeçalho -->
+
+                <section class="page-header">
+
+                    <div class="page-header-content">
+
+                        <span class="page-eyebrow">
+                            Gestão de ficheiros
+                        </span>
+
+                        <h1>
+                            Biblioteca
+                        </h1>
+
+                        <p>
+                            Organize imagens, vídeos, áudios e documentos
+                            utilizados nos seus conteúdos.
+                        </p>
+
+                    </div>
+
+                    <div class="page-header-actions">
+
+                        <button
+                            class="btn btn-secondary"
+                            id="create-folder-button"
+                            type="button"
+                        >
+                            <i data-lucide="folder-plus"></i>
+                            Nova pasta
+                        </button>
+
+                        <button
+                            class="btn btn-primary"
+                            id="upload-media-button"
+                            type="button"
+                        >
+                            <i data-lucide="upload"></i>
+                            Enviar ficheiros
+                        </button>
+
+                    </div>
+
+                </section>
+
+                <!-- Resumo -->
+
+                <section class="media-summary">
+
+                    <article class="media-summary-card">
+
+                        <div class="media-summary-icon">
+                            <i data-lucide="files"></i>
+                        </div>
+
+                        <div>
+                            <span>Ficheiros ativos</span>
+                            <strong id="media-total-count">0</strong>
+                        </div>
+
+                    </article>
+
+                    <article class="media-summary-card">
+
+                        <div class="media-summary-icon">
+                            <i data-lucide="image"></i>
+                        </div>
+
+                        <div>
+                            <span>Imagens</span>
+                            <strong id="media-image-count">0</strong>
+                        </div>
+
+                    </article>
+
+                    <article class="media-summary-card">
+
+                        <div class="media-summary-icon">
+                            <i data-lucide="video"></i>
+                        </div>
+
+                        <div>
+                            <span>Vídeos</span>
+                            <strong id="media-video-count">0</strong>
+                        </div>
+
+                    </article>
+
+                    <article class="media-summary-card">
+
+                        <div class="media-summary-icon">
+                            <i data-lucide="hard-drive"></i>
+                        </div>
+
+                        <div>
+                            <span>Espaço utilizado</span>
+                            <strong id="media-storage-count">0 B</strong>
+                        </div>
+
+                    </article>
+
+                </section>
+
+                <!-- Pastas -->
+
+                <section class="media-folders-section">
+
+                    <div class="media-section-header">
+
+                        <div>
+                            <span class="media-section-eyebrow">
+                                Organização
+                            </span>
+
+                            <h2>Pastas</h2>
+                        </div>
+
+                        <button
+                            class="media-text-button"
+                            id="toggle-archived-folders-button"
+                            type="button"
+                        >
+                            <i data-lucide="archive"></i>
+                            Ver pastas arquivadas
+                        </button>
+
+                    </div>
+
+                    <div
+                        class="media-folders-grid"
+                        id="media-folders-grid"
+                    ></div>
+
+                    <div
+                        class="media-folders-empty hidden"
+                        id="media-folders-empty"
+                    >
+                        Nenhuma pasta encontrada.
+                    </div>
+
+                </section>
+
+                <!-- Toolbar -->
+
+                <section class="media-toolbar">
+
+                    <div class="media-search">
+
+                        <i data-lucide="search"></i>
+
+                        <input
+                            type="search"
+                            id="media-search-input"
+                            placeholder="Pesquisar ficheiros..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                    <div class="media-filters">
+
+                        <select id="media-brand-filter">
+
+                            <option value="all">
+                                Todas as marcas
+                            </option>
+
+                        </select>
+
+                        <select id="media-folder-filter">
+
+                            <option value="all">
+                                Todas as pastas
+                            </option>
+
+                            <option value="none">
+                                Sem pasta
+                            </option>
+
+                        </select>
+
+                        <select id="media-type-filter">
+
+                            <option value="all">
+                                Todos os tipos
+                            </option>
+
+                            <option value="image">
+                                Imagens
+                            </option>
+
+                            <option value="video">
+                                Vídeos
+                            </option>
+
+                            <option value="audio">
+                                Áudios
+                            </option>
+
+                            <option value="document">
+                                Documentos
+                            </option>
+
+                        </select>
+
+                        <select id="media-status-filter">
+
+                            <option value="all">
+                                Ficheiros ativos
+                            </option>
+
+                            <option value="ready">
+                                Prontos
+                            </option>
+
+                            <option value="pending_upload">
+                                Upload pendente
+                            </option>
+
+                            <option value="processing">
+                                Em processamento
+                            </option>
+
+                            <option value="failed">
+                                Com erro
+                            </option>
+
+                            <option value="archived">
+                                Arquivados
+                            </option>
+
+                        </select>
+
+                        <button
+                            class="media-clear-filters"
+                            id="clear-media-filters-button"
+                            type="button"
+                        >
+                            <i data-lucide="filter-x"></i>
+                            Limpar
+                        </button>
+
+                    </div>
+
+                    <div class="media-view-options">
+
+                        <button
+                            class="media-view-button is-active"
+                            id="media-grid-view-button"
+                            type="button"
+                            aria-label="Visualização em grelha"
+                        >
+                            <i data-lucide="grid-2x2"></i>
+                        </button>
+
+                        <button
+                            class="media-view-button"
+                            id="media-list-view-button"
+                            type="button"
+                            aria-label="Visualização em lista"
+                        >
+                            <i data-lucide="list"></i>
+                        </button>
+
+                    </div>
+
+                </section>
+
+                <!-- Loading -->
+
+                <section
+                    class="media-loading"
+                    id="media-loading"
+                >
+
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+
+                </section>
+
+                <!-- Biblioteca vazia -->
+
+                <section
+                    class="media-empty hidden"
+                    id="media-empty"
+                >
+
+                    <div class="media-empty-icon">
+                        <i data-lucide="image-plus"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            A Biblioteca ainda está vazia
+                        </h2>
+
+                        <p>
+                            Envie o primeiro ficheiro para começar a organizar
+                            os materiais dos seus conteúdos.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="btn btn-primary"
+                        id="empty-upload-media-button"
+                        type="button"
+                    >
+                        <i data-lucide="upload"></i>
+                        Enviar primeiro ficheiro
+                    </button>
+
+                </section>
+
+                <!-- Sem resultados -->
+
+                <section
+                    class="media-no-results hidden"
+                    id="media-no-results"
+                >
+
+                    <div class="media-empty-icon">
+                        <i data-lucide="search-x"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Nenhum ficheiro encontrado
+                        </h2>
+
+                        <p>
+                            Altere a pesquisa ou remova os filtros aplicados.
+                        </p>
+
+                    </div>
+
+                </section>
+
+                <!-- Grelha de ficheiros -->
+
+                <section
+                    class="media-assets-grid hidden"
+                    id="media-assets-grid"
+                ></section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- ==================================================
+         Modal de upload
+    =================================================== -->
+
+    <div
+        class="media-modal-overlay hidden"
+        id="upload-media-modal"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="upload-media-modal-title"
+    >
+
+        <div class="media-modal media-upload-modal">
+
+            <div class="media-modal-header">
+
+                <div>
+
+                    <span class="media-modal-eyebrow">
+                        Biblioteca
+                    </span>
+
+                    <h2 id="upload-media-modal-title">
+                        Enviar ficheiros
+                    </h2>
+
+                </div>
+
+                <button
+                    class="media-modal-close"
+                    id="upload-media-modal-close"
+                    type="button"
+                    aria-label="Fechar"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <form id="upload-media-form">
+
+                <div class="media-modal-body">
+
+                    <div
+                        class="media-dropzone"
+                        id="media-dropzone"
+                        tabindex="0"
+                        role="button"
+                    >
+
+                        <input
+                            type="file"
+                            id="media-file-input"
+                            multiple
+                            hidden
+                            accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime,audio/mpeg,audio/wav,audio/x-wav,audio/mp4,audio/x-m4a,application/pdf"
+                        >
+
+                        <div class="media-dropzone-icon">
+                            <i data-lucide="cloud-upload"></i>
+                        </div>
+
+                        <h3>
+                            Arraste os ficheiros para esta área
+                        </h3>
+
+                        <p>
+                            ou clique para selecionar no computador
+                        </p>
+
+                        <span>
+                            Imagens, vídeos, áudios e PDF até 250 MiB
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="media-upload-files hidden"
+                        id="media-upload-files"
+                    ></div>
+
+                    <div class="media-form-grid">
+
+                        <div class="media-form-field">
+
+                            <label for="upload-media-brand">
+                                Marca
+                            </label>
+
+                            <select id="upload-media-brand">
+
+                                <option value="">
+                                    Ficheiro partilhado
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="media-form-field">
+
+                            <label for="upload-media-folder">
+                                Pasta
+                            </label>
+
+                            <select id="upload-media-folder">
+
+                                <option value="">
+                                    Sem pasta
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="media-form-field media-form-field-full">
+
+                            <label for="upload-media-display-name">
+                                Nome personalizado
+                            </label>
+
+                            <input
+                                type="text"
+                                id="upload-media-display-name"
+                                maxlength="255"
+                                placeholder="Disponível para upload de um único ficheiro"
+                            >
+
+                            <small>
+                                Para vários ficheiros serão utilizados os nomes originais.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="media-form-error hidden"
+                        id="upload-media-error"
+                    ></div>
+
+                </div>
+
+                <div class="media-modal-footer">
+
+                    <button
+                        class="btn btn-secondary"
+                        id="upload-media-cancel"
+                        type="button"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        class="btn btn-primary"
+                        id="upload-media-submit"
+                        type="submit"
+                    >
+                        <i data-lucide="upload"></i>
+
+                        <span id="upload-media-submit-text">
+                            Enviar ficheiros
+                        </span>
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ==================================================
+         Modal criar pasta
+    =================================================== -->
+
+    <div
+        class="media-modal-overlay hidden"
+        id="create-folder-modal"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="create-folder-modal-title"
+    >
+
+        <div class="media-modal media-folder-modal">
+
+            <div class="media-modal-header">
+
+                <div>
+
+                    <span class="media-modal-eyebrow">
+                        Organização
+                    </span>
+
+                    <h2 id="create-folder-modal-title">
+                        Nova pasta
+                    </h2>
+
+                </div>
+
+                <button
+                    class="media-modal-close"
+                    id="create-folder-modal-close"
+                    type="button"
+                    aria-label="Fechar"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <form id="create-folder-form">
+
+                <div class="media-modal-body">
+
+                    <div class="media-form-grid">
+
+                        <div class="media-form-field media-form-field-full">
+
+                            <label for="create-folder-name">
+                                Nome da pasta
+                            </label>
+
+                            <input
+                                type="text"
+                                id="create-folder-name"
+                                maxlength="100"
+                                placeholder="Ex.: Campanha de verão"
+                                required
+                            >
+
+                            <small
+                                class="media-field-error"
+                                id="create-folder-name-error"
+                            ></small>
+
+                        </div>
+
+                        <div class="media-form-field">
+
+                            <label for="create-folder-brand">
+                                Marca
+                            </label>
+
+                            <select id="create-folder-brand">
+
+                                <option value="">
+                                    Pasta partilhada
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="media-form-field">
+
+                            <label for="create-folder-parent">
+                                Pasta principal
+                            </label>
+
+                            <select id="create-folder-parent">
+
+                                <option value="">
+                                    Nenhuma
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="media-form-error hidden"
+                        id="create-folder-error"
+                    ></div>
+
+                </div>
+
+                <div class="media-modal-footer">
+
+                    <button
+                        class="btn btn-secondary"
+                        id="create-folder-cancel"
+                        type="button"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        class="btn btn-primary"
+                        id="create-folder-submit"
+                        type="submit"
+                    >
+                        <i data-lucide="folder-plus"></i>
+
+                        <span id="create-folder-submit-text">
+                            Criar pasta
+                        </span>
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ==================================================
+         Modal de detalhes
+    =================================================== -->
+
+    <div
+        class="media-modal-overlay hidden"
+        id="media-details-modal"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="media-details-title"
+    >
+
+        <div class="media-modal media-details-modal">
+
+            <div class="media-modal-header">
+
+                <div>
+
+                    <span class="media-modal-eyebrow">
+                        Detalhes do ficheiro
+                    </span>
+
+                    <h2 id="media-details-title">
+                        Ficheiro
+                    </h2>
+
+                </div>
+
+                <button
+                    class="media-modal-close"
+                    id="media-details-close"
+                    type="button"
+                    aria-label="Fechar"
+                >
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <div class="media-details-layout">
+
+                <div
+                    class="media-details-preview"
+                    id="media-details-preview"
+                ></div>
+
+                <form
+                    class="media-details-form"
+                    id="media-details-form"
+                >
+
+                    <div class="media-details-status-row">
+
+                        <span
+                            class="media-status-badge"
+                            id="media-details-status"
+                        >
+                            Pronto
+                        </span>
+
+                        <span id="media-details-type">
+                            Imagem
+                        </span>
+
+                    </div>
+
+                    <div class="media-form-field">
+
+                        <label for="media-details-name">
+                            Nome
+                        </label>
+
+                        <input
+                            type="text"
+                            id="media-details-name"
+                            maxlength="255"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="media-form-field">
+
+                        <label for="media-details-folder">
+                            Pasta
+                        </label>
+
+                        <select id="media-details-folder">
+
+                            <option value="">
+                                Sem pasta
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="media-form-field">
+
+                        <label for="media-details-alt-text">
+                            Texto alternativo
+                        </label>
+
+                        <textarea
+                            id="media-details-alt-text"
+                            rows="3"
+                            maxlength="1000"
+                            placeholder="Descreva o conteúdo visual do ficheiro."
+                        ></textarea>
+
+                    </div>
+
+                    <div class="media-form-field">
+
+                        <label for="media-details-caption">
+                            Legenda ou observações
+                        </label>
+
+                        <textarea
+                            id="media-details-caption"
+                            rows="4"
+                            maxlength="5000"
+                            placeholder="Adicione informações sobre o ficheiro."
+                        ></textarea>
+
+                    </div>
+
+                    <dl class="media-details-metadata">
+
+                        <div>
+                            <dt>Marca</dt>
+                            <dd id="media-details-brand">—</dd>
+                        </div>
+
+                        <div>
+                            <dt>Formato</dt>
+                            <dd id="media-details-format">—</dd>
+                        </div>
+
+                        <div>
+                            <dt>Tamanho</dt>
+                            <dd id="media-details-size">—</dd>
+                        </div>
+
+                        <div>
+                            <dt>Dimensões</dt>
+                            <dd id="media-details-dimensions">—</dd>
+                        </div>
+
+                        <div>
+                            <dt>Enviado em</dt>
+                            <dd id="media-details-created-at">—</dd>
+                        </div>
+
+                        <div>
+                            <dt>Nome original</dt>
+                            <dd id="media-details-original-name">—</dd>
+                        </div>
+
+                    </dl>
+
+                    <div
+                        class="media-form-error hidden"
+                        id="media-details-error"
+                    ></div>
+
+                </form>
+
+            </div>
+
+            <div class="media-modal-footer media-details-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    id="media-details-download"
+                    type="button"
+                >
+                    <i data-lucide="download"></i>
+                    Descarregar
+                </button>
+
+                <button
+                    class="btn media-restore-button hidden"
+                    id="media-details-restore"
+                    type="button"
+                >
+                    <i data-lucide="rotate-ccw"></i>
+                    Restaurar
+                </button>
+
+                <button
+                    class="btn media-archive-button"
+                    id="media-details-archive"
+                    type="button"
+                >
+                    <i data-lucide="archive"></i>
+                    Arquivar
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    id="media-details-save"
+                    type="button"
+                >
+                    <i data-lucide="save"></i>
+                    Guardar alterações
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ==================================================
+         Modal de confirmação
+    =================================================== -->
+
+    <div
+        class="media-modal-overlay hidden"
+        id="media-confirm-modal"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="media-confirm-title"
+    >
+
+        <div class="media-modal media-confirm-modal">
+
+            <div class="media-confirm-icon">
+                <i data-lucide="archive"></i>
+            </div>
+
+            <div class="media-confirm-content">
+
+                <h2 id="media-confirm-title">
+                    Arquivar ficheiro?
+                </h2>
+
+                <p id="media-confirm-description">
+                    O item poderá ser restaurado posteriormente.
+                </p>
+
+            </div>
+
+            <div class="media-modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    id="media-confirm-cancel"
+                    type="button"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    class="btn media-confirm-button"
+                    id="media-confirm-submit"
+                    type="button"
+                >
+                    Arquivar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Toasts -->
+
+    <div
+        class="toast-container"
+        id="toast-container"
+        aria-live="polite"
+    ></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="/js/services/supabase.js"></script>
+    <script src="/js/auth/auth-guard.js"></script>
+    <script src="/js/dashboard/media.js"></script>
+
+</body>
+
+</html>
