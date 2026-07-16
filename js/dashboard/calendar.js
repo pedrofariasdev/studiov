@@ -4,747 +4,392 @@
    StudioV — Calendário
 ========================================================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async () => {
-        /* ==================================================
+document.addEventListener("DOMContentLoaded", async () => {
+  /* ==================================================
            Elementos gerais
         ================================================== */
 
-        const body =
-            document.body;
+  const body = document.body;
 
-        const supabaseClient =
-            window.supabaseClient;
+  const supabaseClient = window.supabaseClient;
 
-        const sidebarOpenButton =
-            document.getElementById(
-                "topbar-menu-button"
-            );
+  const sidebarOpenButton = document.getElementById("topbar-menu-button");
 
-        const sidebarCloseButton =
-            document.getElementById(
-                "sidebar-close"
-            );
+  const sidebarCloseButton = document.getElementById("sidebar-close");
 
-        const sidebarOverlay =
-            document.getElementById(
-                "sidebar-overlay"
-            );
+  const sidebarOverlay = document.getElementById("sidebar-overlay");
 
-        const currentWorkspaceName =
-            document.getElementById(
-                "current-workspace-name"
-            );
+  const currentWorkspaceName = document.getElementById("current-workspace-name");
 
-        const sidebarUserName =
-            document.getElementById(
-                "sidebar-user-name"
-            );
+  const sidebarUserName = document.getElementById("sidebar-user-name");
 
-        const sidebarUserEmail =
-            document.getElementById(
-                "sidebar-user-email"
-            );
+  const sidebarUserEmail = document.getElementById("sidebar-user-email");
 
-        const sidebarUserAvatar =
-            document.getElementById(
-                "sidebar-user-avatar"
-            );
+  const sidebarUserAvatar = document.getElementById("sidebar-user-avatar");
 
-        const topbarAvatar =
-            document.getElementById(
-                "topbar-avatar"
-            );
+  const topbarAvatar = document.getElementById("topbar-avatar");
 
-        const toastContainer =
-            document.getElementById(
-                "toast-container"
-            );
+  const toastContainer = document.getElementById("toast-container");
 
-        /* ==================================================
+  /* ==================================================
            Calendário
         ================================================== */
 
-        const calendarLoading =
-            document.getElementById(
-                "calendar-loading"
-            );
+  const calendarLoading = document.getElementById("calendar-loading");
 
-        const calendarEmpty =
-            document.getElementById(
-                "calendar-empty"
-            );
+  const calendarEmpty = document.getElementById("calendar-empty");
 
-        const calendarNoResults =
-            document.getElementById(
-                "calendar-no-results"
-            );
+  const calendarNoResults = document.getElementById("calendar-no-results");
 
-        const calendarBoard =
-            document.getElementById(
-                "calendar-board"
-            );
+  const calendarBoard = document.getElementById("calendar-board");
 
-        const calendarGrid =
-            document.getElementById(
-                "calendar-grid"
-            );
+  const calendarGrid = document.getElementById("calendar-grid");
 
-        const calendarMonthLabel =
-            document.getElementById(
-                "calendar-month-label"
-            );
+  const calendarMonthLabel = document.getElementById("calendar-month-label");
 
-        const calendarPreviousButton =
-            document.getElementById(
-                "calendar-previous-button"
-            );
+  const calendarPreviousButton = document.getElementById("calendar-previous-button");
 
-        const calendarNextButton =
-            document.getElementById(
-                "calendar-next-button"
-            );
+  const calendarNextButton = document.getElementById("calendar-next-button");
 
-        const calendarTodayButton =
-            document.getElementById(
-                "calendar-today-button"
-            );
+  const calendarTodayButton = document.getElementById("calendar-today-button");
 
-        const createCalendarEventButton =
-            document.getElementById(
-                "create-calendar-event-button"
-            );
+  const createCalendarEventButton = document.getElementById("create-calendar-event-button");
 
-        const emptyCreateCalendarEventButton =
-            document.getElementById(
-                "empty-create-calendar-event-button"
-            );
+  const emptyCreateCalendarEventButton = document.getElementById(
+    "empty-create-calendar-event-button"
+  );
 
-        /* ==================================================
+  /* ==================================================
            Filtros
         ================================================== */
 
-        const calendarSearchInput =
-            document.getElementById(
-                "calendar-search-input"
-            );
+  const calendarSearchInput = document.getElementById("calendar-search-input");
 
-        const calendarBrandFilter =
-            document.getElementById(
-                "calendar-brand-filter"
-            );
+  const calendarBrandFilter = document.getElementById("calendar-brand-filter");
 
-        const calendarStatusFilter =
-            document.getElementById(
-                "calendar-status-filter"
-            );
+  const calendarStatusFilter = document.getElementById("calendar-status-filter");
 
-        const calendarTypeFilter =
-            document.getElementById(
-                "calendar-type-filter"
-            );
+  const calendarTypeFilter = document.getElementById("calendar-type-filter");
 
-        const calendarPlatformFilter =
-            document.getElementById(
-                "calendar-platform-filter"
-            );
+  const calendarPlatformFilter = document.getElementById("calendar-platform-filter");
 
-        const clearCalendarFiltersButton =
-            document.getElementById(
-                "clear-calendar-filters-button"
-            );
+  const clearCalendarFiltersButton = document.getElementById("clear-calendar-filters-button");
 
-        /* ==================================================
+  /* ==================================================
            Contadores
         ================================================== */
 
-        const calendarTotalCount =
-            document.getElementById(
-                "calendar-total-count"
-            );
+  const calendarTotalCount = document.getElementById("calendar-total-count");
 
-        const calendarUpcomingCount =
-            document.getElementById(
-                "calendar-upcoming-count"
-            );
+  const calendarUpcomingCount = document.getElementById("calendar-upcoming-count");
 
-        const calendarCompletedCount =
-            document.getElementById(
-                "calendar-completed-count"
-            );
+  const calendarCompletedCount = document.getElementById("calendar-completed-count");
 
-        const calendarArchivedCount =
-            document.getElementById(
-                "calendar-archived-count"
-            );
+  const calendarArchivedCount = document.getElementById("calendar-archived-count");
 
-        /* ==================================================
+  /* ==================================================
            Modal criar e editar
         ================================================== */
 
-        const calendarEventModal =
-            document.getElementById(
-                "calendar-event-modal"
-            );
+  const calendarEventModal = document.getElementById("calendar-event-modal");
 
-        const calendarEventModalClose =
-            document.getElementById(
-                "calendar-event-modal-close"
-            );
+  const calendarEventModalClose = document.getElementById("calendar-event-modal-close");
 
-        const calendarEventModalTitle =
-            document.getElementById(
-                "calendar-event-modal-title"
-            );
+  const calendarEventModalTitle = document.getElementById("calendar-event-modal-title");
 
-        const calendarEventForm =
-            document.getElementById(
-                "calendar-event-form"
-            );
+  const calendarEventForm = document.getElementById("calendar-event-form");
 
-        const calendarEventIdInput =
-            document.getElementById(
-                "calendar-event-id"
-            );
+  const calendarEventIdInput = document.getElementById("calendar-event-id");
 
-        const calendarEventBrandInput =
-            document.getElementById(
-                "calendar-event-brand"
-            );
+  const calendarEventBrandInput = document.getElementById("calendar-event-brand");
 
-        const calendarEventBrandError =
-            document.getElementById(
-                "calendar-event-brand-error"
-            );
+  const calendarEventBrandError = document.getElementById("calendar-event-brand-error");
 
-        const calendarEventAssignedToInput =
-            document.getElementById(
-                "calendar-event-assigned-to"
-            );
+  const calendarEventAssignedToInput = document.getElementById("calendar-event-assigned-to");
 
-        const calendarEventTitleInput =
-            document.getElementById(
-                "calendar-event-title"
-            );
+  const calendarEventTitleInput = document.getElementById("calendar-event-title");
 
-        const calendarEventTitleError =
-            document.getElementById(
-                "calendar-event-title-error"
-            );
+  const calendarEventTitleError = document.getElementById("calendar-event-title-error");
 
-        const calendarEventDescriptionInput =
-            document.getElementById(
-                "calendar-event-description"
-            );
+  const calendarEventDescriptionInput = document.getElementById("calendar-event-description");
 
-        const calendarEventTypeInput =
-            document.getElementById(
-                "calendar-event-type"
-            );
+  const calendarEventTypeInput = document.getElementById("calendar-event-type");
 
-        const calendarEventPlatformInput =
-            document.getElementById(
-                "calendar-event-platform"
-            );
+  const calendarEventPlatformInput = document.getElementById("calendar-event-platform");
 
-        const calendarEventStartInput =
-            document.getElementById(
-                "calendar-event-start"
-            );
+  const calendarEventStartInput = document.getElementById("calendar-event-start");
 
-        const calendarEventStartError =
-            document.getElementById(
-                "calendar-event-start-error"
-            );
+  const calendarEventStartError = document.getElementById("calendar-event-start-error");
 
-        const calendarEventEndInput =
-            document.getElementById(
-                "calendar-event-end"
-            );
+  const calendarEventEndInput = document.getElementById("calendar-event-end");
 
-        const calendarEventEndError =
-            document.getElementById(
-                "calendar-event-end-error"
-            );
+  const calendarEventEndError = document.getElementById("calendar-event-end-error");
 
-        const calendarEventStatusInput =
-            document.getElementById(
-                "calendar-event-status"
-            );
+  const calendarEventStatusInput = document.getElementById("calendar-event-status");
 
-        const calendarEventTimezoneInput =
-            document.getElementById(
-                "calendar-event-timezone"
-            );
+  const calendarEventTimezoneInput = document.getElementById("calendar-event-timezone");
 
-        const calendarEventPlanItemInput =
-            document.getElementById(
-                "calendar-event-plan-item"
-            );
+  const calendarEventPlanItemInput = document.getElementById("calendar-event-plan-item");
 
-        const calendarEventAllDayInput =
-            document.getElementById(
-                "calendar-event-all-day"
-            );
+  const calendarEventAllDayInput = document.getElementById("calendar-event-all-day");
 
-        const calendarEventFormError =
-            document.getElementById(
-                "calendar-event-form-error"
-            );
+  const calendarEventFormError = document.getElementById("calendar-event-form-error");
 
-        const calendarEventFormCancel =
-            document.getElementById(
-                "calendar-event-form-cancel"
-            );
+  const calendarEventFormCancel = document.getElementById("calendar-event-form-cancel");
 
-        const calendarEventFormSubmit =
-            document.getElementById(
-                "calendar-event-form-submit"
-            );
+  const calendarEventFormSubmit = document.getElementById("calendar-event-form-submit");
 
-        const calendarEventFormSubmitText =
-            document.getElementById(
-                "calendar-event-form-submit-text"
-            );
+  const calendarEventFormSubmitText = document.getElementById("calendar-event-form-submit-text");
 
-        const calendarEventFormLoader =
-            document.getElementById(
-                "calendar-event-form-loader"
-            );
+  const calendarEventFormLoader = document.getElementById("calendar-event-form-loader");
 
-        /* ==================================================
+  /* ==================================================
            Modal de detalhes
         ================================================== */
 
-        const calendarEventDetailsModal =
-            document.getElementById(
-                "calendar-event-details-modal"
-            );
+  const calendarEventDetailsModal = document.getElementById("calendar-event-details-modal");
 
-        const calendarEventDetailsClose =
-            document.getElementById(
-                "calendar-event-details-close"
-            );
+  const calendarEventDetailsClose = document.getElementById("calendar-event-details-close");
 
-        const calendarEventDetailsCancel =
-            document.getElementById(
-                "calendar-event-details-cancel"
-            );
+  const calendarEventDetailsCancel = document.getElementById("calendar-event-details-cancel");
 
-        const calendarEventDetailsEdit =
-            document.getElementById(
-                "calendar-event-details-edit"
-            );
+  const calendarEventDetailsEdit = document.getElementById("calendar-event-details-edit");
 
-        const calendarEventDetailsArchive =
-            document.getElementById(
-                "calendar-event-details-archive"
-            );
+  const calendarEventDetailsArchive = document.getElementById("calendar-event-details-archive");
 
-        const calendarEventDetailsRestore =
-            document.getElementById(
-                "calendar-event-details-restore"
-            );
+  const calendarEventDetailsRestore = document.getElementById("calendar-event-details-restore");
 
-        const calendarEventDetailsTitle =
-            document.getElementById(
-                "calendar-event-details-title"
-            );
+  const calendarEventDetailsTitle = document.getElementById("calendar-event-details-title");
 
-        const calendarEventDetailsStatus =
-            document.getElementById(
-                "calendar-event-details-status"
-            );
+  const calendarEventDetailsStatus = document.getElementById("calendar-event-details-status");
 
-        const calendarEventDetailsStatusSelect =
-            document.getElementById(
-                "calendar-event-details-status-select"
-            );
+  const calendarEventDetailsStatusSelect = document.getElementById(
+    "calendar-event-details-status-select"
+  );
 
-        const calendarEventDetailsDescription =
-            document.getElementById(
-                "calendar-event-details-description"
-            );
+  const calendarEventDetailsDescription = document.getElementById(
+    "calendar-event-details-description"
+  );
 
-        const calendarEventDetailsBrand =
-            document.getElementById(
-                "calendar-event-details-brand"
-            );
+  const calendarEventDetailsBrand = document.getElementById("calendar-event-details-brand");
 
-        const calendarEventDetailsType =
-            document.getElementById(
-                "calendar-event-details-type"
-            );
+  const calendarEventDetailsType = document.getElementById("calendar-event-details-type");
 
-        const calendarEventDetailsPlatform =
-            document.getElementById(
-                "calendar-event-details-platform"
-            );
+  const calendarEventDetailsPlatform = document.getElementById("calendar-event-details-platform");
 
-        const calendarEventDetailsAssignee =
-            document.getElementById(
-                "calendar-event-details-assignee"
-            );
+  const calendarEventDetailsAssignee = document.getElementById("calendar-event-details-assignee");
 
-        const calendarEventDetailsDate =
-            document.getElementById(
-                "calendar-event-details-date"
-            );
+  const calendarEventDetailsDate = document.getElementById("calendar-event-details-date");
 
-        const calendarEventDetailsPlanItem =
-            document.getElementById(
-                "calendar-event-details-plan-item"
-            );
+  const calendarEventDetailsPlanItem = document.getElementById("calendar-event-details-plan-item");
 
-        /* ==================================================
+  /* ==================================================
            Modal arquivar
         ================================================== */
 
-        const archiveCalendarEventModal =
-            document.getElementById(
-                "archive-calendar-event-modal"
-            );
+  const archiveCalendarEventModal = document.getElementById("archive-calendar-event-modal");
 
-        const archiveCalendarEventCancel =
-            document.getElementById(
-                "archive-calendar-event-cancel"
-            );
+  const archiveCalendarEventCancel = document.getElementById("archive-calendar-event-cancel");
 
-        const archiveCalendarEventConfirm =
-            document.getElementById(
-                "archive-calendar-event-confirm"
-            );
+  const archiveCalendarEventConfirm = document.getElementById("archive-calendar-event-confirm");
 
-        /* ==================================================
+  /* ==================================================
            Estado
         ================================================== */
 
-        let currentUser = null;
-        let currentWorkspace = null;
+  let currentUser = null;
+  let currentWorkspace = null;
 
-        let calendarEvents = [];
-        let brands = [];
-        let members = [];
-        let plannerItems = [];
+  let calendarEvents = [];
+  let brands = [];
+  let members = [];
+  let plannerItems = [];
 
-        let selectedCalendarEventId = null;
-        let selectedArchiveEventId = null;
+  let selectedCalendarEventId = null;
+  let selectedArchiveEventId = null;
 
-        let lastFocusedElement = null;
+  let lastFocusedElement = null;
 
-        const today =
-            new Date();
+  const today = new Date();
 
-        let visibleMonth =
-            new Date(
-                today.getFullYear(),
-                today.getMonth(),
-                1
-            );
+  let visibleMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
-        /* ==================================================
+  /* ==================================================
            Mapas
         ================================================== */
 
-        const statusLabels = {
-            planned: "Planeado",
-            confirmed: "Confirmado",
-            completed: "Concluído",
-            cancelled: "Cancelado",
-            archived: "Arquivado"
-        };
+  const statusLabels = {
+    planned: "Planeado",
+    confirmed: "Confirmado",
+    completed: "Concluído",
+    cancelled: "Cancelado",
+    archived: "Arquivado",
+  };
 
-        const eventTypeLabels = {
-            content: "Conteúdo",
-            deadline: "Prazo",
-            event: "Evento",
-            reminder: "Lembrete"
-        };
+  const eventTypeLabels = {
+    content: "Conteúdo",
+    deadline: "Prazo",
+    event: "Evento",
+    reminder: "Lembrete",
+  };
 
-        const platformLabels = {
-            instagram: "Instagram",
-            facebook: "Facebook",
-            linkedin: "LinkedIn",
-            tiktok: "TikTok",
-            youtube: "YouTube",
-            pinterest: "Pinterest",
-            threads: "Threads",
-            x: "X",
-            blog: "Blog",
-            email: "Email"
-        };
+  const platformLabels = {
+    instagram: "Instagram",
+    facebook: "Facebook",
+    linkedin: "LinkedIn",
+    tiktok: "TikTok",
+    youtube: "YouTube",
+    pinterest: "Pinterest",
+    threads: "Threads",
+    x: "X",
+    blog: "Blog",
+    email: "Email",
+  };
 
-        /* ==================================================
+  /* ==================================================
            Utilitários
         ================================================== */
 
-        function escapeHtml(
-            value = ""
-        ) {
-            const element =
-                document.createElement(
-                    "div"
-                );
+  function escapeHtml(value = "") {
+    const element = document.createElement("div");
 
-            element.textContent =
-                String(value);
+    element.textContent = String(value);
 
-            return element.innerHTML;
-        }
+    return element.innerHTML;
+  }
 
-        function normalizeSearchText(
-            value = ""
-        ) {
-            return String(value)
-                .trim()
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(
-                    /[\u0300-\u036f]/g,
-                    ""
-                );
-        }
+  function normalizeSearchText(value = "") {
+    return String(value)
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
 
-        function getSafeColor(
-            value,
-            fallback = "#6D28D9"
-        ) {
-            return /^#[0-9A-F]{6}$/i.test(
-                value || ""
-            )
-                ? value
-                : fallback;
-        }
+  function getSafeColor(value, fallback = "#6D28D9") {
+    return /^#[0-9A-F]{6}$/i.test(value || "") ? value : fallback;
+  }
 
-        function getBrandById(
-            brandId
-        ) {
-            return (
-                brands.find(
-                    brand =>
-                        brand.id === brandId
-                ) ||
-                null
-            );
-        }
+  function getBrandById(brandId) {
+    return brands.find((brand) => brand.id === brandId) || null;
+  }
 
-        function getMemberById(
-            userId
-        ) {
-            return (
-                members.find(
-                    member =>
-                        member.id === userId
-                ) ||
-                null
-            );
-        }
+  function getMemberById(userId) {
+    return members.find((member) => member.id === userId) || null;
+  }
 
-        function getPlannerItemById(
-            plannerItemId
-        ) {
-            return (
-                plannerItems.find(
-                    item =>
-                        item.id ===
-                        plannerItemId
-                ) ||
-                null
-            );
-        }
+  function getPlannerItemById(plannerItemId) {
+    return plannerItems.find((item) => item.id === plannerItemId) || null;
+  }
 
-        function getDateKey(
-            date
-        ) {
-            const year =
-                date.getFullYear();
+  function getDateKey(date) {
+    const year = date.getFullYear();
 
-            const month =
-                String(
-                    date.getMonth() + 1
-                ).padStart(
-                    2,
-                    "0"
-                );
+    const month = String(date.getMonth() + 1).padStart(2, "0");
 
-            const day =
-                String(
-                    date.getDate()
-                ).padStart(
-                    2,
-                    "0"
-                );
+    const day = String(date.getDate()).padStart(2, "0");
 
-            return `${year}-${month}-${day}`;
-        }
+    return `${year}-${month}-${day}`;
+  }
 
-        function getEventDateKey(
-            event
-        ) {
-            const date =
-                new Date(
-                    event.starts_at
-                );
+  function getEventDateKey(event) {
+    const date = new Date(event.starts_at);
 
-            return getDateKey(
-                date
-            );
-        }
+    return getDateKey(date);
+  }
 
-        function formatEventTime(
-            event
-        ) {
-            if (event.all_day) {
-                return "Dia inteiro";
-            }
+  function formatEventTime(event) {
+    if (event.all_day) {
+      return "Dia inteiro";
+    }
 
-            const start =
-                new Date(
-                    event.starts_at
-                );
+    const start = new Date(event.starts_at);
 
-            const startText =
-                new Intl.DateTimeFormat(
-                    "pt-PT",
-                    {
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    }
-                ).format(start);
+    const startText = new Intl.DateTimeFormat("pt-PT", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(start);
 
-            if (!event.ends_at) {
-                return startText;
-            }
+    if (!event.ends_at) {
+      return startText;
+    }
 
-            const end =
-                new Date(
-                    event.ends_at
-                );
+    const end = new Date(event.ends_at);
 
-            const endText =
-                new Intl.DateTimeFormat(
-                    "pt-PT",
-                    {
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    }
-                ).format(end);
+    const endText = new Intl.DateTimeFormat("pt-PT", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(end);
 
-            return `${startText}–${endText}`;
-        }
+    return `${startText}–${endText}`;
+  }
 
-        function formatEventDateRange(
-            event
-        ) {
-            const start =
-                new Date(
-                    event.starts_at
-                );
+  function formatEventDateRange(event) {
+    const start = new Date(event.starts_at);
 
-            const startDate =
-                new Intl.DateTimeFormat(
-                    "pt-PT",
-                    {
-                        weekday: "long",
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric"
-                    }
-                ).format(start);
+    const startDate = new Intl.DateTimeFormat("pt-PT", {
+      weekday: "long",
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(start);
 
-            if (event.all_day) {
-                return `${startDate} · Dia inteiro`;
-            }
+    if (event.all_day) {
+      return `${startDate} · Dia inteiro`;
+    }
 
-            return `${startDate} · ${formatEventTime(
-                event
-            )}`;
-        }
+    return `${startDate} · ${formatEventTime(event)}`;
+  }
 
-        function toDatetimeLocal(
-            value
-        ) {
-            if (!value) {
-                return "";
-            }
+  function toDatetimeLocal(value) {
+    if (!value) {
+      return "";
+    }
 
-            const date =
-                new Date(value);
+    const date = new Date(value);
 
-            if (
-                Number.isNaN(
-                    date.getTime()
-                )
-            ) {
-                return "";
-            }
+    if (Number.isNaN(date.getTime())) {
+      return "";
+    }
 
-            const adjusted =
-                new Date(
-                    date.getTime() -
-                    date.getTimezoneOffset() *
-                    60000
-                );
+    const adjusted = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
 
-            return adjusted
-                .toISOString()
-                .slice(0, 16);
-        }
+    return adjusted.toISOString().slice(0, 16);
+  }
 
-        function createDefaultStartValue() {
-            const date =
-                new Date();
+  function createDefaultStartValue() {
+    const date = new Date();
 
-            date.setMinutes(
-                Math.ceil(
-                    date.getMinutes() / 30
-                ) * 30,
-                0,
-                0
-            );
+    date.setMinutes(Math.ceil(date.getMinutes() / 30) * 30, 0, 0);
 
-            return toDatetimeLocal(
-                date.toISOString()
-            );
-        }
+    return toDatetimeLocal(date.toISOString());
+  }
 
-        /* ==================================================
+  /* ==================================================
            Toasts
         ================================================== */
 
-        function showToast(
-            type = "info",
-            title = "",
-            message = ""
-        ) {
-            if (!toastContainer) {
-                return;
-            }
+  function showToast(type = "info", title = "", message = "") {
+    if (!toastContainer) {
+      return;
+    }
 
-            const icons = {
-                success: "circle-check",
-                error: "circle-alert",
-                warning: "triangle-alert",
-                info: "info"
-            };
+    const icons = {
+      success: "circle-check",
+      error: "circle-alert",
+      warning: "triangle-alert",
+      info: "info",
+    };
 
-            const toast =
-                document.createElement(
-                    "div"
-                );
+    const toast = document.createElement("div");
 
-            toast.className =
-                `toast is-${type}`;
+    toast.className = `toast is-${type}`;
 
-            toast.innerHTML = `
+    toast.innerHTML = `
                 <div class="toast-icon">
 
                     <i
-                        data-lucide="${
-                            icons[type] ||
-                            icons.info
-                        }"
+                        data-lucide="${icons[type] || icons.info}"
                     ></i>
 
                 </div>
@@ -770,2948 +415,1580 @@ document.addEventListener(
                 </button>
             `;
 
-            toastContainer.appendChild(
-                toast
-            );
+    toastContainer.appendChild(toast);
 
-            toast
-                .querySelector(
-                    ".toast-close"
-                )
-                ?.addEventListener(
-                    "click",
-                    () => toast.remove()
-                );
+    toast.querySelector(".toast-close")?.addEventListener("click", () => toast.remove());
 
-            window.lucide
-                ?.createIcons();
+    window.lucide?.createIcons();
 
-            window.setTimeout(
-                () => toast.remove(),
-                5000
-            );
-        }
+    window.setTimeout(() => toast.remove(), 5000);
+  }
 
-        /* ==================================================
+  /* ==================================================
            Perfil e workspace
         ================================================== */
 
-        async function loadUserProfile(
-            userId
-        ) {
-            const {
-                data,
-                error
-            } = await supabaseClient
-                .from("profiles")
-                .select(
-                    "id, full_name"
-                )
-                .eq(
-                    "id",
-                    userId
-                )
-                .maybeSingle();
+  async function loadUserProfile(userId) {
+    const { data, error } = await supabaseClient
+      .from("profiles")
+      .select("id, full_name")
+      .eq("id", userId)
+      .maybeSingle();
 
-            if (error) {
-                console.warn(
-                    "Erro ao carregar perfil:",
-                    error.message
-                );
+    if (error) {
+      console.warn("Erro ao carregar perfil:", error.message);
 
-                return null;
-            }
+      return null;
+    }
 
-            return data;
-        }
+    return data;
+  }
 
-        async function loadCurrentWorkspace(
-            userId
-        ) {
-            const {
-                data: membership,
-                error: membershipError
-            } = await supabaseClient
-                .from("workspace_members")
-                .select(
-                    "workspace_id, role, status, created_at"
-                )
-                .eq(
-                    "user_id",
-                    userId
-                )
-                .eq(
-                    "status",
-                    "active"
-                )
-                .order(
-                    "created_at",
-                    {
-                        ascending: true
-                    }
-                )
-                .limit(1)
-                .maybeSingle();
+  async function loadCurrentWorkspace(userId) {
+    const { data: membership, error: membershipError } = await supabaseClient
+      .from("workspace_members")
+      .select("workspace_id, role, status, created_at")
+      .eq("user_id", userId)
+      .eq("status", "active")
+      .order("created_at", {
+        ascending: true,
+      })
+      .limit(1)
+      .maybeSingle();
 
-            if (membershipError) {
-                throw membershipError;
-            }
+    if (membershipError) {
+      throw membershipError;
+    }
 
-            if (
-                !membership
-                    ?.workspace_id
-            ) {
-                throw new Error(
-                    "O utilizador não possui um workspace ativo."
-                );
-            }
+    if (!membership?.workspace_id) {
+      throw new Error("O utilizador não possui um workspace ativo.");
+    }
 
-            const {
-                data: workspace,
-                error: workspaceError
-            } = await supabaseClient
-                .from("workspaces")
-                .select(
-                    "id, name, status"
-                )
-                .eq(
-                    "id",
-                    membership.workspace_id
-                )
-                .eq(
-                    "status",
-                    "active"
-                )
-                .single();
+    const { data: workspace, error: workspaceError } = await supabaseClient
+      .from("workspaces")
+      .select("id, name, status")
+      .eq("id", membership.workspace_id)
+      .eq("status", "active")
+      .single();
 
-            if (workspaceError) {
-                throw workspaceError;
-            }
+    if (workspaceError) {
+      throw workspaceError;
+    }
 
-            return {
-                ...workspace,
-                role:
-                    membership.role
-            };
-        }
+    return {
+      ...workspace,
+      role: membership.role,
+    };
+  }
 
-        function updateDashboardIdentity(
-            user,
-            profile,
-            workspace
-        ) {
-            const fullName =
-                profile
-                    ?.full_name
-                    ?.trim() ||
-                user.email
-                    ?.split("@")[0] ||
-                "Utilizador";
+  function updateDashboardIdentity(user, profile, workspace) {
+    const fullName = profile?.full_name?.trim() || user.email?.split("@")[0] || "Utilizador";
 
-            const email =
-                user.email ||
-                "Email não disponível";
+    const email = user.email || "Email não disponível";
 
-            const avatarLetter =
-                fullName
-                    .charAt(0)
-                    .toUpperCase();
+    const avatarLetter = fullName.charAt(0).toUpperCase();
 
-            if (currentWorkspaceName) {
-                currentWorkspaceName.textContent =
-                    workspace.name;
-            }
+    if (currentWorkspaceName) {
+      currentWorkspaceName.textContent = workspace.name;
+    }
 
-            if (sidebarUserName) {
-                sidebarUserName.textContent =
-                    fullName;
-            }
+    if (sidebarUserName) {
+      sidebarUserName.textContent = fullName;
+    }
 
-            if (sidebarUserEmail) {
-                sidebarUserEmail.textContent =
-                    email;
-            }
+    if (sidebarUserEmail) {
+      sidebarUserEmail.textContent = email;
+    }
 
-            if (sidebarUserAvatar) {
-                sidebarUserAvatar.textContent =
-                    avatarLetter;
-            }
+    if (sidebarUserAvatar) {
+      sidebarUserAvatar.textContent = avatarLetter;
+    }
 
-            if (topbarAvatar) {
-                topbarAvatar.textContent =
-                    avatarLetter;
-            }
-        }
+    if (topbarAvatar) {
+      topbarAvatar.textContent = avatarLetter;
+    }
+  }
 
-        async function initializeWorkspaceContext() {
-            if (!supabaseClient) {
-                throw new Error(
-                    "Cliente Supabase não encontrado."
-                );
-            }
+  async function initializeWorkspaceContext() {
+    if (!supabaseClient) {
+      throw new Error("Cliente Supabase não encontrado.");
+    }
 
-            const user =
-                await window
-                    .studioVAuthReady;
+    const user = await window.studioVAuthReady;
 
-            if (!user) {
-                return false;
-            }
+    if (!user) {
+      return false;
+    }
 
-            currentUser =
-                user;
+    currentUser = user;
 
-            const [
-                profile,
-                workspace
-            ] = await Promise.all([
-                loadUserProfile(
-                    user.id
-                ),
-                loadCurrentWorkspace(
-                    user.id
-                )
-            ]);
+    const [profile, workspace] = await Promise.all([
+      loadUserProfile(user.id),
+      loadCurrentWorkspace(user.id),
+    ]);
 
-            currentWorkspace =
-                workspace;
+    currentWorkspace = workspace;
 
-            updateDashboardIdentity(
-                user,
-                profile,
-                workspace
-            );
+    updateDashboardIdentity(user, profile, workspace);
 
-            console.log(
-                "Contexto do Calendário carregado:",
-                {
-                    userId:
-                        user.id,
+    console.log("Contexto do Calendário carregado:", {
+      userId: user.id,
 
-                    workspaceId:
-                        workspace.id,
+      workspaceId: workspace.id,
 
-                    workspaceName:
-                        workspace.name,
+      workspaceName: workspace.name,
 
-                    role:
-                        workspace.role
-                }
-            );
+      role: workspace.role,
+    });
 
-            return true;
-        }
+    return true;
+  }
 
-        /* ==================================================
+  /* ==================================================
            Carregamento de membros
         ================================================== */
 
-        async function loadWorkspaceMembers() {
-            const {
-                data: membershipRows,
-                error: membershipError
-            } = await supabaseClient
-                .from("workspace_members")
-                .select(
-                    "user_id, role, status"
-                )
-                .eq(
-                    "workspace_id",
-                    currentWorkspace.id
-                )
-                .eq(
-                    "status",
-                    "active"
-                );
+  async function loadWorkspaceMembers() {
+    const { data: membershipRows, error: membershipError } = await supabaseClient
+      .from("workspace_members")
+      .select("user_id, role, status")
+      .eq("workspace_id", currentWorkspace.id)
+      .eq("status", "active");
 
-            if (membershipError) {
-                throw membershipError;
-            }
+    if (membershipError) {
+      throw membershipError;
+    }
 
-            const userIds =
-                (
-                    membershipRows ||
-                    []
-                )
-                    .map(
-                        row =>
-                            row.user_id
-                    )
-                    .filter(
-                        Boolean
-                    );
+    const userIds = (membershipRows || []).map((row) => row.user_id).filter(Boolean);
 
-            if (
-                userIds.length ===
-                0
-            ) {
-                members =
-                    [];
+    if (userIds.length === 0) {
+      members = [];
 
-                return;
-            }
+      return;
+    }
 
-            const {
-                data: profiles,
-                error: profilesError
-            } = await supabaseClient
-                .from("profiles")
-                .select(
-                    "id, full_name"
-                )
-                .in(
-                    "id",
-                    userIds
-                );
+    const { data: profiles, error: profilesError } = await supabaseClient
+      .from("profiles")
+      .select("id, full_name")
+      .in("id", userIds);
 
-            if (profilesError) {
-                throw profilesError;
-            }
+    if (profilesError) {
+      throw profilesError;
+    }
 
-            members =
-                userIds.map(
-                    userId => {
-                        const profile =
-                            profiles?.find(
-                                item =>
-                                    item.id ===
-                                    userId
-                            );
+    members = userIds.map((userId) => {
+      const profile = profiles?.find((item) => item.id === userId);
 
-                        const membership =
-                            membershipRows.find(
-                                item =>
-                                    item.user_id ===
-                                    userId
-                            );
+      const membership = membershipRows.find((item) => item.user_id === userId);
 
-                        return {
-                            id:
-                                userId,
+      return {
+        id: userId,
 
-                            full_name:
-                                profile
-                                    ?.full_name
-                                    ?.trim() ||
-                                "Utilizador",
+        full_name: profile?.full_name?.trim() || "Utilizador",
 
-                            role:
-                                membership
-                                    ?.role ||
-                                "member"
-                        };
-                    }
-                );
-        }
+        role: membership?.role || "member",
+      };
+    });
+  }
 
-        /* ==================================================
+  /* ==================================================
            Estados visuais
         ================================================== */
 
-        function setCalendarLoading(
-            isLoading
-        ) {
-            calendarLoading
-                ?.classList
-                .toggle(
-                    "hidden",
-                    !isLoading
-                );
+  function setCalendarLoading(isLoading) {
+    calendarLoading?.classList.toggle("hidden", !isLoading);
 
-            calendarBoard
-                ?.classList
-                .toggle(
-                    "hidden",
-                    isLoading
-                );
-        }
+    calendarBoard?.classList.toggle("hidden", isLoading);
+  }
 
-        /* ==================================================
+  /* ==================================================
            Opções dos selects
         ================================================== */
 
-        function populateBrandOptions() {
-            const previousFilter =
-                calendarBrandFilter
-                    ?.value ||
-                "all";
+  function populateBrandOptions() {
+    const previousFilter = calendarBrandFilter?.value || "all";
 
-            if (calendarBrandFilter) {
-                calendarBrandFilter.innerHTML = `
+    if (calendarBrandFilter) {
+      calendarBrandFilter.innerHTML = `
                     <option value="all">
                         Todas as marcas
                     </option>
                 `;
-            }
+    }
 
-            if (calendarEventBrandInput) {
-                calendarEventBrandInput.innerHTML = `
+    if (calendarEventBrandInput) {
+      calendarEventBrandInput.innerHTML = `
                     <option value="">
                         Selecione uma marca
                     </option>
                 `;
-            }
+    }
 
-            brands.forEach(
-                brand => {
-                    if (calendarBrandFilter) {
-                        const filterOption =
-                            document.createElement(
-                                "option"
-                            );
+    brands.forEach((brand) => {
+      if (calendarBrandFilter) {
+        const filterOption = document.createElement("option");
 
-                        filterOption.value =
-                            brand.id;
+        filterOption.value = brand.id;
 
-                        filterOption.textContent =
-                            brand.name;
+        filterOption.textContent = brand.name;
 
-                        calendarBrandFilter.appendChild(
-                            filterOption
-                        );
-                    }
+        calendarBrandFilter.appendChild(filterOption);
+      }
 
-                    if (
-                        calendarEventBrandInput &&
-                        brand.status ===
-                            "active"
-                    ) {
-                        const formOption =
-                            document.createElement(
-                                "option"
-                            );
+      if (calendarEventBrandInput && brand.status === "active") {
+        const formOption = document.createElement("option");
 
-                        formOption.value =
-                            brand.id;
+        formOption.value = brand.id;
 
-                        formOption.textContent =
-                            brand.name;
+        formOption.textContent = brand.name;
 
-                        calendarEventBrandInput.appendChild(
-                            formOption
-                        );
-                    }
-                }
-            );
+        calendarEventBrandInput.appendChild(formOption);
+      }
+    });
 
-            if (calendarBrandFilter) {
-                const optionExists =
-                    Array.from(
-                        calendarBrandFilter.options
-                    ).some(
-                        option =>
-                            option.value ===
-                            previousFilter
-                    );
+    if (calendarBrandFilter) {
+      const optionExists = Array.from(calendarBrandFilter.options).some(
+        (option) => option.value === previousFilter
+      );
 
-                calendarBrandFilter.value =
-                    optionExists
-                        ? previousFilter
-                        : "all";
-            }
-        }
+      calendarBrandFilter.value = optionExists ? previousFilter : "all";
+    }
+  }
 
-        function populateMemberOptions() {
-            if (
-                !calendarEventAssignedToInput
-            ) {
-                return;
-            }
+  function populateMemberOptions() {
+    if (!calendarEventAssignedToInput) {
+      return;
+    }
 
-            calendarEventAssignedToInput.innerHTML = `
+    calendarEventAssignedToInput.innerHTML = `
                 <option value="">
                     Sem responsável
                 </option>
             `;
 
-            members.forEach(
-                member => {
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
+    members.forEach((member) => {
+      const option = document.createElement("option");
 
-                    option.value =
-                        member.id;
+      option.value = member.id;
 
-                    option.textContent =
-                        member.full_name;
+      option.textContent = member.full_name;
 
-                    calendarEventAssignedToInput.appendChild(
-                        option
-                    );
-                }
-            );
-        }
+      calendarEventAssignedToInput.appendChild(option);
+    });
+  }
 
-        function populatePlannerOptions() {
-            if (
-                !calendarEventPlanItemInput
-            ) {
-                return;
-            }
+  function populatePlannerOptions() {
+    if (!calendarEventPlanItemInput) {
+      return;
+    }
 
-            calendarEventPlanItemInput.innerHTML = `
+    calendarEventPlanItemInput.innerHTML = `
                 <option value="">
                     Sem item associado
                 </option>
             `;
 
-            plannerItems
-                .filter(
-                    item =>
-                        item.status !==
-                        "archived"
-                )
-                .forEach(
-                    item => {
-                        const option =
-                            document.createElement(
-                                "option"
-                            );
+    plannerItems
+      .filter((item) => item.status !== "archived")
+      .forEach((item) => {
+        const option = document.createElement("option");
 
-                        option.value =
-                            item.id;
+        option.value = item.id;
 
-                        option.textContent =
-                            item.title;
+        option.textContent = item.title;
 
-                        calendarEventPlanItemInput.appendChild(
-                            option
-                        );
-                    }
-                );
-        }
+        calendarEventPlanItemInput.appendChild(option);
+      });
+  }
 
-        /* ==================================================
+  /* ==================================================
            Contadores
         ================================================== */
 
-        function updateCalendarCounters() {
-            const now =
-                new Date();
+  function updateCalendarCounters() {
+    const now = new Date();
 
-            const activeEvents =
-                calendarEvents.filter(
-                    event =>
-                        event.status !==
-                        "archived"
-                );
+    const activeEvents = calendarEvents.filter((event) => event.status !== "archived");
 
-            const upcomingEvents =
-                activeEvents.filter(
-                    event =>
-                        new Date(
-                            event.starts_at
-                        ) >= now &&
-                        event.status !==
-                            "completed" &&
-                        event.status !==
-                            "cancelled"
-                );
+    const upcomingEvents = activeEvents.filter(
+      (event) =>
+        new Date(event.starts_at) >= now &&
+        event.status !== "completed" &&
+        event.status !== "cancelled"
+    );
 
-            const completedEvents =
-                activeEvents.filter(
-                    event =>
-                        event.status ===
-                        "completed"
-                );
+    const completedEvents = activeEvents.filter((event) => event.status === "completed");
 
-            const archivedEvents =
-                calendarEvents.filter(
-                    event =>
-                        event.status ===
-                        "archived"
-                );
+    const archivedEvents = calendarEvents.filter((event) => event.status === "archived");
 
-            if (calendarTotalCount) {
-                calendarTotalCount.textContent =
-                    String(
-                        activeEvents.length
-                    );
-            }
+    if (calendarTotalCount) {
+      calendarTotalCount.textContent = String(activeEvents.length);
+    }
 
-            if (calendarUpcomingCount) {
-                calendarUpcomingCount.textContent =
-                    String(
-                        upcomingEvents.length
-                    );
-            }
+    if (calendarUpcomingCount) {
+      calendarUpcomingCount.textContent = String(upcomingEvents.length);
+    }
 
-            if (calendarCompletedCount) {
-                calendarCompletedCount.textContent =
-                    String(
-                        completedEvents.length
-                    );
-            }
+    if (calendarCompletedCount) {
+      calendarCompletedCount.textContent = String(completedEvents.length);
+    }
 
-            if (calendarArchivedCount) {
-                calendarArchivedCount.textContent =
-                    String(
-                        archivedEvents.length
-                    );
-            }
-        }
+    if (calendarArchivedCount) {
+      calendarArchivedCount.textContent = String(archivedEvents.length);
+    }
+  }
 
-        /* ==================================================
+  /* ==================================================
            Filtros
         ================================================== */
 
-        function hasActiveFilters() {
-            return Boolean(
-                calendarSearchInput
-                    ?.value
-                    .trim() ||
+  function hasActiveFilters() {
+    return Boolean(
+      calendarSearchInput?.value.trim() ||
+      calendarBrandFilter?.value !== "all" ||
+      calendarStatusFilter?.value !== "all" ||
+      calendarTypeFilter?.value !== "all" ||
+      calendarPlatformFilter?.value !== "all"
+    );
+  }
 
-                calendarBrandFilter
-                    ?.value !==
-                    "all" ||
+  function getFilteredCalendarEvents() {
+    const searchTerm = normalizeSearchText(calendarSearchInput?.value || "");
 
-                calendarStatusFilter
-                    ?.value !==
-                    "all" ||
+    const selectedBrand = calendarBrandFilter?.value || "all";
 
-                calendarTypeFilter
-                    ?.value !==
-                    "all" ||
+    const selectedStatus = calendarStatusFilter?.value || "all";
 
-                calendarPlatformFilter
-                    ?.value !==
-                    "all"
-            );
-        }
+    const selectedType = calendarTypeFilter?.value || "all";
 
-        function getFilteredCalendarEvents() {
-            const searchTerm =
-                normalizeSearchText(
-                    calendarSearchInput
-                        ?.value ||
-                    ""
-                );
+    const selectedPlatform = calendarPlatformFilter?.value || "all";
 
-            const selectedBrand =
-                calendarBrandFilter
-                    ?.value ||
-                "all";
+    return calendarEvents.filter((event) => {
+      if (event.status === "archived" && selectedStatus !== "archived") {
+        return false;
+      }
 
-            const selectedStatus =
-                calendarStatusFilter
-                    ?.value ||
-                "all";
+      const searchableText = normalizeSearchText(
+        [event.title, event.description, event.event_type, event.platform, event.status]
+          .filter(Boolean)
+          .join(" ")
+      );
 
-            const selectedType =
-                calendarTypeFilter
-                    ?.value ||
-                "all";
+      const matchesSearch = searchTerm === "" || searchableText.includes(searchTerm);
 
-            const selectedPlatform =
-                calendarPlatformFilter
-                    ?.value ||
-                "all";
+      const matchesBrand = selectedBrand === "all" || event.brand_id === selectedBrand;
 
-            return calendarEvents.filter(
-                event => {
-                    if (
-                        event.status ===
-                            "archived" &&
-                        selectedStatus !==
-                            "archived"
-                    ) {
-                        return false;
-                    }
+      const matchesStatus = selectedStatus === "all" || event.status === selectedStatus;
 
-                    const searchableText =
-                        normalizeSearchText(
-                            [
-                                event.title,
-                                event.description,
-                                event.event_type,
-                                event.platform,
-                                event.status
-                            ]
-                                .filter(
-                                    Boolean
-                                )
-                                .join(" ")
-                        );
+      const matchesType = selectedType === "all" || event.event_type === selectedType;
 
-                    const matchesSearch =
-                        searchTerm === "" ||
-                        searchableText.includes(
-                            searchTerm
-                        );
+      const matchesPlatform = selectedPlatform === "all" || event.platform === selectedPlatform;
 
-                    const matchesBrand =
-                        selectedBrand ===
-                            "all" ||
-                        event.brand_id ===
-                            selectedBrand;
+      return matchesSearch && matchesBrand && matchesStatus && matchesType && matchesPlatform;
+    });
+  }
 
-                    const matchesStatus =
-                        selectedStatus ===
-                            "all" ||
-                        event.status ===
-                            selectedStatus;
-
-                    const matchesType =
-                        selectedType ===
-                            "all" ||
-                        event.event_type ===
-                            selectedType;
-
-                    const matchesPlatform =
-                        selectedPlatform ===
-                            "all" ||
-                        event.platform ===
-                            selectedPlatform;
-
-                    return (
-                        matchesSearch &&
-                        matchesBrand &&
-                        matchesStatus &&
-                        matchesType &&
-                        matchesPlatform
-                    );
-                }
-            );
-        }
-
-        /* ==================================================
+  /* ==================================================
            Renderização
         ================================================== */
 
-        function updateMonthLabel() {
-            if (!calendarMonthLabel) {
-                return;
-            }
+  function updateMonthLabel() {
+    if (!calendarMonthLabel) {
+      return;
+    }
 
-            calendarMonthLabel.textContent =
-                new Intl.DateTimeFormat(
-                    "pt-PT",
-                    {
-                        month: "long",
-                        year: "numeric"
-                    }
-                ).format(
-                    visibleMonth
-                );
-        }
+    calendarMonthLabel.textContent = new Intl.DateTimeFormat("pt-PT", {
+      month: "long",
+      year: "numeric",
+    }).format(visibleMonth);
+  }
 
-        function createCalendarEventChip(
-            event
-        ) {
-            const brand =
-                getBrandById(
-                    event.brand_id
-                );
+  function createCalendarEventChip(event) {
+    const brand = getBrandById(event.brand_id);
 
-            const chip =
-                document.createElement(
-                    "button"
-                );
+    const chip = document.createElement("button");
 
-            chip.type =
-                "button";
+    chip.type = "button";
 
-            chip.className =
-                `calendar-event-chip is-${event.status}`;
+    chip.className = `calendar-event-chip is-${event.status}`;
 
-            chip.dataset.calendarEventId =
-                event.id;
+    chip.dataset.calendarEventId = event.id;
 
-            chip.style.setProperty(
-                "--calendar-event-color",
-                getSafeColor(
-                    brand
-                        ?.primary_color
-                )
-            );
+    chip.style.setProperty("--calendar-event-color", getSafeColor(brand?.primary_color));
 
-            chip.innerHTML = `
+    chip.innerHTML = `
                 <strong>
-                    ${escapeHtml(
-                        event.title
-                    )}
+                    ${escapeHtml(event.title)}
                 </strong>
 
                 <span>
-                    ${escapeHtml(
-                        formatEventTime(
-                            event
-                        )
-                    )}
+                    ${escapeHtml(formatEventTime(event))}
                 </span>
             `;
 
-            return chip;
-        }
+    return chip;
+  }
 
-        function renderCalendar() {
-            if (!calendarGrid) {
-                return;
-            }
+  function renderCalendar() {
+    if (!calendarGrid) {
+      return;
+    }
 
-            updateMonthLabel();
+    updateMonthLabel();
 
-            const filteredEvents =
-                getFilteredCalendarEvents();
+    const filteredEvents = getFilteredCalendarEvents();
 
-            calendarEmpty
-                ?.classList
-                .toggle(
-                    "hidden",
-                    calendarEvents.length >
-                        0
-                );
+    calendarEmpty?.classList.toggle("hidden", calendarEvents.length > 0);
 
-            calendarNoResults
-                ?.classList
-                .toggle(
-                    "hidden",
-                    !(
-                        calendarEvents.length >
-                            0 &&
-                        filteredEvents.length ===
-                            0 &&
-                        hasActiveFilters()
-                    )
-                );
+    calendarNoResults?.classList.toggle(
+      "hidden",
+      !(calendarEvents.length > 0 && filteredEvents.length === 0 && hasActiveFilters())
+    );
 
-            calendarGrid.innerHTML =
-                "";
+    calendarGrid.innerHTML = "";
 
-            const firstDay =
-                new Date(
-                    visibleMonth.getFullYear(),
-                    visibleMonth.getMonth(),
-                    1
-                );
+    const firstDay = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), 1);
 
-            const mondayOffset =
-                (
-                    firstDay.getDay() +
-                    6
-                ) % 7;
+    const mondayOffset = (firstDay.getDay() + 6) % 7;
 
-            const gridStart =
-                new Date(
-                    firstDay
-                );
+    const gridStart = new Date(firstDay);
 
-            gridStart.setDate(
-                firstDay.getDate() -
-                mondayOffset
-            );
+    gridStart.setDate(firstDay.getDate() - mondayOffset);
 
-            const todayKey =
-                getDateKey(
-                    new Date()
-                );
+    const todayKey = getDateKey(new Date());
 
-            for (
-                let index = 0;
-                index < 42;
-                index += 1
-            ) {
-                const dayDate =
-                    new Date(
-                        gridStart
-                    );
+    for (let index = 0; index < 42; index += 1) {
+      const dayDate = new Date(gridStart);
 
-                dayDate.setDate(
-                    gridStart.getDate() +
-                    index
-                );
+      dayDate.setDate(gridStart.getDate() + index);
 
-                const dayKey =
-                    getDateKey(
-                        dayDate
-                    );
+      const dayKey = getDateKey(dayDate);
 
-                const isOutside =
-                    dayDate.getMonth() !==
-                    visibleMonth.getMonth();
+      const isOutside = dayDate.getMonth() !== visibleMonth.getMonth();
 
-                const isToday =
-                    dayKey ===
-                    todayKey;
+      const isToday = dayKey === todayKey;
 
-                const dayEvents =
-                    filteredEvents
-                        .filter(
-                            event =>
-                                getEventDateKey(
-                                    event
-                                ) ===
-                                dayKey
-                        )
-                        .sort(
-                            (
-                                first,
-                                second
-                            ) =>
-                                new Date(
-                                    first.starts_at
-                                ) -
-                                new Date(
-                                    second.starts_at
-                                )
-                        );
+      const dayEvents = filteredEvents
+        .filter((event) => getEventDateKey(event) === dayKey)
+        .sort((first, second) => new Date(first.starts_at) - new Date(second.starts_at));
 
-                const day =
-                    document.createElement(
-                        "article"
-                    );
+      const day = document.createElement("article");
 
-                day.className = [
-                    "calendar-day",
-                    isOutside
-                        ? "is-outside"
-                        : "",
-                    isToday
-                        ? "is-today"
-                        : ""
-                ]
-                    .filter(
-                        Boolean
-                    )
-                    .join(" ");
+      day.className = ["calendar-day", isOutside ? "is-outside" : "", isToday ? "is-today" : ""]
+        .filter(Boolean)
+        .join(" ");
 
-                day.dataset.calendarDate =
-                    dayKey;
+      day.dataset.calendarDate = dayKey;
 
-                const dayNumber =
-                    document.createElement(
-                        "span"
-                    );
+      const dayNumber = document.createElement("span");
 
-                dayNumber.className =
-                    "calendar-day-number";
+      dayNumber.className = "calendar-day-number";
 
-                dayNumber.textContent =
-                    String(
-                        dayDate.getDate()
-                    );
+      dayNumber.textContent = String(dayDate.getDate());
 
-                const eventsContainer =
-                    document.createElement(
-                        "div"
-                    );
+      const eventsContainer = document.createElement("div");
 
-                eventsContainer.className =
-                    "calendar-day-events";
+      eventsContainer.className = "calendar-day-events";
 
-                dayEvents
-                    .slice(
-                        0,
-                        3
-                    )
-                    .forEach(
-                        event => {
-                            eventsContainer.appendChild(
-                                createCalendarEventChip(
-                                    event
-                                )
-                            );
-                        }
-                    );
+      dayEvents.slice(0, 3).forEach((event) => {
+        eventsContainer.appendChild(createCalendarEventChip(event));
+      });
 
-                if (
-                    dayEvents.length >
-                    3
-                ) {
-                    const moreButton =
-                        document.createElement(
-                            "button"
-                        );
+      if (dayEvents.length > 3) {
+        const moreButton = document.createElement("button");
 
-                    moreButton.type =
-                        "button";
+        moreButton.type = "button";
 
-                    moreButton.className =
-                        "calendar-more-events";
+        moreButton.className = "calendar-more-events";
 
-                    moreButton.textContent =
-                        `+${dayEvents.length - 3} eventos`;
+        moreButton.textContent = `+${dayEvents.length - 3} eventos`;
 
-                    eventsContainer.appendChild(
-                        moreButton
-                    );
-                }
+        eventsContainer.appendChild(moreButton);
+      }
 
-                day.appendChild(
-                    dayNumber
-                );
+      day.appendChild(dayNumber);
 
-                day.appendChild(
-                    eventsContainer
-                );
+      day.appendChild(eventsContainer);
 
-                calendarGrid.appendChild(
-                    day
-                );
-            }
+      calendarGrid.appendChild(day);
+    }
 
-            calendarBoard
-                ?.classList
-                .remove(
-                    "hidden"
-                );
+    calendarBoard?.classList.remove("hidden");
 
-            window.lucide
-                ?.createIcons();
-        }
+    window.lucide?.createIcons();
+  }
 
-        /* ==================================================
+  /* ==================================================
            Carregamento
         ================================================== */
 
-        async function loadCalendarData() {
-            if (
-                !currentWorkspace
-                    ?.id
-            ) {
-                return;
-            }
+  async function loadCalendarData() {
+    if (!currentWorkspace?.id) {
+      return;
+    }
 
-            setCalendarLoading(
-                true
-            );
+    setCalendarLoading(true);
 
-            try {
-                const [
-                    brandsResult,
-                    eventsResult,
-                    plannerResult
-                ] = await Promise.all([
-                    supabaseClient
-                        .from("brands")
-                        .select(`
+    try {
+      const [brandsResult, eventsResult, plannerResult] = await Promise.all([
+        supabaseClient
+          .from("brands")
+          .select(
+            `
                             id,
                             name,
                             primary_color,
                             status
-                        `)
-                        .eq(
-                            "workspace_id",
-                            currentWorkspace.id
-                        )
-                        .order(
-                            "name",
-                            {
-                                ascending: true
-                            }
-                        ),
+                        `
+          )
+          .eq("workspace_id", currentWorkspace.id)
+          .order("name", {
+            ascending: true,
+          }),
 
-                    supabaseClient
-                        .from(
-                            "calendar_events"
-                        )
-                        .select("*")
-                        .eq(
-                            "workspace_id",
-                            currentWorkspace.id
-                        )
-                        .order(
-                            "starts_at",
-                            {
-                                ascending: true
-                            }
-                        ),
+        supabaseClient
+          .from("calendar_events")
+          .select("*")
+          .eq("workspace_id", currentWorkspace.id)
+          .order("starts_at", {
+            ascending: true,
+          }),
 
-                    supabaseClient
-                        .from(
-                            "content_plan_items"
-                        )
-                        .select(`
+        supabaseClient
+          .from("content_plan_items")
+          .select(
+            `
                             id,
                             brand_id,
                             title,
                             status
-                        `)
-                        .eq(
-                            "workspace_id",
-                            currentWorkspace.id
-                        )
-                        .order(
-                            "created_at",
-                            {
-                                ascending: false
-                            }
-                        )
-                ]);
+                        `
+          )
+          .eq("workspace_id", currentWorkspace.id)
+          .order("created_at", {
+            ascending: false,
+          }),
+      ]);
 
-                if (brandsResult.error) {
-                    throw brandsResult.error;
-                }
+      if (brandsResult.error) {
+        throw brandsResult.error;
+      }
 
-                if (eventsResult.error) {
-                    throw eventsResult.error;
-                }
+      if (eventsResult.error) {
+        throw eventsResult.error;
+      }
 
-                if (plannerResult.error) {
-                    throw plannerResult.error;
-                }
+      if (plannerResult.error) {
+        throw plannerResult.error;
+      }
 
-                brands =
-                    brandsResult.data ||
-                    [];
+      brands = brandsResult.data || [];
 
-                calendarEvents =
-                    eventsResult.data ||
-                    [];
+      calendarEvents = eventsResult.data || [];
 
-                plannerItems =
-                    plannerResult.data ||
-                    [];
+      plannerItems = plannerResult.data || [];
 
-                await loadWorkspaceMembers();
+      await loadWorkspaceMembers();
 
-                populateBrandOptions();
-                populateMemberOptions();
-                populatePlannerOptions();
+      populateBrandOptions();
+      populateMemberOptions();
+      populatePlannerOptions();
 
-                updateCalendarCounters();
-                renderCalendar();
+      updateCalendarCounters();
+      renderCalendar();
 
-                console.log(
-                    "Calendário carregado:",
-                    {
-                        events:
-                            calendarEvents.length,
+      console.log("Calendário carregado:", {
+        events: calendarEvents.length,
 
-                        brands:
-                            brands.length,
+        brands: brands.length,
 
-                        members:
-                            members.length,
+        members: members.length,
 
-                        plannerItems:
-                            plannerItems.length
-                    }
-                );
-            } catch (error) {
-                console.error(
-                    "Erro ao carregar calendário:",
-                    error
-                );
+        plannerItems: plannerItems.length,
+      });
+    } catch (error) {
+      console.error("Erro ao carregar calendário:", error);
 
-                showToast(
-                    "error",
-                    "Erro ao carregar calendário",
-                    error?.message ||
-                    "Não foi possível carregar os eventos."
-                );
-            } finally {
-                setCalendarLoading(
-                    false
-                );
-            }
-        }
+      showToast(
+        "error",
+        "Erro ao carregar calendário",
+        error?.message || "Não foi possível carregar os eventos."
+      );
+    } finally {
+      setCalendarLoading(false);
+    }
+  }
 
-        /* ==================================================
+  /* ==================================================
            Modais
         ================================================== */
 
-        function openModal(
-            modal
-        ) {
-            if (!modal) {
-                return;
-            }
+  function openModal(modal) {
+    if (!modal) {
+      return;
+    }
 
-            lastFocusedElement =
-                document.activeElement;
+    lastFocusedElement = document.activeElement;
 
-            modal.classList.remove(
-                "hidden"
-            );
+    modal.classList.remove("hidden");
 
-            modal.classList.add(
-                "is-open"
-            );
+    modal.classList.add("is-open");
 
-            modal.setAttribute(
-                "aria-hidden",
-                "false"
-            );
+    modal.setAttribute("aria-hidden", "false");
 
-            body.classList.add(
-                "modal-open"
-            );
-        }
+    body.classList.add("modal-open");
+  }
 
-        function closeModal(
-            modal
-        ) {
-            if (!modal) {
-                return;
-            }
+  function closeModal(modal) {
+    if (!modal) {
+      return;
+    }
 
-            if (
-                modal.contains(
-                    document.activeElement
-                )
-            ) {
-                document.activeElement
-                    ?.blur();
-            }
+    if (modal.contains(document.activeElement)) {
+      document.activeElement?.blur();
+    }
 
-            modal.classList.remove(
-                "is-open"
-            );
+    modal.classList.remove("is-open");
 
-            modal.classList.add(
-                "hidden"
-            );
+    modal.classList.add("hidden");
 
-            modal.setAttribute(
-                "aria-hidden",
-                "true"
-            );
+    modal.setAttribute("aria-hidden", "true");
 
-            const anotherModalOpen =
-                document.querySelector(
-                    ".modal-overlay.is-open"
-                );
+    const anotherModalOpen = document.querySelector(".modal-overlay.is-open");
 
-            if (!anotherModalOpen) {
-                body.classList.remove(
-                    "modal-open"
-                );
-            }
+    if (!anotherModalOpen) {
+      body.classList.remove("modal-open");
+    }
 
-            lastFocusedElement
-                ?.focus();
-        }
+    lastFocusedElement?.focus();
+  }
 
-        /* ==================================================
+  /* ==================================================
            Formulário
         ================================================== */
 
-        function clearCalendarFormErrors() {
-            calendarEventBrandInput
-                ?.classList
-                .remove(
-                    "is-invalid"
-                );
-
-            calendarEventTitleInput
-                ?.classList
-                .remove(
-                    "is-invalid"
-                );
-
-            calendarEventStartInput
-                ?.classList
-                .remove(
-                    "is-invalid"
-                );
-
-            calendarEventEndInput
-                ?.classList
-                .remove(
-                    "is-invalid"
-                );
-
-            if (calendarEventBrandError) {
-                calendarEventBrandError.textContent =
-                    "";
-            }
-
-            if (calendarEventTitleError) {
-                calendarEventTitleError.textContent =
-                    "";
-            }
-
-            if (calendarEventStartError) {
-                calendarEventStartError.textContent =
-                    "";
-            }
-
-            if (calendarEventEndError) {
-                calendarEventEndError.textContent =
-                    "";
-            }
-
-            if (calendarEventFormError) {
-                calendarEventFormError.textContent =
-                    "";
-
-                calendarEventFormError
-                    .classList
-                    .add(
-                        "hidden"
-                    );
-            }
-        }
-
-        function resetCalendarEventForm() {
-            calendarEventForm
-                ?.reset();
-
-            if (calendarEventIdInput) {
-                calendarEventIdInput.value =
-                    "";
-            }
-
-            if (calendarEventModalTitle) {
-                calendarEventModalTitle.textContent =
-                    "Novo evento";
-            }
-
-            if (calendarEventTypeInput) {
-                calendarEventTypeInput.value =
-                    "content";
-            }
-
-            if (calendarEventStatusInput) {
-                calendarEventStatusInput.value =
-                    "planned";
-            }
-
-            if (calendarEventTimezoneInput) {
-                calendarEventTimezoneInput.value =
-                    "Europe/Lisbon";
-            }
-
-            if (calendarEventStartInput) {
-                calendarEventStartInput.value =
-                    createDefaultStartValue();
-            }
-
-            if (calendarEventEndInput) {
-                calendarEventEndInput.value =
-                    "";
-            }
-
-            if (calendarEventFormSubmitText) {
-                calendarEventFormSubmitText.textContent =
-                    "Criar evento";
-            }
-
-            clearCalendarFormErrors();
-        }
-
-        function validateCalendarEventForm() {
-            clearCalendarFormErrors();
-
-            let isValid =
-                true;
-
-            const brandId =
-                calendarEventBrandInput
-                    ?.value ||
-                "";
-
-            const title =
-                calendarEventTitleInput
-                    ?.value
-                    .trim() ||
-                "";
-
-            const startValue =
-                calendarEventStartInput
-                    ?.value ||
-                "";
-
-            const endValue =
-                calendarEventEndInput
-                    ?.value ||
-                "";
-
-            if (!brandId) {
-                calendarEventBrandInput
-                    ?.classList
-                    .add(
-                        "is-invalid"
-                    );
-
-                if (
-                    calendarEventBrandError
-                ) {
-                    calendarEventBrandError.textContent =
-                        "Selecione uma marca.";
-                }
-
-                isValid =
-                    false;
-            }
-
-            if (
-                title.length < 2 ||
-                title.length > 160
-            ) {
-                calendarEventTitleInput
-                    ?.classList
-                    .add(
-                        "is-invalid"
-                    );
-
-                if (
-                    calendarEventTitleError
-                ) {
-                    calendarEventTitleError.textContent =
-                        "O título deve ter entre 2 e 160 caracteres.";
-                }
-
-                isValid =
-                    false;
-            }
-
-            if (!startValue) {
-                calendarEventStartInput
-                    ?.classList
-                    .add(
-                        "is-invalid"
-                    );
-
-                if (
-                    calendarEventStartError
-                ) {
-                    calendarEventStartError.textContent =
-                        "Defina a data de início.";
-                }
-
-                isValid =
-                    false;
-            }
-
-            if (
-                startValue &&
-                endValue &&
-                new Date(endValue) <
-                    new Date(startValue)
-            ) {
-                calendarEventEndInput
-                    ?.classList
-                    .add(
-                        "is-invalid"
-                    );
-
-                if (
-                    calendarEventEndError
-                ) {
-                    calendarEventEndError.textContent =
-                        "O fim não pode ser anterior ao início.";
-                }
-
-                isValid =
-                    false;
-            }
-
-            return isValid;
-        }
-
-        function openCreateCalendarEventModal() {
-            const activeBrands =
-                brands.filter(
-                    brand =>
-                        brand.status ===
-                        "active"
-                );
-
-            if (
-                activeBrands.length ===
-                0
-            ) {
-                showToast(
-                    "warning",
-                    "Nenhuma marca disponível",
-                    "Crie ou restaure uma marca antes de adicionar eventos."
-                );
-
-                return;
-            }
-
-            resetCalendarEventForm();
-
-            openModal(
-                calendarEventModal
-            );
-
-            window.setTimeout(
-                () =>
-                    calendarEventTitleInput
-                        ?.focus(),
-                100
-            );
-        }
-
-        function openEditCalendarEventModal(
-            eventId
-        ) {
-            const event =
-                calendarEvents.find(
-                    item =>
-                        item.id ===
-                        eventId
-                );
-
-            if (!event) {
-                showToast(
-                    "error",
-                    "Evento não encontrado",
-                    "Não foi possível localizar o evento."
-                );
-
-                return;
-            }
-
-            if (
-                event.status ===
-                "archived"
-            ) {
-                showToast(
-                    "warning",
-                    "Edição indisponível",
-                    "Restaure o evento antes de editá-lo."
-                );
-
-                return;
-            }
-
-            resetCalendarEventForm();
-
-            if (calendarEventIdInput) {
-                calendarEventIdInput.value =
-                    event.id;
-            }
-
-            if (calendarEventModalTitle) {
-                calendarEventModalTitle.textContent =
-                    "Editar evento";
-            }
-
-            if (calendarEventBrandInput) {
-                calendarEventBrandInput.value =
-                    event.brand_id ||
-                    "";
-            }
-
-            if (calendarEventAssignedToInput) {
-                calendarEventAssignedToInput.value =
-                    event.assigned_to ||
-                    "";
-            }
-
-            if (calendarEventTitleInput) {
-                calendarEventTitleInput.value =
-                    event.title ||
-                    "";
-            }
-
-            if (calendarEventDescriptionInput) {
-                calendarEventDescriptionInput.value =
-                    event.description ||
-                    "";
-            }
-
-            if (calendarEventTypeInput) {
-                calendarEventTypeInput.value =
-                    event.event_type ||
-                    "content";
-            }
-
-            if (calendarEventPlatformInput) {
-                calendarEventPlatformInput.value =
-                    event.platform ||
-                    "";
-            }
-
-            if (calendarEventStartInput) {
-                calendarEventStartInput.value =
-                    toDatetimeLocal(
-                        event.starts_at
-                    );
-            }
-
-            if (calendarEventEndInput) {
-                calendarEventEndInput.value =
-                    toDatetimeLocal(
-                        event.ends_at
-                    );
-            }
-
-            if (calendarEventStatusInput) {
-                calendarEventStatusInput.value =
-                    event.status ||
-                    "planned";
-            }
-
-            if (calendarEventTimezoneInput) {
-                calendarEventTimezoneInput.value =
-                    event.timezone ||
-                    "Europe/Lisbon";
-            }
-
-            if (calendarEventPlanItemInput) {
-                calendarEventPlanItemInput.value =
-                    event.plan_item_id ||
-                    "";
-            }
-
-            if (calendarEventAllDayInput) {
-                calendarEventAllDayInput.checked =
-                    Boolean(
-                        event.all_day
-                    );
-            }
-
-            if (calendarEventFormSubmitText) {
-                calendarEventFormSubmitText.textContent =
-                    "Guardar alterações";
-            }
-
-            closeModal(
-                calendarEventDetailsModal
-            );
-
-            openModal(
-                calendarEventModal
-            );
-
-            window.setTimeout(
-                () =>
-                    calendarEventTitleInput
-                        ?.focus(),
-                100
-            );
-        }
-
-        function closeCalendarEventModal() {
-            closeModal(
-                calendarEventModal
-            );
-
-            resetCalendarEventForm();
-        }
-
-        function setCalendarEventSubmitting(
-            isSubmitting
-        ) {
-            if (
-                !calendarEventFormSubmit
-            ) {
-                return;
-            }
-
-            const isEditing =
-                Boolean(
-                    calendarEventIdInput
-                        ?.value
-                        .trim()
-                );
-
-            calendarEventFormSubmit.disabled =
-                isSubmitting;
-
-            calendarEventFormSubmit
-                .setAttribute(
-                    "aria-busy",
-                    String(
-                        isSubmitting
-                    )
-                );
-
-            calendarEventFormLoader
-                ?.classList
-                .toggle(
-                    "hidden",
-                    !isSubmitting
-                );
-
-            if (
-                calendarEventFormSubmitText
-            ) {
-                if (isSubmitting) {
-                    calendarEventFormSubmitText.textContent =
-                        isEditing
-                            ? "A guardar..."
-                            : "A criar...";
-                } else {
-                    calendarEventFormSubmitText.textContent =
-                        isEditing
-                            ? "Guardar alterações"
-                            : "Criar evento";
-                }
-            }
-        }
-
-        /* ==================================================
+  function clearCalendarFormErrors() {
+    calendarEventBrandInput?.classList.remove("is-invalid");
+
+    calendarEventTitleInput?.classList.remove("is-invalid");
+
+    calendarEventStartInput?.classList.remove("is-invalid");
+
+    calendarEventEndInput?.classList.remove("is-invalid");
+
+    if (calendarEventBrandError) {
+      calendarEventBrandError.textContent = "";
+    }
+
+    if (calendarEventTitleError) {
+      calendarEventTitleError.textContent = "";
+    }
+
+    if (calendarEventStartError) {
+      calendarEventStartError.textContent = "";
+    }
+
+    if (calendarEventEndError) {
+      calendarEventEndError.textContent = "";
+    }
+
+    if (calendarEventFormError) {
+      calendarEventFormError.textContent = "";
+
+      calendarEventFormError.classList.add("hidden");
+    }
+  }
+
+  function resetCalendarEventForm() {
+    calendarEventForm?.reset();
+
+    if (calendarEventIdInput) {
+      calendarEventIdInput.value = "";
+    }
+
+    if (calendarEventModalTitle) {
+      calendarEventModalTitle.textContent = "Novo evento";
+    }
+
+    if (calendarEventTypeInput) {
+      calendarEventTypeInput.value = "content";
+    }
+
+    if (calendarEventStatusInput) {
+      calendarEventStatusInput.value = "planned";
+    }
+
+    if (calendarEventTimezoneInput) {
+      calendarEventTimezoneInput.value = "Europe/Lisbon";
+    }
+
+    if (calendarEventStartInput) {
+      calendarEventStartInput.value = createDefaultStartValue();
+    }
+
+    if (calendarEventEndInput) {
+      calendarEventEndInput.value = "";
+    }
+
+    if (calendarEventFormSubmitText) {
+      calendarEventFormSubmitText.textContent = "Criar evento";
+    }
+
+    clearCalendarFormErrors();
+  }
+
+  function validateCalendarEventForm() {
+    clearCalendarFormErrors();
+
+    let isValid = true;
+
+    const brandId = calendarEventBrandInput?.value || "";
+
+    const title = calendarEventTitleInput?.value.trim() || "";
+
+    const startValue = calendarEventStartInput?.value || "";
+
+    const endValue = calendarEventEndInput?.value || "";
+
+    if (!brandId) {
+      calendarEventBrandInput?.classList.add("is-invalid");
+
+      if (calendarEventBrandError) {
+        calendarEventBrandError.textContent = "Selecione uma marca.";
+      }
+
+      isValid = false;
+    }
+
+    if (title.length < 2 || title.length > 160) {
+      calendarEventTitleInput?.classList.add("is-invalid");
+
+      if (calendarEventTitleError) {
+        calendarEventTitleError.textContent = "O título deve ter entre 2 e 160 caracteres.";
+      }
+
+      isValid = false;
+    }
+
+    if (!startValue) {
+      calendarEventStartInput?.classList.add("is-invalid");
+
+      if (calendarEventStartError) {
+        calendarEventStartError.textContent = "Defina a data de início.";
+      }
+
+      isValid = false;
+    }
+
+    if (startValue && endValue && new Date(endValue) < new Date(startValue)) {
+      calendarEventEndInput?.classList.add("is-invalid");
+
+      if (calendarEventEndError) {
+        calendarEventEndError.textContent = "O fim não pode ser anterior ao início.";
+      }
+
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  function openCreateCalendarEventModal() {
+    const activeBrands = brands.filter((brand) => brand.status === "active");
+
+    if (activeBrands.length === 0) {
+      showToast(
+        "warning",
+        "Nenhuma marca disponível",
+        "Crie ou restaure uma marca antes de adicionar eventos."
+      );
+
+      return;
+    }
+
+    resetCalendarEventForm();
+
+    openModal(calendarEventModal);
+
+    window.setTimeout(() => calendarEventTitleInput?.focus(), 100);
+  }
+
+  function openEditCalendarEventModal(eventId) {
+    const event = calendarEvents.find((item) => item.id === eventId);
+
+    if (!event) {
+      showToast("error", "Evento não encontrado", "Não foi possível localizar o evento.");
+
+      return;
+    }
+
+    if (event.status === "archived") {
+      showToast("warning", "Edição indisponível", "Restaure o evento antes de editá-lo.");
+
+      return;
+    }
+
+    resetCalendarEventForm();
+
+    if (calendarEventIdInput) {
+      calendarEventIdInput.value = event.id;
+    }
+
+    if (calendarEventModalTitle) {
+      calendarEventModalTitle.textContent = "Editar evento";
+    }
+
+    if (calendarEventBrandInput) {
+      calendarEventBrandInput.value = event.brand_id || "";
+    }
+
+    if (calendarEventAssignedToInput) {
+      calendarEventAssignedToInput.value = event.assigned_to || "";
+    }
+
+    if (calendarEventTitleInput) {
+      calendarEventTitleInput.value = event.title || "";
+    }
+
+    if (calendarEventDescriptionInput) {
+      calendarEventDescriptionInput.value = event.description || "";
+    }
+
+    if (calendarEventTypeInput) {
+      calendarEventTypeInput.value = event.event_type || "content";
+    }
+
+    if (calendarEventPlatformInput) {
+      calendarEventPlatformInput.value = event.platform || "";
+    }
+
+    if (calendarEventStartInput) {
+      calendarEventStartInput.value = toDatetimeLocal(event.starts_at);
+    }
+
+    if (calendarEventEndInput) {
+      calendarEventEndInput.value = toDatetimeLocal(event.ends_at);
+    }
+
+    if (calendarEventStatusInput) {
+      calendarEventStatusInput.value = event.status || "planned";
+    }
+
+    if (calendarEventTimezoneInput) {
+      calendarEventTimezoneInput.value = event.timezone || "Europe/Lisbon";
+    }
+
+    if (calendarEventPlanItemInput) {
+      calendarEventPlanItemInput.value = event.plan_item_id || "";
+    }
+
+    if (calendarEventAllDayInput) {
+      calendarEventAllDayInput.checked = Boolean(event.all_day);
+    }
+
+    if (calendarEventFormSubmitText) {
+      calendarEventFormSubmitText.textContent = "Guardar alterações";
+    }
+
+    closeModal(calendarEventDetailsModal);
+
+    openModal(calendarEventModal);
+
+    window.setTimeout(() => calendarEventTitleInput?.focus(), 100);
+  }
+
+  function closeCalendarEventModal() {
+    closeModal(calendarEventModal);
+
+    resetCalendarEventForm();
+  }
+
+  function setCalendarEventSubmitting(isSubmitting) {
+    if (!calendarEventFormSubmit) {
+      return;
+    }
+
+    const isEditing = Boolean(calendarEventIdInput?.value.trim());
+
+    calendarEventFormSubmit.disabled = isSubmitting;
+
+    calendarEventFormSubmit.setAttribute("aria-busy", String(isSubmitting));
+
+    calendarEventFormLoader?.classList.toggle("hidden", !isSubmitting);
+
+    if (calendarEventFormSubmitText) {
+      if (isSubmitting) {
+        calendarEventFormSubmitText.textContent = isEditing ? "A guardar..." : "A criar...";
+      } else {
+        calendarEventFormSubmitText.textContent = isEditing ? "Guardar alterações" : "Criar evento";
+      }
+    }
+  }
+
+  /* ==================================================
            Detalhes
         ================================================== */
 
-        function closeCalendarEventDetailsModal() {
-            closeModal(
-                calendarEventDetailsModal
-            );
+  function closeCalendarEventDetailsModal() {
+    closeModal(calendarEventDetailsModal);
 
-            selectedCalendarEventId =
-                null;
-        }
+    selectedCalendarEventId = null;
+  }
 
-        function openCalendarEventDetails(
-            eventId
-        ) {
-            const event =
-                calendarEvents.find(
-                    item =>
-                        item.id ===
-                        eventId
-                );
+  function openCalendarEventDetails(eventId) {
+    const event = calendarEvents.find((item) => item.id === eventId);
 
-            if (!event) {
-                showToast(
-                    "error",
-                    "Evento não encontrado",
-                    "Não foi possível localizar o evento."
-                );
+    if (!event) {
+      showToast("error", "Evento não encontrado", "Não foi possível localizar o evento.");
 
-                return;
-            }
+      return;
+    }
 
-            selectedCalendarEventId =
-                event.id;
+    selectedCalendarEventId = event.id;
 
-            const brand =
-                getBrandById(
-                    event.brand_id
-                );
+    const brand = getBrandById(event.brand_id);
 
-            const member =
-                getMemberById(
-                    event.assigned_to
-                );
+    const member = getMemberById(event.assigned_to);
 
-            const plannerItem =
-                getPlannerItemById(
-                    event.plan_item_id
-                );
+    const plannerItem = getPlannerItemById(event.plan_item_id);
 
-            if (calendarEventDetailsTitle) {
-                calendarEventDetailsTitle.textContent =
-                    event.title;
-            }
+    if (calendarEventDetailsTitle) {
+      calendarEventDetailsTitle.textContent = event.title;
+    }
 
-            if (calendarEventDetailsStatus) {
-                calendarEventDetailsStatus.className =
-                    `calendar-status-badge is-${event.status}`;
+    if (calendarEventDetailsStatus) {
+      calendarEventDetailsStatus.className = `calendar-status-badge is-${event.status}`;
 
-                calendarEventDetailsStatus.textContent =
-                    statusLabels[
-                        event.status
-                    ] ||
-                    event.status;
-            }
+      calendarEventDetailsStatus.textContent = statusLabels[event.status] || event.status;
+    }
 
-            if (
-                calendarEventDetailsStatusSelect
-            ) {
-                calendarEventDetailsStatusSelect.value =
-                    event.status ===
-                        "archived"
-                        ? (
-                            event.status_before_archive ||
-                            "planned"
-                        )
-                        : event.status;
+    if (calendarEventDetailsStatusSelect) {
+      calendarEventDetailsStatusSelect.value =
+        event.status === "archived" ? event.status_before_archive || "planned" : event.status;
 
-                calendarEventDetailsStatusSelect.disabled =
-                    event.status ===
-                    "archived";
-            }
+      calendarEventDetailsStatusSelect.disabled = event.status === "archived";
+    }
 
-            if (
-                calendarEventDetailsDescription
-            ) {
-                calendarEventDetailsDescription.textContent =
-                    event.description
-                        ?.trim() ||
-                    "Sem descrição.";
-            }
+    if (calendarEventDetailsDescription) {
+      calendarEventDetailsDescription.textContent = event.description?.trim() || "Sem descrição.";
+    }
 
-            if (calendarEventDetailsBrand) {
-                calendarEventDetailsBrand.textContent =
-                    brand?.name ||
-                    "Marca indisponível";
-            }
+    if (calendarEventDetailsBrand) {
+      calendarEventDetailsBrand.textContent = brand?.name || "Marca indisponível";
+    }
 
-            if (calendarEventDetailsType) {
-                calendarEventDetailsType.textContent =
-                    eventTypeLabels[
-                        event.event_type
-                    ] ||
-                    event.event_type;
-            }
+    if (calendarEventDetailsType) {
+      calendarEventDetailsType.textContent = eventTypeLabels[event.event_type] || event.event_type;
+    }
 
-            if (
-                calendarEventDetailsPlatform
-            ) {
-                calendarEventDetailsPlatform.textContent =
-                    event.platform
-                        ? (
-                            platformLabels[
-                                event.platform
-                            ] ||
-                            event.platform
-                        )
-                        : "Sem plataforma";
-            }
+    if (calendarEventDetailsPlatform) {
+      calendarEventDetailsPlatform.textContent = event.platform
+        ? platformLabels[event.platform] || event.platform
+        : "Sem plataforma";
+    }
 
-            if (
-                calendarEventDetailsAssignee
-            ) {
-                calendarEventDetailsAssignee.textContent =
-                    member
-                        ?.full_name ||
-                    "Sem responsável";
-            }
+    if (calendarEventDetailsAssignee) {
+      calendarEventDetailsAssignee.textContent = member?.full_name || "Sem responsável";
+    }
 
-            if (calendarEventDetailsDate) {
-                calendarEventDetailsDate.textContent =
-                    formatEventDateRange(
-                        event
-                    );
-            }
+    if (calendarEventDetailsDate) {
+      calendarEventDetailsDate.textContent = formatEventDateRange(event);
+    }
 
-            if (
-                calendarEventDetailsPlanItem
-            ) {
-                calendarEventDetailsPlanItem.textContent =
-                    plannerItem
-                        ?.title ||
-                    "Sem item associado";
-            }
+    if (calendarEventDetailsPlanItem) {
+      calendarEventDetailsPlanItem.textContent = plannerItem?.title || "Sem item associado";
+    }
 
-            const isArchived =
-                event.status ===
-                "archived";
+    const isArchived = event.status === "archived";
 
-            calendarEventDetailsEdit
-                ?.classList
-                .toggle(
-                    "hidden",
-                    isArchived
-                );
+    calendarEventDetailsEdit?.classList.toggle("hidden", isArchived);
 
-            calendarEventDetailsArchive
-                ?.classList
-                .toggle(
-                    "hidden",
-                    isArchived
-                );
+    calendarEventDetailsArchive?.classList.toggle("hidden", isArchived);
 
-            calendarEventDetailsRestore
-                ?.classList
-                .toggle(
-                    "hidden",
-                    !isArchived
-                );
+    calendarEventDetailsRestore?.classList.toggle("hidden", !isArchived);
 
-            openModal(
-                calendarEventDetailsModal
-            );
+    openModal(calendarEventDetailsModal);
 
-            window.lucide
-                ?.createIcons();
-        }
+    window.lucide?.createIcons();
+  }
 
-        /* ==================================================
+  /* ==================================================
            Criação e edição
         ================================================== */
 
-        calendarEventForm
-            ?.addEventListener(
-                "submit",
-                async event => {
-                    event.preventDefault();
+  calendarEventForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-                    if (
-                        !validateCalendarEventForm()
-                    ) {
-                        showToast(
-                            "error",
-                            "Verifique o formulário",
-                            "Existem campos que precisam ser corrigidos."
-                        );
+    if (!validateCalendarEventForm()) {
+      showToast("error", "Verifique o formulário", "Existem campos que precisam ser corrigidos.");
 
-                        return;
-                    }
+      return;
+    }
 
-                    const editingEventId =
-                        calendarEventIdInput
-                            ?.value
-                            .trim() ||
-                        null;
+    const editingEventId = calendarEventIdInput?.value.trim() || null;
 
-                    const isEditing =
-                        Boolean(
-                            editingEventId
-                        );
+    const isEditing = Boolean(editingEventId);
 
-                    const startValue =
-                        new Date(
-                            calendarEventStartInput.value
-                        ).toISOString();
+    const startValue = new Date(calendarEventStartInput.value).toISOString();
 
-                    const endValue =
-                        calendarEventEndInput
-                            ?.value
-                            ? new Date(
-                                calendarEventEndInput.value
-                            ).toISOString()
-                            : null;
+    const endValue = calendarEventEndInput?.value
+      ? new Date(calendarEventEndInput.value).toISOString()
+      : null;
 
-                    setCalendarEventSubmitting(
-                        true
-                    );
+    setCalendarEventSubmitting(true);
 
-                    try {
-                        let savedEvent =
-                            null;
+    try {
+      let savedEvent = null;
 
-                        if (isEditing) {
-                            const originalEvent =
-                                calendarEvents.find(
-                                    item =>
-                                        item.id ===
-                                        editingEventId
-                                );
+      if (isEditing) {
+        const originalEvent = calendarEvents.find((item) => item.id === editingEventId);
 
-                            if (!originalEvent) {
-                                throw new Error(
-                                    "Evento não encontrado para edição."
-                                );
-                            }
+        if (!originalEvent) {
+          throw new Error("Evento não encontrado para edição.");
+        }
 
-                            const {
-                                data: updatedEvent,
-                                error: updateError
-                            } = await supabaseClient.rpc(
-                                "update_calendar_event",
-                                {
-                                    event_id_value:
-                                        editingEventId,
+        const { data: updatedEvent, error: updateError } = await supabaseClient.rpc(
+          "update_calendar_event",
+          {
+            event_id_value: editingEventId,
 
-                                    title_value:
-                                        calendarEventTitleInput
-                                            .value
-                                            .trim(),
+            title_value: calendarEventTitleInput.value.trim(),
 
-                                    description_value:
-                                        calendarEventDescriptionInput
-                                            ?.value
-                                            .trim() ||
-                                        null,
+            description_value: calendarEventDescriptionInput?.value.trim() || null,
 
-                                    event_type_value:
-                                        calendarEventTypeInput
-                                            ?.value ||
-                                        "content",
+            event_type_value: calendarEventTypeInput?.value || "content",
 
-                                    platform_value:
-                                        calendarEventPlatformInput
-                                            ?.value ||
-                                        null,
+            platform_value: calendarEventPlatformInput?.value || null,
 
-                                    plan_item_id_value:
-                                        calendarEventPlanItemInput
-                                            ?.value ||
-                                        null,
+            plan_item_id_value: calendarEventPlanItemInput?.value || null,
 
-                                    metadata_value:
-                                        originalEvent.metadata &&
-                                        typeof originalEvent.metadata ===
-                                            "object" &&
-                                        !Array.isArray(
-                                            originalEvent.metadata
-                                        )
-                                            ? originalEvent.metadata
-                                            : {}
-                                }
-                            );
+            metadata_value:
+              originalEvent.metadata &&
+              typeof originalEvent.metadata === "object" &&
+              !Array.isArray(originalEvent.metadata)
+                ? originalEvent.metadata
+                : {},
+          }
+        );
 
-                            if (updateError) {
-                                throw updateError;
-                            }
+        if (updateError) {
+          throw updateError;
+        }
 
-                            const {
-                                error: rescheduleError
-                            } = await supabaseClient.rpc(
-                                "reschedule_calendar_event",
-                                {
-                                    event_id_value:
-                                        editingEventId,
+        const { error: rescheduleError } = await supabaseClient.rpc("reschedule_calendar_event", {
+          event_id_value: editingEventId,
 
-                                    starts_at_value:
-                                        startValue,
+          starts_at_value: startValue,
 
-                                    ends_at_value:
-                                        endValue,
+          ends_at_value: endValue,
 
-                                    timezone_value:
-                                        calendarEventTimezoneInput
-                                            ?.value ||
-                                        "Europe/Lisbon",
+          timezone_value: calendarEventTimezoneInput?.value || "Europe/Lisbon",
 
-                                    all_day_value:
-                                        Boolean(
-                                            calendarEventAllDayInput
-                                                ?.checked
-                                        )
-                                }
-                            );
+          all_day_value: Boolean(calendarEventAllDayInput?.checked),
+        });
 
-                            if (rescheduleError) {
-                                throw rescheduleError;
-                            }
+        if (rescheduleError) {
+          throw rescheduleError;
+        }
 
-                            const selectedAssignee =
-                                calendarEventAssignedToInput
-                                    ?.value ||
-                                null;
+        const selectedAssignee = calendarEventAssignedToInput?.value || null;
 
-                            const currentAssignee =
-                                originalEvent.assigned_to ||
-                                null;
+        const currentAssignee = originalEvent.assigned_to || null;
 
-                            if (
-                                selectedAssignee !==
-                                currentAssignee
-                            ) {
-                                const {
-                                    error: assignError
-                                } = await supabaseClient.rpc(
-                                    "assign_calendar_event",
-                                    {
-                                        event_id_value:
-                                            editingEventId,
+        if (selectedAssignee !== currentAssignee) {
+          const { error: assignError } = await supabaseClient.rpc("assign_calendar_event", {
+            event_id_value: editingEventId,
 
-                                        assigned_to_value:
-                                            selectedAssignee
-                                    }
-                                );
+            assigned_to_value: selectedAssignee,
+          });
 
-                                if (assignError) {
-                                    throw assignError;
-                                }
-                            }
+          if (assignError) {
+            throw assignError;
+          }
+        }
 
-                            const selectedStatus =
-                                calendarEventStatusInput
-                                    ?.value ||
-                                "planned";
+        const selectedStatus = calendarEventStatusInput?.value || "planned";
 
-                            if (
-                                selectedStatus !==
-                                originalEvent.status
-                            ) {
-                                const {
-                                    error: statusError
-                                } = await supabaseClient.rpc(
-                                    "change_calendar_event_status",
-                                    {
-                                        event_id_value:
-                                            editingEventId,
+        if (selectedStatus !== originalEvent.status) {
+          const { error: statusError } = await supabaseClient.rpc("change_calendar_event_status", {
+            event_id_value: editingEventId,
 
-                                        status_value:
-                                            selectedStatus
-                                    }
-                                );
+            status_value: selectedStatus,
+          });
 
-                                if (statusError) {
-                                    throw statusError;
-                                }
-                            }
+          if (statusError) {
+            throw statusError;
+          }
+        }
 
-                            savedEvent =
-                                updatedEvent;
-                        } else {
-                            const {
-                                data: createdEvent,
-                                error: createError
-                            } = await supabaseClient.rpc(
-                                "create_calendar_event",
-                                {
-                                    workspace_id_value:
-                                        currentWorkspace.id,
+        savedEvent = updatedEvent;
+      } else {
+        const { data: createdEvent, error: createError } = await supabaseClient.rpc(
+          "create_calendar_event",
+          {
+            workspace_id_value: currentWorkspace.id,
 
-                                    brand_id_value:
-                                        calendarEventBrandInput.value,
+            brand_id_value: calendarEventBrandInput.value,
 
-                                    title_value:
-                                        calendarEventTitleInput
-                                            .value
-                                            .trim(),
+            title_value: calendarEventTitleInput.value.trim(),
 
-                                    event_type_value:
-                                        calendarEventTypeInput
-                                            ?.value ||
-                                        "content",
+            event_type_value: calendarEventTypeInput?.value || "content",
 
-                                    starts_at_value:
-                                        startValue,
+            starts_at_value: startValue,
 
-                                    timezone_value:
-                                        calendarEventTimezoneInput
-                                            ?.value ||
-                                        "Europe/Lisbon",
+            timezone_value: calendarEventTimezoneInput?.value || "Europe/Lisbon",
 
-                                    ends_at_value:
-                                        endValue,
+            ends_at_value: endValue,
 
-                                    all_day_value:
-                                        Boolean(
-                                            calendarEventAllDayInput
-                                                ?.checked
-                                        ),
+            all_day_value: Boolean(calendarEventAllDayInput?.checked),
 
-                                    plan_item_id_value:
-                                        calendarEventPlanItemInput
-                                            ?.value ||
-                                        null,
+            plan_item_id_value: calendarEventPlanItemInput?.value || null,
 
-                                    assigned_to_value:
-                                        calendarEventAssignedToInput
-                                            ?.value ||
-                                        null,
+            assigned_to_value: calendarEventAssignedToInput?.value || null,
 
-                                    platform_value:
-                                        calendarEventPlatformInput
-                                            ?.value ||
-                                        null,
+            platform_value: calendarEventPlatformInput?.value || null,
 
-                                    description_value:
-                                        calendarEventDescriptionInput
-                                            ?.value
-                                            .trim() ||
-                                        null,
+            description_value: calendarEventDescriptionInput?.value.trim() || null,
 
-                                    metadata_value:
-                                        {}
-                                }
-                            );
+            metadata_value: {},
+          }
+        );
 
-                            if (createError) {
-                                throw createError;
-                            }
+        if (createError) {
+          throw createError;
+        }
 
-                            const selectedStatus =
-                                calendarEventStatusInput
-                                    ?.value ||
-                                "planned";
+        const selectedStatus = calendarEventStatusInput?.value || "planned";
 
-                            if (
-                                selectedStatus !==
-                                "planned"
-                            ) {
-                                const {
-                                    error: statusError
-                                } = await supabaseClient.rpc(
-                                    "change_calendar_event_status",
-                                    {
-                                        event_id_value:
-                                            createdEvent.id,
+        if (selectedStatus !== "planned") {
+          const { error: statusError } = await supabaseClient.rpc("change_calendar_event_status", {
+            event_id_value: createdEvent.id,
 
-                                        status_value:
-                                            selectedStatus
-                                    }
-                                );
+            status_value: selectedStatus,
+          });
 
-                                if (statusError) {
-                                    throw statusError;
-                                }
-                            }
+          if (statusError) {
+            throw statusError;
+          }
+        }
 
-                            savedEvent =
-                                createdEvent;
-                        }
+        savedEvent = createdEvent;
+      }
 
-                        console.log(
-                            isEditing
-                                ? "Evento atualizado:"
-                                : "Evento criado:",
-                            savedEvent
-                        );
+      console.log(isEditing ? "Evento atualizado:" : "Evento criado:", savedEvent);
 
-                        closeCalendarEventModal();
+      closeCalendarEventModal();
 
-                        await loadCalendarData();
+      await loadCalendarData();
 
-                        showToast(
-                            "success",
-                            isEditing
-                                ? "Evento atualizado"
-                                : "Evento criado",
-                            isEditing
-                                ? "As alterações foram guardadas."
-                                : "O evento foi adicionado ao calendário."
-                        );
-                    } catch (error) {
-                        console.error(
-                            isEditing
-                                ? "Erro ao atualizar evento:"
-                                : "Erro ao criar evento:",
-                            error
-                        );
+      showToast(
+        "success",
+        isEditing ? "Evento atualizado" : "Evento criado",
+        isEditing ? "As alterações foram guardadas." : "O evento foi adicionado ao calendário."
+      );
+    } catch (error) {
+      console.error(isEditing ? "Erro ao atualizar evento:" : "Erro ao criar evento:", error);
 
-                        const message =
-                            error?.message ||
-                            (
-                                isEditing
-                                    ? "Não foi possível atualizar o evento."
-                                    : "Não foi possível criar o evento."
-                            );
+      const message =
+        error?.message ||
+        (isEditing ? "Não foi possível atualizar o evento." : "Não foi possível criar o evento.");
 
-                        if (
-                            calendarEventFormError
-                        ) {
-                            calendarEventFormError.textContent =
-                                message;
+      if (calendarEventFormError) {
+        calendarEventFormError.textContent = message;
 
-                            calendarEventFormError
-                                .classList
-                                .remove(
-                                    "hidden"
-                                );
-                        }
+        calendarEventFormError.classList.remove("hidden");
+      }
 
-                        showToast(
-                            "error",
-                            isEditing
-                                ? "Erro ao atualizar evento"
-                                : "Erro ao criar evento",
-                            message
-                        );
-                    } finally {
-                        setCalendarEventSubmitting(
-                            false
-                        );
-                    }
-                }
-            );
+      showToast("error", isEditing ? "Erro ao atualizar evento" : "Erro ao criar evento", message);
+    } finally {
+      setCalendarEventSubmitting(false);
+    }
+  });
 
-        /* ==================================================
+  /* ==================================================
            Estado do evento
         ================================================== */
 
-        async function changeCalendarEventStatus(
-            eventId,
-            status
-        ) {
-            try {
-                const {
-                    error
-                } = await supabaseClient.rpc(
-                    "change_calendar_event_status",
-                    {
-                        event_id_value:
-                            eventId,
+  async function changeCalendarEventStatus(eventId, status) {
+    try {
+      const { error } = await supabaseClient.rpc("change_calendar_event_status", {
+        event_id_value: eventId,
 
-                        status_value:
-                            status
-                    }
-                );
+        status_value: status,
+      });
 
-                if (error) {
-                    throw error;
-                }
+      if (error) {
+        throw error;
+      }
 
-                closeCalendarEventDetailsModal();
+      closeCalendarEventDetailsModal();
 
-                await loadCalendarData();
+      await loadCalendarData();
 
-                showToast(
-                    "success",
-                    "Estado atualizado",
-                    "O estado do evento foi alterado."
-                );
-            } catch (error) {
-                console.error(
-                    "Erro ao alterar estado:",
-                    error
-                );
+      showToast("success", "Estado atualizado", "O estado do evento foi alterado.");
+    } catch (error) {
+      console.error("Erro ao alterar estado:", error);
 
-                showToast(
-                    "error",
-                    "Erro ao alterar estado",
-                    error?.message ||
-                    "Não foi possível alterar o estado."
-                );
-            }
-        }
+      showToast(
+        "error",
+        "Erro ao alterar estado",
+        error?.message || "Não foi possível alterar o estado."
+      );
+    }
+  }
 
-        /* ==================================================
+  /* ==================================================
            Arquivar e restaurar
         ================================================== */
 
-        function openArchiveCalendarEventModal(
-            eventId
-        ) {
-            selectedArchiveEventId =
-                eventId;
+  function openArchiveCalendarEventModal(eventId) {
+    selectedArchiveEventId = eventId;
 
-            closeCalendarEventDetailsModal();
+    closeCalendarEventDetailsModal();
 
-            openModal(
-                archiveCalendarEventModal
-            );
-        }
+    openModal(archiveCalendarEventModal);
+  }
 
-        function closeArchiveCalendarEventModal() {
-            closeModal(
-                archiveCalendarEventModal
-            );
+  function closeArchiveCalendarEventModal() {
+    closeModal(archiveCalendarEventModal);
 
-            selectedArchiveEventId =
-                null;
-        }
+    selectedArchiveEventId = null;
+  }
 
-        async function archiveCalendarEvent(
-            eventId
-        ) {
-            if (!eventId) {
-                return;
-            }
+  async function archiveCalendarEvent(eventId) {
+    if (!eventId) {
+      return;
+    }
 
-            archiveCalendarEventConfirm.disabled =
-                true;
+    archiveCalendarEventConfirm.disabled = true;
 
-            archiveCalendarEventConfirm.textContent =
-                "A arquivar...";
+    archiveCalendarEventConfirm.textContent = "A arquivar...";
 
-            try {
-                const {
-                    data,
-                    error
-                } = await supabaseClient.rpc(
-                    "archive_calendar_event",
-                    {
-                        event_id_value:
-                            eventId
-                    }
-                );
+    try {
+      const { data, error } = await supabaseClient.rpc("archive_calendar_event", {
+        event_id_value: eventId,
+      });
 
-                if (error) {
-                    throw error;
-                }
+      if (error) {
+        throw error;
+      }
 
-                console.log(
-                    "Evento arquivado:",
-                    data
-                );
+      console.log("Evento arquivado:", data);
 
-                closeArchiveCalendarEventModal();
+      closeArchiveCalendarEventModal();
 
-                await loadCalendarData();
+      await loadCalendarData();
 
-                showToast(
-                    "success",
-                    "Evento arquivado",
-                    "O evento foi enviado para o arquivo."
-                );
-            } catch (error) {
-                console.error(
-                    "Erro ao arquivar evento:",
-                    error
-                );
+      showToast("success", "Evento arquivado", "O evento foi enviado para o arquivo.");
+    } catch (error) {
+      console.error("Erro ao arquivar evento:", error);
 
-                showToast(
-                    "error",
-                    "Erro ao arquivar evento",
-                    error?.message ||
-                    "Não foi possível arquivar o evento."
-                );
-            } finally {
-                archiveCalendarEventConfirm.disabled =
-                    false;
+      showToast(
+        "error",
+        "Erro ao arquivar evento",
+        error?.message || "Não foi possível arquivar o evento."
+      );
+    } finally {
+      archiveCalendarEventConfirm.disabled = false;
 
-                archiveCalendarEventConfirm.textContent =
-                    "Arquivar evento";
-            }
-        }
+      archiveCalendarEventConfirm.textContent = "Arquivar evento";
+    }
+  }
 
-        async function restoreCalendarEvent(
-            eventId
-        ) {
-            if (!eventId) {
-                return;
-            }
+  async function restoreCalendarEvent(eventId) {
+    if (!eventId) {
+      return;
+    }
 
-            try {
-                const {
-                    data,
-                    error
-                } = await supabaseClient.rpc(
-                    "restore_calendar_event",
-                    {
-                        event_id_value:
-                            eventId
-                    }
-                );
+    try {
+      const { data, error } = await supabaseClient.rpc("restore_calendar_event", {
+        event_id_value: eventId,
+      });
 
-                if (error) {
-                    throw error;
-                }
+      if (error) {
+        throw error;
+      }
 
-                console.log(
-                    "Evento restaurado:",
-                    data
-                );
+      console.log("Evento restaurado:", data);
 
-                closeCalendarEventDetailsModal();
+      closeCalendarEventDetailsModal();
 
-                await loadCalendarData();
+      await loadCalendarData();
 
-                showToast(
-                    "success",
-                    "Evento restaurado",
-                    "O evento voltou ao calendário."
-                );
-            } catch (error) {
-                console.error(
-                    "Erro ao restaurar evento:",
-                    error
-                );
+      showToast("success", "Evento restaurado", "O evento voltou ao calendário.");
+    } catch (error) {
+      console.error("Erro ao restaurar evento:", error);
 
-                showToast(
-                    "error",
-                    "Erro ao restaurar evento",
-                    error?.message ||
-                    "Não foi possível restaurar o evento."
-                );
-            }
-        }
+      showToast(
+        "error",
+        "Erro ao restaurar evento",
+        error?.message || "Não foi possível restaurar o evento."
+      );
+    }
+  }
 
-        /* ==================================================
+  /* ==================================================
            Eventos da página
         ================================================== */
 
-        createCalendarEventButton
-            ?.addEventListener(
-                "click",
-                openCreateCalendarEventModal
-            );
+  createCalendarEventButton?.addEventListener("click", openCreateCalendarEventModal);
 
-        emptyCreateCalendarEventButton
-            ?.addEventListener(
-                "click",
-                openCreateCalendarEventModal
-            );
+  emptyCreateCalendarEventButton?.addEventListener("click", openCreateCalendarEventModal);
 
-        calendarPreviousButton
-            ?.addEventListener(
-                "click",
-                () => {
-                    visibleMonth =
-                        new Date(
-                            visibleMonth.getFullYear(),
-                            visibleMonth.getMonth() -
-                                1,
-                            1
-                        );
+  calendarPreviousButton?.addEventListener("click", () => {
+    visibleMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() - 1, 1);
 
-                    renderCalendar();
-                }
-            );
+    renderCalendar();
+  });
 
-        calendarNextButton
-            ?.addEventListener(
-                "click",
-                () => {
-                    visibleMonth =
-                        new Date(
-                            visibleMonth.getFullYear(),
-                            visibleMonth.getMonth() +
-                                1,
-                            1
-                        );
+  calendarNextButton?.addEventListener("click", () => {
+    visibleMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() + 1, 1);
 
-                    renderCalendar();
-                }
-            );
+    renderCalendar();
+  });
 
-        calendarTodayButton
-            ?.addEventListener(
-                "click",
-                () => {
-                    const now =
-                        new Date();
+  calendarTodayButton?.addEventListener("click", () => {
+    const now = new Date();
 
-                    visibleMonth =
-                        new Date(
-                            now.getFullYear(),
-                            now.getMonth(),
-                            1
-                        );
+    visibleMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-                    renderCalendar();
-                }
-            );
+    renderCalendar();
+  });
 
-        calendarGrid
-            ?.addEventListener(
-                "click",
-                event => {
-                    const eventChip =
-                        event.target.closest(
-                            "[data-calendar-event-id]"
-                        );
+  calendarGrid?.addEventListener("click", (event) => {
+    const eventChip = event.target.closest("[data-calendar-event-id]");
 
-                    if (!eventChip) {
-                        return;
-                    }
+    if (!eventChip) {
+      return;
+    }
 
-                    openCalendarEventDetails(
-                        eventChip.dataset
-                            .calendarEventId
-                    );
-                }
-            );
+    openCalendarEventDetails(eventChip.dataset.calendarEventId);
+  });
 
-        /* ==================================================
+  /* ==================================================
            Eventos dos filtros
         ================================================== */
 
-        calendarSearchInput
-            ?.addEventListener(
-                "input",
-                renderCalendar
-            );
+  calendarSearchInput?.addEventListener("input", renderCalendar);
 
-        calendarBrandFilter
-            ?.addEventListener(
-                "change",
-                renderCalendar
-            );
+  calendarBrandFilter?.addEventListener("change", renderCalendar);
 
-        calendarStatusFilter
-            ?.addEventListener(
-                "change",
-                renderCalendar
-            );
+  calendarStatusFilter?.addEventListener("change", renderCalendar);
 
-        calendarTypeFilter
-            ?.addEventListener(
-                "change",
-                renderCalendar
-            );
+  calendarTypeFilter?.addEventListener("change", renderCalendar);
 
-        calendarPlatformFilter
-            ?.addEventListener(
-                "change",
-                renderCalendar
-            );
+  calendarPlatformFilter?.addEventListener("change", renderCalendar);
 
-        clearCalendarFiltersButton
-            ?.addEventListener(
-                "click",
-                () => {
-                    if (
-                        calendarSearchInput
-                    ) {
-                        calendarSearchInput.value =
-                            "";
-                    }
+  clearCalendarFiltersButton?.addEventListener("click", () => {
+    if (calendarSearchInput) {
+      calendarSearchInput.value = "";
+    }
 
-                    if (
-                        calendarBrandFilter
-                    ) {
-                        calendarBrandFilter.value =
-                            "all";
-                    }
+    if (calendarBrandFilter) {
+      calendarBrandFilter.value = "all";
+    }
 
-                    if (
-                        calendarStatusFilter
-                    ) {
-                        calendarStatusFilter.value =
-                            "all";
-                    }
+    if (calendarStatusFilter) {
+      calendarStatusFilter.value = "all";
+    }
 
-                    if (
-                        calendarTypeFilter
-                    ) {
-                        calendarTypeFilter.value =
-                            "all";
-                    }
+    if (calendarTypeFilter) {
+      calendarTypeFilter.value = "all";
+    }
 
-                    if (
-                        calendarPlatformFilter
-                    ) {
-                        calendarPlatformFilter.value =
-                            "all";
-                    }
+    if (calendarPlatformFilter) {
+      calendarPlatformFilter.value = "all";
+    }
 
-                    renderCalendar();
+    renderCalendar();
 
-                    showToast(
-                        "info",
-                        "Filtros removidos",
-                        "A pesquisa e os filtros foram redefinidos."
-                    );
-                }
-            );
+    showToast("info", "Filtros removidos", "A pesquisa e os filtros foram redefinidos.");
+  });
 
-        /* ==================================================
+  /* ==================================================
            Eventos do modal de formulário
         ================================================== */
 
-        calendarEventModalClose
-            ?.addEventListener(
-                "click",
-                closeCalendarEventModal
-            );
+  calendarEventModalClose?.addEventListener("click", closeCalendarEventModal);
 
-        calendarEventFormCancel
-            ?.addEventListener(
-                "click",
-                closeCalendarEventModal
-            );
+  calendarEventFormCancel?.addEventListener("click", closeCalendarEventModal);
 
-        calendarEventModal
-            ?.addEventListener(
-                "click",
-                event => {
-                    if (
-                        event.target ===
-                        calendarEventModal
-                    ) {
-                        closeCalendarEventModal();
-                    }
-                }
-            );
+  calendarEventModal?.addEventListener("click", (event) => {
+    if (event.target === calendarEventModal) {
+      closeCalendarEventModal();
+    }
+  });
 
-        calendarEventBrandInput
-            ?.addEventListener(
-                "change",
-                () => {
-                    calendarEventBrandInput
-                        .classList
-                        .remove(
-                            "is-invalid"
-                        );
+  calendarEventBrandInput?.addEventListener("change", () => {
+    calendarEventBrandInput.classList.remove("is-invalid");
 
-                    calendarEventBrandError.textContent =
-                        "";
-                }
-            );
+    calendarEventBrandError.textContent = "";
+  });
 
-        calendarEventTitleInput
-            ?.addEventListener(
-                "input",
-                () => {
-                    calendarEventTitleInput
-                        .classList
-                        .remove(
-                            "is-invalid"
-                        );
+  calendarEventTitleInput?.addEventListener("input", () => {
+    calendarEventTitleInput.classList.remove("is-invalid");
 
-                    calendarEventTitleError.textContent =
-                        "";
-                }
-            );
+    calendarEventTitleError.textContent = "";
+  });
 
-        calendarEventStartInput
-            ?.addEventListener(
-                "change",
-                () => {
-                    calendarEventStartInput
-                        .classList
-                        .remove(
-                            "is-invalid"
-                        );
+  calendarEventStartInput?.addEventListener("change", () => {
+    calendarEventStartInput.classList.remove("is-invalid");
 
-                    calendarEventStartError.textContent =
-                        "";
-                }
-            );
+    calendarEventStartError.textContent = "";
+  });
 
-        calendarEventEndInput
-            ?.addEventListener(
-                "change",
-                () => {
-                    calendarEventEndInput
-                        .classList
-                        .remove(
-                            "is-invalid"
-                        );
+  calendarEventEndInput?.addEventListener("change", () => {
+    calendarEventEndInput.classList.remove("is-invalid");
 
-                    calendarEventEndError.textContent =
-                        "";
-                }
-            );
+    calendarEventEndError.textContent = "";
+  });
 
-        /* ==================================================
+  /* ==================================================
            Eventos dos detalhes
         ================================================== */
 
-        calendarEventDetailsClose
-            ?.addEventListener(
-                "click",
-                closeCalendarEventDetailsModal
-            );
+  calendarEventDetailsClose?.addEventListener("click", closeCalendarEventDetailsModal);
 
-        calendarEventDetailsCancel
-            ?.addEventListener(
-                "click",
-                closeCalendarEventDetailsModal
-            );
+  calendarEventDetailsCancel?.addEventListener("click", closeCalendarEventDetailsModal);
 
-        calendarEventDetailsModal
-            ?.addEventListener(
-                "click",
-                event => {
-                    if (
-                        event.target ===
-                        calendarEventDetailsModal
-                    ) {
-                        closeCalendarEventDetailsModal();
-                    }
-                }
-            );
+  calendarEventDetailsModal?.addEventListener("click", (event) => {
+    if (event.target === calendarEventDetailsModal) {
+      closeCalendarEventDetailsModal();
+    }
+  });
 
-        calendarEventDetailsEdit
-            ?.addEventListener(
-                "click",
-                () => {
-                    const eventId =
-                        selectedCalendarEventId;
+  calendarEventDetailsEdit?.addEventListener("click", () => {
+    const eventId = selectedCalendarEventId;
 
-                    if (!eventId) {
-                        return;
-                    }
+    if (!eventId) {
+      return;
+    }
 
-                    openEditCalendarEventModal(
-                        eventId
-                    );
-                }
-            );
+    openEditCalendarEventModal(eventId);
+  });
 
-        calendarEventDetailsArchive
-            ?.addEventListener(
-                "click",
-                () => {
-                    if (
-                        !selectedCalendarEventId
-                    ) {
-                        return;
-                    }
+  calendarEventDetailsArchive?.addEventListener("click", () => {
+    if (!selectedCalendarEventId) {
+      return;
+    }
 
-                    openArchiveCalendarEventModal(
-                        selectedCalendarEventId
-                    );
-                }
-            );
+    openArchiveCalendarEventModal(selectedCalendarEventId);
+  });
 
-        calendarEventDetailsRestore
-            ?.addEventListener(
-                "click",
-                async () => {
-                    if (
-                        !selectedCalendarEventId
-                    ) {
-                        return;
-                    }
+  calendarEventDetailsRestore?.addEventListener("click", async () => {
+    if (!selectedCalendarEventId) {
+      return;
+    }
 
-                    await restoreCalendarEvent(
-                        selectedCalendarEventId
-                    );
-                }
-            );
+    await restoreCalendarEvent(selectedCalendarEventId);
+  });
 
-        calendarEventDetailsStatusSelect
-            ?.addEventListener(
-                "change",
-                async () => {
-                    if (
-                        !selectedCalendarEventId
-                    ) {
-                        return;
-                    }
+  calendarEventDetailsStatusSelect?.addEventListener("change", async () => {
+    if (!selectedCalendarEventId) {
+      return;
+    }
 
-                    await changeCalendarEventStatus(
-                        selectedCalendarEventId,
-                        calendarEventDetailsStatusSelect.value
-                    );
-                }
-            );
+    await changeCalendarEventStatus(
+      selectedCalendarEventId,
+      calendarEventDetailsStatusSelect.value
+    );
+  });
 
-        /* ==================================================
+  /* ==================================================
            Eventos do arquivamento
         ================================================== */
 
-        archiveCalendarEventCancel
-            ?.addEventListener(
-                "click",
-                closeArchiveCalendarEventModal
-            );
+  archiveCalendarEventCancel?.addEventListener("click", closeArchiveCalendarEventModal);
 
-        archiveCalendarEventModal
-            ?.addEventListener(
-                "click",
-                event => {
-                    if (
-                        event.target ===
-                        archiveCalendarEventModal
-                    ) {
-                        closeArchiveCalendarEventModal();
-                    }
-                }
-            );
+  archiveCalendarEventModal?.addEventListener("click", (event) => {
+    if (event.target === archiveCalendarEventModal) {
+      closeArchiveCalendarEventModal();
+    }
+  });
 
-        archiveCalendarEventConfirm
-            ?.addEventListener(
-                "click",
-                async () => {
-                    if (
-                        !selectedArchiveEventId
-                    ) {
-                        return;
-                    }
+  archiveCalendarEventConfirm?.addEventListener("click", async () => {
+    if (!selectedArchiveEventId) {
+      return;
+    }
 
-                    await archiveCalendarEvent(
-                        selectedArchiveEventId
-                    );
-                }
-            );
+    await archiveCalendarEvent(selectedArchiveEventId);
+  });
 
-        /* ==================================================
+  /* ==================================================
            Sidebar
         ================================================== */
 
-        function openSidebar() {
-            body.classList.add(
-                "sidebar-open"
-            );
+  function openSidebar() {
+    body.classList.add("sidebar-open");
 
-            sidebarOpenButton
-                ?.setAttribute(
-                    "aria-expanded",
-                    "true"
-                );
-        }
+    sidebarOpenButton?.setAttribute("aria-expanded", "true");
+  }
 
-        function closeSidebar() {
-            body.classList.remove(
-                "sidebar-open"
-            );
+  function closeSidebar() {
+    body.classList.remove("sidebar-open");
 
-            sidebarOpenButton
-                ?.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-        }
+    sidebarOpenButton?.setAttribute("aria-expanded", "false");
+  }
 
-        sidebarOpenButton
-            ?.addEventListener(
-                "click",
-                openSidebar
-            );
+  sidebarOpenButton?.addEventListener("click", openSidebar);
 
-        sidebarCloseButton
-            ?.addEventListener(
-                "click",
-                closeSidebar
-            );
+  sidebarCloseButton?.addEventListener("click", closeSidebar);
 
-        sidebarOverlay
-            ?.addEventListener(
-                "click",
-                closeSidebar
-            );
+  sidebarOverlay?.addEventListener("click", closeSidebar);
 
-        /* ==================================================
+  /* ==================================================
            Escape
         ================================================== */
 
-        document.addEventListener(
-            "keydown",
-            event => {
-                if (
-                    event.key !==
-                    "Escape"
-                ) {
-                    return;
-                }
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") {
+      return;
+    }
 
-                if (
-                    archiveCalendarEventModal
-                        ?.classList
-                        .contains(
-                            "is-open"
-                        )
-                ) {
-                    closeArchiveCalendarEventModal();
+    if (archiveCalendarEventModal?.classList.contains("is-open")) {
+      closeArchiveCalendarEventModal();
 
-                    return;
-                }
+      return;
+    }
 
-                if (
-                    calendarEventModal
-                        ?.classList
-                        .contains(
-                            "is-open"
-                        )
-                ) {
-                    closeCalendarEventModal();
+    if (calendarEventModal?.classList.contains("is-open")) {
+      closeCalendarEventModal();
 
-                    return;
-                }
+      return;
+    }
 
-                if (
-                    calendarEventDetailsModal
-                        ?.classList
-                        .contains(
-                            "is-open"
-                        )
-                ) {
-                    closeCalendarEventDetailsModal();
+    if (calendarEventDetailsModal?.classList.contains("is-open")) {
+      closeCalendarEventDetailsModal();
 
-                    return;
-                }
+      return;
+    }
 
-                if (
-                    body.classList.contains(
-                        "sidebar-open"
-                    )
-                ) {
-                    closeSidebar();
-                }
-            }
-        );
+    if (body.classList.contains("sidebar-open")) {
+      closeSidebar();
+    }
+  });
 
-        /* ==================================================
+  /* ==================================================
            Inicialização
         ================================================== */
 
-        try {
-            const contextLoaded =
-                await initializeWorkspaceContext();
+  try {
+    const contextLoaded = await initializeWorkspaceContext();
 
-            if (contextLoaded) {
-                await loadCalendarData();
-            }
-        } catch (error) {
-            console.error(
-                "Erro ao inicializar Calendário:",
-                error
-            );
-
-            setCalendarLoading(
-                false
-            );
-
-            showToast(
-                "error",
-                "Erro ao iniciar Calendário",
-                error?.message ||
-                "Não foi possível iniciar a página."
-            );
-        }
-
-        window.lucide
-            ?.createIcons();
+    if (contextLoaded) {
+      await loadCalendarData();
     }
-);
+  } catch (error) {
+    console.error("Erro ao inicializar Calendário:", error);
+
+    setCalendarLoading(false);
+
+    showToast(
+      "error",
+      "Erro ao iniciar Calendário",
+      error?.message || "Não foi possível iniciar a página."
+    );
+  }
+
+  window.lucide?.createIcons();
+});

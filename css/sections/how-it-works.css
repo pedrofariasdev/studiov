@@ -3,12 +3,12 @@
 ========================================================== */
 
 .how-it-works {
-    position: relative;
-    padding: 120px 0;
-    overflow: hidden;
-    background:
-        radial-gradient(circle at 50% 38%, rgba(109, 40, 217, 0.10), transparent 34%),
-        var(--color-background-page-dark);
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(109, 40, 217, 0.1), transparent 34%),
+    var(--color-background-page-dark);
 }
 
 /* ==========================================================
@@ -16,11 +16,11 @@
 ========================================================== */
 
 .how-it-works .container {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ==========================================================
@@ -28,9 +28,9 @@
 ========================================================== */
 
 .how-it-works-header {
-    max-width: 760px;
-    margin-bottom: 80px;
-    text-align: center;
+  max-width: 760px;
+  margin-bottom: 80px;
+  text-align: center;
 }
 
 /* ==========================================================
@@ -38,24 +38,23 @@
 ========================================================== */
 
 .how-it-works-eyebrow {
-    display: inline-block;
-    margin-bottom: 18px;
-    padding: 8px 18px;
-    color: var(--color-primary-light);
-    background-color: rgba(139, 92, 246, 0.12);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-small);
-    font-weight: var(--font-weight-semibold);
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 8px 18px;
+  color: var(--color-primary-light);
+  background-color: rgba(139, 92, 246, 0.12);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
 }
-
 
 /* ==========================================================
    Title
 ========================================================== */
 
 .how-it-works-title {
-    margin-bottom: 20px;
-    color: var(--color-text-primary-dark);
+  margin-bottom: 20px;
+  color: var(--color-text-primary-dark);
 }
 
 /* ==========================================================
@@ -63,7 +62,7 @@
 ========================================================== */
 
 .how-it-works-description {
-    color: var(--color-text-secondary-dark);
+  color: var(--color-text-secondary-dark);
 }
 
 /* ==========================================================
@@ -71,10 +70,10 @@
 ========================================================== */
 
 .how-it-works-grid {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
 }
 
 /* ==========================================================
@@ -82,24 +81,24 @@
 ========================================================== */
 
 .how-it-works-step {
-    position: relative;
-    min-height: 320px;
-    padding: 40px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-xl);
-    transition:
-        transform var(--transition-normal),
-        border-color var(--transition-normal),
-        box-shadow var(--transition-normal),
-        background-color var(--transition-normal);
+  position: relative;
+  min-height: 320px;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  transition:
+    transform var(--transition-normal),
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal),
+    background-color var(--transition-normal);
 }
 
 .how-it-works-step:hover {
-    transform: translateY(-8px);
-    background-color: rgba(255, 255, 255, 0.045);
-    border-color: rgba(139, 92, 246, 0.38);
-    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.24);
+  transform: translateY(-8px);
+  background-color: rgba(255, 255, 255, 0.045);
+  border-color: rgba(139, 92, 246, 0.38);
+  box-shadow: 0 24px 44px rgba(0, 0, 0, 0.24);
 }
 
 /* ==========================================================
@@ -107,13 +106,13 @@
 ========================================================== */
 
 .step-number {
-    position: absolute;
-    top: 20px;
-    right: 22px;
-    color: rgba(255, 255, 255, 0.055);
-    font-size: 50px;
-    font-weight: var(--font-weight-bold);
-    line-height: 1;
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  color: rgba(255, 255, 255, 0.055);
+  font-size: 50px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
 }
 
 /* ==========================================================
@@ -121,21 +120,21 @@
 ========================================================== */
 
 .step-icon {
-    width: 70px;
-    height: 70px;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-    border-radius: 20px;
-    box-shadow: 0 12px 28px rgba(109, 40, 217, 0.18);
+  width: 70px;
+  height: 70px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(109, 40, 217, 0.18);
 }
 
 .step-icon svg {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 /* ==========================================================
@@ -143,8 +142,8 @@
 ========================================================== */
 
 .how-it-works-step h3 {
-    margin-bottom: 16px;
-    color: var(--color-text-primary-dark);
+  margin-bottom: 16px;
+  color: var(--color-text-primary-dark);
 }
 
 /* ==========================================================
@@ -152,8 +151,8 @@
 ========================================================== */
 
 .how-it-works-step p {
-    color: var(--color-text-secondary-dark);
-    line-height: 1.7;
+  color: var(--color-text-secondary-dark);
+  line-height: 1.7;
 }
 
 /* ==========================================================
@@ -161,28 +160,28 @@
 ========================================================== */
 
 .how-it-works-step:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: -34px;
-    width: 28px;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(139, 92, 246, 0.25), var(--color-primary-light));
-    transform: translateY(-50%);
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -34px;
+  width: 28px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.25), var(--color-primary-light));
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .how-it-works-step:not(:last-child)::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: -34px;
-    width: 8px;
-    height: 8px;
-    border-top: 2px solid var(--color-primary-light);
-    border-right: 2px solid var(--color-primary-light);
-    transform: translateY(-50%) rotate(45deg);
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -34px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--color-primary-light);
+  border-right: 2px solid var(--color-primary-light);
+  transform: translateY(-50%) rotate(45deg);
+  pointer-events: none;
 }
 
 /* ==========================================================
@@ -190,11 +189,17 @@
 ========================================================== */
 
 @media (max-width: 992px) {
-    .how-it-works-grid { grid-template-columns: 1fr; }
-    .how-it-works-step { min-height: auto; }
+  .how-it-works-grid {
+    grid-template-columns: 1fr;
+  }
+  .how-it-works-step {
+    min-height: auto;
+  }
 
-    .how-it-works-step::before,
-    .how-it-works-step::after { display: none; }
+  .how-it-works-step::before,
+  .how-it-works-step::after {
+    display: none;
+  }
 }
 
 /* ==========================================================
@@ -202,7 +207,13 @@
 ========================================================== */
 
 @media (max-width: 768px) {
-    .how-it-works { padding: 80px 0; }
-    .how-it-works-header { margin-bottom: 50px; }
-    .how-it-works-step { padding: 32px; }
+  .how-it-works {
+    padding: 80px 0;
+  }
+  .how-it-works-header {
+    margin-bottom: 50px;
+  }
+  .how-it-works-step {
+    padding: 32px;
+  }
 }

@@ -5,39 +5,39 @@ Todas as páginas, componentes e interfaces devem seguir estas diretrizes para m
 
 # Brand
 
-Primary:       #6D28D9
+Primary: #6D28D9
 Primary hover: #5B21B6
 Primary light: #8B5CF6
-Accent:        #A78BFA
+Accent: #A78BFA
 
 # Backgrounds
 
-Page dark:       #0F172A
-Surface dark:    #111827
-Card dark:       #1E293B
-Page light:      #F8FAFC
-Surface light:   #FFFFFF
+Page dark: #0F172A
+Surface dark: #111827
+Card dark: #1E293B
+Page light: #F8FAFC
+Surface light: #FFFFFF
 
 # Text
 
-Text primary dark:   #F8FAFC
+Text primary dark: #F8FAFC
 Text secondary dark: #CBD5E1
-Text muted dark:     #94A3B8
+Text muted dark: #94A3B8
 
-Text primary light:   #111827
+Text primary light: #111827
 Text secondary light: #475569
-Text muted light:     #64748B
+Text muted light: #64748B
 
 # Feedback
 
 Success: #22C55E
 Warning: #F59E0B
-Error:   #EF4444
-Info:    #0EA5E9
+Error: #EF4444
+Info: #0EA5E9
 
 # Borders
 
-Border dark:  #334155
+Border dark: #334155
 Border light: #E2E8F0
 
 # Typography

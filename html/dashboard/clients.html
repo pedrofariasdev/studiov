@@ -1,735 +1,442 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Clientes | StudioV</title>
 
-    <meta
-        name="description"
-        content="Gerencie os clientes do seu workspace na StudioV."
-    >
+    <meta name="description" content="Gerencie os clientes do seu workspace na StudioV." />
 
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#6D28D9">
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#6D28D9" />
 
     <!-- Favicons -->
-    <link
-        rel="icon"
-        type="image/png"
-        sizes="96x96"
-        href="/assets/icons/favicon-96x96.png"
-    >
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96x96.png" />
 
-    <link
-        rel="icon"
-        type="image/svg+xml"
-        href="/assets/icons/favicon.svg"
-    >
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
 
-    <link
-        rel="icon"
-        href="/assets/icons/favicon.ico"
-    >
+    <link rel="icon" href="/assets/icons/favicon.ico" />
 
-    <link
-        rel="apple-touch-icon"
-        href="/assets/icons/apple-touch-icon.png"
-    >
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
 
-    <link
-        rel="manifest"
-        href="/assets/icons/site.webmanifest"
-    >
+    <link rel="manifest" href="/assets/icons/site.webmanifest" />
 
     <!-- Fonts -->
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-        rel="stylesheet"
-    >
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Global CSS -->
-    <link
-        rel="stylesheet"
-        href="/css/globals/variables.css"
-    >
+    <link rel="stylesheet" href="/css/globals/variables.css" />
 
-    <link
-        rel="stylesheet"
-        href="/css/globals/reset.css"
-    >
+    <link rel="stylesheet" href="/css/globals/reset.css" />
 
-    <link
-        rel="stylesheet"
-        href="/css/globals/typography.css"
-    >
+    <link rel="stylesheet" href="/css/globals/typography.css" />
 
-    <link
-        rel="stylesheet"
-        href="/css/globals/utilities.css"
-    >
+    <link rel="stylesheet" href="/css/globals/utilities.css" />
 
-    <link
-        rel="stylesheet"
-        href="/css/components/button.css"
-    >
+    <link rel="stylesheet" href="/css/components/button.css" />
 
     <!-- Dashboard -->
-    <link
-        rel="stylesheet"
-        href="/css/pages/dashboard.css"
-    >
+    <link rel="stylesheet" href="/css/pages/dashboard.css" />
 
     <!-- Clientes -->
-    <link
-        rel="stylesheet"
-        href="/css/pages/clients.css"
-    >
-</head>
+    <link rel="stylesheet" href="/css/pages/clients.css" />
+  </head>
 
-<body>
-
+  <body>
     <div class="dashboard-layout">
-
-        <!-- ==================================================
+      <!-- ==================================================
              Sidebar
         =================================================== -->
 
-        <aside
-            class="dashboard-sidebar"
-            id="dashboard-sidebar"
-            aria-label="Navegação principal"
-        >
+      <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Navegação principal">
+        <div class="sidebar-header">
+          <a href="/html/dashboard/home.html" class="sidebar-logo" aria-label="StudioV Dashboard">
+            <img src="/assets/logos/svg/logo-studiov2000.png" alt="StudioV" />
+          </a>
 
-            <div class="sidebar-header">
+          <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Fechar menu">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
 
-                <a
-                    href="/html/dashboard/home.html"
-                    class="sidebar-logo"
-                    aria-label="StudioV Dashboard"
-                >
-                    <img
-                        src="/assets/logos/svg/logo-studiov2000.png"
-                        alt="StudioV"
-                    >
+        <nav class="sidebar-navigation">
+          <div class="sidebar-section">
+            <span class="sidebar-section-title"> Principal </span>
+
+            <ul class="sidebar-menu">
+              <li>
+                <a href="/html/dashboard/home.html" class="sidebar-link">
+                  <i data-lucide="layout-dashboard"></i>
+                  <span>Dashboard</span>
                 </a>
+              </li>
 
-                <button
-                    class="sidebar-close"
-                    id="sidebar-close"
-                    type="button"
-                    aria-label="Fechar menu"
-                >
-                    <i data-lucide="x"></i>
-                </button>
-
-            </div>
-
-            <nav class="sidebar-navigation">
-
-                <div class="sidebar-section">
-
-                    <span class="sidebar-section-title">
-                        Principal
-                    </span>
-
-                    <ul class="sidebar-menu">
-
-                        <li>
-                            <a
-                                href="/html/dashboard/home.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="layout-dashboard"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/projects.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="building-2"></i>
-                                <span>Workspace</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/brands.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="palette"></i>
-                                <span>Marcas</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/clients.html"
-                                class="sidebar-link is-active"
-                                aria-current="page"
-                            >
-                                <i data-lucide="users"></i>
-                                <span>Clientes</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="sidebar-section">
-
-                    <span class="sidebar-section-title">
-                        Conteúdo
-                    </span>
-
-                    <ul class="sidebar-menu">
-
-                        <li>
-                            <a
-                                href="/html/dashboard/projects.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="clipboard-list"></i>
-                                <span>Planner</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/calendar.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="calendar-days"></i>
-                                <span>Calendário</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/content.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="files"></i>
-                                <span>Conteúdos</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/media.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="images"></i>
-                                <span>Biblioteca</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/publishing.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="send"></i>
-                                <span>Publicações</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="sidebar-section">
-
-                    <span class="sidebar-section-title">
-                        Inteligência
-                    </span>
-
-                    <ul class="sidebar-menu">
-
-                        <li>
-                            <a
-                                href="/html/dashboard/ai.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="sparkles"></i>
-                                <span>Inteligência Artificial</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/analytics.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="chart-no-axes-combined"></i>
-                                <span>Analytics</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="sidebar-section sidebar-section-bottom">
-
-                    <ul class="sidebar-menu">
-
-                        <li>
-                            <a
-                                href="/html/dashboard/settings.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="settings"></i>
-                                <span>Configurações</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </nav>
-
-            <div class="sidebar-user">
-
-                <div
-                    class="sidebar-user-avatar"
-                    id="sidebar-user-avatar"
-                    aria-hidden="true"
-                >
-                    U
-                </div>
-
-                <div class="sidebar-user-info">
-
-                    <strong id="sidebar-user-name">
-                        Utilizador
-                    </strong>
-
-                    <span id="sidebar-user-email">
-                        utilizador@studiov.pt
-                    </span>
-
-                </div>
-
-                <a
-                    href="/html/dashboard/profile.html"
-                    class="sidebar-user-action"
-                    aria-label="Abrir perfil"
-                >
-                    <i data-lucide="chevron-right"></i>
+              <li>
+                <a href="/html/dashboard/projects.html" class="sidebar-link">
+                  <i data-lucide="building-2"></i>
+                  <span>Workspace</span>
                 </a>
+              </li>
 
-            </div>
+              <li>
+                <a href="/html/dashboard/brands.html" class="sidebar-link">
+                  <i data-lucide="palette"></i>
+                  <span>Marcas</span>
+                </a>
+              </li>
 
-        </aside>
+              <li>
+                <a
+                  href="/html/dashboard/clients.html"
+                  class="sidebar-link is-active"
+                  aria-current="page"
+                >
+                  <i data-lucide="users"></i>
+                  <span>Clientes</span>
+                </a>
+              </li>
+            </ul>
+          </div>
 
-        <div
-            class="sidebar-overlay"
-            id="sidebar-overlay"
-            aria-hidden="true"
-        ></div>
+          <div class="sidebar-section">
+            <span class="sidebar-section-title"> Conteúdo </span>
 
-        <!-- ==================================================
+            <ul class="sidebar-menu">
+              <li>
+                <a href="/html/dashboard/projects.html" class="sidebar-link">
+                  <i data-lucide="clipboard-list"></i>
+                  <span>Planner</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/calendar.html" class="sidebar-link">
+                  <i data-lucide="calendar-days"></i>
+                  <span>Calendário</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/content.html" class="sidebar-link">
+                  <i data-lucide="files"></i>
+                  <span>Conteúdos</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/media.html" class="sidebar-link">
+                  <i data-lucide="images"></i>
+                  <span>Biblioteca</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/publishing.html" class="sidebar-link">
+                  <i data-lucide="send"></i>
+                  <span>Publicações</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <span class="sidebar-section-title"> Inteligência </span>
+
+            <ul class="sidebar-menu">
+              <li>
+                <a href="/html/dashboard/ai.html" class="sidebar-link">
+                  <i data-lucide="sparkles"></i>
+                  <span>Inteligência Artificial</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/analytics.html" class="sidebar-link">
+                  <i data-lucide="chart-no-axes-combined"></i>
+                  <span>Analytics</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section sidebar-section-bottom">
+            <ul class="sidebar-menu">
+              <li>
+                <a href="/html/dashboard/settings.html" class="sidebar-link">
+                  <i data-lucide="settings"></i>
+                  <span>Configurações</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="sidebar-user">
+          <div class="sidebar-user-avatar" id="sidebar-user-avatar" aria-hidden="true">U</div>
+
+          <div class="sidebar-user-info">
+            <strong id="sidebar-user-name"> Utilizador </strong>
+
+            <span id="sidebar-user-email"> utilizador@studiov.pt </span>
+          </div>
+
+          <a
+            href="/html/dashboard/profile.html"
+            class="sidebar-user-action"
+            aria-label="Abrir perfil"
+          >
+            <i data-lucide="chevron-right"></i>
+          </a>
+        </div>
+      </aside>
+
+      <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+      <!-- ==================================================
              Área principal
         =================================================== -->
 
-        <div class="dashboard-main">
+      <div class="dashboard-main">
+        <!-- Topbar -->
+
+        <header class="dashboard-topbar">
+          <div class="topbar-left">
+            <button
+              class="topbar-menu-button"
+              id="topbar-menu-button"
+              type="button"
+              aria-label="Abrir menu"
+              aria-controls="dashboard-sidebar"
+              aria-expanded="false"
+            >
+              <i data-lucide="menu"></i>
+            </button>
+
+            <div class="workspace-selector">
+              <button
+                class="workspace-selector-button"
+                id="workspace-selector-button"
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+              >
+                <span class="workspace-selector-icon">
+                  <i data-lucide="building-2"></i>
+                </span>
+
+                <span class="workspace-selector-content">
+                  <small> Workspace </small>
+
+                  <strong id="current-workspace-name"> Meu Workspace </strong>
+                </span>
+
+                <i data-lucide="chevrons-up-down"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="topbar-actions">
+            <button
+              class="topbar-icon-button"
+              id="global-search-button"
+              type="button"
+              aria-label="Pesquisar"
+            >
+              <i data-lucide="search"></i>
+            </button>
+
+            <a
+              href="/html/dashboard/notifications.html"
+              class="topbar-icon-button topbar-notification-button"
+              aria-label="Notificações"
+            >
+              <i data-lucide="bell"></i>
+
+              <span
+                class="notification-indicator hidden"
+                id="notification-indicator"
+                aria-hidden="true"
+              ></span>
+            </a>
+
+            <a
+              href="/html/dashboard/profile.html"
+              class="topbar-avatar"
+              id="topbar-avatar"
+              aria-label="Abrir perfil"
+            >
+              U
+            </a>
+          </div>
+        </header>
+
+        <!-- Conteúdo -->
+
+        <main class="dashboard-content">
+          <!-- Cabeçalho -->
+
+          <section class="page-header">
+            <div class="page-header-content">
+              <span class="page-eyebrow"> Gestão de clientes </span>
+
+              <h1>Clientes</h1>
+
+              <p>
+                Centralize contactos, empresas, observações e marcas associadas aos seus clientes.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <button class="btn btn-primary" id="create-client-button" type="button">
+                <i data-lucide="user-plus"></i>
+                Novo cliente
+              </button>
+            </div>
+          </section>
+
+          <!-- Resumo -->
+
+          <section class="clients-summary" aria-label="Resumo dos clientes">
+            <article class="summary-card">
+              <div class="summary-card-icon">
+                <i data-lucide="users"></i>
+              </div>
 
-            <!-- Topbar -->
+              <div class="summary-card-content">
+                <span> Total de clientes </span>
 
-            <header class="dashboard-topbar">
+                <strong id="total-clients-count"> 0 </strong>
+              </div>
+            </article>
 
-                <div class="topbar-left">
+            <article class="summary-card">
+              <div class="summary-card-icon">
+                <i data-lucide="circle-check-big"></i>
+              </div>
 
-                    <button
-                        class="topbar-menu-button"
-                        id="topbar-menu-button"
-                        type="button"
-                        aria-label="Abrir menu"
-                        aria-controls="dashboard-sidebar"
-                        aria-expanded="false"
-                    >
-                        <i data-lucide="menu"></i>
-                    </button>
+              <div class="summary-card-content">
+                <span> Clientes ativos </span>
 
-                    <div class="workspace-selector">
+                <strong id="active-clients-count"> 0 </strong>
+              </div>
+            </article>
 
-                        <button
-                            class="workspace-selector-button"
-                            id="workspace-selector-button"
-                            type="button"
-                            aria-haspopup="listbox"
-                            aria-expanded="false"
-                        >
+            <article class="summary-card">
+              <div class="summary-card-icon">
+                <i data-lucide="archive"></i>
+              </div>
 
-                            <span class="workspace-selector-icon">
-                                <i data-lucide="building-2"></i>
-                            </span>
+              <div class="summary-card-content">
+                <span> Arquivados </span>
 
-                            <span class="workspace-selector-content">
+                <strong id="archived-clients-count"> 0 </strong>
+              </div>
+            </article>
+          </section>
 
-                                <small>
-                                    Workspace
-                                </small>
+          <!-- Pesquisa e filtros -->
 
-                                <strong id="current-workspace-name">
-                                    Meu Workspace
-                                </strong>
+          <section class="clients-toolbar">
+            <div class="clients-search">
+              <label for="clients-search-input" class="sr-only"> Pesquisar clientes </label>
 
-                            </span>
+              <i data-lucide="search"></i>
 
-                            <i data-lucide="chevrons-up-down"></i>
+              <input
+                type="search"
+                id="clients-search-input"
+                placeholder="Pesquisar por nome, empresa ou email..."
+                autocomplete="off"
+              />
+            </div>
 
-                        </button>
+            <div class="clients-filters">
+              <label for="clients-status-filter" class="sr-only"> Filtrar por estado </label>
 
-                    </div>
+              <select id="clients-status-filter">
+                <option value="all">Todos</option>
 
-                </div>
+                <option value="active">Ativos</option>
 
-                <div class="topbar-actions">
+                <option value="archived">Arquivados</option>
+              </select>
 
-                    <button
-                        class="topbar-icon-button"
-                        id="global-search-button"
-                        type="button"
-                        aria-label="Pesquisar"
-                    >
-                        <i data-lucide="search"></i>
-                    </button>
+              <label for="clients-sort-select" class="sr-only"> Ordenar clientes </label>
 
-                    <a
-                        href="/html/dashboard/notifications.html"
-                        class="topbar-icon-button topbar-notification-button"
-                        aria-label="Notificações"
-                    >
-                        <i data-lucide="bell"></i>
+              <select id="clients-sort-select">
+                <option value="newest">Mais recentes</option>
 
-                        <span
-                            class="notification-indicator hidden"
-                            id="notification-indicator"
-                            aria-hidden="true"
-                        ></span>
-                    </a>
+                <option value="oldest">Mais antigos</option>
 
-                    <a
-                        href="/html/dashboard/profile.html"
-                        class="topbar-avatar"
-                        id="topbar-avatar"
-                        aria-label="Abrir perfil"
-                    >
-                        U
-                    </a>
+                <option value="name-asc">Nome: A–Z</option>
 
-                </div>
+                <option value="name-desc">Nome: Z–A</option>
+              </select>
+            </div>
+          </section>
 
-            </header>
+          <!-- Carregamento -->
 
-            <!-- Conteúdo -->
+          <section class="clients-loading" id="clients-loading" aria-live="polite">
+            <div class="clients-loading-grid">
+              <article class="client-card-skeleton"></article>
+              <article class="client-card-skeleton"></article>
+              <article class="client-card-skeleton"></article>
+            </div>
+          </section>
 
-            <main class="dashboard-content">
+          <!-- Estado vazio -->
 
-                <!-- Cabeçalho -->
+          <section class="clients-empty hidden" id="clients-empty" aria-live="polite">
+            <div class="clients-empty-icon">
+              <i data-lucide="users"></i>
+            </div>
 
-                <section class="page-header">
+            <h2>Ainda não existem clientes</h2>
 
-                    <div class="page-header-content">
+            <p>
+              Adicione o primeiro cliente para organizar os seus contactos e associar as marcas
+              geridas.
+            </p>
 
-                        <span class="page-eyebrow">
-                            Gestão de clientes
-                        </span>
+            <button class="btn btn-primary" id="empty-create-client-button" type="button">
+              <i data-lucide="user-plus"></i>
+              Criar primeiro cliente
+            </button>
+          </section>
 
-                        <h1>
-                            Clientes
-                        </h1>
+          <!-- Nenhum resultado -->
 
-                        <p>
-                            Centralize contactos, empresas, observações
-                            e marcas associadas aos seus clientes.
-                        </p>
+          <section class="clients-no-results hidden" id="clients-no-results" aria-live="polite">
+            <div class="clients-empty-icon">
+              <i data-lucide="search-x"></i>
+            </div>
 
-                    </div>
+            <h2>Nenhum cliente encontrado</h2>
 
-                    <div class="page-header-actions">
+            <p>Altere os termos da pesquisa ou remova os filtros aplicados.</p>
 
-                        <button
-                            class="btn btn-primary"
-                            id="create-client-button"
-                            type="button"
-                        >
-                            <i data-lucide="user-plus"></i>
-                            Novo cliente
-                        </button>
+            <button class="button button-secondary" id="clear-client-filters-button" type="button">
+              Limpar filtros
+            </button>
+          </section>
 
-                    </div>
+          <!-- Lista -->
 
-                </section>
-
-                <!-- Resumo -->
-
-                <section
-                    class="clients-summary"
-                    aria-label="Resumo dos clientes"
-                >
-
-                    <article class="summary-card">
-
-                        <div class="summary-card-icon">
-                            <i data-lucide="users"></i>
-                        </div>
-
-                        <div class="summary-card-content">
-
-                            <span>
-                                Total de clientes
-                            </span>
-
-                            <strong id="total-clients-count">
-                                0
-                            </strong>
-
-                        </div>
-
-                    </article>
-
-                    <article class="summary-card">
-
-                        <div class="summary-card-icon">
-                            <i data-lucide="circle-check-big"></i>
-                        </div>
-
-                        <div class="summary-card-content">
-
-                            <span>
-                                Clientes ativos
-                            </span>
-
-                            <strong id="active-clients-count">
-                                0
-                            </strong>
-
-                        </div>
-
-                    </article>
-
-                    <article class="summary-card">
-
-                        <div class="summary-card-icon">
-                            <i data-lucide="archive"></i>
-                        </div>
-
-                        <div class="summary-card-content">
-
-                            <span>
-                                Arquivados
-                            </span>
-
-                            <strong id="archived-clients-count">
-                                0
-                            </strong>
-
-                        </div>
-
-                    </article>
-
-                </section>
-
-                <!-- Pesquisa e filtros -->
-
-                <section class="clients-toolbar">
-
-                    <div class="clients-search">
-
-                        <label
-                            for="clients-search-input"
-                            class="sr-only"
-                        >
-                            Pesquisar clientes
-                        </label>
-
-                        <i data-lucide="search"></i>
-
-                        <input
-                            type="search"
-                            id="clients-search-input"
-                            placeholder="Pesquisar por nome, empresa ou email..."
-                            autocomplete="off"
-                        >
-
-                    </div>
-
-                    <div class="clients-filters">
-
-                        <label
-                            for="clients-status-filter"
-                            class="sr-only"
-                        >
-                            Filtrar por estado
-                        </label>
-
-                        <select id="clients-status-filter">
-
-                            <option value="all">
-                                Todos
-                            </option>
-
-                            <option value="active">
-                                Ativos
-                            </option>
-
-                            <option value="archived">
-                                Arquivados
-                            </option>
-
-                        </select>
-
-                        <label
-                            for="clients-sort-select"
-                            class="sr-only"
-                        >
-                            Ordenar clientes
-                        </label>
-
-                        <select id="clients-sort-select">
-
-                            <option value="newest">
-                                Mais recentes
-                            </option>
-
-                            <option value="oldest">
-                                Mais antigos
-                            </option>
-
-                            <option value="name-asc">
-                                Nome: A–Z
-                            </option>
-
-                            <option value="name-desc">
-                                Nome: Z–A
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </section>
-
-                <!-- Carregamento -->
-
-                <section
-                    class="clients-loading"
-                    id="clients-loading"
-                    aria-live="polite"
-                >
-
-                    <div class="clients-loading-grid">
-
-                        <article class="client-card-skeleton"></article>
-                        <article class="client-card-skeleton"></article>
-                        <article class="client-card-skeleton"></article>
-
-                    </div>
-
-                </section>
-
-                <!-- Estado vazio -->
-
-                <section
-                    class="clients-empty hidden"
-                    id="clients-empty"
-                    aria-live="polite"
-                >
-
-                    <div class="clients-empty-icon">
-                        <i data-lucide="users"></i>
-                    </div>
-
-                    <h2>
-                        Ainda não existem clientes
-                    </h2>
-
-                    <p>
-                        Adicione o primeiro cliente para organizar os
-                        seus contactos e associar as marcas geridas.
-                    </p>
-
-                    <button
-                        class="btn btn-primary"
-                        id="empty-create-client-button"
-                        type="button"
-                    >
-                        <i data-lucide="user-plus"></i>
-                        Criar primeiro cliente
-                    </button>
-
-                </section>
-
-                <!-- Nenhum resultado -->
-
-                <section
-                    class="clients-no-results hidden"
-                    id="clients-no-results"
-                    aria-live="polite"
-                >
-
-                    <div class="clients-empty-icon">
-                        <i data-lucide="search-x"></i>
-                    </div>
-
-                    <h2>
-                        Nenhum cliente encontrado
-                    </h2>
-
-                    <p>
-                        Altere os termos da pesquisa ou remova os
-                        filtros aplicados.
-                    </p>
-
-                    <button
-                        class="button button-secondary"
-                        id="clear-client-filters-button"
-                        type="button"
-                    >
-                        Limpar filtros
-                    </button>
-
-                </section>
-
-                <!-- Lista -->
-
-                <section
-                    class="clients-grid hidden"
-                    id="clients-grid"
-                    aria-label="Lista de clientes"
-                >
-                    <!-- Cartões inseridos pelo JavaScript -->
-                </section>
-
-            </main>
-
-        </div>
-
+          <section class="clients-grid hidden" id="clients-grid" aria-label="Lista de clientes">
+            <!-- Cartões inseridos pelo JavaScript -->
+          </section>
+        </main>
+      </div>
     </div>
 
     <!-- ==================================================
@@ -737,236 +444,153 @@
     =================================================== -->
 
     <div
-        class="modal-overlay hidden"
-        id="client-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="client-modal-title"
-        aria-hidden="true"
+      class="modal-overlay hidden"
+      id="client-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="client-modal-title"
+      aria-hidden="true"
     >
+      <div class="modal-container">
+        <div class="modal-header">
+          <div>
+            <span class="modal-eyebrow"> Gestão de cliente </span>
 
-        <div class="modal-container">
+            <h2 id="client-modal-title">Novo cliente</h2>
+          </div>
 
-            <div class="modal-header">
-
-                <div>
-
-                    <span class="modal-eyebrow">
-                        Gestão de cliente
-                    </span>
-
-                    <h2 id="client-modal-title">
-                        Novo cliente
-                    </h2>
-
-                </div>
-
-                <button
-                    class="modal-close-button"
-                    id="client-modal-close"
-                    type="button"
-                    aria-label="Fechar janela"
-                >
-                    <i data-lucide="x"></i>
-                </button>
-
-            </div>
-
-            <form
-                class="client-form"
-                id="client-form"
-                novalidate
-            >
-
-                <input
-                    type="hidden"
-                    id="client-id"
-                    name="client_id"
-                >
-
-                <div class="form-grid">
-
-                    <!-- Nome -->
-
-                    <div class="form-field">
-
-                        <label for="client-name">
-                            Nome do cliente
-                            <span aria-hidden="true">*</span>
-                        </label>
-
-                        <input
-                            type="text"
-                            id="client-name"
-                            name="name"
-                            placeholder="Ex.: Maria Silva"
-                            maxlength="120"
-                            required
-                        >
-
-                        <small
-                            class="form-error"
-                            id="client-name-error"
-                        ></small>
-
-                    </div>
-
-                    <!-- Empresa -->
-
-                    <div class="form-field">
-
-                        <label for="client-company-name">
-                            Empresa
-                        </label>
-
-                        <input
-                            type="text"
-                            id="client-company-name"
-                            name="company_name"
-                            placeholder="Ex.: Empresa Digital"
-                            maxlength="160"
-                        >
-
-                    </div>
-
-                    <!-- Email -->
-
-                    <div class="form-field">
-
-                        <label for="client-email">
-                            Email
-                        </label>
-
-                        <input
-                            type="email"
-                            id="client-email"
-                            name="email"
-                            placeholder="cliente@empresa.com"
-                            maxlength="254"
-                            autocomplete="email"
-                        >
-
-                        <small
-                            class="form-error"
-                            id="client-email-error"
-                        ></small>
-
-                    </div>
-
-                    <!-- Telefone -->
-
-                    <div class="form-field">
-
-                        <label for="client-phone">
-                            Telefone
-                        </label>
-
-                        <input
-                            type="tel"
-                            id="client-phone"
-                            name="phone"
-                            placeholder="+351 912 345 678"
-                            maxlength="40"
-                            autocomplete="tel"
-                        >
-
-                    </div>
-
-                    <!-- Website -->
-
-                    <div class="form-field form-field-full">
-
-                        <label for="client-website">
-                            Website
-                        </label>
-
-                        <input
-                            type="url"
-                            id="client-website"
-                            name="website_url"
-                            placeholder="https://empresa.com"
-                            maxlength="300"
-                        >
-
-                        <small
-                            class="form-error"
-                            id="client-website-error"
-                        ></small>
-
-                    </div>
-
-                    <!-- Observações -->
-
-                    <div class="form-field form-field-full">
-
-                        <label for="client-notes">
-                            Observações
-                        </label>
-
-                        <textarea
-                            id="client-notes"
-                            name="notes"
-                            rows="5"
-                            maxlength="2000"
-                            placeholder="Registe informações importantes sobre o cliente."
-                        ></textarea>
-
-                        <div class="form-field-footer">
-
-                            <small>
-                                Informação interna do workspace.
-                            </small>
-
-                            <small id="client-notes-counter">
-                                0/2000
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div
-                    class="form-general-error hidden"
-                    id="client-form-error"
-                    role="alert"
-                ></div>
-
-                <div class="modal-footer">
-
-                    <button
-                        class="button button-secondary"
-                        id="client-form-cancel"
-                        type="button"
-                    >
-                        Cancelar
-                    </button>
-
-                    <button
-                        class="btn btn-primary"
-                        id="client-form-submit"
-                        type="submit"
-                    >
-
-                        <span id="client-form-submit-text">
-                            Criar cliente
-                        </span>
-
-                        <span
-                            class="button-loader hidden"
-                            id="client-form-loader"
-                            aria-hidden="true"
-                        ></span>
-
-                    </button>
-
-                </div>
-
-            </form>
-
+          <button
+            class="modal-close-button"
+            id="client-modal-close"
+            type="button"
+            aria-label="Fechar janela"
+          >
+            <i data-lucide="x"></i>
+          </button>
         </div>
 
+        <form class="client-form" id="client-form" novalidate>
+          <input type="hidden" id="client-id" name="client_id" />
+
+          <div class="form-grid">
+            <!-- Nome -->
+
+            <div class="form-field">
+              <label for="client-name">
+                Nome do cliente
+                <span aria-hidden="true">*</span>
+              </label>
+
+              <input
+                type="text"
+                id="client-name"
+                name="name"
+                placeholder="Ex.: Maria Silva"
+                maxlength="120"
+                required
+              />
+
+              <small class="form-error" id="client-name-error"></small>
+            </div>
+
+            <!-- Empresa -->
+
+            <div class="form-field">
+              <label for="client-company-name"> Empresa </label>
+
+              <input
+                type="text"
+                id="client-company-name"
+                name="company_name"
+                placeholder="Ex.: Empresa Digital"
+                maxlength="160"
+              />
+            </div>
+
+            <!-- Email -->
+
+            <div class="form-field">
+              <label for="client-email"> Email </label>
+
+              <input
+                type="email"
+                id="client-email"
+                name="email"
+                placeholder="cliente@empresa.com"
+                maxlength="254"
+                autocomplete="email"
+              />
+
+              <small class="form-error" id="client-email-error"></small>
+            </div>
+
+            <!-- Telefone -->
+
+            <div class="form-field">
+              <label for="client-phone"> Telefone </label>
+
+              <input
+                type="tel"
+                id="client-phone"
+                name="phone"
+                placeholder="+351 912 345 678"
+                maxlength="40"
+                autocomplete="tel"
+              />
+            </div>
+
+            <!-- Website -->
+
+            <div class="form-field form-field-full">
+              <label for="client-website"> Website </label>
+
+              <input
+                type="url"
+                id="client-website"
+                name="website_url"
+                placeholder="https://empresa.com"
+                maxlength="300"
+              />
+
+              <small class="form-error" id="client-website-error"></small>
+            </div>
+
+            <!-- Observações -->
+
+            <div class="form-field form-field-full">
+              <label for="client-notes"> Observações </label>
+
+              <textarea
+                id="client-notes"
+                name="notes"
+                rows="5"
+                maxlength="2000"
+                placeholder="Registe informações importantes sobre o cliente."
+              ></textarea>
+
+              <div class="form-field-footer">
+                <small> Informação interna do workspace. </small>
+
+                <small id="client-notes-counter"> 0/2000 </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-general-error hidden" id="client-form-error" role="alert"></div>
+
+          <div class="modal-footer">
+            <button class="button button-secondary" id="client-form-cancel" type="button">
+              Cancelar
+            </button>
+
+            <button class="btn btn-primary" id="client-form-submit" type="submit">
+              <span id="client-form-submit-text"> Criar cliente </span>
+
+              <span class="button-loader hidden" id="client-form-loader" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- ==================================================
@@ -974,95 +598,58 @@
     =================================================== -->
 
     <div
-        class="modal-overlay hidden"
-        id="client-brands-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="client-brands-modal-title"
-        aria-hidden="true"
+      class="modal-overlay hidden"
+      id="client-brands-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="client-brands-modal-title"
+      aria-hidden="true"
     >
+      <div class="modal-container modal-container-medium">
+        <div class="modal-header">
+          <div>
+            <span class="modal-eyebrow"> Marcas associadas </span>
 
-        <div class="modal-container modal-container-medium">
+            <h2 id="client-brands-modal-title">Gerir marcas</h2>
 
-            <div class="modal-header">
+            <p class="modal-header-description">
+              Cliente:
+              <strong id="client-brands-client-name"> — </strong>
+            </p>
+          </div>
 
-                <div>
-
-                    <span class="modal-eyebrow">
-                        Marcas associadas
-                    </span>
-
-                    <h2 id="client-brands-modal-title">
-                        Gerir marcas
-                    </h2>
-
-                    <p class="modal-header-description">
-                        Cliente:
-                        <strong id="client-brands-client-name">
-                            —
-                        </strong>
-                    </p>
-
-                </div>
-
-                <button
-                    class="modal-close-button"
-                    id="client-brands-modal-close"
-                    type="button"
-                    aria-label="Fechar janela"
-                >
-                    <i data-lucide="x"></i>
-                </button>
-
-            </div>
-
-            <div class="client-brands-content">
-
-                <div
-                    class="client-brands-loading"
-                    id="client-brands-loading"
-                >
-                    A carregar marcas...
-                </div>
-
-                <div
-                    class="client-brands-empty hidden"
-                    id="client-brands-empty"
-                >
-                    Ainda não existem marcas neste workspace.
-                </div>
-
-                <div
-                    class="client-brands-list hidden"
-                    id="client-brands-list"
-                >
-                    <!-- Opções inseridas pelo JavaScript -->
-                </div>
-
-            </div>
-
-            <div class="modal-footer client-brands-footer">
-
-                <button
-                    class="button button-secondary"
-                    id="client-brands-cancel"
-                    type="button"
-                >
-                    Cancelar
-                </button>
-
-                <button
-                    class="btn btn-primary"
-                    id="client-brands-save"
-                    type="button"
-                >
-                    Guardar associações
-                </button>
-
-            </div>
-
+          <button
+            class="modal-close-button"
+            id="client-brands-modal-close"
+            type="button"
+            aria-label="Fechar janela"
+          >
+            <i data-lucide="x"></i>
+          </button>
         </div>
 
+        <div class="client-brands-content">
+          <div class="client-brands-loading" id="client-brands-loading">A carregar marcas...</div>
+
+          <div class="client-brands-empty hidden" id="client-brands-empty">
+            Ainda não existem marcas neste workspace.
+          </div>
+
+          <div class="client-brands-list hidden" id="client-brands-list">
+            <!-- Opções inseridas pelo JavaScript -->
+          </div>
+        </div>
+
+        <div class="modal-footer client-brands-footer">
+          <button class="button button-secondary" id="client-brands-cancel" type="button">
+            Cancelar
+          </button>
+
+          <button class="btn btn-primary" id="client-brands-save" type="button">
+            Guardar associações
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- ==================================================
@@ -1070,73 +657,45 @@
     =================================================== -->
 
     <div
-        class="modal-overlay hidden"
-        id="archive-client-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="archive-client-modal-title"
-        aria-describedby="archive-client-modal-description"
-        aria-hidden="true"
+      class="modal-overlay hidden"
+      id="archive-client-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="archive-client-modal-title"
+      aria-describedby="archive-client-modal-description"
+      aria-hidden="true"
     >
-
-        <div class="modal-container modal-container-small">
-
-            <div class="confirmation-icon">
-
-                <i
-                    data-lucide="triangle-alert"
-                    aria-hidden="true"
-                ></i>
-
-            </div>
-
-            <div class="confirmation-content">
-
-                <h2 id="archive-client-modal-title">
-                    Arquivar cliente?
-                </h2>
-
-                <p id="archive-client-modal-description">
-                    O cliente deixará de aparecer entre os clientes
-                    ativos, mas poderá ser restaurado posteriormente.
-                </p>
-
-            </div>
-
-            <div class="modal-footer">
-
-                <button
-                    type="button"
-                    class="button button-secondary"
-                    id="archive-client-cancel"
-                >
-                    Cancelar
-                </button>
-
-                <button
-                    type="button"
-                    class="btn btn-danger"
-                    id="archive-client-confirm"
-                >
-                    Arquivar cliente
-                </button>
-
-            </div>
-
+      <div class="modal-container modal-container-small">
+        <div class="confirmation-icon">
+          <i data-lucide="triangle-alert" aria-hidden="true"></i>
         </div>
 
+        <div class="confirmation-content">
+          <h2 id="archive-client-modal-title">Arquivar cliente?</h2>
+
+          <p id="archive-client-modal-description">
+            O cliente deixará de aparecer entre os clientes ativos, mas poderá ser restaurado
+            posteriormente.
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="button button-secondary" id="archive-client-cancel">
+            Cancelar
+          </button>
+
+          <button type="button" class="btn btn-danger" id="archive-client-confirm">
+            Arquivar cliente
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- ==================================================
          Toasts
     =================================================== -->
 
-    <div
-        class="toast-container"
-        id="toast-container"
-        aria-live="polite"
-        aria-atomic="true"
-    ></div>
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     <!-- Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -1151,7 +710,5 @@
 
     <!-- Clientes -->
     <script src="/js/dashboard/clients.js"></script>
-
-</body>
-
+  </body>
 </html>
