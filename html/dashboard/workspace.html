@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Workspace | StudioV</title>
+
+    <meta
+      name="description"
+      content="Gerencie o workspace da sua conta StudioV."
+    />
+
+    <meta name="robots" content="noindex, nofollow" />
+
+    <meta name="theme-color" content="#6D28D9" />
+
+
+    <!-- Favicons -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/assets/icons/favicon-96x96.png"
+    />
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/assets/icons/favicon.svg"
+    />
+
+    <link
+      rel="manifest"
+      href="/assets/icons/site.webmanifest"
+    />
+
+
+    <!-- Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+
+    <!-- Global CSS -->
+
+    <link rel="stylesheet" href="/css/globals/variables.css" />
+
+    <link rel="stylesheet" href="/css/globals/reset.css" />
+
+    <link rel="stylesheet" href="/css/globals/typography.css" />
+
+    <link rel="stylesheet" href="/css/globals/utilities.css" />
+
+
+    <!-- Components -->
+
+    <link rel="stylesheet" href="/css/components/button.css" />
+
+
+    <!-- Dashboard -->
+
+    <link rel="stylesheet" href="/css/pages/dashboard.css" />
+
+    <link rel="stylesheet" href="/css/pages/workspace.css" />
+
+  </head>
+
+
+  <body>
+
+
+    <div class="dashboard-layout">
+
+
+      <!-- Sidebar -->
+
+      <aside
+        class="dashboard-sidebar"
+        id="dashboard-sidebar"
+      >
+
+
+        <div class="sidebar-header">
+
+
+          <a
+            href="/html/dashboard/home.html"
+            class="sidebar-logo"
+          >
+
+            <img
+              src="/assets/logos/svg/logo-studiov2000.png"
+              alt="StudioV"
+            />
+
+          </a>
+
+
+          <button
+            class="sidebar-close"
+            id="sidebar-close"
+            type="button"
+          >
+
+            <i data-lucide="x"></i>
+
+          </button>
+
+
+        </div>
+
+
+
+        <nav class="sidebar-navigation">
+
+
+          <div class="sidebar-section">
+
+
+            <span class="sidebar-section-title">
+              Principal
+            </span>
+
+
+            <ul class="sidebar-menu">
+
+
+              <li>
+
+                <a
+                  href="/html/dashboard/home.html"
+                  class="sidebar-link"
+                >
+
+                  <i data-lucide="layout-dashboard"></i>
+
+                  <span>
+                    Dashboard
+                  </span>
+
+                </a>
+
+              </li>
+
+
+
+              <li>
+
+                <a
+                  href="/html/dashboard/workspace.html"
+                  class="sidebar-link is-active"
+                >
+
+                  <i data-lucide="building-2"></i>
+
+                  <span>
+                    Workspace
+                  </span>
+
+                </a>
+
+              </li>
+
+
+
+              <li>
+
+                <a
+                  href="/html/dashboard/brands.html"
+                  class="sidebar-link"
+                >
+
+                  <i data-lucide="palette"></i>
+
+                  <span>
+                    Marcas
+                  </span>
+
+                </a>
+
+              </li>
+
+
+
+              <li>
+
+                <a
+                  href="/html/dashboard/clients.html"
+                  class="sidebar-link"
+                >
+
+                  <i data-lucide="users"></i>
+
+                  <span>
+                    Clientes
+                  </span>
+
+                </a>
+
+              </li>
+
+
+            </ul>
+
+
+          </div>
+
+
+
+
+          <div class="sidebar-section">
+
+
+            <span class="sidebar-section-title">
+              Conteúdo
+            </span>
+
+
+            <ul class="sidebar-menu">
+
+
+              <li>
+                <a
+                  href="/html/dashboard/planner.html"
+                  class="sidebar-link"
+                >
+
+                  <i data-lucide="clipboard-list"></i>
+
+                  <span>
+                    Planner
+                  </span>
+
+                </a>
+              </li>
+
+
+              <li>
+                <a
+                  href="/html/dashboard/calendar.html"
+                  class="sidebar-link"
+                >
+
+                  <i data-lucide="calendar-days"></i>
+
+                  <span>
+                    Calendário
+                  </span>
+
+                </a>
+              </li>
+
+
+              <li>
+                <a
+                  href="/html/dashboard/content.html"
+                  class="sidebar-link"
+                >
+
+                  <i data-lucide="files"></i>
+
+                  <span>
+                    Conteúdos
+                  </span>
+
+                </a>
+              </li>
+
+
+            </ul>
+
+
+          </div>
+
+
+
+
+          <div class="sidebar-section sidebar-section-bottom">
+
+
+            <ul class="sidebar-menu">
+
+
+              <li>
+
+                <a
+                  href="/html/dashboard/settings.html"
+                  class="sidebar-link"
+                >
+
+                  <i data-lucide="settings"></i>
+
+                  <span>
+                    Configurações
+                  </span>
+
+                </a>
+
+              </li>
+
+
+            </ul>
+
+
+          </div>
+
+
+        </nav>
+
+
+
+
+        <div class="sidebar-user">
+
+
+          <div
+            class="sidebar-user-avatar"
+            id="sidebar-user-avatar"
+          >
+            U
+          </div>
+
+
+          <div class="sidebar-user-info">
+
+
+            <strong id="sidebar-user-name">
+              Utilizador
+            </strong>
+
+
+            <span id="sidebar-user-email">
+              utilizador@studiov.pt
+            </span>
+
+
+          </div>
+
+
+        </div>
+
+
+      </aside>
+
+
+
+
+
+      <div class="dashboard-main">
+
+
+        <!-- Topbar -->
+
+
+        <header class="dashboard-topbar">
+
+
+          <div class="topbar-left">
+
+
+            <button
+              class="topbar-menu-button"
+              id="topbar-menu-button"
+              type="button"
+            >
+
+              <i data-lucide="menu"></i>
+
+            </button>
+
+
+
+            <div class="workspace-selector">
+
+
+              <button
+                class="workspace-selector-button"
+                type="button"
+              >
+
+                <i data-lucide="building-2"></i>
+
+
+                <span>
+                  Meu Workspace
+                </span>
+
+
+              </button>
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <div class="topbar-actions">
+
+
+            <a
+              href="/html/dashboard/profile.html"
+              class="topbar-avatar"
+            >
+              U
+            </a>
+
+
+          </div>
+
+
+        </header>
+
+
+
+
+
+        <!-- Conteúdo -->
+
+
+        <main class="dashboard-content">
+
+
+          <section class="page-header">
+
+
+            <div class="page-header-content">
+
+
+              <span class="page-eyebrow">
+                Configuração
+              </span>
+
+
+              <h1>
+                Workspace
+              </h1>
+
+
+              <p>
+                Gerencie o ambiente principal da sua organização dentro da StudioV.
+              </p>
+
+
+            </div>
+
+
+          </section>
+
+
+
+
+
+          <section class="workspace-grid">
+
+
+            <article class="workspace-card">
+
+
+              <i data-lucide="building-2"></i>
+
+
+              <div>
+
+                <span>
+                  Workspace atual
+                </span>
+
+
+                <strong id="workspace-name">
+                  Meu Workspace
+                </strong>
+
+
+              </div>
+
+
+            </article>
+
+
+
+            <article class="workspace-card">
+
+
+              <i data-lucide="users"></i>
+
+
+              <div>
+
+                <span>
+                  Membros
+                </span>
+
+
+                <strong>
+                  1 membro
+                </strong>
+
+
+              </div>
+
+
+            </article>
+
+
+
+            <article class="workspace-card">
+
+
+              <i data-lucide="credit-card"></i>
+
+
+              <div>
+
+                <span>
+                  Plano
+                </span>
+
+
+                <strong>
+                  Free
+                </strong>
+
+
+              </div>
+
+
+            </article>
+
+
+
+            <article class="workspace-card">
+
+
+              <i data-lucide="palette"></i>
+
+
+              <div>
+
+                <span>
+                  Marcas
+                </span>
+
+
+                <strong>
+                  0
+                </strong>
+
+
+              </div>
+
+
+            </article>
+
+
+
+          </section>
+
+
+
+
+
+          <section class="workspace-settings-card">
+
+
+            <h2>
+              Configurações do Workspace
+            </h2>
+
+
+            <p>
+              Em breve você poderá alterar nome, membros,
+              permissões e integrações.
+            </p>
+
+
+            <button class="btn btn-primary">
+
+              Editar Workspace
+
+            </button>
+
+
+          </section>
+
+
+
+        </main>
+
+
+
+      </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- Scripts -->
+
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+
+    <script>
+      lucide.createIcons();
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <script src="/js/services/supabase.js"></script>
+
+
+    <script src="/js/auth/auth-guard.js"></script>
+
+
+    <script src="/js/dashboard/workspace.js"></script>
+
+
+
+  </body>
+
+</html>
