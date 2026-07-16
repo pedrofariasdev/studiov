@@ -135,7 +135,6 @@ document.addEventListener("DOMContentLoaded", async () => {
        Estado
     ====================================================== */
 
-  let currentUser = null;
   let currentWorkspace = null;
 
   let brands = [];
@@ -442,8 +441,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!user) {
       return false;
     }
-
-    currentUser = user;
 
     const [profile, workspace] = await Promise.all([
       loadUserProfile(user.id),
