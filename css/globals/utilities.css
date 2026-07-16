@@ -3,10 +3,10 @@
 ========================================================== */
 
 .container {
-    width: 100%;
-    max-width: var(--container-width);
-    margin-inline: auto;
-    padding-inline: var(--container-padding);
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
 }
 
 /* ==========================================================
@@ -14,46 +14,58 @@
 ========================================================== */
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .grid {
-    display: grid;
+  display: grid;
 }
 
 .block {
-    display: block;
+  display: block;
 }
 
 .inline-block {
-    display: inline-block;
+  display: inline-block;
 }
 
 /* ==========================================================
    Alignment
 ========================================================== */
 
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
 
 /* ==========================================================
    Text Alignment
 ========================================================== */
 
-.text-left { text-align: left; }
-.text-center { text-align: center; }
-.text-right { text-align: right; }
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
 
 /* ==========================================================
    Visibility
 ========================================================== */
 
 .hidden {
-    display: none;
+  display: none;
 }
 .invisible {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 /* ==========================================================
@@ -61,22 +73,23 @@
 ========================================================== */
 
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ==========================================================
    Responsive
 ========================================================== */
 
-
 @media (max-width: 768px) {
-    .container { padding-inline: 20px; }
+  .container {
+    padding-inline: 20px;
+  }
 }

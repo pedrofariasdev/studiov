@@ -1,796 +1,582 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-PT">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Sobre nós | StudioV</title>
 
     <meta
-        name="description"
-        content="Conheça a StudioV, a plataforma criada para simplificar o planeamento, a criação e a gestão de conteúdos digitais."
-    >
+      name="description"
+      content="Conheça a StudioV, a plataforma criada para simplificar o planeamento, a criação e a gestão de conteúdos digitais."
+    />
 
-    <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#6D28D9">
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#6D28D9" />
 
-    <link
-        rel="canonical"
-        href="https://studiov.pt/html/landing/about.html"
-    >
+    <link rel="canonical" href="https://studiov.pt/html/landing/about.html" />
 
     <!-- Favicons -->
-    <link
-        rel="icon"
-        type="image/png"
-        sizes="96x96"
-        href="/assets/icons/favicon-96x96.png"
-    >
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96x96.png" />
 
-    <link
-        rel="icon"
-        type="image/svg+xml"
-        sizes="any"
-        href="/assets/icons/favicon.svg"
-    >
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/assets/icons/favicon.svg" />
 
-    <link rel="icon" href="/assets/icons/favicon.ico">
-    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/assets/icons/site.webmanifest">
+    <link rel="icon" href="/assets/icons/favicon.ico" />
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/icons/site.webmanifest" />
 
     <!-- Fontes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-        rel="stylesheet"
-    >
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Globais -->
-    <link rel="stylesheet" href="/css/globals/variables.css">
-    <link rel="stylesheet" href="/css/globals/reset.css">
-    <link rel="stylesheet" href="/css/globals/typography.css">
-    <link rel="stylesheet" href="/css/globals/utilities.css">
+    <link rel="stylesheet" href="/css/globals/variables.css" />
+    <link rel="stylesheet" href="/css/globals/reset.css" />
+    <link rel="stylesheet" href="/css/globals/typography.css" />
+    <link rel="stylesheet" href="/css/globals/utilities.css" />
 
-    <link rel="stylesheet" href="/css/components/button.css">
-    <link rel="stylesheet" href="/css/components/navbar.css">
-    <link rel="stylesheet" href="/css/components/footer.css">
+    <link rel="stylesheet" href="/css/components/button.css" />
+    <link rel="stylesheet" href="/css/components/navbar.css" />
+    <link rel="stylesheet" href="/css/components/footer.css" />
 
-    <link rel="stylesheet" href="/css/pages/style.css">
-    <link rel="stylesheet" href="/css/landing/about-page.css">
+    <link rel="stylesheet" href="/css/pages/style.css" />
+    <link rel="stylesheet" href="/css/landing/about-page.css" />
+  </head>
 
-
-</head>
-
-<body>
-
+  <body>
     <!-- Navbar -->
 
     <header class="navbar">
-        <div class="container">
+      <div class="container">
+        <a href="/index.html" class="navbar-logo">
+          <img src="/assets/logos/svg/logo-studiov2000.png" alt="StudioV" />
+        </a>
 
-            <a href="/index.html" class="navbar-logo">
-                <img
-                    src="/assets/logos/svg/logo-studiov2000.png"
-                    alt="StudioV"
-                >
-            </a>
+        <nav class="navbar-menu" id="mobile-menu" aria-label="Navegação principal">
+          <a href="/html/landing/features.html">Recursos</a>
+          <a href="/html/landing/pricing.html">Preços</a>
+          <a href="/html/landing/faq.html">FAQ</a>
+          <a href="/html/landing/contact.html">Contato</a>
+        </nav>
 
-            <nav
-                class="navbar-menu"
-                id="mobile-menu"
-                aria-label="Navegação principal"
-            >
-                <a href="/html/landing/features.html">Recursos</a>
-                <a href="/html/landing/pricing.html">Preços</a>
-                <a href="/html/landing/faq.html">FAQ</a>
-                <a href="/html/landing/contact.html">Contato</a>
-            </nav>
+        <div class="navbar-actions">
+          <a href="/html/auth/login.html" class="btn btn-secondary"> Entrar </a>
 
-            <div class="navbar-actions">
-                <a
-                    href="/html/auth/login.html"
-                    class="btn btn-secondary"
-                >
-                    Entrar
-                </a>
-
-                <a
-                    href="/html/auth/register.html"
-                    class="btn btn-primary"
-                >
-                    Criar conta
-                </a>
-            </div>
-
-            <button
-                class="navbar-toggle"
-                type="button"
-                aria-label="Abrir menu"
-                aria-expanded="false"
-                aria-controls="mobile-menu"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-                <span class="sr-only">Abrir menu</span>
-            </button>
-
+          <a href="/html/auth/register.html" class="btn btn-primary"> Criar conta </a>
         </div>
+
+        <button
+          class="navbar-toggle"
+          type="button"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+          <span class="sr-only">Abrir menu</span>
+        </button>
+      </div>
     </header>
 
     <main>
+      <!-- Hero -->
+      <section class="about-hero">
+        <div class="container about-hero__container">
+          <div class="about-hero__content">
+            <span class="about-hero__badge"> Sobre a StudioV </span>
 
-        <!-- Hero -->
-        <section class="about-hero">
-            <div class="container about-hero__container">
+            <h1>
+              Criamos tecnologia para simplificar a produção de
+              <span>conteúdo digital.</span>
+            </h1>
 
-                <div class="about-hero__content">
+            <p>
+              A StudioV nasceu para ajudar criadores, freelancers, profissionais de marketing,
+              equipas e agências a planearem, criarem e organizarem os seus conteúdos num único
+              espaço.
+            </p>
 
-                    <span class="about-hero__badge">
-                        Sobre a StudioV
-                    </span>
+            <div class="about-hero__actions">
+              <a href="/html/auth/register.html" class="btn btn-primary btn-lg">
+                Começar gratuitamente
+              </a>
 
-                    <h1>
-                        Criamos tecnologia para simplificar a produção de
-                        <span>conteúdo digital.</span>
-                    </h1>
-
-                    <p>
-                        A StudioV nasceu para ajudar criadores, freelancers,
-                        profissionais de marketing, equipas e agências a
-                        planearem, criarem e organizarem os seus conteúdos num
-                        único espaço.
-                    </p>
-
-                    <div class="about-hero__actions">
-                        <a
-                            href="/html/auth/register.html"
-                            class="btn btn-primary btn-lg"
-                        >
-                            Começar gratuitamente
-                        </a>
-
-                        <a
-                            href="/html/landing/features.html"
-                            class="btn btn-secondary btn-lg"
-                        >
-                            Conhecer os recursos
-                        </a>
-                    </div>
-
-                </div>
-
-                <div
-                    class="about-hero__visual"
-                    aria-hidden="true"
-                >
-                    <div class="about-hero__visual-glow"></div>
-
-                    <div class="about-hero__visual-card about-hero__visual-card--main">
-
-                        <div class="about-hero__visual-icon">
-                            <i data-lucide="sparkles"></i>
-                        </div>
-
-                        <span>Uma plataforma</span>
-
-                        <strong>
-                            Todo o seu conteúdo num único lugar
-                        </strong>
-
-                        <p>
-                            Planeamento, inteligência artificial, organização
-                            e acompanhamento.
-                        </p>
-
-                    </div>
-
-                    <div class="about-hero__floating-card about-hero__floating-card--top">
-                        <i data-lucide="calendar-days"></i>
-
-                        <span>
-                            Planeamento simples
-                        </span>
-                    </div>
-
-                    <div class="about-hero__floating-card about-hero__floating-card--bottom">
-                        <i data-lucide="brain-circuit"></i>
-
-                        <span>
-                            IA integrada
-                        </span>
-                    </div>
-                </div>
-
+              <a href="/html/landing/features.html" class="btn btn-secondary btn-lg">
+                Conhecer os recursos
+              </a>
             </div>
-        </section>
+          </div>
 
-        <!-- História -->
-        <section class="about-story">
-            <div class="container about-story__container">
+          <div class="about-hero__visual" aria-hidden="true">
+            <div class="about-hero__visual-glow"></div>
 
-                <div class="about-story__eyebrow">
-                    A nossa história
-                </div>
+            <div class="about-hero__visual-card about-hero__visual-card--main">
+              <div class="about-hero__visual-icon">
+                <i data-lucide="sparkles"></i>
+              </div>
 
-                <div class="about-story__grid">
+              <span>Uma plataforma</span>
 
-                    <div class="about-story__heading">
-                        <h2>
-                            Uma ideia criada a partir de um problema real.
-                        </h2>
-                    </div>
+              <strong> Todo o seu conteúdo num único lugar </strong>
 
-                    <div class="about-story__content">
-                        <p>
-                            Produzir conteúdo envolve muito mais do que escrever
-                            uma legenda ou publicar uma imagem. É necessário
-                            organizar ideias, manter calendários atualizados,
-                            gerir diferentes projetos, adaptar publicações e
-                            acompanhar resultados.
-                        </p>
-
-                        <p>
-                            Muitas pessoas acabam por utilizar várias
-                            ferramentas separadas para realizar tarefas que
-                            deveriam estar conectadas.
-                        </p>
-
-                        <p>
-                            A StudioV foi criada com o objetivo de reunir essas
-                            etapas numa única plataforma, oferecendo uma
-                            experiência simples, organizada e inteligente.
-                        </p>
-                    </div>
-
-                </div>
-
+              <p>Planeamento, inteligência artificial, organização e acompanhamento.</p>
             </div>
-        </section>
 
-        <!-- Missão e visão -->
-        <section class="about-purpose">
-            <div class="container">
+            <div class="about-hero__floating-card about-hero__floating-card--top">
+              <i data-lucide="calendar-days"></i>
 
-                <div class="about-purpose__grid">
-
-                    <article class="about-purpose__card">
-                        <div class="about-purpose__icon">
-                            <i data-lucide="target"></i>
-                        </div>
-
-                        <span>Missão</span>
-
-                        <h2>
-                            Tornar a criação de conteúdo mais simples.
-                        </h2>
-
-                        <p>
-                            Centralizar ferramentas, processos e informações
-                            para que profissionais e equipas possam trabalhar
-                            com mais clareza, consistência e produtividade.
-                        </p>
-                    </article>
-
-                    <article class="about-purpose__card">
-                        <div class="about-purpose__icon">
-                            <i data-lucide="telescope"></i>
-                        </div>
-
-                        <span>Visão</span>
-
-                        <h2>
-                            Construir uma plataforma completa e acessível.
-                        </h2>
-
-                        <p>
-                            Ser uma referência na gestão e produção de conteúdo,
-                            combinando organização, colaboração, dados e
-                            inteligência artificial.
-                        </p>
-                    </article>
-
-                </div>
-
+              <span> Planeamento simples </span>
             </div>
-        </section>
 
-        <!-- Valores -->
-        <section class="about-values">
-            <div class="container">
+            <div class="about-hero__floating-card about-hero__floating-card--bottom">
+              <i data-lucide="brain-circuit"></i>
 
-                <div class="about-section-heading">
-                    <span>Os nossos valores</span>
-
-                    <h2>
-                        Princípios que orientam a construção da StudioV
-                    </h2>
-
-                    <p>
-                        Cada funcionalidade é pensada para resolver problemas
-                        reais sem tornar o processo mais complicado.
-                    </p>
-                </div>
-
-                <div class="about-values__grid">
-
-                    <article class="about-values__card">
-                        <div class="about-values__icon">
-                            <i data-lucide="badge-check"></i>
-                        </div>
-
-                        <h3>
-                            Simplicidade
-                        </h3>
-
-                        <p>
-                            Criamos experiências intuitivas, com menos
-                            complexidade e mais clareza.
-                        </p>
-                    </article>
-
-                    <article class="about-values__card">
-                        <div class="about-values__icon">
-                            <i data-lucide="lightbulb"></i>
-                        </div>
-
-                        <h3>
-                            Inovação útil
-                        </h3>
-
-                        <p>
-                            Utilizamos tecnologia para melhorar processos e não
-                            apenas para adicionar funcionalidades.
-                        </p>
-                    </article>
-
-                    <article class="about-values__card">
-                        <div class="about-values__icon">
-                            <i data-lucide="shield-check"></i>
-                        </div>
-
-                        <h3>
-                            Confiança
-                        </h3>
-
-                        <p>
-                            Valorizamos a segurança, a transparência e o
-                            respeito pelos dados dos utilizadores.
-                        </p>
-                    </article>
-
-                    <article class="about-values__card">
-                        <div class="about-values__icon">
-                            <i data-lucide="users"></i>
-                        </div>
-
-                        <h3>
-                            Colaboração
-                        </h3>
-
-                        <p>
-                            Acreditamos que equipas trabalham melhor quando
-                            existe organização e comunicação.
-                        </p>
-                    </article>
-
-                </div>
-
+              <span> IA integrada </span>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- Diferenciais -->
-        <section class="about-difference">
-            <div class="container about-difference__container">
+      <!-- História -->
+      <section class="about-story">
+        <div class="container about-story__container">
+          <div class="about-story__eyebrow">A nossa história</div>
 
-                <div class="about-difference__content">
-
-                    <span class="about-difference__eyebrow">
-                        O que nos diferencia
-                    </span>
-
-                    <h2>
-                        Mais do que uma ferramenta de publicação.
-                    </h2>
-
-                    <p>
-                        A StudioV está a ser construída para acompanhar todo o
-                        ciclo de produção de conteúdo, desde a primeira ideia
-                        até à análise dos resultados.
-                    </p>
-
-                    <ul class="about-difference__list">
-
-                        <li>
-                            <div>
-                                <i data-lucide="check"></i>
-                            </div>
-
-                            <span>
-                                Planeamento editorial centralizado
-                            </span>
-                        </li>
-
-                        <li>
-                            <div>
-                                <i data-lucide="check"></i>
-                            </div>
-
-                            <span>
-                                Inteligência artificial integrada ao fluxo
-                            </span>
-                        </li>
-
-                        <li>
-                            <div>
-                                <i data-lucide="check"></i>
-                            </div>
-
-                            <span>
-                                Gestão de projetos, marcas e clientes
-                            </span>
-                        </li>
-
-                        <li>
-                            <div>
-                                <i data-lucide="check"></i>
-                            </div>
-
-                            <span>
-                                Colaboração entre profissionais e equipas
-                            </span>
-                        </li>
-
-                        <li>
-                            <div>
-                                <i data-lucide="check"></i>
-                            </div>
-
-                            <span>
-                                Análise de desempenho num único ambiente
-                            </span>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="about-difference__panel">
-
-                    <div class="about-difference__panel-header">
-                        <div>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-
-                        <small>
-                            StudioV Workspace
-                        </small>
-                    </div>
-
-                    <div class="about-difference__panel-body">
-
-                        <div class="about-difference__sidebar">
-                            <span class="active"></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-
-                        <div class="about-difference__dashboard">
-
-                            <div class="about-difference__dashboard-header">
-                                <div>
-                                    <small>Projeto</small>
-                                    <strong>Campanha de verão</strong>
-                                </div>
-
-                                <span>
-                                    Em progresso
-                                </span>
-                            </div>
-
-                            <div class="about-difference__stats">
-
-                                <div>
-                                    <small>Ideias</small>
-                                    <strong>24</strong>
-                                </div>
-
-                                <div>
-                                    <small>Em produção</small>
-                                    <strong>8</strong>
-                                </div>
-
-                                <div>
-                                    <small>Publicados</small>
-                                    <strong>16</strong>
-                                </div>
-
-                            </div>
-
-                            <div class="about-difference__chart">
-
-                                <div class="about-difference__chart-header">
-                                    <span>Desempenho</span>
-                                    <small>Últimos 30 dias</small>
-                                </div>
-
-                                <div class="about-difference__chart-bars">
-                                    <span style="height: 35%;"></span>
-                                    <span style="height: 50%;"></span>
-                                    <span style="height: 42%;"></span>
-                                    <span style="height: 68%;"></span>
-                                    <span style="height: 60%;"></span>
-                                    <span style="height: 82%;"></span>
-                                    <span style="height: 72%;"></span>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+          <div class="about-story__grid">
+            <div class="about-story__heading">
+              <h2>Uma ideia criada a partir de um problema real.</h2>
             </div>
-        </section>
 
-        <!-- Portugal -->
-        <section class="about-origin">
-            <div class="container about-origin__container">
+            <div class="about-story__content">
+              <p>
+                Produzir conteúdo envolve muito mais do que escrever uma legenda ou publicar uma
+                imagem. É necessário organizar ideias, manter calendários atualizados, gerir
+                diferentes projetos, adaptar publicações e acompanhar resultados.
+              </p>
 
-                <div class="about-origin__icon">
-                    <i data-lucide="map-pin"></i>
-                </div>
+              <p>
+                Muitas pessoas acabam por utilizar várias ferramentas separadas para realizar
+                tarefas que deveriam estar conectadas.
+              </p>
 
+              <p>
+                A StudioV foi criada com o objetivo de reunir essas etapas numa única plataforma,
+                oferecendo uma experiência simples, organizada e inteligente.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Missão e visão -->
+      <section class="about-purpose">
+        <div class="container">
+          <div class="about-purpose__grid">
+            <article class="about-purpose__card">
+              <div class="about-purpose__icon">
+                <i data-lucide="target"></i>
+              </div>
+
+              <span>Missão</span>
+
+              <h2>Tornar a criação de conteúdo mais simples.</h2>
+
+              <p>
+                Centralizar ferramentas, processos e informações para que profissionais e equipas
+                possam trabalhar com mais clareza, consistência e produtividade.
+              </p>
+            </article>
+
+            <article class="about-purpose__card">
+              <div class="about-purpose__icon">
+                <i data-lucide="telescope"></i>
+              </div>
+
+              <span>Visão</span>
+
+              <h2>Construir uma plataforma completa e acessível.</h2>
+
+              <p>
+                Ser uma referência na gestão e produção de conteúdo, combinando organização,
+                colaboração, dados e inteligência artificial.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Valores -->
+      <section class="about-values">
+        <div class="container">
+          <div class="about-section-heading">
+            <span>Os nossos valores</span>
+
+            <h2>Princípios que orientam a construção da StudioV</h2>
+
+            <p>
+              Cada funcionalidade é pensada para resolver problemas reais sem tornar o processo mais
+              complicado.
+            </p>
+          </div>
+
+          <div class="about-values__grid">
+            <article class="about-values__card">
+              <div class="about-values__icon">
+                <i data-lucide="badge-check"></i>
+              </div>
+
+              <h3>Simplicidade</h3>
+
+              <p>Criamos experiências intuitivas, com menos complexidade e mais clareza.</p>
+            </article>
+
+            <article class="about-values__card">
+              <div class="about-values__icon">
+                <i data-lucide="lightbulb"></i>
+              </div>
+
+              <h3>Inovação útil</h3>
+
+              <p>
+                Utilizamos tecnologia para melhorar processos e não apenas para adicionar
+                funcionalidades.
+              </p>
+            </article>
+
+            <article class="about-values__card">
+              <div class="about-values__icon">
+                <i data-lucide="shield-check"></i>
+              </div>
+
+              <h3>Confiança</h3>
+
+              <p>
+                Valorizamos a segurança, a transparência e o respeito pelos dados dos utilizadores.
+              </p>
+            </article>
+
+            <article class="about-values__card">
+              <div class="about-values__icon">
+                <i data-lucide="users"></i>
+              </div>
+
+              <h3>Colaboração</h3>
+
+              <p>
+                Acreditamos que equipas trabalham melhor quando existe organização e comunicação.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Diferenciais -->
+      <section class="about-difference">
+        <div class="container about-difference__container">
+          <div class="about-difference__content">
+            <span class="about-difference__eyebrow"> O que nos diferencia </span>
+
+            <h2>Mais do que uma ferramenta de publicação.</h2>
+
+            <p>
+              A StudioV está a ser construída para acompanhar todo o ciclo de produção de conteúdo,
+              desde a primeira ideia até à análise dos resultados.
+            </p>
+
+            <ul class="about-difference__list">
+              <li>
                 <div>
-                    <span>
-                        Criada em Portugal
-                    </span>
-
-                    <h2>
-                        Um produto digital pensado para crescer além-fronteiras.
-                    </h2>
-
-                    <p>
-                        A StudioV nasce em Portugal com a ambição de ajudar
-                        profissionais, criadores e equipas em diferentes
-                        mercados.
-                    </p>
+                  <i data-lucide="check"></i>
                 </div>
 
-            </div>
-        </section>
+                <span> Planeamento editorial centralizado </span>
+              </li>
 
-        <!-- CTA -->
-        <section class="about-cta">
-            <div class="container">
-
-                <div class="about-cta__content">
-
-                    <div class="about-cta__glow"></div>
-
-                    <span>
-                        Comece hoje
-                    </span>
-
-                    <h2>
-                        Organize melhor o seu conteúdo com a StudioV.
-                    </h2>
-
-                    <p>
-                        Centralize ideias, projetos, publicações e resultados
-                        numa única plataforma.
-                    </p>
-
-                    <div class="about-cta__actions">
-                        <a
-                            href="/html/auth/register.html"
-                            class="btn btn-primary"
-                        >
-                            Criar conta gratuitamente
-                        </a>
-
-                        <a
-                            href="/html/landing/contact.html"
-                            class="btn btn-secondary"
-                        >
-                            Falar com a equipa
-                        </a>
-                    </div>
-
+              <li>
+                <div>
+                  <i data-lucide="check"></i>
                 </div>
 
-            </div>
-        </section>
+                <span> Inteligência artificial integrada ao fluxo </span>
+              </li>
 
+              <li>
+                <div>
+                  <i data-lucide="check"></i>
+                </div>
+
+                <span> Gestão de projetos, marcas e clientes </span>
+              </li>
+
+              <li>
+                <div>
+                  <i data-lucide="check"></i>
+                </div>
+
+                <span> Colaboração entre profissionais e equipas </span>
+              </li>
+
+              <li>
+                <div>
+                  <i data-lucide="check"></i>
+                </div>
+
+                <span> Análise de desempenho num único ambiente </span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="about-difference__panel">
+            <div class="about-difference__panel-header">
+              <div>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <small> StudioV Workspace </small>
+            </div>
+
+            <div class="about-difference__panel-body">
+              <div class="about-difference__sidebar">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <div class="about-difference__dashboard">
+                <div class="about-difference__dashboard-header">
+                  <div>
+                    <small>Projeto</small>
+                    <strong>Campanha de verão</strong>
+                  </div>
+
+                  <span> Em progresso </span>
+                </div>
+
+                <div class="about-difference__stats">
+                  <div>
+                    <small>Ideias</small>
+                    <strong>24</strong>
+                  </div>
+
+                  <div>
+                    <small>Em produção</small>
+                    <strong>8</strong>
+                  </div>
+
+                  <div>
+                    <small>Publicados</small>
+                    <strong>16</strong>
+                  </div>
+                </div>
+
+                <div class="about-difference__chart">
+                  <div class="about-difference__chart-header">
+                    <span>Desempenho</span>
+                    <small>Últimos 30 dias</small>
+                  </div>
+
+                  <div class="about-difference__chart-bars">
+                    <span style="height: 35%"></span>
+                    <span style="height: 50%"></span>
+                    <span style="height: 42%"></span>
+                    <span style="height: 68%"></span>
+                    <span style="height: 60%"></span>
+                    <span style="height: 82%"></span>
+                    <span style="height: 72%"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portugal -->
+      <section class="about-origin">
+        <div class="container about-origin__container">
+          <div class="about-origin__icon">
+            <i data-lucide="map-pin"></i>
+          </div>
+
+          <div>
+            <span> Criada em Portugal </span>
+
+            <h2>Um produto digital pensado para crescer além-fronteiras.</h2>
+
+            <p>
+              A StudioV nasce em Portugal com a ambição de ajudar profissionais, criadores e equipas
+              em diferentes mercados.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="about-cta">
+        <div class="container">
+          <div class="about-cta__content">
+            <div class="about-cta__glow"></div>
+
+            <span> Comece hoje </span>
+
+            <h2>Organize melhor o seu conteúdo com a StudioV.</h2>
+
+            <p>Centralize ideias, projetos, publicações e resultados numa única plataforma.</p>
+
+            <div class="about-cta__actions">
+              <a href="/html/auth/register.html" class="btn btn-primary">
+                Criar conta gratuitamente
+              </a>
+
+              <a href="/html/landing/contact.html" class="btn btn-secondary">
+                Falar com a equipa
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
+      <div class="container">
+        <div class="footer-main">
+          <!-- Marca -->
+          <div class="footer-brand">
+            <a href="/" class="footer-logo" aria-label="Página inicial da StudioV">
+              <img src="/assets/logos/svg/logo-studiov2000.png" alt="StudioV" />
+            </a>
 
-            <div class="footer-main">
-
-                <!-- Marca -->
-                <div class="footer-brand">
-
-                    <a href="/" class="footer-logo" aria-label="Página inicial da StudioV">
-                        <img
-                            src="/assets/logos/svg/logo-studiov2000.png"
-                            alt="StudioV"
-                        >
-                    </a>
-
-                    <p class="footer-brand-description">
-                        Planeje, crie, organize e acompanhe seus conteúdos em uma
-                        única plataforma inteligente.
-                    </p>
-
-                    <div class="footer-socials">
-                        <a
-                            href="https://www.instagram.com/studiov_pt/"
-                            class="footer-social-link"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Instagram da StudioV"
-                        >
-                            <svg
-                                viewBox="0 0 24 24"
-                                width="20"
-                                height="20"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                aria-hidden="true"
-                            >
-                                <rect x="3" y="3" width="18" height="18" rx="5"></rect>
-                                <circle cx="12" cy="12" r="4"></circle>
-                                <circle
-                                    cx="17.5"
-                                    cy="6.5"
-                                    r="1"
-                                    fill="currentColor"
-                                    stroke="none"
-                                ></circle>
-                            </svg>
-                        </a>
-                    </div>
-
-                </div>
-
-                <!-- Produto -->
-                <div class="footer-column">
-                    <h2 class="footer-column-title">
-                        Produto
-                    </h2>
-
-                    <ul class="footer-links">
-                        <li>
-                            <a href="/html/landing/features.html">
-                                Recursos
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/html/landing/pricing.html">
-                                Planos
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/#demo">
-                                Demonstração
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/html/auth/register.html">
-                                Criar conta
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Empresa -->
-                <div class="footer-column">
-                    <h2 class="footer-column-title">
-                        Empresa
-                    </h2>
-
-                    <ul class="footer-links">
-                        <li>
-                            <a href="/html/landing/about.html">
-                                Sobre nós
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/html/landing/contact.html">
-                                Contato
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/html/landing/faq.html">
-                                Perguntas frequentes
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Legal -->
-                <div class="footer-column">
-                    <h2 class="footer-column-title">
-                        Legal
-                    </h2>
-
-                    <ul class="footer-links">
-                        <li>
-                            <a href="/html/legal/privacy-policy.html">
-                                Política de privacidade
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/html/legal/terms-of-service.html">
-                                Termos de utilização
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/html/legal/cookies-policy.html">
-                                Política de cookies
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="footer-bottom">
-
-                <p class="footer-copyright">
-                    © <span id="current-year">2026</span> StudioV.
-                    Todos os direitos reservados.
-                </p>
-
-            <p class="footer-location">
-                Criado em Portugal
-                <span aria-hidden="true">🇵🇹</span>
+            <p class="footer-brand-description">
+              Planeje, crie, organize e acompanhe seus conteúdos em uma única plataforma
+              inteligente.
             </p>
 
+            <div class="footer-socials">
+              <a
+                href="https://www.instagram.com/studiov_pt/"
+                class="footer-social-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram da StudioV"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
+                </svg>
+              </a>
             </div>
+          </div>
 
+          <!-- Produto -->
+          <div class="footer-column">
+            <h2 class="footer-column-title">Produto</h2>
+
+            <ul class="footer-links">
+              <li>
+                <a href="/html/landing/features.html"> Recursos </a>
+              </li>
+
+              <li>
+                <a href="/html/landing/pricing.html"> Planos </a>
+              </li>
+
+              <li>
+                <a href="/#demo"> Demonstração </a>
+              </li>
+
+              <li>
+                <a href="/html/auth/register.html"> Criar conta </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Empresa -->
+          <div class="footer-column">
+            <h2 class="footer-column-title">Empresa</h2>
+
+            <ul class="footer-links">
+              <li>
+                <a href="/html/landing/about.html"> Sobre nós </a>
+              </li>
+
+              <li>
+                <a href="/html/landing/contact.html"> Contato </a>
+              </li>
+
+              <li>
+                <a href="/html/landing/faq.html"> Perguntas frequentes </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Legal -->
+          <div class="footer-column">
+            <h2 class="footer-column-title">Legal</h2>
+
+            <ul class="footer-links">
+              <li>
+                <a href="/html/legal/privacy-policy.html"> Política de privacidade </a>
+              </li>
+
+              <li>
+                <a href="/html/legal/terms-of-service.html"> Termos de utilização </a>
+              </li>
+
+              <li>
+                <a href="/html/legal/cookies-policy.html"> Política de cookies </a>
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copyright">
+            © <span id="current-year">2026</span> StudioV. Todos os direitos reservados.
+          </p>
+
+          <p class="footer-location">
+            Criado em Portugal
+            <span aria-hidden="true">🇵🇹</span>
+          </p>
+        </div>
+      </div>
     </footer>
 
     <script>
-        const currentYear = document.getElementById("current-year");
+      const currentYear = document.getElementById("current-year");
 
-        if (currentYear) {
-            currentYear.textContent = new Date().getFullYear();
-        }
+      if (currentYear) {
+        currentYear.textContent = new Date().getFullYear();
+      }
     </script>
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
-        lucide.createIcons();
+      lucide.createIcons();
     </script>
-
-</body>
+  </body>
 </html>

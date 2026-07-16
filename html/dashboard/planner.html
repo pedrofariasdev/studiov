@@ -1,999 +1,597 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Planner | StudioV</title>
 
     <meta
-        name="description"
-        content="Planeie, organize e acompanhe a produção de conteúdos na StudioV."
-    >
+      name="description"
+      content="Planeie, organize e acompanhe a produção de conteúdos na StudioV."
+    />
 
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#6D28D9">
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#6D28D9" />
 
     <!-- Favicons -->
-    <link
-        rel="icon"
-        type="image/png"
-        sizes="96x96"
-        href="/assets/icons/favicon-96x96.png"
-    >
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96x96.png" />
 
-    <link
-        rel="icon"
-        type="image/svg+xml"
-        href="/assets/icons/favicon.svg"
-    >
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
 
-    <link
-        rel="icon"
-        href="/assets/icons/favicon.ico"
-    >
+    <link rel="icon" href="/assets/icons/favicon.ico" />
 
-    <link
-        rel="apple-touch-icon"
-        href="/assets/icons/apple-touch-icon.png"
-    >
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
 
-    <link
-        rel="manifest"
-        href="/assets/icons/site.webmanifest"
-    >
+    <link rel="manifest" href="/assets/icons/site.webmanifest" />
 
     <!-- Fonts -->
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-        rel="stylesheet"
-    >
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Global CSS -->
-    <link
-        rel="stylesheet"
-        href="/css/globals/variables.css"
-    >
+    <link rel="stylesheet" href="/css/globals/variables.css" />
 
-    <link
-        rel="stylesheet"
-        href="/css/globals/reset.css"
-    >
+    <link rel="stylesheet" href="/css/globals/reset.css" />
 
-    <link
-        rel="stylesheet"
-        href="/css/globals/typography.css"
-    >
+    <link rel="stylesheet" href="/css/globals/typography.css" />
 
-    <link
-        rel="stylesheet"
-        href="/css/globals/utilities.css"
-    >
+    <link rel="stylesheet" href="/css/globals/utilities.css" />
 
-    <link
-        rel="stylesheet"
-        href="/css/components/button.css"
-    >
+    <link rel="stylesheet" href="/css/components/button.css" />
 
     <!-- Dashboard -->
-    <link
-        rel="stylesheet"
-        href="/css/pages/dashboard.css"
-    >
+    <link rel="stylesheet" href="/css/pages/dashboard.css" />
 
     <!-- Planner -->
-    <link
-        rel="stylesheet"
-        href="/css/pages/planner.css"
-    >
-</head>
+    <link rel="stylesheet" href="/css/pages/planner.css" />
+  </head>
 
-<body>
-
+  <body>
     <div class="dashboard-layout">
-
-        <!-- ==================================================
+      <!-- ==================================================
              Sidebar
         =================================================== -->
 
-        <aside
-            class="dashboard-sidebar"
-            id="dashboard-sidebar"
-            aria-label="Navegação principal"
-        >
+      <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Navegação principal">
+        <div class="sidebar-header">
+          <a href="/html/dashboard/home.html" class="sidebar-logo" aria-label="StudioV Dashboard">
+            <img src="/assets/logos/svg/logo-studiov2000.png" alt="StudioV" />
+          </a>
 
-            <div class="sidebar-header">
+          <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Fechar menu">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
 
-                <a
-                    href="/html/dashboard/home.html"
-                    class="sidebar-logo"
-                    aria-label="StudioV Dashboard"
-                >
-                    <img
-                        src="/assets/logos/svg/logo-studiov2000.png"
-                        alt="StudioV"
-                    >
+        <nav class="sidebar-navigation">
+          <div class="sidebar-section">
+            <span class="sidebar-section-title"> Principal </span>
+
+            <ul class="sidebar-menu">
+              <li>
+                <a href="/html/dashboard/home.html" class="sidebar-link">
+                  <i data-lucide="layout-dashboard"></i>
+                  <span>Dashboard</span>
                 </a>
+              </li>
 
-                <button
-                    class="sidebar-close"
-                    id="sidebar-close"
-                    type="button"
-                    aria-label="Fechar menu"
-                >
-                    <i data-lucide="x"></i>
-                </button>
-
-            </div>
-
-            <nav class="sidebar-navigation">
-
-                <div class="sidebar-section">
-
-                    <span class="sidebar-section-title">
-                        Principal
-                    </span>
-
-                    <ul class="sidebar-menu">
-
-                        <li>
-                            <a
-                                href="/html/dashboard/home.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="layout-dashboard"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/projects.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="building-2"></i>
-                                <span>Workspace</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/brands.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="palette"></i>
-                                <span>Marcas</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/clients.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="users"></i>
-                                <span>Clientes</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="sidebar-section">
-
-                    <span class="sidebar-section-title">
-                        Conteúdo
-                    </span>
-
-                    <ul class="sidebar-menu">
-
-                        <li>
-                            <a
-                                href="/html/dashboard/planner.html"
-                                class="sidebar-link is-active"
-                                aria-current="page"
-                            >
-                                <i data-lucide="clipboard-list"></i>
-                                <span>Planner</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/calendar.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="calendar-days"></i>
-                                <span>Calendário</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/content.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="files"></i>
-                                <span>Conteúdos</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/media.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="images"></i>
-                                <span>Biblioteca</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/publishing.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="send"></i>
-                                <span>Publicações</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="sidebar-section">
-
-                    <span class="sidebar-section-title">
-                        Inteligência
-                    </span>
-
-                    <ul class="sidebar-menu">
-
-                        <li>
-                            <a
-                                href="/html/dashboard/ai.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="sparkles"></i>
-                                <span>Inteligência Artificial</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/analytics.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="chart-no-axes-combined"></i>
-                                <span>Analytics</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="sidebar-section sidebar-section-bottom">
-
-                    <ul class="sidebar-menu">
-
-                        <li>
-                            <a
-                                href="/html/dashboard/settings.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="settings"></i>
-                                <span>Configurações</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </nav>
-
-            <div class="sidebar-user">
-
-                <div
-                    class="sidebar-user-avatar"
-                    id="sidebar-user-avatar"
-                    aria-hidden="true"
-                >
-                    U
-                </div>
-
-                <div class="sidebar-user-info">
-
-                    <strong id="sidebar-user-name">
-                        Utilizador
-                    </strong>
-
-                    <span id="sidebar-user-email">
-                        utilizador@studiov.pt
-                    </span>
-
-                </div>
-
-                <a
-                    href="/html/dashboard/profile.html"
-                    class="sidebar-user-action"
-                    aria-label="Abrir perfil"
-                >
-                    <i data-lucide="chevron-right"></i>
+              <li>
+                <a href="/html/dashboard/projects.html" class="sidebar-link">
+                  <i data-lucide="building-2"></i>
+                  <span>Workspace</span>
                 </a>
+              </li>
 
-            </div>
+              <li>
+                <a href="/html/dashboard/brands.html" class="sidebar-link">
+                  <i data-lucide="palette"></i>
+                  <span>Marcas</span>
+                </a>
+              </li>
 
-        </aside>
+              <li>
+                <a href="/html/dashboard/clients.html" class="sidebar-link">
+                  <i data-lucide="users"></i>
+                  <span>Clientes</span>
+                </a>
+              </li>
+            </ul>
+          </div>
 
-        <div
-            class="sidebar-overlay"
-            id="sidebar-overlay"
-            aria-hidden="true"
-        ></div>
+          <div class="sidebar-section">
+            <span class="sidebar-section-title"> Conteúdo </span>
 
-        <!-- ==================================================
+            <ul class="sidebar-menu">
+              <li>
+                <a
+                  href="/html/dashboard/planner.html"
+                  class="sidebar-link is-active"
+                  aria-current="page"
+                >
+                  <i data-lucide="clipboard-list"></i>
+                  <span>Planner</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/calendar.html" class="sidebar-link">
+                  <i data-lucide="calendar-days"></i>
+                  <span>Calendário</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/content.html" class="sidebar-link">
+                  <i data-lucide="files"></i>
+                  <span>Conteúdos</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/media.html" class="sidebar-link">
+                  <i data-lucide="images"></i>
+                  <span>Biblioteca</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/publishing.html" class="sidebar-link">
+                  <i data-lucide="send"></i>
+                  <span>Publicações</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <span class="sidebar-section-title"> Inteligência </span>
+
+            <ul class="sidebar-menu">
+              <li>
+                <a href="/html/dashboard/ai.html" class="sidebar-link">
+                  <i data-lucide="sparkles"></i>
+                  <span>Inteligência Artificial</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/analytics.html" class="sidebar-link">
+                  <i data-lucide="chart-no-axes-combined"></i>
+                  <span>Analytics</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section sidebar-section-bottom">
+            <ul class="sidebar-menu">
+              <li>
+                <a href="/html/dashboard/settings.html" class="sidebar-link">
+                  <i data-lucide="settings"></i>
+                  <span>Configurações</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="sidebar-user">
+          <div class="sidebar-user-avatar" id="sidebar-user-avatar" aria-hidden="true">U</div>
+
+          <div class="sidebar-user-info">
+            <strong id="sidebar-user-name"> Utilizador </strong>
+
+            <span id="sidebar-user-email"> utilizador@studiov.pt </span>
+          </div>
+
+          <a
+            href="/html/dashboard/profile.html"
+            class="sidebar-user-action"
+            aria-label="Abrir perfil"
+          >
+            <i data-lucide="chevron-right"></i>
+          </a>
+        </div>
+      </aside>
+
+      <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+      <!-- ==================================================
              Área principal
         =================================================== -->
 
-        <div class="dashboard-main">
+      <div class="dashboard-main">
+        <!-- Topbar -->
 
-            <!-- Topbar -->
+        <header class="dashboard-topbar">
+          <div class="topbar-left">
+            <button
+              class="topbar-menu-button"
+              id="topbar-menu-button"
+              type="button"
+              aria-label="Abrir menu"
+              aria-controls="dashboard-sidebar"
+              aria-expanded="false"
+            >
+              <i data-lucide="menu"></i>
+            </button>
 
-            <header class="dashboard-topbar">
+            <div class="workspace-selector">
+              <button
+                class="workspace-selector-button"
+                id="workspace-selector-button"
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+              >
+                <span class="workspace-selector-icon">
+                  <i data-lucide="building-2"></i>
+                </span>
 
-                <div class="topbar-left">
+                <span class="workspace-selector-content">
+                  <small> Workspace </small>
 
-                    <button
-                        class="topbar-menu-button"
-                        id="topbar-menu-button"
-                        type="button"
-                        aria-label="Abrir menu"
-                        aria-controls="dashboard-sidebar"
-                        aria-expanded="false"
-                    >
-                        <i data-lucide="menu"></i>
-                    </button>
+                  <strong id="current-workspace-name"> Meu Workspace </strong>
+                </span>
 
-                    <div class="workspace-selector">
+                <i data-lucide="chevrons-up-down"></i>
+              </button>
+            </div>
+          </div>
 
-                        <button
-                            class="workspace-selector-button"
-                            id="workspace-selector-button"
-                            type="button"
-                            aria-haspopup="listbox"
-                            aria-expanded="false"
-                        >
+          <div class="topbar-actions">
+            <button
+              class="topbar-icon-button"
+              id="global-search-button"
+              type="button"
+              aria-label="Pesquisar"
+            >
+              <i data-lucide="search"></i>
+            </button>
 
-                            <span class="workspace-selector-icon">
-                                <i data-lucide="building-2"></i>
-                            </span>
+            <a
+              href="/html/dashboard/notifications.html"
+              class="topbar-icon-button topbar-notification-button"
+              aria-label="Notificações"
+            >
+              <i data-lucide="bell"></i>
 
-                            <span class="workspace-selector-content">
+              <span
+                class="notification-indicator hidden"
+                id="notification-indicator"
+                aria-hidden="true"
+              ></span>
+            </a>
 
-                                <small>
-                                    Workspace
-                                </small>
+            <a
+              href="/html/dashboard/profile.html"
+              class="topbar-avatar"
+              id="topbar-avatar"
+              aria-label="Abrir perfil"
+            >
+              U
+            </a>
+          </div>
+        </header>
 
-                                <strong id="current-workspace-name">
-                                    Meu Workspace
-                                </strong>
+        <!-- Conteúdo -->
 
-                            </span>
+        <main class="dashboard-content planner-page">
+          <!-- Cabeçalho -->
 
-                            <i data-lucide="chevrons-up-down"></i>
+          <section class="page-header">
+            <div class="page-header-content">
+              <span class="page-eyebrow"> Planeamento de conteúdo </span>
 
-                        </button>
+              <h1>Planner</h1>
 
-                    </div>
+              <p>Organize ideias, produção, revisões e aprovações num único fluxo de trabalho.</p>
+            </div>
 
+            <div class="page-header-actions">
+              <button class="btn btn-primary" id="create-plan-item-button" type="button">
+                <i data-lucide="plus"></i>
+                Novo item
+              </button>
+            </div>
+          </section>
+
+          <!-- Resumo -->
+
+          <section class="planner-summary" aria-label="Resumo do Planner">
+            <article class="planner-summary-card">
+              <div class="planner-summary-icon">
+                <i data-lucide="clipboard-list"></i>
+              </div>
+
+              <div>
+                <span>Itens ativos</span>
+                <strong id="planner-total-count">0</strong>
+              </div>
+            </article>
+
+            <article class="planner-summary-card">
+              <div class="planner-summary-icon">
+                <i data-lucide="clock-alert"></i>
+              </div>
+
+              <div>
+                <span>Atrasados</span>
+                <strong id="planner-overdue-count">0</strong>
+              </div>
+            </article>
+
+            <article class="planner-summary-card">
+              <div class="planner-summary-icon">
+                <i data-lucide="scan-eye"></i>
+              </div>
+
+              <div>
+                <span>Em revisão</span>
+                <strong id="planner-review-count">0</strong>
+              </div>
+            </article>
+
+            <article class="planner-summary-card">
+              <div class="planner-summary-icon">
+                <i data-lucide="circle-check-big"></i>
+              </div>
+
+              <div>
+                <span>Aprovados</span>
+                <strong id="planner-approved-count">0</strong>
+              </div>
+            </article>
+          </section>
+
+          <!-- Filtros -->
+
+          <section class="planner-toolbar">
+            <div class="planner-search">
+              <label for="planner-search-input" class="sr-only"> Pesquisar no Planner </label>
+
+              <i data-lucide="search"></i>
+
+              <input
+                type="search"
+                id="planner-search-input"
+                placeholder="Pesquisar por título ou brief..."
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="planner-filters">
+              <label for="planner-brand-filter" class="sr-only"> Filtrar por marca </label>
+
+              <select id="planner-brand-filter">
+                <option value="all">Todas as marcas</option>
+              </select>
+
+              <label for="planner-priority-filter" class="sr-only"> Filtrar por prioridade </label>
+
+              <select id="planner-priority-filter">
+                <option value="all">Todas as prioridades</option>
+
+                <option value="low">Baixa</option>
+
+                <option value="medium">Média</option>
+
+                <option value="high">Alta</option>
+
+                <option value="urgent">Urgente</option>
+              </select>
+
+              <label for="planner-assignee-filter" class="sr-only"> Filtrar por responsável </label>
+
+              <select id="planner-assignee-filter">
+                <option value="all">Todos os responsáveis</option>
+
+                <option value="unassigned">Sem responsável</option>
+              </select>
+
+              <button
+                class="planner-archive-toggle"
+                id="planner-archive-toggle"
+                type="button"
+                aria-pressed="false"
+              >
+                <i data-lucide="archive"></i>
+                Arquivados
+              </button>
+            </div>
+          </section>
+
+          <!-- Carregamento -->
+
+          <section class="planner-loading" id="planner-loading" aria-live="polite">
+            <div class="planner-loading-column"></div>
+            <div class="planner-loading-column"></div>
+            <div class="planner-loading-column"></div>
+            <div class="planner-loading-column"></div>
+          </section>
+
+          <!-- Estado vazio -->
+
+          <section class="planner-empty hidden" id="planner-empty" aria-live="polite">
+            <div class="planner-empty-icon">
+              <i data-lucide="clipboard-plus"></i>
+            </div>
+
+            <h2>O Planner ainda está vazio</h2>
+
+            <p>Crie o primeiro item para começar a organizar a produção de conteúdo.</p>
+
+            <button class="btn btn-primary" id="empty-create-plan-item-button" type="button">
+              <i data-lucide="plus"></i>
+              Criar primeiro item
+            </button>
+          </section>
+
+          <!-- Nenhum resultado -->
+
+          <section class="planner-no-results hidden" id="planner-no-results" aria-live="polite">
+            <div class="planner-empty-icon">
+              <i data-lucide="search-x"></i>
+            </div>
+
+            <h2>Nenhum item encontrado</h2>
+
+            <p>Altere a pesquisa ou remova os filtros aplicados.</p>
+
+            <button class="button button-secondary" id="clear-planner-filters-button" type="button">
+              Limpar filtros
+            </button>
+          </section>
+
+          <!-- Quadro Kanban -->
+
+          <section
+            class="planner-board hidden"
+            id="planner-board"
+            aria-label="Quadro de planeamento"
+          >
+            <!-- Ideias -->
+
+            <article class="planner-column" data-planner-status="idea">
+              <header class="planner-column-header">
+                <div>
+                  <span class="planner-column-indicator is-idea"></span>
+
+                  <h2>Ideias</h2>
                 </div>
 
-                <div class="topbar-actions">
+                <span class="planner-column-count" id="idea-count"> 0 </span>
+              </header>
 
-                    <button
-                        class="topbar-icon-button"
-                        id="global-search-button"
-                        type="button"
-                        aria-label="Pesquisar"
-                    >
-                        <i data-lucide="search"></i>
-                    </button>
+              <div class="planner-column-items" id="idea-column" data-drop-status="idea"></div>
+            </article>
 
-                    <a
-                        href="/html/dashboard/notifications.html"
-                        class="topbar-icon-button topbar-notification-button"
-                        aria-label="Notificações"
-                    >
-                        <i data-lucide="bell"></i>
+            <!-- Planeado -->
 
-                        <span
-                            class="notification-indicator hidden"
-                            id="notification-indicator"
-                            aria-hidden="true"
-                        ></span>
-                    </a>
+            <article class="planner-column" data-planner-status="planned">
+              <header class="planner-column-header">
+                <div>
+                  <span class="planner-column-indicator is-planned"></span>
 
-                    <a
-                        href="/html/dashboard/profile.html"
-                        class="topbar-avatar"
-                        id="topbar-avatar"
-                        aria-label="Abrir perfil"
-                    >
-                        U
-                    </a>
-
+                  <h2>Planeado</h2>
                 </div>
 
-            </header>
+                <span class="planner-column-count" id="planned-count"> 0 </span>
+              </header>
+
+              <div
+                class="planner-column-items"
+                id="planned-column"
+                data-drop-status="planned"
+              ></div>
+            </article>
+
+            <!-- Em produção -->
+
+            <article class="planner-column" data-planner-status="in_progress">
+              <header class="planner-column-header">
+                <div>
+                  <span class="planner-column-indicator is-progress"></span>
+
+                  <h2>Em produção</h2>
+                </div>
+
+                <span class="planner-column-count" id="in-progress-count"> 0 </span>
+              </header>
+
+              <div
+                class="planner-column-items"
+                id="in-progress-column"
+                data-drop-status="in_progress"
+              ></div>
+            </article>
+
+            <!-- Revisão -->
+
+            <article class="planner-column" data-planner-status="review">
+              <header class="planner-column-header">
+                <div>
+                  <span class="planner-column-indicator is-review"></span>
+
+                  <h2>Em revisão</h2>
+                </div>
+
+                <span class="planner-column-count" id="review-count"> 0 </span>
+              </header>
+
+              <div class="planner-column-items" id="review-column" data-drop-status="review"></div>
+            </article>
+
+            <!-- Aprovado -->
+
+            <article class="planner-column" data-planner-status="approved">
+              <header class="planner-column-header">
+                <div>
+                  <span class="planner-column-indicator is-approved"></span>
+
+                  <h2>Aprovado</h2>
+                </div>
+
+                <span class="planner-column-count" id="approved-count"> 0 </span>
+              </header>
+
+              <div
+                class="planner-column-items"
+                id="approved-column"
+                data-drop-status="approved"
+              ></div>
+            </article>
+
+            <!-- Convertido -->
+
+            <article class="planner-column" data-planner-status="converted">
+              <header class="planner-column-header">
+                <div>
+                  <span class="planner-column-indicator is-converted"></span>
+
+                  <h2>Convertido</h2>
+                </div>
+
+                <span class="planner-column-count" id="converted-count"> 0 </span>
+              </header>
+
+              <div
+                class="planner-column-items"
+                id="converted-column"
+                data-drop-status="converted"
+              ></div>
+            </article>
+          </section>
+
+          <!-- Arquivados -->
+
+          <section
+            class="planner-archived hidden"
+            id="planner-archived"
+            aria-label="Itens arquivados"
+          >
+            <div class="planner-archived-header">
+              <div>
+                <span class="page-eyebrow"> Arquivo </span>
+
+                <h2>Itens arquivados</h2>
+              </div>
+
+              <span id="archived-items-count"> 0 itens </span>
+            </div>
 
-            <!-- Conteúdo -->
-
-            <main class="dashboard-content planner-page">
-
-                <!-- Cabeçalho -->
-
-                <section class="page-header">
-
-                    <div class="page-header-content">
-
-                        <span class="page-eyebrow">
-                            Planeamento de conteúdo
-                        </span>
-
-                        <h1>
-                            Planner
-                        </h1>
-
-                        <p>
-                            Organize ideias, produção, revisões e aprovações
-                            num único fluxo de trabalho.
-                        </p>
-
-                    </div>
-
-                    <div class="page-header-actions">
-
-                        <button
-                            class="btn btn-primary"
-                            id="create-plan-item-button"
-                            type="button"
-                        >
-                            <i data-lucide="plus"></i>
-                            Novo item
-                        </button>
-
-                    </div>
-
-                </section>
-
-                <!-- Resumo -->
-
-                <section
-                    class="planner-summary"
-                    aria-label="Resumo do Planner"
-                >
-
-                    <article class="planner-summary-card">
-
-                        <div class="planner-summary-icon">
-                            <i data-lucide="clipboard-list"></i>
-                        </div>
-
-                        <div>
-                            <span>Itens ativos</span>
-                            <strong id="planner-total-count">0</strong>
-                        </div>
-
-                    </article>
-
-                    <article class="planner-summary-card">
-
-                        <div class="planner-summary-icon">
-                            <i data-lucide="clock-alert"></i>
-                        </div>
-
-                        <div>
-                            <span>Atrasados</span>
-                            <strong id="planner-overdue-count">0</strong>
-                        </div>
-
-                    </article>
-
-                    <article class="planner-summary-card">
-
-                        <div class="planner-summary-icon">
-                            <i data-lucide="scan-eye"></i>
-                        </div>
-
-                        <div>
-                            <span>Em revisão</span>
-                            <strong id="planner-review-count">0</strong>
-                        </div>
-
-                    </article>
-
-                    <article class="planner-summary-card">
-
-                        <div class="planner-summary-icon">
-                            <i data-lucide="circle-check-big"></i>
-                        </div>
-
-                        <div>
-                            <span>Aprovados</span>
-                            <strong id="planner-approved-count">0</strong>
-                        </div>
-
-                    </article>
-
-                </section>
-
-                <!-- Filtros -->
-
-                <section class="planner-toolbar">
-
-                    <div class="planner-search">
-
-                        <label
-                            for="planner-search-input"
-                            class="sr-only"
-                        >
-                            Pesquisar no Planner
-                        </label>
-
-                        <i data-lucide="search"></i>
-
-                        <input
-                            type="search"
-                            id="planner-search-input"
-                            placeholder="Pesquisar por título ou brief..."
-                            autocomplete="off"
-                        >
-
-                    </div>
-
-                    <div class="planner-filters">
-
-                        <label
-                            for="planner-brand-filter"
-                            class="sr-only"
-                        >
-                            Filtrar por marca
-                        </label>
-
-                        <select id="planner-brand-filter">
-
-                            <option value="all">
-                                Todas as marcas
-                            </option>
-
-                        </select>
-
-                        <label
-                            for="planner-priority-filter"
-                            class="sr-only"
-                        >
-                            Filtrar por prioridade
-                        </label>
-
-                        <select id="planner-priority-filter">
-
-                            <option value="all">
-                                Todas as prioridades
-                            </option>
-
-                            <option value="low">
-                                Baixa
-                            </option>
-
-                            <option value="medium">
-                                Média
-                            </option>
-
-                            <option value="high">
-                                Alta
-                            </option>
-
-                            <option value="urgent">
-                                Urgente
-                            </option>
-
-                        </select>
-
-                        <label
-                            for="planner-assignee-filter"
-                            class="sr-only"
-                        >
-                            Filtrar por responsável
-                        </label>
-
-                        <select id="planner-assignee-filter">
-
-                            <option value="all">
-                                Todos os responsáveis
-                            </option>
-
-                            <option value="unassigned">
-                                Sem responsável
-                            </option>
-
-                        </select>
-
-                        <button
-                            class="planner-archive-toggle"
-                            id="planner-archive-toggle"
-                            type="button"
-                            aria-pressed="false"
-                        >
-                            <i data-lucide="archive"></i>
-                            Arquivados
-                        </button>
-
-                    </div>
-
-                </section>
-
-                <!-- Carregamento -->
-
-                <section
-                    class="planner-loading"
-                    id="planner-loading"
-                    aria-live="polite"
-                >
-
-                    <div class="planner-loading-column"></div>
-                    <div class="planner-loading-column"></div>
-                    <div class="planner-loading-column"></div>
-                    <div class="planner-loading-column"></div>
-
-                </section>
-
-                <!-- Estado vazio -->
-
-                <section
-                    class="planner-empty hidden"
-                    id="planner-empty"
-                    aria-live="polite"
-                >
-
-                    <div class="planner-empty-icon">
-                        <i data-lucide="clipboard-plus"></i>
-                    </div>
-
-                    <h2>
-                        O Planner ainda está vazio
-                    </h2>
-
-                    <p>
-                        Crie o primeiro item para começar a organizar
-                        a produção de conteúdo.
-                    </p>
-
-                    <button
-                        class="btn btn-primary"
-                        id="empty-create-plan-item-button"
-                        type="button"
-                    >
-                        <i data-lucide="plus"></i>
-                        Criar primeiro item
-                    </button>
-
-                </section>
-
-                <!-- Nenhum resultado -->
-
-                <section
-                    class="planner-no-results hidden"
-                    id="planner-no-results"
-                    aria-live="polite"
-                >
-
-                    <div class="planner-empty-icon">
-                        <i data-lucide="search-x"></i>
-                    </div>
-
-                    <h2>
-                        Nenhum item encontrado
-                    </h2>
-
-                    <p>
-                        Altere a pesquisa ou remova os filtros aplicados.
-                    </p>
-
-                    <button
-                        class="button button-secondary"
-                        id="clear-planner-filters-button"
-                        type="button"
-                    >
-                        Limpar filtros
-                    </button>
-
-                </section>
-
-                <!-- Quadro Kanban -->
-
-                <section
-                    class="planner-board hidden"
-                    id="planner-board"
-                    aria-label="Quadro de planeamento"
-                >
-
-                    <!-- Ideias -->
-
-                    <article
-                        class="planner-column"
-                        data-planner-status="idea"
-                    >
-
-                        <header class="planner-column-header">
-
-                            <div>
-
-                                <span class="planner-column-indicator is-idea"></span>
-
-                                <h2>
-                                    Ideias
-                                </h2>
-
-                            </div>
-
-                            <span
-                                class="planner-column-count"
-                                id="idea-count"
-                            >
-                                0
-                            </span>
-
-                        </header>
-
-                        <div
-                            class="planner-column-items"
-                            id="idea-column"
-                            data-drop-status="idea"
-                        ></div>
-
-                    </article>
-
-                    <!-- Planeado -->
-
-                    <article
-                        class="planner-column"
-                        data-planner-status="planned"
-                    >
-
-                        <header class="planner-column-header">
-
-                            <div>
-
-                                <span class="planner-column-indicator is-planned"></span>
-
-                                <h2>
-                                    Planeado
-                                </h2>
-
-                            </div>
-
-                            <span
-                                class="planner-column-count"
-                                id="planned-count"
-                            >
-                                0
-                            </span>
-
-                        </header>
-
-                        <div
-                            class="planner-column-items"
-                            id="planned-column"
-                            data-drop-status="planned"
-                        ></div>
-
-                    </article>
-
-                    <!-- Em produção -->
-
-                    <article
-                        class="planner-column"
-                        data-planner-status="in_progress"
-                    >
-
-                        <header class="planner-column-header">
-
-                            <div>
-
-                                <span class="planner-column-indicator is-progress"></span>
-
-                                <h2>
-                                    Em produção
-                                </h2>
-
-                            </div>
-
-                            <span
-                                class="planner-column-count"
-                                id="in-progress-count"
-                            >
-                                0
-                            </span>
-
-                        </header>
-
-                        <div
-                            class="planner-column-items"
-                            id="in-progress-column"
-                            data-drop-status="in_progress"
-                        ></div>
-
-                    </article>
-
-                    <!-- Revisão -->
-
-                    <article
-                        class="planner-column"
-                        data-planner-status="review"
-                    >
-
-                        <header class="planner-column-header">
-
-                            <div>
-
-                                <span class="planner-column-indicator is-review"></span>
-
-                                <h2>
-                                    Em revisão
-                                </h2>
-
-                            </div>
-
-                            <span
-                                class="planner-column-count"
-                                id="review-count"
-                            >
-                                0
-                            </span>
-
-                        </header>
-
-                        <div
-                            class="planner-column-items"
-                            id="review-column"
-                            data-drop-status="review"
-                        ></div>
-
-                    </article>
-
-                    <!-- Aprovado -->
-
-                    <article
-                        class="planner-column"
-                        data-planner-status="approved"
-                    >
-
-                        <header class="planner-column-header">
-
-                            <div>
-
-                                <span class="planner-column-indicator is-approved"></span>
-
-                                <h2>
-                                    Aprovado
-                                </h2>
-
-                            </div>
-
-                            <span
-                                class="planner-column-count"
-                                id="approved-count"
-                            >
-                                0
-                            </span>
-
-                        </header>
-
-                        <div
-                            class="planner-column-items"
-                            id="approved-column"
-                            data-drop-status="approved"
-                        ></div>
-
-                    </article>
-
-                    <!-- Convertido -->
-
-                    <article
-                        class="planner-column"
-                        data-planner-status="converted"
-                    >
-
-                        <header class="planner-column-header">
-
-                            <div>
-
-                                <span class="planner-column-indicator is-converted"></span>
-
-                                <h2>
-                                    Convertido
-                                </h2>
-
-                            </div>
-
-                            <span
-                                class="planner-column-count"
-                                id="converted-count"
-                            >
-                                0
-                            </span>
-
-                        </header>
-
-                        <div
-                            class="planner-column-items"
-                            id="converted-column"
-                            data-drop-status="converted"
-                        ></div>
-
-                    </article>
-
-                </section>
-
-                <!-- Arquivados -->
-
-                <section
-                    class="planner-archived hidden"
-                    id="planner-archived"
-                    aria-label="Itens arquivados"
-                >
-
-                    <div class="planner-archived-header">
-
-                        <div>
-
-                            <span class="page-eyebrow">
-                                Arquivo
-                            </span>
-
-                            <h2>
-                                Itens arquivados
-                            </h2>
-
-                        </div>
-
-                        <span id="archived-items-count">
-                            0 itens
-                        </span>
-
-                    </div>
-
-                    <div
-                        class="planner-archived-list"
-                        id="planner-archived-list"
-                    ></div>
-
-                </section>
-
-            </main>
-
-        </div>
-
+            <div class="planner-archived-list" id="planner-archived-list"></div>
+          </section>
+        </main>
+      </div>
     </div>
 
     <!-- ==================================================
@@ -1001,441 +599,251 @@
     =================================================== -->
 
     <div
-        class="modal-overlay hidden"
-        id="plan-item-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="plan-item-modal-title"
-        aria-hidden="true"
+      class="modal-overlay hidden"
+      id="plan-item-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="plan-item-modal-title"
+      aria-hidden="true"
     >
-
-        <div class="modal-container planner-modal-container">
-
-            <div class="modal-header">
-
-                <div>
-
-                    <span class="modal-eyebrow">
-                        Planeamento
-                    </span>
-
-                    <h2 id="plan-item-modal-title">
-                        Novo item
-                    </h2>
-
-                </div>
-
-                <button
-                    class="modal-close-button"
-                    id="plan-item-modal-close"
-                    type="button"
-                    aria-label="Fechar janela"
-                >
-                    <i data-lucide="x"></i>
-                </button>
-
-            </div>
-
-            <form
-                class="plan-item-form"
-                id="plan-item-form"
-                novalidate
-            >
-
-                <input
-                    type="hidden"
-                    id="plan-item-id"
-                >
-
-                <div class="form-grid">
-
-                    <!-- Marca -->
-
-                    <div class="form-field">
-
-                        <label for="plan-item-brand">
-                            Marca
-                            <span aria-hidden="true">*</span>
-                        </label>
-
-                        <select
-                            id="plan-item-brand"
-                            required
-                        >
-                            <option value="">
-                                Selecione uma marca
-                            </option>
-                        </select>
-
-                        <small
-                            class="form-error"
-                            id="plan-item-brand-error"
-                        ></small>
-
-                    </div>
-
-                    <!-- Responsável -->
-
-                    <div class="form-field">
-
-                        <label for="plan-item-assigned-to">
-                            Responsável
-                        </label>
-
-                        <select id="plan-item-assigned-to">
-
-                            <option value="">
-                                Sem responsável
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- Título -->
-
-                    <div class="form-field form-field-full">
-
-                        <label for="plan-item-title">
-                            Título
-                            <span aria-hidden="true">*</span>
-                        </label>
-
-                        <input
-                            type="text"
-                            id="plan-item-title"
-                            placeholder="Ex.: Reel sobre produtividade"
-                            minlength="2"
-                            maxlength="160"
-                            required
-                        >
-
-                        <div class="form-field-footer">
-
-                            <small
-                                class="form-error"
-                                id="plan-item-title-error"
-                            ></small>
-
-                            <small id="plan-item-title-counter">
-                                0/160
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                    <!-- Brief -->
-
-                    <div class="form-field form-field-full">
-
-                        <label for="plan-item-brief">
-                            Brief
-                        </label>
-
-                        <textarea
-                            id="plan-item-brief"
-                            rows="5"
-                            maxlength="10000"
-                            placeholder="Descreva a ideia, objetivo, público e informações importantes."
-                        ></textarea>
-
-                        <div class="form-field-footer">
-
-                            <small>
-                                Informação para orientar a produção.
-                            </small>
-
-                            <small id="plan-item-brief-counter">
-                                0/10000
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                    <!-- Tipo -->
-
-                    <div class="form-field">
-
-                        <label for="plan-item-content-type">
-                            Tipo de conteúdo
-                        </label>
-
-                        <select id="plan-item-content-type">
-
-                            <option value="post">
-                                Publicação
-                            </option>
-
-                            <option value="carousel">
-                                Carrossel
-                            </option>
-
-                            <option value="story">
-                                Story
-                            </option>
-
-                            <option value="reel">
-                                Reel
-                            </option>
-
-                            <option value="short">
-                                Short
-                            </option>
-
-                            <option value="video">
-                                Vídeo
-                            </option>
-
-                            <option value="article">
-                                Artigo
-                            </option>
-
-                            <option value="email">
-                                Email
-                            </option>
-
-                            <option value="other">
-                                Outro
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- Origem -->
-
-                    <div class="form-field">
-
-                        <label for="plan-item-source">
-                            Origem
-                        </label>
-
-                        <select id="plan-item-source">
-
-                            <option value="manual">
-                                Manual
-                            </option>
-
-                            <option value="ai">
-                                Inteligência Artificial
-                            </option>
-
-                            <option value="client">
-                                Cliente
-                            </option>
-
-                            <option value="meeting">
-                                Reunião
-                            </option>
-
-                            <option value="research">
-                                Pesquisa
-                            </option>
-
-                            <option value="reused_content">
-                                Conteúdo reutilizado
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- Prioridade -->
-
-                    <div class="form-field">
-
-                        <label for="plan-item-priority">
-                            Prioridade
-                        </label>
-
-                        <select id="plan-item-priority">
-
-                            <option value="low">
-                                Baixa
-                            </option>
-
-                            <option
-                                value="medium"
-                                selected
-                            >
-                                Média
-                            </option>
-
-                            <option value="high">
-                                Alta
-                            </option>
-
-                            <option value="urgent">
-                                Urgente
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- Data -->
-
-                    <div class="form-field">
-
-                        <label for="plan-item-due-date">
-                            Prazo
-                        </label>
-
-                        <input
-                            type="date"
-                            id="plan-item-due-date"
-                        >
-
-                    </div>
-
-                    <!-- Plataformas -->
-
-                    <fieldset class="form-field form-field-full">
-
-                        <legend>
-                            Plataformas
-                        </legend>
-
-                        <div class="planner-platform-options">
-
-                            <label class="platform-option">
-                                <input
-                                    type="checkbox"
-                                    name="target_platforms"
-                                    value="instagram"
-                                >
-                                <span>Instagram</span>
-                            </label>
-
-                            <label class="platform-option">
-                                <input
-                                    type="checkbox"
-                                    name="target_platforms"
-                                    value="facebook"
-                                >
-                                <span>Facebook</span>
-                            </label>
-
-                            <label class="platform-option">
-                                <input
-                                    type="checkbox"
-                                    name="target_platforms"
-                                    value="linkedin"
-                                >
-                                <span>LinkedIn</span>
-                            </label>
-
-                            <label class="platform-option">
-                                <input
-                                    type="checkbox"
-                                    name="target_platforms"
-                                    value="tiktok"
-                                >
-                                <span>TikTok</span>
-                            </label>
-
-                            <label class="platform-option">
-                                <input
-                                    type="checkbox"
-                                    name="target_platforms"
-                                    value="youtube"
-                                >
-                                <span>YouTube</span>
-                            </label>
-
-                            <label class="platform-option">
-                                <input
-                                    type="checkbox"
-                                    name="target_platforms"
-                                    value="pinterest"
-                                >
-                                <span>Pinterest</span>
-                            </label>
-
-                            <label class="platform-option">
-                                <input
-                                    type="checkbox"
-                                    name="target_platforms"
-                                    value="threads"
-                                >
-                                <span>Threads</span>
-                            </label>
-
-                            <label class="platform-option">
-                                <input
-                                    type="checkbox"
-                                    name="target_platforms"
-                                    value="x"
-                                >
-                                <span>X</span>
-                            </label>
-
-                            <label class="platform-option">
-                                <input
-                                    type="checkbox"
-                                    name="target_platforms"
-                                    value="blog"
-                                >
-                                <span>Blog</span>
-                            </label>
-
-                            <label class="platform-option">
-                                <input
-                                    type="checkbox"
-                                    name="target_platforms"
-                                    value="email"
-                                >
-                                <span>Email</span>
-                            </label>
-
-                        </div>
-
-                    </fieldset>
-
-                </div>
-
-                <div
-                    class="form-general-error hidden"
-                    id="plan-item-form-error"
-                    role="alert"
-                ></div>
-
-                <div class="modal-footer">
-
-                    <button
-                        class="button button-secondary"
-                        id="plan-item-form-cancel"
-                        type="button"
-                    >
-                        Cancelar
-                    </button>
-
-                    <button
-                        class="btn btn-primary"
-                        id="plan-item-form-submit"
-                        type="submit"
-                    >
-
-                        <span id="plan-item-form-submit-text">
-                            Criar item
-                        </span>
-
-                        <span
-                            class="button-loader hidden"
-                            id="plan-item-form-loader"
-                            aria-hidden="true"
-                        ></span>
-
-                    </button>
-
-                </div>
-
-            </form>
-
+      <div class="modal-container planner-modal-container">
+        <div class="modal-header">
+          <div>
+            <span class="modal-eyebrow"> Planeamento </span>
+
+            <h2 id="plan-item-modal-title">Novo item</h2>
+          </div>
+
+          <button
+            class="modal-close-button"
+            id="plan-item-modal-close"
+            type="button"
+            aria-label="Fechar janela"
+          >
+            <i data-lucide="x"></i>
+          </button>
         </div>
 
+        <form class="plan-item-form" id="plan-item-form" novalidate>
+          <input type="hidden" id="plan-item-id" />
+
+          <div class="form-grid">
+            <!-- Marca -->
+
+            <div class="form-field">
+              <label for="plan-item-brand">
+                Marca
+                <span aria-hidden="true">*</span>
+              </label>
+
+              <select id="plan-item-brand" required>
+                <option value="">Selecione uma marca</option>
+              </select>
+
+              <small class="form-error" id="plan-item-brand-error"></small>
+            </div>
+
+            <!-- Responsável -->
+
+            <div class="form-field">
+              <label for="plan-item-assigned-to"> Responsável </label>
+
+              <select id="plan-item-assigned-to">
+                <option value="">Sem responsável</option>
+              </select>
+            </div>
+
+            <!-- Título -->
+
+            <div class="form-field form-field-full">
+              <label for="plan-item-title">
+                Título
+                <span aria-hidden="true">*</span>
+              </label>
+
+              <input
+                type="text"
+                id="plan-item-title"
+                placeholder="Ex.: Reel sobre produtividade"
+                minlength="2"
+                maxlength="160"
+                required
+              />
+
+              <div class="form-field-footer">
+                <small class="form-error" id="plan-item-title-error"></small>
+
+                <small id="plan-item-title-counter"> 0/160 </small>
+              </div>
+            </div>
+
+            <!-- Brief -->
+
+            <div class="form-field form-field-full">
+              <label for="plan-item-brief"> Brief </label>
+
+              <textarea
+                id="plan-item-brief"
+                rows="5"
+                maxlength="10000"
+                placeholder="Descreva a ideia, objetivo, público e informações importantes."
+              ></textarea>
+
+              <div class="form-field-footer">
+                <small> Informação para orientar a produção. </small>
+
+                <small id="plan-item-brief-counter"> 0/10000 </small>
+              </div>
+            </div>
+
+            <!-- Tipo -->
+
+            <div class="form-field">
+              <label for="plan-item-content-type"> Tipo de conteúdo </label>
+
+              <select id="plan-item-content-type">
+                <option value="post">Publicação</option>
+
+                <option value="carousel">Carrossel</option>
+
+                <option value="story">Story</option>
+
+                <option value="reel">Reel</option>
+
+                <option value="short">Short</option>
+
+                <option value="video">Vídeo</option>
+
+                <option value="article">Artigo</option>
+
+                <option value="email">Email</option>
+
+                <option value="other">Outro</option>
+              </select>
+            </div>
+
+            <!-- Origem -->
+
+            <div class="form-field">
+              <label for="plan-item-source"> Origem </label>
+
+              <select id="plan-item-source">
+                <option value="manual">Manual</option>
+
+                <option value="ai">Inteligência Artificial</option>
+
+                <option value="client">Cliente</option>
+
+                <option value="meeting">Reunião</option>
+
+                <option value="research">Pesquisa</option>
+
+                <option value="reused_content">Conteúdo reutilizado</option>
+              </select>
+            </div>
+
+            <!-- Prioridade -->
+
+            <div class="form-field">
+              <label for="plan-item-priority"> Prioridade </label>
+
+              <select id="plan-item-priority">
+                <option value="low">Baixa</option>
+
+                <option value="medium" selected>Média</option>
+
+                <option value="high">Alta</option>
+
+                <option value="urgent">Urgente</option>
+              </select>
+            </div>
+
+            <!-- Data -->
+
+            <div class="form-field">
+              <label for="plan-item-due-date"> Prazo </label>
+
+              <input type="date" id="plan-item-due-date" />
+            </div>
+
+            <!-- Plataformas -->
+
+            <fieldset class="form-field form-field-full">
+              <legend>Plataformas</legend>
+
+              <div class="planner-platform-options">
+                <label class="platform-option">
+                  <input type="checkbox" name="target_platforms" value="instagram" />
+                  <span>Instagram</span>
+                </label>
+
+                <label class="platform-option">
+                  <input type="checkbox" name="target_platforms" value="facebook" />
+                  <span>Facebook</span>
+                </label>
+
+                <label class="platform-option">
+                  <input type="checkbox" name="target_platforms" value="linkedin" />
+                  <span>LinkedIn</span>
+                </label>
+
+                <label class="platform-option">
+                  <input type="checkbox" name="target_platforms" value="tiktok" />
+                  <span>TikTok</span>
+                </label>
+
+                <label class="platform-option">
+                  <input type="checkbox" name="target_platforms" value="youtube" />
+                  <span>YouTube</span>
+                </label>
+
+                <label class="platform-option">
+                  <input type="checkbox" name="target_platforms" value="pinterest" />
+                  <span>Pinterest</span>
+                </label>
+
+                <label class="platform-option">
+                  <input type="checkbox" name="target_platforms" value="threads" />
+                  <span>Threads</span>
+                </label>
+
+                <label class="platform-option">
+                  <input type="checkbox" name="target_platforms" value="x" />
+                  <span>X</span>
+                </label>
+
+                <label class="platform-option">
+                  <input type="checkbox" name="target_platforms" value="blog" />
+                  <span>Blog</span>
+                </label>
+
+                <label class="platform-option">
+                  <input type="checkbox" name="target_platforms" value="email" />
+                  <span>Email</span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="form-general-error hidden" id="plan-item-form-error" role="alert"></div>
+
+          <div class="modal-footer">
+            <button class="button button-secondary" id="plan-item-form-cancel" type="button">
+              Cancelar
+            </button>
+
+            <button class="btn btn-primary" id="plan-item-form-submit" type="submit">
+              <span id="plan-item-form-submit-text"> Criar item </span>
+
+              <span
+                class="button-loader hidden"
+                id="plan-item-form-loader"
+                aria-hidden="true"
+              ></span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- ==================================================
@@ -1443,60 +851,34 @@
     =================================================== -->
 
     <div
-        class="modal-overlay hidden"
-        id="archive-plan-item-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="archive-plan-item-modal-title"
-        aria-hidden="true"
+      class="modal-overlay hidden"
+      id="archive-plan-item-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="archive-plan-item-modal-title"
+      aria-hidden="true"
     >
-
-        <div class="modal-container modal-container-small">
-
-            <div class="confirmation-icon">
-
-                <i
-                    data-lucide="triangle-alert"
-                    aria-hidden="true"
-                ></i>
-
-            </div>
-
-            <div class="confirmation-content">
-
-                <h2 id="archive-plan-item-modal-title">
-                    Arquivar item?
-                </h2>
-
-                <p>
-                    O item será removido do quadro, mas poderá ser
-                    restaurado posteriormente.
-                </p>
-
-            </div>
-
-            <div class="modal-footer">
-
-                <button
-                    class="button button-secondary"
-                    id="archive-plan-item-cancel"
-                    type="button"
-                >
-                    Cancelar
-                </button>
-
-                <button
-                    class="btn btn-danger"
-                    id="archive-plan-item-confirm"
-                    type="button"
-                >
-                    Arquivar item
-                </button>
-
-            </div>
-
+      <div class="modal-container modal-container-small">
+        <div class="confirmation-icon">
+          <i data-lucide="triangle-alert" aria-hidden="true"></i>
         </div>
 
+        <div class="confirmation-content">
+          <h2 id="archive-plan-item-modal-title">Arquivar item?</h2>
+
+          <p>O item será removido do quadro, mas poderá ser restaurado posteriormente.</p>
+        </div>
+
+        <div class="modal-footer">
+          <button class="button button-secondary" id="archive-plan-item-cancel" type="button">
+            Cancelar
+          </button>
+
+          <button class="btn btn-danger" id="archive-plan-item-confirm" type="button">
+            Arquivar item
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- ==================================================
@@ -1504,130 +886,75 @@
     =================================================== -->
 
     <div
-        class="modal-overlay hidden"
-        id="convert-plan-item-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="convert-plan-item-modal-title"
-        aria-hidden="true"
+      class="modal-overlay hidden"
+      id="convert-plan-item-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="convert-plan-item-modal-title"
+      aria-hidden="true"
     >
+      <div class="modal-container modal-container-medium">
+        <div class="modal-header">
+          <div>
+            <span class="modal-eyebrow"> Produção </span>
 
-        <div class="modal-container modal-container-medium">
+            <h2 id="convert-plan-item-modal-title">Criar conteúdo</h2>
+          </div>
 
-            <div class="modal-header">
-
-                <div>
-
-                    <span class="modal-eyebrow">
-                        Produção
-                    </span>
-
-                    <h2 id="convert-plan-item-modal-title">
-                        Criar conteúdo
-                    </h2>
-
-                </div>
-
-                <button
-                    class="modal-close-button"
-                    id="convert-plan-item-modal-close"
-                    type="button"
-                    aria-label="Fechar janela"
-                >
-                    <i data-lucide="x"></i>
-                </button>
-
-            </div>
-
-            <form
-                class="convert-content-form"
-                id="convert-content-form"
-                novalidate
-            >
-
-                <input
-                    type="hidden"
-                    id="convert-plan-item-id"
-                >
-
-                <div class="form-field">
-
-                    <label for="convert-content-title">
-                        Título
-                        <span aria-hidden="true">*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="convert-content-title"
-                        minlength="2"
-                        maxlength="160"
-                        required
-                    >
-
-                    <small
-                        class="form-error"
-                        id="convert-content-title-error"
-                    ></small>
-
-                </div>
-
-                <div class="form-field">
-
-                    <label for="convert-content-main-text">
-                        Texto principal
-                    </label>
-
-                    <textarea
-                        id="convert-content-main-text"
-                        rows="8"
-                        placeholder="Comece a desenvolver o conteúdo..."
-                    ></textarea>
-
-                </div>
-
-                <div
-                    class="form-general-error hidden"
-                    id="convert-content-form-error"
-                    role="alert"
-                ></div>
-
-                <div class="modal-footer">
-
-                    <button
-                        class="button button-secondary"
-                        id="convert-content-cancel"
-                        type="button"
-                    >
-                        Cancelar
-                    </button>
-
-                    <button
-                        class="btn btn-primary"
-                        id="convert-content-submit"
-                        type="submit"
-                    >
-                        Criar conteúdo
-                    </button>
-
-                </div>
-
-            </form>
-
+          <button
+            class="modal-close-button"
+            id="convert-plan-item-modal-close"
+            type="button"
+            aria-label="Fechar janela"
+          >
+            <i data-lucide="x"></i>
+          </button>
         </div>
 
+        <form class="convert-content-form" id="convert-content-form" novalidate>
+          <input type="hidden" id="convert-plan-item-id" />
+
+          <div class="form-field">
+            <label for="convert-content-title">
+              Título
+              <span aria-hidden="true">*</span>
+            </label>
+
+            <input type="text" id="convert-content-title" minlength="2" maxlength="160" required />
+
+            <small class="form-error" id="convert-content-title-error"></small>
+          </div>
+
+          <div class="form-field">
+            <label for="convert-content-main-text"> Texto principal </label>
+
+            <textarea
+              id="convert-content-main-text"
+              rows="8"
+              placeholder="Comece a desenvolver o conteúdo..."
+            ></textarea>
+          </div>
+
+          <div class="form-general-error hidden" id="convert-content-form-error" role="alert"></div>
+
+          <div class="modal-footer">
+            <button class="button button-secondary" id="convert-content-cancel" type="button">
+              Cancelar
+            </button>
+
+            <button class="btn btn-primary" id="convert-content-submit" type="submit">
+              Criar conteúdo
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- ==================================================
          Toasts
     =================================================== -->
 
-    <div
-        class="toast-container"
-        id="toast-container"
-        aria-live="polite"
-        aria-atomic="true"
-    ></div>
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     <!-- Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -1642,7 +969,5 @@
 
     <!-- Planner -->
     <script src="/js/dashboard/planner.js"></script>
-
-</body>
-
+  </body>
 </html>

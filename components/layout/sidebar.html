@@ -1,242 +1,139 @@
-        <!-- ==================================================
+<!-- ==================================================
              Sidebar
         =================================================== -->
 
-        <aside
-            class="dashboard-sidebar"
-            id="dashboard-sidebar"
-            aria-label="Navegação principal"
-        >
+<aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Navegação principal">
+  <div class="sidebar-header">
+    <a href="/html/dashboard/home.html" class="sidebar-logo" aria-label="StudioV Dashboard">
+      <img src="/assets/logos/svg/logo-studiov2000.png" alt="StudioV" />
+    </a>
 
-            <div class="sidebar-header">
+    <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Fechar menu">
+      <i data-lucide="x"></i>
+    </button>
+  </div>
 
-                <a
-                    href="/html/dashboard/home.html"
-                    class="sidebar-logo"
-                    aria-label="StudioV Dashboard"
-                >
-                    <img
-                        src="/assets/logos/svg/logo-studiov2000.png"
-                        alt="StudioV"
-                    >
-                </a>
+  <nav class="sidebar-navigation">
+    <div class="sidebar-section">
+      <span class="sidebar-section-title"> Principal </span>
 
-                <button
-                    class="sidebar-close"
-                    id="sidebar-close"
-                    type="button"
-                    aria-label="Fechar menu"
-                >
-                    <i data-lucide="x"></i>
-                </button>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/html/dashboard/home.html" class="sidebar-link">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
 
-            </div>
+        <li>
+          <a href="/html/dashboard/projects.html" class="sidebar-link">
+            <i data-lucide="building-2"></i>
+            <span>Workspace</span>
+          </a>
+        </li>
 
-            <nav class="sidebar-navigation">
+        <li>
+          <a href="/html/dashboard/brands.html" class="sidebar-link is-active" aria-current="page">
+            <i data-lucide="palette"></i>
+            <span>Marcas</span>
+          </a>
+        </li>
 
-                <div class="sidebar-section">
+        <li>
+          <a href="/html/dashboard/integrations.html" class="sidebar-link">
+            <i data-lucide="users"></i>
+            <span>Clientes</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-                    <span class="sidebar-section-title">
-                        Principal
-                    </span>
+    <div class="sidebar-section">
+      <span class="sidebar-section-title"> Conteúdo </span>
 
-                    <ul class="sidebar-menu">
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/html/dashboard/projects.html" class="sidebar-link">
+            <i data-lucide="clipboard-list"></i>
+            <span>Planner</span>
+          </a>
+        </li>
 
-                        <li>
-                            <a
-                                href="/html/dashboard/home.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="layout-dashboard"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
+        <li>
+          <a href="/html/dashboard/calendar.html" class="sidebar-link">
+            <i data-lucide="calendar-days"></i>
+            <span>Calendário</span>
+          </a>
+        </li>
 
-                        <li>
-                            <a
-                                href="/html/dashboard/projects.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="building-2"></i>
-                                <span>Workspace</span>
-                            </a>
-                        </li>
+        <li>
+          <a href="/html/dashboard/content.html" class="sidebar-link">
+            <i data-lucide="files"></i>
+            <span>Conteúdos</span>
+          </a>
+        </li>
 
-                        <li>
-                            <a
-                                href="/html/dashboard/brands.html"
-                                class="sidebar-link is-active"
-                                aria-current="page"
-                            >
-                                <i data-lucide="palette"></i>
-                                <span>Marcas</span>
-                            </a>
-                        </li>
+        <li>
+          <a href="/html/dashboard/media.html" class="sidebar-link">
+            <i data-lucide="images"></i>
+            <span>Biblioteca</span>
+          </a>
+        </li>
 
-                        <li>
-                            <a
-                                href="/html/dashboard/integrations.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="users"></i>
-                                <span>Clientes</span>
-                            </a>
-                        </li>
+        <li>
+          <a href="/html/dashboard/publishing.html" class="sidebar-link">
+            <i data-lucide="send"></i>
+            <span>Publicações</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-                    </ul>
+    <div class="sidebar-section">
+      <span class="sidebar-section-title"> Inteligência </span>
 
-                </div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/html/dashboard/ai.html" class="sidebar-link">
+            <i data-lucide="sparkles"></i>
+            <span>Inteligência Artificial</span>
+          </a>
+        </li>
 
-                <div class="sidebar-section">
+        <li>
+          <a href="/html/dashboard/analytics.html" class="sidebar-link">
+            <i data-lucide="chart-no-axes-combined"></i>
+            <span>Analytics</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-                    <span class="sidebar-section-title">
-                        Conteúdo
-                    </span>
+    <div class="sidebar-section sidebar-section-bottom">
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/html/dashboard/settings.html" class="sidebar-link">
+            <i data-lucide="settings"></i>
+            <span>Configurações</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-                    <ul class="sidebar-menu">
+  <div class="sidebar-user">
+    <div class="sidebar-user-avatar" id="sidebar-user-avatar" aria-hidden="true">U</div>
 
-                        <li>
-                            <a
-                                href="/html/dashboard/projects.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="clipboard-list"></i>
-                                <span>Planner</span>
-                            </a>
-                        </li>
+    <div class="sidebar-user-info">
+      <strong id="sidebar-user-name"> Utilizador </strong>
 
-                        <li>
-                            <a
-                                href="/html/dashboard/calendar.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="calendar-days"></i>
-                                <span>Calendário</span>
-                            </a>
-                        </li>
+      <span id="sidebar-user-email"> utilizador@studiov.pt </span>
+    </div>
 
-                        <li>
-                            <a
-                                href="/html/dashboard/content.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="files"></i>
-                                <span>Conteúdos</span>
-                            </a>
-                        </li>
+    <a href="/html/dashboard/profile.html" class="sidebar-user-action" aria-label="Abrir perfil">
+      <i data-lucide="chevron-right"></i>
+    </a>
+  </div>
+</aside>
 
-                        <li>
-                            <a
-                                href="/html/dashboard/media.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="images"></i>
-                                <span>Biblioteca</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/publishing.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="send"></i>
-                                <span>Publicações</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="sidebar-section">
-
-                    <span class="sidebar-section-title">
-                        Inteligência
-                    </span>
-
-                    <ul class="sidebar-menu">
-
-                        <li>
-                            <a
-                                href="/html/dashboard/ai.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="sparkles"></i>
-                                <span>Inteligência Artificial</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="/html/dashboard/analytics.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="chart-no-axes-combined"></i>
-                                <span>Analytics</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="sidebar-section sidebar-section-bottom">
-
-                    <ul class="sidebar-menu">
-
-                        <li>
-                            <a
-                                href="/html/dashboard/settings.html"
-                                class="sidebar-link"
-                            >
-                                <i data-lucide="settings"></i>
-                                <span>Configurações</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </nav>
-
-            <div class="sidebar-user">
-
-                <div
-                    class="sidebar-user-avatar"
-                    id="sidebar-user-avatar"
-                    aria-hidden="true"
-                >
-                    U
-                </div>
-
-                <div class="sidebar-user-info">
-
-                    <strong id="sidebar-user-name">
-                        Utilizador
-                    </strong>
-
-                    <span id="sidebar-user-email">
-                        utilizador@studiov.pt
-                    </span>
-
-                </div>
-
-                <a
-                    href="/html/dashboard/profile.html"
-                    class="sidebar-user-action"
-                    aria-label="Abrir perfil"
-                >
-                    <i data-lucide="chevron-right"></i>
-                </a>
-
-            </div>
-
-        </aside>
-
-        <div
-            class="sidebar-overlay"
-            id="sidebar-overlay"
-            aria-hidden="true"
-        ></div>
+<div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>

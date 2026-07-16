@@ -1,5 +1,5 @@
 body {
-    font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary);
 }
 
 h1,
@@ -7,9 +7,13 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: var(--font-family-heading);
+  font-family: var(--font-family-heading);
 }
 
-body { padding-top: 64px; }
+body {
+  padding-top: 64px;
+}
 
-section { scroll-margin-top: 80px; }
+section {
+  scroll-margin-top: 80px;
+}

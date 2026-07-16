@@ -1,0 +1,8 @@
+node_modules
+.git
+.vscode
+dist
+build
+coverage
+supabase/.temp
+package-lock.json
