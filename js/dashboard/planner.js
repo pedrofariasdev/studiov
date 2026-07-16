@@ -193,7 +193,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const supabaseClient = window.supabaseClient;
 
-  let currentUser = null;
   let currentWorkspace = null;
 
   let plannerItems = [];
@@ -511,8 +510,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!user) {
       return false;
     }
-
-    currentUser = user;
 
     const [profile, workspace] = await Promise.all([
       loadUserProfile(user.id),

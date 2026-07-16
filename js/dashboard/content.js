@@ -141,7 +141,6 @@ document.addEventListener("DOMContentLoaded", async () => {
            Estado
         ================================================== */
 
-  let currentUser = null;
   let currentWorkspace = null;
 
   let contents = [];
@@ -413,8 +412,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!user) {
       return false;
     }
-
-    currentUser = user;
 
     const [profile, workspace] = await Promise.all([
       loadUserProfile(user.id),
@@ -1625,32 +1622,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   /* ==================================================
     Ações dos conteúdos
     ================================================== */
-
-  async function archiveContent(contentId) {
-    try {
-      const { data, error } = await supabaseClient.rpc("archive_content", {
-        content_id_value: contentId,
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      console.log("Conteúdo arquivado:", data);
-
-      await loadContentData();
-
-      showToast("success", "Conteúdo arquivado", "O conteúdo foi movido para arquivados.");
-    } catch (error) {
-      console.error("Erro ao arquivar conteúdo:", error);
-
-      showToast(
-        "error",
-        "Erro ao arquivar",
-        error.message || "Não foi possível arquivar o conteúdo."
-      );
-    }
-  }
 
   /* ==================================================
     Eventos dos cartões

@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const body = document.body;
 
-  const sidebar = document.getElementById("dashboard-sidebar");
-
   const sidebarOverlay = document.getElementById("sidebar-overlay");
 
   const sidebarOpenButton = document.getElementById("topbar-menu-button");
@@ -115,7 +113,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const topbarAvatar = document.getElementById("topbar-avatar");
 
-  let currentUser = null;
   let currentWorkspace = null;
 
   let brands = [];
@@ -446,8 +443,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!user) {
       return;
     }
-
-    currentUser = user;
 
     try {
       const [profile, workspace] = await Promise.all([
