@@ -1,0 +1,550 @@
+/* ==========================================================
+   StudioV — Onboarding
+========================================================== */
+
+
+/* ==========================================================
+   Layout
+========================================================== */
+
+.onboarding-layout {
+
+  min-height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: var(--spacing-xl);
+
+  background:
+    var(--color-background-page-light);
+
+}
+
+
+
+
+
+/* ==========================================================
+   Main Card
+========================================================== */
+
+.onboarding-card {
+
+  width: 100%;
+
+  max-width: 560px;
+
+  padding: 48px;
+
+  background:
+    var(--color-background-surface-light);
+
+  border:
+    1px solid var(--color-border-light);
+
+  border-radius:
+    var(--radius-xl);
+
+  box-shadow:
+    var(--shadow-md);
+
+  text-align: center;
+
+}
+
+
+
+
+
+/* ==========================================================
+   Logo
+========================================================== */
+
+.onboarding-logo {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  margin-bottom:
+    32px;
+
+}
+
+
+
+.onboarding-logo img {
+
+  width: 160px;
+
+  transform: scale(1.25);
+
+}
+
+
+
+
+
+/* ==========================================================
+   Progress
+========================================================== */
+
+.onboarding-progress {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-bottom: 32px;
+
+}
+
+
+
+.onboarding-progress span {
+
+  width: 40px;
+
+  height: 4px;
+
+  border-radius:
+    var(--radius-full);
+
+  background:
+    var(--color-border-light);
+
+}
+
+
+
+.onboarding-progress span.active {
+
+  background:
+    var(--color-primary);
+
+}
+
+
+
+
+
+/* ==========================================================
+   Icon
+========================================================== */
+
+.onboarding-icon {
+
+  width: 72px;
+
+  height: 72px;
+
+  margin: 0 auto 24px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius:
+    var(--radius-lg);
+
+  background:
+    rgba(109,40,217,0.10);
+
+  color:
+    var(--color-primary);
+
+}
+
+
+
+.onboarding-icon svg {
+
+  width: 32px;
+
+  height: 32px;
+
+}
+
+
+
+
+
+/* ==========================================================
+   Typography
+========================================================== */
+
+.onboarding-eyebrow {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  color:
+    var(--color-primary);
+
+  font-size:
+    var(--font-size-small);
+
+  font-weight:
+    var(--font-weight-semibold);
+
+}
+
+
+
+.onboarding-card h1 {
+
+  margin-bottom: 16px;
+
+  font-family:
+    var(--font-family-heading);
+
+  font-size:
+    var(--font-size-h1);
+
+  line-height:
+    var(--line-height-h1);
+
+  font-weight:
+    var(--font-weight-bold);
+
+  letter-spacing:
+    var(--letter-spacing-h1);
+
+}
+
+
+
+.onboarding-card p {
+
+  margin-bottom: 24px;
+
+  color:
+    var(--color-text-secondary-light);
+
+  font-size:
+    var(--font-size-body);
+
+  line-height:
+    var(--line-height-body);
+
+}
+
+
+
+
+
+/* ==========================================================
+   Options Container
+========================================================== */
+
+.onboarding-options {
+
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+
+}
+
+
+
+
+
+/* ==========================================================
+   Option Card
+========================================================== */
+
+.onboarding-option {
+
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 16px;
+
+  border:
+    1px solid var(--color-border-light);
+
+  border-radius:
+    var(--radius-lg);
+
+  cursor: pointer;
+
+  text-align: left;
+
+  background:
+    var(--color-background-surface-light);
+
+  transition:
+    var(--transition-normal);
+
+}
+
+
+
+
+
+.onboarding-option:hover {
+
+  border-color:
+    var(--color-primary-light);
+
+}
+
+
+
+
+
+.onboarding-option input {
+
+  position: absolute;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+}
+
+
+
+
+
+.onboarding-option > div {
+
+  flex: 1;
+
+}
+
+
+
+
+
+.onboarding-option.selected {
+
+  border-color:
+    var(--color-primary);
+
+  background:
+    rgba(109,40,217,0.08);
+
+}
+
+
+
+
+
+.onboarding-option svg {
+
+  flex-shrink: 0;
+
+  width: 26px;
+
+  height: 26px;
+
+  color:
+    var(--color-primary);
+
+}
+
+
+
+
+
+.onboarding-option strong {
+
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size:
+    var(--font-size-body);
+
+  font-weight:
+    var(--font-weight-semibold);
+
+}
+
+
+
+
+
+.onboarding-option span {
+
+  display: block;
+
+  color:
+    var(--color-text-secondary-light);
+
+  font-size:
+    var(--font-size-small);
+
+  line-height:
+    var(--line-height-small);
+
+}
+
+
+
+
+
+/* ==========================================================
+   Button
+========================================================== */
+
+.onboarding-button {
+
+  width: 100%;
+
+  margin-top:
+    24px;
+
+}
+
+
+
+
+
+/* ==========================================================
+   Error
+========================================================== */
+
+.onboarding-error {
+
+  margin-top:
+    16px;
+
+  color:
+    var(--color-error);
+
+  font-size:
+    var(--font-size-small);
+
+}
+
+
+
+
+
+/* ==========================================================
+   Tutorial
+========================================================== */
+
+.tutorial-features {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-bottom:
+    24px;
+
+}
+
+
+
+.tutorial-feature {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 16px;
+
+  border-radius:
+    var(--radius-lg);
+
+  border:
+    1px solid var(--color-border-light);
+
+  background:
+    var(--color-background-page-light);
+
+  text-align: left;
+
+}
+
+
+
+.tutorial-feature svg {
+
+  color:
+    var(--color-primary);
+
+}
+
+
+
+.tutorial-feature strong {
+
+  display: block;
+
+}
+
+
+
+.tutorial-feature span {
+
+  color:
+    var(--color-text-secondary-light);
+
+  font-size:
+    var(--font-size-small);
+
+}
+
+
+
+
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+@media(max-width:768px){
+
+
+  .onboarding-card {
+
+    padding:
+      32px 24px;
+
+  }
+
+
+
+  .onboarding-card h1 {
+
+    font-size:
+      var(--font-size-h2);
+
+    line-height:
+      var(--line-height-h2);
+
+  }
+
+
+}

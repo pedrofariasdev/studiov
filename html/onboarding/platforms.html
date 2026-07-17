@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="pt-PT">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Plataformas | StudioV</title>
+
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  />
+
+
+  <!-- Fonts -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- Global -->
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/variables.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/reset.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/typography.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/utilities.css"
+  >
+
+
+  <!-- Components -->
+
+  <link
+    rel="stylesheet"
+    href="/css/components/button.css"
+  >
+
+
+  <!-- Onboarding -->
+
+  <link
+    rel="stylesheet"
+    href="/css/pages/onboarding.css"
+  >
+
+
+</head>
+
+
+<body>
+
+
+<main class="onboarding-layout">
+
+
+<section class="onboarding-card">
+
+
+
+<div class="onboarding-logo">
+
+<img
+src="/assets/logos/svg/logo-studiov2000.png"
+alt="StudioV"
+/>
+
+</div>
+
+
+
+
+<div class="onboarding-progress">
+
+<span></span>
+<span></span>
+<span></span>
+<span class="active"></span>
+<span></span>
+
+</div>
+
+
+
+
+
+<div class="onboarding-icon">
+
+<i data-lucide="share-2"></i>
+
+</div>
+
+
+
+
+
+<span class="onboarding-eyebrow">
+
+Integrações
+
+</span>
+
+
+
+
+
+<h1>
+
+Quais plataformas você utiliza?
+
+</h1>
+
+
+
+
+
+<p>
+
+Selecione onde você cria, publica ou pretende compartilhar seus conteúdos.
+
+</p>
+
+
+
+
+
+<form
+id="platforms-form"
+class="onboarding-options"
+>
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="checkbox"
+name="platforms"
+value="instagram"
+/>
+
+
+<div>
+
+
+<i data-lucide="camera"></i>
+
+
+<strong>
+
+Instagram
+
+</strong>
+
+
+<span>
+
+Posts, stories e reels.
+
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="checkbox"
+name="platforms"
+value="tiktok"
+/>
+
+
+<div>
+
+
+<i data-lucide="video"></i>
+
+
+<strong>
+
+TikTok
+
+</strong>
+
+
+<span>
+
+Vídeos curtos e tendências.
+
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="checkbox"
+name="platforms"
+value="youtube"
+/>
+
+
+<div>
+
+
+<i data-lucide="play-circle"></i>
+
+
+<strong>
+
+YouTube
+
+</strong>
+
+
+<span>
+
+Vídeos longos e shorts.
+
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="checkbox"
+name="platforms"
+value="linkedin"
+/>
+
+
+<div>
+
+
+<i data-lucide="briefcase"></i>
+
+
+<strong>
+
+LinkedIn
+
+</strong>
+
+
+<span>
+
+Conteúdo profissional.
+
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="checkbox"
+name="platforms"
+value="facebook"
+/>
+
+
+<div>
+
+
+<i data-lucide="users"></i>
+
+
+<strong>
+
+Facebook
+
+</strong>
+
+
+<span>
+
+Comunidade e divulgação.
+
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+
+<div
+class="onboarding-error hidden"
+id="platforms-error"
+>
+
+Selecione pelo menos uma plataforma.
+
+</div>
+
+
+
+
+
+
+<button
+class="btn btn-primary"
+type="submit"
+>
+
+Continuar
+
+<i data-lucide="arrow-right"></i>
+
+</button>
+
+
+
+
+
+</form>
+
+
+
+
+</section>
+
+
+
+</main>
+
+
+
+
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+
+<script>
+
+lucide.createIcons();
+
+</script>
+
+
+
+<script src="/js/onboarding/platforms.js"></script>
+
+
+
+</body>
+
+
+</html>

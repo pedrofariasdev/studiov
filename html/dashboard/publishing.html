@@ -1,0 +1,1728 @@
+<!doctype html>
+<html lang="pt-PT">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Publicações | StudioV</title>
+
+
+<meta 
+name="description"
+content="Gerencie e acompanhe as publicações das suas marcas na StudioV."
+>
+
+
+<meta 
+name="robots"
+content="noindex, nofollow"
+>
+
+
+<meta 
+name="theme-color"
+content="#6D28D9"
+>
+
+
+
+<!-- Favicons -->
+
+<link 
+rel="icon"
+type="image/png"
+sizes="96x96"
+href="/assets/icons/favicon-96x96.png"
+/>
+
+
+<link 
+rel="icon"
+type="image/svg+xml"
+href="/assets/icons/favicon.svg"
+/>
+
+
+<link 
+rel="manifest"
+href="/assets/icons/site.webmanifest"
+/>
+
+
+
+
+<!-- Fonts -->
+
+<link 
+rel="preconnect"
+href="https://fonts.googleapis.com"
+/>
+
+
+<link 
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin
+/>
+
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+rel="stylesheet"
+/>
+
+
+
+
+<!-- Global CSS -->
+
+
+<link rel="stylesheet" href="/css/globals/variables.css">
+
+<link rel="stylesheet" href="/css/globals/reset.css">
+
+<link rel="stylesheet" href="/css/globals/typography.css">
+
+<link rel="stylesheet" href="/css/globals/utilities.css">
+
+
+<link rel="stylesheet" href="/css/components/button.css">
+
+<link rel="stylesheet" href="/css/components/stat-card.css">
+
+<link rel="stylesheet" href="/css/components/content-card.css">
+
+
+<!-- Dashboard -->
+
+<link rel="stylesheet" href="/css/pages/dashboard.css">
+
+
+<!-- Publishing -->
+
+<link rel="stylesheet" href="/css/pages/publishing.css">
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="dashboard-layout">
+
+
+
+<!-- ==================================================
+SIDEBAR
+================================================== -->
+
+
+<aside 
+class="dashboard-sidebar"
+id="dashboard-sidebar"
+aria-label="Navegação principal"
+>
+
+
+<div class="sidebar-header">
+
+
+<a 
+href="/html/dashboard/home.html"
+class="sidebar-logo"
+>
+
+<img 
+src="/assets/logos/svg/logo-studiov2000.png"
+alt="StudioV"
+>
+
+</a>
+
+
+
+<button
+class="sidebar-close"
+id="sidebar-close"
+type="button"
+aria-label="Fechar menu"
+>
+
+<i data-lucide="x"></i>
+
+</button>
+
+
+</div>
+
+
+
+
+
+<nav class="sidebar-navigation">
+
+
+<div class="sidebar-section">
+
+
+<span class="sidebar-section-title">
+Principal
+</span>
+
+
+
+<ul class="sidebar-menu">
+
+
+<li>
+
+<a 
+href="/html/dashboard/home.html"
+class="sidebar-link"
+>
+
+<i data-lucide="layout-dashboard"></i>
+
+<span>
+Dashboard
+</span>
+
+</a>
+
+</li>
+
+
+
+<li>
+
+<a 
+href="/html/dashboard/workspace.html"
+class="sidebar-link"
+>
+
+<i data-lucide="building-2"></i>
+
+<span>
+Workspace
+</span>
+
+</a>
+
+</li>
+
+
+
+<li>
+
+<a 
+href="/html/dashboard/brands.html"
+class="sidebar-link"
+>
+
+<i data-lucide="palette"></i>
+
+<span>
+Marcas
+</span>
+
+</a>
+
+</li>
+
+
+
+<li>
+
+<a 
+href="/html/dashboard/clients.html"
+class="sidebar-link"
+>
+
+<i data-lucide="users"></i>
+
+<span>
+Clientes
+</span>
+
+</a>
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+
+
+
+<div class="sidebar-section">
+
+
+<span class="sidebar-section-title">
+Conteúdo
+</span>
+
+
+<ul class="sidebar-menu">
+
+
+<li>
+
+<a 
+href="/html/dashboard/planner.html"
+class="sidebar-link"
+>
+
+<i data-lucide="clipboard-list"></i>
+
+<span>
+Planner
+</span>
+
+</a>
+
+</li>
+
+
+
+
+<li>
+
+<a 
+href="/html/dashboard/calendar.html"
+class="sidebar-link"
+>
+
+<i data-lucide="calendar-days"></i>
+
+<span>
+Calendário
+</span>
+
+</a>
+
+</li>
+
+
+
+
+<li>
+
+<a 
+href="/html/dashboard/content.html"
+class="sidebar-link"
+>
+
+<i data-lucide="files"></i>
+
+<span>
+Conteúdos
+</span>
+
+</a>
+
+</li>
+
+
+
+<li>
+
+<a 
+href="/html/dashboard/media.html"
+class="sidebar-link"
+>
+
+<i data-lucide="images"></i>
+
+<span>
+Biblioteca
+</span>
+
+</a>
+
+</li>
+
+
+
+<li>
+
+<a 
+href="/html/dashboard/publishing.html"
+class="sidebar-link is-active"
+aria-current="page"
+>
+
+<i data-lucide="send"></i>
+
+<span>
+Publicações
+</span>
+
+</a>
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+
+
+
+<div class="sidebar-section">
+
+
+<span class="sidebar-section-title">
+Inteligência
+</span>
+
+
+<ul class="sidebar-menu">
+
+
+<li>
+
+<a 
+href="/html/dashboard/ai.html"
+class="sidebar-link"
+>
+
+<i data-lucide="sparkles"></i>
+
+<span>
+Inteligência Artificial
+</span>
+
+</a>
+
+</li>
+
+
+
+<li>
+
+<a 
+href="/html/dashboard/analytics.html"
+class="sidebar-link"
+>
+
+<i data-lucide="chart-no-axes-combined"></i>
+
+<span>
+Analytics
+</span>
+
+</a>
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+
+
+<div class="sidebar-section sidebar-section-bottom">
+
+
+<ul class="sidebar-menu">
+
+<li>
+
+<a 
+href="/html/dashboard/settings.html"
+class="sidebar-link"
+>
+
+<i data-lucide="settings"></i>
+
+<span>
+Configurações
+</span>
+
+</a>
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+</nav>
+
+
+
+
+
+<div class="sidebar-user">
+
+
+<div 
+class="sidebar-user-avatar"
+id="sidebar-user-avatar"
+>
+U
+</div>
+
+
+
+<div class="sidebar-user-info">
+
+
+<strong id="sidebar-user-name">
+Utilizador
+</strong>
+
+
+<span id="sidebar-user-email">
+utilizador@studiov.pt
+</span>
+
+
+</div>
+
+
+<a 
+href="/html/dashboard/profile.html"
+class="sidebar-user-action"
+>
+
+<i data-lucide="chevron-right"></i>
+
+</a>
+
+
+</div>
+
+
+</aside>
+
+
+<div 
+class="sidebar-overlay"
+id="sidebar-overlay"
+></div>
+
+<!-- ==================================================
+     ÁREA PRINCIPAL
+================================================== -->
+
+
+<div class="dashboard-main">
+
+
+
+<!-- TOPBAR -->
+
+<header class="dashboard-topbar">
+
+
+
+<div class="topbar-left">
+
+
+<button
+class="topbar-menu-button"
+id="topbar-menu-button"
+type="button"
+aria-label="Abrir menu"
+aria-controls="dashboard-sidebar"
+aria-expanded="false"
+>
+
+<i data-lucide="menu"></i>
+
+</button>
+
+
+
+
+<div class="workspace-selector">
+
+
+<button
+class="workspace-selector-button"
+type="button"
+>
+
+
+<span class="workspace-selector-icon">
+
+<i data-lucide="building-2"></i>
+
+</span>
+
+
+
+<span class="workspace-selector-content">
+
+
+<small>
+Workspace
+</small>
+
+
+<strong id="current-workspace-name">
+Meu Workspace
+</strong>
+
+
+</span>
+
+
+
+<i data-lucide="chevrons-up-down"></i>
+
+
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="topbar-actions">
+
+
+<button
+class="topbar-icon-button"
+type="button"
+aria-label="Pesquisar"
+>
+
+<i data-lucide="search"></i>
+
+</button>
+
+
+
+
+<a
+href="/html/dashboard/notifications.html"
+class="topbar-icon-button"
+aria-label="Notificações"
+>
+
+
+<i data-lucide="bell"></i>
+
+
+</a>
+
+
+
+
+<a
+href="/html/dashboard/profile.html"
+class="topbar-avatar"
+id="topbar-avatar"
+>
+
+U
+
+</a>
+
+
+
+</div>
+
+
+
+</header>
+
+
+
+
+
+<!-- ==================================================
+     CONTEÚDO
+================================================== -->
+
+
+<main class="dashboard-content">
+
+
+
+
+
+<!-- CABEÇALHO -->
+
+
+<section class="page-header">
+
+
+<div class="page-header-content">
+
+
+<span class="page-eyebrow">
+
+Gestão de conteúdos
+
+</span>
+
+
+
+
+<h1>
+
+Publicações
+
+</h1>
+
+
+
+
+<p>
+
+Planeie, organize e acompanhe todas as publicações das suas marcas.
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+<div class="page-header-actions">
+
+
+<button
+class="btn btn-primary"
+id="create-publication-button"
+type="button"
+>
+
+
+<i data-lucide="plus"></i>
+
+
+Nova publicação
+
+
+</button>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==================================================
+     RESUMO
+================================================== -->
+
+
+<section
+class="publications-summary"
+aria-label="Resumo das publicações"
+>
+
+
+
+
+<article class="stat-card">
+
+
+<div class="stat-card-icon">
+
+
+<i data-lucide="send"></i>
+
+
+</div>
+
+
+
+<div class="stat-card-content">
+
+
+<span class="stat-card-label">
+
+Total de publicações
+
+</span>
+
+
+
+<strong
+class="stat-card-value"
+id="total-publications-count"
+>
+
+0
+
+</strong>
+
+
+
+</div>
+
+
+</article>
+
+
+
+
+
+
+
+
+<article class="stat-card">
+
+
+<div class="stat-card-icon">
+
+
+<i data-lucide="clock-3"></i>
+
+
+</div>
+
+
+
+<div class="stat-card-content">
+
+
+<span class="stat-card-label">
+
+Agendadas
+
+</span>
+
+
+
+<strong
+class="stat-card-value"
+id="scheduled-publications-count"
+>
+
+0
+
+</strong>
+
+
+
+</div>
+
+
+</article>
+
+
+
+
+
+
+
+<article class="stat-card">
+
+
+<div class="stat-card-icon">
+
+
+<i data-lucide="circle-check-big"></i>
+
+
+</div>
+
+
+
+<div class="stat-card-content">
+
+
+<span class="stat-card-label">
+
+Publicadas
+
+</span>
+
+
+
+<strong
+class="stat-card-value"
+id="published-publications-count"
+>
+
+0
+
+</strong>
+
+
+
+</div>
+
+
+</article>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ==================================================
+     PESQUISA E FILTROS
+================================================== -->
+
+
+<section class="publications-toolbar">
+
+
+
+<div class="publications-search">
+
+
+<label
+for="publications-search-input"
+class="sr-only"
+>
+
+Pesquisar publicações
+
+</label>
+
+
+
+<i data-lucide="search"></i>
+
+
+
+<input
+type="search"
+id="publications-search-input"
+placeholder="Pesquisar por título ou marca..."
+autocomplete="off"
+/>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="publications-filters">
+
+
+<select
+id="publications-brand-filter"
+>
+
+
+<option value="all">
+
+Todas as marcas
+
+</option>
+
+
+</select>
+
+
+
+
+
+<select
+id="publications-status-filter"
+>
+
+
+<option value="all">
+
+Todos os estados
+
+</option>
+
+
+<option value="draft">
+
+Rascunho
+
+</option>
+
+
+<option value="scheduled">
+
+Agendada
+
+</option>
+
+
+<option value="published">
+
+Publicada
+
+</option>
+
+
+<option value="archived">
+
+Arquivada
+
+</option>
+
+
+
+</select>
+
+
+
+
+
+
+
+<select
+id="publications-sort-select"
+>
+
+
+<option value="newest">
+
+Mais recentes
+
+</option>
+
+
+<option value="oldest">
+
+Mais antigas
+
+</option>
+
+
+</select>
+
+
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==================================================
+     LOADING
+================================================== -->
+
+
+<section
+class="publications-loading"
+id="publications-loading"
+>
+
+
+<div class="publications-loading-grid">
+
+
+<article class="publication-card-skeleton"></article>
+
+
+<article class="publication-card-skeleton"></article>
+
+
+<article class="publication-card-skeleton"></article>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==================================================
+     ESTADO VAZIO
+================================================== -->
+
+
+<section
+class="publications-empty hidden"
+id="publications-empty"
+>
+
+
+<div class="publications-empty-icon">
+
+
+<i data-lucide="send"></i>
+
+
+</div>
+
+
+
+
+<h2>
+
+Ainda não existem publicações
+
+</h2>
+
+
+
+
+<p>
+
+Crie a primeira publicação para começar a organizar o conteúdo das suas marcas.
+
+</p>
+
+
+
+
+<button
+class="btn btn-primary"
+id="empty-create-publication-button"
+type="button"
+>
+
+
+<i data-lucide="plus"></i>
+
+
+Criar publicação
+
+
+</button>
+
+
+
+</section>
+
+<!-- ==================================================
+     SEM RESULTADOS
+================================================== -->
+
+
+<section
+class="publications-no-results hidden"
+id="publications-no-results"
+aria-live="polite"
+>
+
+
+<div class="publications-empty-icon">
+
+<i data-lucide="search-x"></i>
+
+</div>
+
+
+
+
+<h2>
+
+Nenhuma publicação encontrada
+
+</h2>
+
+
+
+
+<p>
+
+Altere os filtros ou a pesquisa para encontrar outras publicações.
+
+</p>
+
+
+
+
+<button
+class="button button-secondary"
+id="clear-publication-filters-button"
+type="button"
+>
+
+Limpar filtros
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ==================================================
+     GRID DE PUBLICAÇÕES
+================================================== -->
+
+
+<section
+class="publications-grid hidden"
+id="publications-grid"
+aria-label="Lista de publicações"
+>
+
+
+<!-- Cards inseridos pelo JavaScript -->
+
+
+</section>
+
+
+
+
+
+
+</main>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ==================================================
+     MODAL NOVA PUBLICAÇÃO
+================================================== -->
+
+
+<div
+class="modal-overlay hidden"
+id="publication-modal"
+role="dialog"
+aria-modal="true"
+aria-hidden="true"
+>
+
+
+
+
+<div class="modal-container">
+
+
+
+<div class="modal-header">
+
+
+<div>
+
+
+<span class="modal-eyebrow">
+
+Gestão de publicação
+
+</span>
+
+
+
+
+<h2 id="publication-modal-title">
+
+Nova publicação
+
+</h2>
+
+
+
+</div>
+
+
+
+
+<button
+class="modal-close-button"
+id="publication-modal-close"
+type="button"
+>
+
+
+<i data-lucide="x"></i>
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<form
+class="publication-form"
+id="publication-form"
+novalidate
+>
+
+
+
+
+<input
+type="hidden"
+id="publication-id"
+/>
+
+
+
+
+
+<div class="form-grid">
+
+
+
+
+
+<!-- Marca -->
+
+<div class="form-field">
+
+
+<label for="publication-brand">
+
+Marca
+
+<span>*</span>
+
+</label>
+
+
+
+<select
+id="publication-brand"
+>
+
+<option value="">
+
+Selecionar marca
+
+</option>
+
+
+</select>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Rede social -->
+
+
+<div class="form-field">
+
+
+<label for="publication-platform">
+
+Rede social
+
+</label>
+
+
+
+
+<select
+id="publication-platform"
+>
+
+
+<option value="instagram">
+
+Instagram
+
+</option>
+
+
+<option value="facebook">
+
+Facebook
+
+</option>
+
+
+<option value="linkedin">
+
+LinkedIn
+
+</option>
+
+
+<option value="tiktok">
+
+TikTok
+
+</option>
+
+
+
+</select>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Título -->
+
+
+<div class="form-field form-field-full">
+
+
+<label for="publication-title">
+
+Título
+
+<span>*</span>
+
+</label>
+
+
+
+
+<input
+type="text"
+id="publication-title"
+placeholder="Ex.: Campanha de verão"
+maxlength="150"
+/>
+
+
+
+
+<small
+class="form-error"
+id="publication-title-error"
+></small>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Descrição -->
+
+
+<div class="form-field form-field-full">
+
+
+<label for="publication-description">
+
+Descrição
+
+</label>
+
+
+
+
+<textarea
+id="publication-description"
+rows="5"
+maxlength="1000"
+placeholder="Descrição da publicação..."
+></textarea>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Data -->
+
+
+<div class="form-field">
+
+
+<label for="publication-date">
+
+Data publicação
+
+</label>
+
+
+
+
+<input
+type="date"
+id="publication-date"
+/>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Status -->
+
+
+<div class="form-field">
+
+
+<label for="publication-status">
+
+Estado
+
+</label>
+
+
+
+<select
+id="publication-status"
+>
+
+
+<option value="draft">
+
+Rascunho
+
+</option>
+
+
+<option value="scheduled">
+
+Agendada
+
+</option>
+
+
+<option value="published">
+
+Publicada
+
+</option>
+
+
+</select>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div
+class="form-general-error hidden"
+id="publication-form-error"
+></div>
+
+
+
+
+
+
+
+<div class="modal-footer">
+
+
+<button
+class="button button-secondary"
+id="publication-form-cancel"
+type="button"
+>
+
+Cancelar
+
+</button>
+
+
+
+
+<button
+class="btn btn-primary"
+type="submit"
+>
+
+
+<span id="publication-form-submit-text">
+
+Criar publicação
+
+</span>
+
+
+
+<span
+class="button-loader hidden"
+></span>
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+</form>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ==================================================
+     TOASTS
+================================================== -->
+
+
+<div
+class="toast-container"
+id="toast-container"
+aria-live="polite"
+aria-atomic="true"
+></div>
+
+
+
+
+
+
+
+
+
+<!-- ==================================================
+     SCRIPTS
+================================================== -->
+
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script src="/js/services/supabase.js"></script>
+
+
+<script src="/js/auth/auth-guard.js"></script>
+
+
+<script src="/js/dashboard/publishing.js"></script>
+
+
+
+
+</body>
+
+
+</html>

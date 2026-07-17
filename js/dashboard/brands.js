@@ -4,1605 +4,2519 @@
    StudioV — Gestão de Marcas
 ========================================================== */
 
+
 document.addEventListener("DOMContentLoaded", async () => {
-  /* ======================================================
-       Elementos gerais
-    ====================================================== */
 
-  const body = document.body;
 
-  const sidebarOverlay = document.getElementById("sidebar-overlay");
+/* ======================================================
+   ELEMENTOS
+====================================================== */
 
-  const sidebarOpenButton = document.getElementById("topbar-menu-button");
 
-  const sidebarCloseButton = document.getElementById("sidebar-close");
+const body = document.body;
 
-  const createBrandButton = document.getElementById("create-brand-button");
 
-  const emptyCreateBrandButton = document.getElementById("empty-create-brand-button");
+const sidebarOverlay =
+document.getElementById("sidebar-overlay");
 
-  const brandModal = document.getElementById("brand-modal");
 
-  const brandModalTitle = document.getElementById("brand-modal-title");
+const sidebarOpenButton =
+document.getElementById("topbar-menu-button");
 
-  const brandModalClose = document.getElementById("brand-modal-close");
 
-  const brandFormCancel = document.getElementById("brand-form-cancel");
+const sidebarCloseButton =
+document.getElementById("sidebar-close");
 
-  const archiveBrandModal = document.getElementById("archive-brand-modal");
 
-  const archiveBrandCancel = document.getElementById("archive-brand-cancel");
 
-  const archiveBrandConfirm = document.getElementById("archive-brand-confirm");
+const createBrandButton =
+document.getElementById("create-brand-button");
 
-  const brandForm = document.getElementById("brand-form");
 
-  const brandIdInput = document.getElementById("brand-id");
+const emptyCreateBrandButton =
+document.getElementById("empty-create-brand-button");
 
-  const brandNameInput = document.getElementById("brand-name");
 
-  const brandNameError = document.getElementById("brand-name-error");
 
-  const brandIndustryInput = document.getElementById("brand-industry");
+const brandModal =
+document.getElementById("brand-modal");
 
-  const brandLogoInput = document.getElementById("brand-logo-url");
 
-  const brandLanguageInput = document.getElementById("brand-language");
+const brandModalTitle =
+document.getElementById("brand-modal-title");
 
-  const brandWebsiteInput = document.getElementById("brand-website");
 
-  const brandWebsiteError = document.getElementById("brand-website-error");
+const brandModalClose =
+document.getElementById("brand-modal-close");
 
-  const brandDescriptionInput = document.getElementById("brand-description");
 
-  const brandDescriptionCounter = document.getElementById("brand-description-counter");
+const brandFormCancel =
+document.getElementById("brand-form-cancel");
 
-  const primaryColorPicker = document.getElementById("brand-primary-color-picker");
 
-  const primaryColorInput = document.getElementById("brand-primary-color");
 
-  const secondaryColorPicker = document.getElementById("brand-secondary-color-picker");
+const archiveBrandModal =
+document.getElementById("archive-brand-modal");
 
-  const secondaryColorInput = document.getElementById("brand-secondary-color");
 
-  const brandFormError = document.getElementById("brand-form-error");
+const archiveBrandCancel =
+document.getElementById("archive-brand-cancel");
 
-  const brandFormSubmitText = document.getElementById("brand-form-submit-text");
 
-  const brandFormSubmitButton = brandForm?.querySelector('button[type="submit"]');
+const archiveBrandConfirm =
+document.getElementById("archive-brand-confirm");
 
-  const brandFormSubmitLoader = brandFormSubmitButton?.querySelector(".button-loader");
 
-  const brandsSearchInput = document.getElementById("brands-search-input");
 
-  const brandsStatusFilter = document.getElementById("brands-status-filter");
+const brandForm =
+document.getElementById("brand-form");
 
-  const brandsSortSelect = document.getElementById("brands-sort-select");
 
-  const clearBrandFiltersButton = document.getElementById("clear-brand-filters-button");
 
-  const brandsLoading = document.getElementById("brands-loading");
+const brandIdInput =
+document.getElementById("brand-id");
 
-  const brandsEmpty = document.getElementById("brands-empty");
 
-  const brandsNoResults = document.getElementById("brands-no-results");
+const brandNameInput =
+document.getElementById("brand-name");
 
-  const brandsGrid = document.getElementById("brands-grid");
 
-  const totalBrandsCount = document.getElementById("total-brands-count");
+const brandNameError =
+document.getElementById("brand-name-error");
 
-  const activeBrandsCount = document.getElementById("active-brands-count");
 
-  const archivedBrandsCount = document.getElementById("archived-brands-count");
+const brandIndustryInput =
+document.getElementById("brand-industry");
 
-  const toastContainer = document.getElementById("toast-container");
 
-  /* ======================================================
-       Contexto autenticado
-    ====================================================== */
+const brandLogoInput =
+document.getElementById("brand-logo-url");
 
-  const supabaseClient = window.supabaseClient;
 
-  const currentWorkspaceName = document.getElementById("current-workspace-name");
+const brandLanguageInput =
+document.getElementById("brand-language");
 
-  const sidebarUserName = document.getElementById("sidebar-user-name");
-
-  const sidebarUserEmail = document.getElementById("sidebar-user-email");
-
-  const sidebarUserAvatar = document.getElementById("sidebar-user-avatar");
-
-  const topbarAvatar = document.getElementById("topbar-avatar");
-
-  let currentWorkspace = null;
-
-  let brands = [];
-  let selectedBrandId = null;
-  let lastFocusedElement = null;
-
-  /* ======================================================
-       Utilitários
-    ====================================================== */
-
-  function escapeHtml(value = "") {
-    const element = document.createElement("div");
-
-    element.textContent = String(value);
-
-    return element.innerHTML;
-  }
-
-  function getSafeColor(value, fallback) {
-    return /^#[0-9A-F]{6}$/i.test(value || "") ? value : fallback;
-  }
-
-  function getSafeHttpUrl(value) {
-    if (!value) {
-      return null;
-    }
-
-    try {
-      const url = new URL(value);
-
-      if (url.protocol !== "http:" && url.protocol !== "https:") {
-        return null;
-      }
-
-      return url.href;
-    } catch {
-      return null;
-    }
-  }
-
-  function getLanguageInfo(languageCode) {
-    const languages = {
-      "pt-PT": {
-        short: "Português · PT",
-        full: "Português — Portugal",
-      },
-
-      "pt-BR": {
-        short: "Português · BR",
-        full: "Português — Brasil",
-      },
-
-      "en-US": {
-        short: "Inglês · US",
-        full: "Inglês — Estados Unidos",
-      },
-
-      "en-GB": {
-        short: "Inglês · UK",
-        full: "Inglês — Reino Unido",
-      },
-
-      "es-ES": {
-        short: "Espanhol · ES",
-        full: "Espanhol — Espanha",
-      },
-
-      "fr-FR": {
-        short: "Francês · FR",
-        full: "Francês — França",
-      },
-
-      "de-DE": {
-        short: "Alemão · DE",
-        full: "Alemão — Alemanha",
-      },
-
-      "it-IT": {
-        short: "Italiano · IT",
-        full: "Italiano — Itália",
-      },
-
-      en: {
-        short: "Inglês",
-        full: "Inglês",
-      },
-
-      es: {
-        short: "Espanhol",
-        full: "Espanhol",
-      },
-    };
 
-    return (
-      languages[languageCode] || {
-        short: languageCode || "Português · PT",
-        full: languageCode || "Português — Portugal",
-      }
-    );
-  }
+const brandWebsiteInput =
+document.getElementById("brand-website");
 
-  function formatBrandDate(value) {
-    if (!value) {
-      return "Data indisponível";
-    }
 
-    const date = new Date(value);
+const brandWebsiteError =
+document.getElementById("brand-website-error");
 
-    if (Number.isNaN(date.getTime())) {
-      return "Data indisponível";
-    }
 
-    return new Intl.DateTimeFormat("pt-PT", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }).format(date);
-  }
+const brandDescriptionInput =
+document.getElementById("brand-description");
 
-  function normalizeSearchText(value = "") {
-    return String(value)
-      .trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  }
 
-  function normalizeHexColor(value = "") {
-    return value.trim().toUpperCase();
-  }
+const brandDescriptionCounter =
+document.getElementById("brand-description-counter");
 
-  function isValidHexColor(value) {
-    return /^#[0-9A-F]{6}$/i.test(value);
-  }
 
-  function isValidHttpUrl(value) {
-    if (!value) {
-      return true;
-    }
 
-    try {
-      const url = new URL(value);
+const primaryColorPicker =
+document.getElementById("brand-primary-color-picker");
 
-      return url.protocol === "http:" || url.protocol === "https:";
-    } catch {
-      return false;
-    }
-  }
 
-  /* ======================================================
-       Toasts
-    ====================================================== */
+const primaryColorInput =
+document.getElementById("brand-primary-color");
 
-  function getToastIcon(type) {
-    const icons = {
-      success: "circle-check",
-      error: "circle-alert",
-      warning: "triangle-alert",
-      info: "info",
-    };
 
-    return icons[type] || icons.info;
-  }
 
-  function showToast(type = "info", title = "", message = "") {
-    if (!toastContainer) {
-      return;
-    }
+const secondaryColorPicker =
+document.getElementById("brand-secondary-color-picker");
 
-    const toast = document.createElement("div");
 
-    toast.className = `toast is-${type}`;
+const secondaryColorInput =
+document.getElementById("brand-secondary-color");
 
-    const iconWrapper = document.createElement("div");
 
-    iconWrapper.className = "toast-icon";
 
-    const icon = document.createElement("i");
+const brandFormError =
+document.getElementById("brand-form-error");
 
-    icon.setAttribute("data-lucide", getToastIcon(type));
 
-    iconWrapper.appendChild(icon);
+const brandFormSubmitText =
+document.getElementById("brand-form-submit-text");
 
-    const content = document.createElement("div");
 
-    content.className = "toast-content";
 
-    const toastTitle = document.createElement("strong");
+const brandsSearchInput =
+document.getElementById("brands-search-input");
 
-    toastTitle.textContent = title;
 
-    const toastMessage = document.createElement("p");
+const brandsStatusFilter =
+document.getElementById("brands-status-filter");
 
-    toastMessage.textContent = message;
 
-    content.append(toastTitle, toastMessage);
+const brandsSortSelect =
+document.getElementById("brands-sort-select");
 
-    const closeButton = document.createElement("button");
 
-    closeButton.className = "toast-close";
-    closeButton.type = "button";
 
-    closeButton.setAttribute("aria-label", "Fechar mensagem");
+const clearBrandFiltersButton =
+document.getElementById("clear-brand-filters-button");
 
-    const closeIcon = document.createElement("i");
 
-    closeIcon.setAttribute("data-lucide", "x");
 
-    closeButton.appendChild(closeIcon);
+const brandsLoading =
+document.getElementById("brands-loading");
 
-    toast.append(iconWrapper, content, closeButton);
 
-    toastContainer.appendChild(toast);
+const brandsEmpty =
+document.getElementById("brands-empty");
 
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
 
-    function removeToast() {
-      toast.remove();
-    }
+const brandsNoResults =
+document.getElementById("brands-no-results");
 
-    closeButton.addEventListener("click", removeToast);
 
-    window.setTimeout(removeToast, 5000);
-  }
+const brandsGrid =
+document.getElementById("brands-grid");
 
-  /* ======================================================
-       Perfil e workspace
-    ====================================================== */
 
-  async function loadUserProfile(userId) {
-    const { data, error } = await supabaseClient
-      .from("profiles")
-      .select("full_name")
-      .eq("id", userId)
-      .maybeSingle();
 
-    if (error) {
-      console.warn("Não foi possível carregar o perfil:", error.message);
+const totalBrandsCount =
+document.getElementById("total-brands-count");
 
-      return null;
-    }
 
-    return data;
-  }
+const activeBrandsCount =
+document.getElementById("active-brands-count");
 
-  async function loadCurrentWorkspace(userId) {
-    const { data: membership, error: membershipError } = await supabaseClient
-      .from("workspace_members")
-      .select("workspace_id, role, status")
-      .eq("user_id", userId)
-      .eq("status", "active")
-      .order("created_at", {
-        ascending: true,
-      })
-      .limit(1)
-      .maybeSingle();
 
-    if (membershipError) {
-      throw membershipError;
-    }
+const archivedBrandsCount =
+document.getElementById("archived-brands-count");
 
-    if (!membership?.workspace_id) {
-      throw new Error("O utilizador não possui um workspace ativo.");
-    }
 
-    const { data: workspace, error: workspaceError } = await supabaseClient
-      .from("workspaces")
-      .select("id, name, status")
-      .eq("id", membership.workspace_id)
-      .eq("status", "active")
-      .single();
 
-    if (workspaceError) {
-      throw workspaceError;
-    }
+const toastContainer =
+document.getElementById("toast-container");
 
-    return {
-      ...workspace,
-      role: membership.role,
-    };
-  }
 
-  function getAvatarLetter(name, email) {
-    const source = name?.trim() || email?.trim() || "U";
 
-    return source.charAt(0).toUpperCase();
-  }
 
-  function updateDashboardIdentity(user, profile, workspace) {
-    const fullName = profile?.full_name?.trim() || user.email?.split("@")[0] || "Utilizador";
 
-    const email = user.email || "Email não disponível";
+/* ======================================================
+   CONTEXTO
+====================================================== */
 
-    const avatarLetter = getAvatarLetter(fullName, email);
 
-    if (currentWorkspaceName) {
-      currentWorkspaceName.textContent = workspace.name;
-    }
+const supabaseClient =
+window.supabaseClient;
 
-    if (sidebarUserName) {
-      sidebarUserName.textContent = fullName;
-    }
 
-    if (sidebarUserEmail) {
-      sidebarUserEmail.textContent = email;
-    }
 
-    if (sidebarUserAvatar) {
-      sidebarUserAvatar.textContent = avatarLetter;
-    }
+const currentWorkspaceName =
+document.getElementById(
+"current-workspace-name"
+);
 
-    if (topbarAvatar) {
-      topbarAvatar.textContent = avatarLetter;
-    }
-  }
 
-  async function initializeWorkspaceContext() {
-    if (!supabaseClient) {
-      console.error("Cliente Supabase não encontrado.");
 
-      return;
-    }
+const sidebarUserName =
+document.getElementById(
+"sidebar-user-name"
+);
 
-    const user = await window.studioVAuthReady;
 
-    if (!user) {
-      return;
-    }
 
-    try {
-      const [profile, workspace] = await Promise.all([
-        loadUserProfile(user.id),
-        loadCurrentWorkspace(user.id),
-      ]);
+const sidebarUserEmail =
+document.getElementById(
+"sidebar-user-email"
+);
 
-      currentWorkspace = workspace;
 
-      updateDashboardIdentity(user, profile, workspace);
 
-      console.log("Contexto do dashboard carregado:", {
-        userId: user.id,
-        workspaceId: workspace.id,
-        workspaceName: workspace.name,
-        role: workspace.role,
-      });
-    } catch (error) {
-      console.error("Erro ao carregar contexto do dashboard:", error);
+const sidebarUserAvatar =
+document.getElementById(
+"sidebar-user-avatar"
+);
 
-      showToast(
-        "error",
-        "Erro ao carregar workspace",
-        "Não foi possível identificar o workspace atual."
-      );
-    }
-  }
 
-  /* ======================================================
-       Estados da página
-    ====================================================== */
 
-  function setBrandsView(view) {
-    brandsLoading?.classList.toggle("hidden", view !== "loading");
+const topbarAvatar =
+document.getElementById(
+"topbar-avatar"
+);
 
-    brandsEmpty?.classList.toggle("hidden", view !== "empty");
 
-    brandsNoResults?.classList.toggle("hidden", view !== "no-results");
 
-    brandsGrid?.classList.toggle("hidden", view !== "grid");
-  }
 
-  function updateBrandCounters() {
-    const activeCount = brands.filter((brand) => brand.status === "active").length;
+let currentWorkspace = null;
 
-    const archivedCount = brands.filter((brand) => brand.status === "archived").length;
 
-    if (totalBrandsCount) {
-      totalBrandsCount.textContent = String(brands.length);
-    }
+let brands = [];
 
-    if (activeBrandsCount) {
-      activeBrandsCount.textContent = String(activeCount);
-    }
 
-    if (archivedBrandsCount) {
-      archivedBrandsCount.textContent = String(archivedCount);
-    }
-  }
+let selectedBrandId = null;
 
-  /* ======================================================
-       Pesquisa, filtros e ordenação
-    ====================================================== */
 
-  function getFilteredAndSortedBrands() {
-    const searchTerm = normalizeSearchText(brandsSearchInput?.value || "");
+let lastFocusedElement = null;
 
-    const selectedStatus = brandsStatusFilter?.value || "all";
 
-    const selectedSort = brandsSortSelect?.value || "newest";
 
-    const filteredBrands = brands.filter((brand) => {
-      const matchesStatus = selectedStatus === "all" || brand.status === selectedStatus;
 
-      const searchableContent = normalizeSearchText(
-        [brand.name, brand.industry, brand.description, brand.website_url].filter(Boolean).join(" ")
-      );
 
-      const matchesSearch = searchTerm === "" || searchableContent.includes(searchTerm);
 
-      return matchesStatus && matchesSearch;
-    });
+/* ======================================================
+   UTILIDADES
+====================================================== */
 
-    filteredBrands.sort((firstBrand, secondBrand) => {
-      if (selectedSort === "oldest") {
-        return (
-          new Date(firstBrand.created_at).getTime() - new Date(secondBrand.created_at).getTime()
-        );
-      }
 
-      if (selectedSort === "name-asc") {
-        return String(firstBrand.name || "").localeCompare(String(secondBrand.name || ""), "pt-PT");
-      }
+function escapeHtml(value=""){
 
-      if (selectedSort === "name-desc") {
-        return String(secondBrand.name || "").localeCompare(String(firstBrand.name || ""), "pt-PT");
-      }
+const div =
+document.createElement("div");
 
-      return new Date(secondBrand.created_at).getTime() - new Date(firstBrand.created_at).getTime();
-    });
 
-    return filteredBrands;
-  }
+div.textContent =
+String(value);
 
-  function applyBrandFilters() {
-    if (brands.length === 0) {
-      setBrandsView("empty");
-      return;
-    }
 
-    const visibleBrands = getFilteredAndSortedBrands();
+return div.innerHTML;
 
-    if (visibleBrands.length === 0) {
-      if (brandsGrid) {
-        brandsGrid.innerHTML = "";
-      }
+}
 
-      setBrandsView("no-results");
 
-      return;
-    }
 
-    renderBrands(visibleBrands);
-  }
 
-  /* ======================================================
-       Renderização das marcas
-    ====================================================== */
+function getSafeColor(
+value,
+fallback
+){
 
-  function renderBrands(items = brands) {
-    if (!brandsGrid) {
-      return;
-    }
+return /^#[0-9A-F]{6}$/i.test(value || "")
+?
+value
+:
+fallback;
 
-    brandsGrid.innerHTML = "";
+}
 
-    items.forEach((brand) => {
-      const primaryColor = getSafeColor(brand.primary_color, "#6D28D9");
 
-      const secondaryColor = getSafeColor(brand.secondary_color, "#A78BFA");
 
-      const initial = brand.name?.trim().charAt(0).toUpperCase() || "M";
 
-      const logoUrl = getSafeHttpUrl(brand.logo_url);
+function normalizeSearchText(value=""){
 
-      const languageInfo = getLanguageInfo(brand.default_language);
+return String(value)
+.trim()
+.toLowerCase()
+.normalize("NFD")
+.replace(
+/[\u0300-\u036f]/g,
+""
+);
 
-      const isArchived = brand.status === "archived";
+}
 
-      const description = brand.description?.trim() || "Nenhuma descrição adicionada.";
 
-      const logoContent = logoUrl
-        ? `
-                    <img
-                        src="${escapeHtml(logoUrl)}"
-                        alt="Logótipo da marca ${escapeHtml(brand.name || "")}"
-                        loading="lazy"
-                        referrerpolicy="no-referrer"
-                    >
-                `
-        : escapeHtml(initial);
 
-      const card = document.createElement("article");
 
-      card.className = ["brand-card", isArchived ? "is-archived" : ""].filter(Boolean).join(" ");
+function normalizeHexColor(value=""){
 
-      card.dataset.brandId = brand.id;
+return value
+.trim()
+.toUpperCase();
 
-      card.innerHTML = `
-                <header class="brand-card-header">
+}
 
-                    <div class="brand-card-identity">
 
-                        <div
-                            class="brand-card-logo"
-                            style="background-color: ${primaryColor}"
-                        >
-                            ${logoContent}
-                        </div>
 
-                        <div class="brand-card-title-group">
 
-                            <h2 class="brand-card-title">
-                                ${escapeHtml(brand.name || "Marca sem nome")}
-                            </h2>
+function isValidHexColor(value){
 
-                            <span class="brand-card-industry">
-                                ${escapeHtml(brand.industry || "Segmento não definido")}
-                            </span>
+return /^#[0-9A-F]{6}$/i.test(value);
 
-                        </div>
+}
 
-                    </div>
 
-                </header>
 
-                <p class="brand-card-description ${brand.description ? "" : "is-empty"}">
-                    ${escapeHtml(description)}
-                </p>
 
-                <div
-                    class="brand-card-colors"
-                    aria-label="Cores da marca"
-                >
+function isValidHttpUrl(value){
 
-                    <span
-                        class="brand-card-color"
-                        style="background-color: ${primaryColor}"
-                        title="Cor principal"
-                    ></span>
+if(!value){
 
-                    <span
-                        class="brand-card-color"
-                        style="background-color: ${secondaryColor}"
-                        title="Cor secundária"
-                    ></span>
+return true;
 
-                </div>
+}
 
-                <div class="brand-card-meta">
 
-                    <div class="brand-card-meta-item">
+try{
 
-                        <span>Idioma</span>
+const url =
+new URL(value);
 
-                        <strong
-                            title="${escapeHtml(languageInfo.full)}"
-                        >
-                            ${escapeHtml(languageInfo.short)}
-                        </strong>
 
-                    </div>
+return (
+url.protocol==="http:" ||
+url.protocol==="https:"
+);
 
-                    <div class="brand-card-meta-item">
 
-                        <span>Website</span>
+}catch{
 
-                        <strong title="${escapeHtml(brand.website_url || "Não definido")}">
-                            ${escapeHtml(brand.website_url || "Não definido")}
-                        </strong>
+return false;
 
-                    </div>
+}
 
-                </div>
+}
 
-                <footer class="brand-card-footer">
 
-                    <div class="brand-card-footer-info">
 
-                        <span class="brand-status ${isArchived ? "is-archived" : "is-active"}">
-                            ${isArchived ? "Arquivada" : "Ativa"}
-                        </span>
 
-                        <span class="brand-card-date">
-                            Criada em
-                            ${escapeHtml(formatBrandDate(brand.created_at))}
-                        </span>
 
-                    </div>
+function formatBrandDate(value){
 
-                    <div class="brand-card-actions-inline">
 
-                        <button
-                            type="button"
-                            class="brand-status-action is-edit"
-                            data-brand-action="edit"
-                            aria-label="Editar marca"
-                        >
-                            <i
-                                data-lucide="pencil"
-                                aria-hidden="true"
-                            ></i>
+if(!value){
 
-                            <span>Editar</span>
-                        </button>
+return "Data indisponível";
 
-                        <button
-                            type="button"
-                            class="brand-status-action ${isArchived ? "is-restore" : "is-archive"}"
-                            data-brand-action="${isArchived ? "restore" : "archive"}"
-                            aria-label="${isArchived ? "Restaurar marca" : "Arquivar marca"}"
-                        >
-                            <i
-                                data-lucide="${isArchived ? "rotate-ccw" : "archive"}"
-                                aria-hidden="true"
-                            ></i>
+}
 
-                            <span>
-                                ${isArchived ? "Restaurar" : "Arquivar"}
-                            </span>
-                        </button>
 
-                    </div>
+const date =
+new Date(value);
 
-                </footer>
-            `;
 
-      const logoImage = card.querySelector(".brand-card-logo img");
 
-      logoImage?.addEventListener("error", () => {
-        const logoContainer = logoImage.parentElement;
+if(Number.isNaN(date.getTime())){
 
-        if (logoContainer) {
-          logoContainer.textContent = initial;
-        }
-      });
+return "Data indisponível";
 
-      brandsGrid.appendChild(card);
-    });
+}
 
-    setBrandsView("grid");
 
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
-  }
 
-  /* ======================================================
-       Carregamento das marcas
-    ====================================================== */
+return new Intl.DateTimeFormat(
+"pt-PT",
+{
+day:"2-digit",
+month:"short",
+year:"numeric"
+}
+)
+.format(date);
 
-  async function loadBrands() {
-    if (!currentWorkspace?.id) {
-      return;
-    }
 
-    setBrandsView("loading");
+}
 
-    try {
-      const { data, error } = await supabaseClient
-        .from("brands")
-        .select(
-          `
-                        id,
-                        workspace_id,
-                        name,
-                        slug,
-                        description,
-                        industry,
-                        website_url,
-                        logo_url,
-                        primary_color,
-                        secondary_color,
-                        default_language,
-                        status,
-                        created_at,
-                        updated_at,
-                        client_id
-                    `
-        )
-        .eq("workspace_id", currentWorkspace.id)
-        .order("created_at", {
-          ascending: false,
-        });
 
-      if (error) {
-        throw error;
-      }
 
-      brands = data || [];
 
-      updateBrandCounters();
 
-      if (brands.length === 0) {
-        setBrandsView("empty");
-        return;
-      }
+/* ======================================================
+   IDIOMAS
+====================================================== */
 
-      applyBrandFilters();
 
-      console.log("Marcas carregadas:", brands.length);
-    } catch (error) {
-      console.error("Erro ao carregar marcas:", error);
+function getLanguageInfo(code){
 
-      setBrandsView(null);
 
-      showToast(
-        "error",
-        "Erro ao carregar marcas",
-        "Não foi possível obter as marcas deste workspace."
-      );
-    }
-  }
+const languages={
 
-  /* ======================================================
-       Sidebar
-    ====================================================== */
 
-  function openSidebar() {
-    body.classList.add("sidebar-open");
+"pt-PT":{
+short:"Português · PT",
+full:"Português Portugal"
+},
 
-    sidebarOpenButton?.setAttribute("aria-expanded", "true");
 
-    window.setTimeout(() => {
-      sidebarCloseButton?.focus();
-    }, 100);
-  }
+"pt-BR":{
+short:"Português · BR",
+full:"Português Brasil"
+},
 
-  function closeSidebar() {
-    body.classList.remove("sidebar-open");
 
-    sidebarOpenButton?.setAttribute("aria-expanded", "false");
-  }
+"en-US":{
+short:"Inglês · US",
+full:"Inglês Estados Unidos"
+},
 
-  sidebarOpenButton?.addEventListener("click", openSidebar);
 
-  sidebarCloseButton?.addEventListener("click", closeSidebar);
+"en-GB":{
+short:"Inglês · UK",
+full:"Inglês Reino Unido"
+}
 
-  sidebarOverlay?.addEventListener("click", closeSidebar);
 
-  /* ======================================================
-       Controle dos modais
-    ====================================================== */
+};
 
-  function openModal(modal) {
-    if (!modal) {
-      return;
-    }
 
-    lastFocusedElement = document.activeElement;
 
-    modal.classList.remove("hidden");
-    modal.classList.add("is-open");
+return languages[code] || {
 
-    modal.setAttribute("aria-hidden", "false");
+short:"Português · PT",
 
-    body.classList.add("modal-open");
-  }
+full:"Português"
 
-  function closeModal(modal) {
-    if (!modal) {
-      return;
-    }
+};
 
-    modal.classList.remove("is-open");
-    modal.classList.add("hidden");
 
-    modal.setAttribute("aria-hidden", "true");
+}
 
-    const hasOpenModal = document.querySelector(".modal-overlay.is-open");
 
-    if (!hasOpenModal) {
-      body.classList.remove("modal-open");
-    }
 
-    lastFocusedElement?.focus();
-  }
 
-  /* ======================================================
-       Formulário
-    ====================================================== */
 
-  function setGeneralFormError(message) {
-    if (!brandFormError) {
-      return;
-    }
 
-    brandFormError.textContent = message;
+/* ======================================================
+   TOAST
+====================================================== */
 
-    brandFormError.classList.remove("hidden");
-  }
 
-  function clearFieldError(input, errorElement) {
-    input?.classList.remove("is-invalid");
+function showToast(
+type,
+title,
+message
+){
 
-    if (errorElement) {
-      errorElement.textContent = "";
-    }
-  }
 
-  function setFieldError(input, errorElement, message) {
-    input?.classList.add("is-invalid");
+if(!toastContainer){
 
-    if (errorElement) {
-      errorElement.textContent = message;
-    }
-  }
+return;
 
-  function clearFormErrors() {
-    clearFieldError(brandNameInput, brandNameError);
+}
 
-    clearFieldError(brandWebsiteInput, brandWebsiteError);
 
-    brandLogoInput?.classList.remove("is-invalid");
 
-    primaryColorInput?.classList.remove("is-invalid");
+const toast =
+document.createElement("div");
 
-    secondaryColorInput?.classList.remove("is-invalid");
 
-    if (brandFormError) {
-      brandFormError.textContent = "";
 
-      brandFormError.classList.add("hidden");
-    }
-  }
+toast.className =
+`toast is-${type}`;
 
-  function updateDescriptionCounter() {
-    if (!brandDescriptionInput || !brandDescriptionCounter) {
-      return;
-    }
 
-    const currentLength = brandDescriptionInput.value.length;
 
-    brandDescriptionCounter.textContent = `${currentLength}/1000`;
-  }
+toast.innerHTML=`
 
-  function setBrandFormSubmitting(isSubmitting) {
-    const isEditing = Boolean(brandIdInput?.value.trim());
+<strong>
+${title}
+</strong>
 
-    if (brandFormSubmitButton) {
-      brandFormSubmitButton.disabled = isSubmitting;
+<p>
+${message}
+</p>
 
-      brandFormSubmitButton.setAttribute("aria-busy", String(isSubmitting));
-    }
+`;
 
-    if (brandFormSubmitLoader) {
-      brandFormSubmitLoader.classList.toggle("hidden", !isSubmitting);
-    }
 
-    if (!brandFormSubmitText) {
-      return;
-    }
 
-    if (isSubmitting) {
-      brandFormSubmitText.textContent = isEditing ? "A guardar..." : "A criar...";
+toastContainer.appendChild(toast);
 
-      return;
-    }
 
-    brandFormSubmitText.textContent = isEditing ? "Guardar alterações" : "Criar marca";
-  }
 
-  function resetBrandForm() {
-    brandForm?.reset();
+setTimeout(()=>{
 
-    if (brandIdInput) {
-      brandIdInput.value = "";
-    }
+toast.remove();
 
-    if (primaryColorInput) {
-      primaryColorInput.value = "#6D28D9";
-    }
+},5000);
 
-    if (primaryColorPicker) {
-      primaryColorPicker.value = "#6D28D9";
-    }
 
-    if (secondaryColorInput) {
-      secondaryColorInput.value = "#A78BFA";
-    }
+}
 
-    if (secondaryColorPicker) {
-      secondaryColorPicker.value = "#A78BFA";
-    }
 
-    if (brandLanguageInput) {
-      brandLanguageInput.value = "pt-PT";
-    }
 
-    if (brandModalTitle) {
-      brandModalTitle.textContent = "Nova marca";
-    }
 
-    if (brandFormSubmitText) {
-      brandFormSubmitText.textContent = "Criar marca";
-    }
 
-    clearFormErrors();
-    updateDescriptionCounter();
-  }
 
-  function getLanguageForForm(language) {
-    const legacyLanguages = {
-      en: "en-US",
-      es: "es-ES",
-    };
+/* ======================================================
+   WORKSPACE
+====================================================== */
 
-    return legacyLanguages[language] || language || "pt-PT";
-  }
 
-  function setLanguageFormValue(language) {
-    if (!brandLanguageInput) {
-      return;
-    }
+async function loadUserProfile(userId){
 
-    const normalizedLanguage = getLanguageForForm(language);
 
-    const optionExists = Array.from(brandLanguageInput.options).some(
-      (option) => option.value === normalizedLanguage
-    );
+const {
 
-    if (!optionExists) {
-      const newOption = document.createElement("option");
+data,
 
-      newOption.value = normalizedLanguage;
+error
 
-      newOption.textContent = normalizedLanguage;
+}
 
-      brandLanguageInput.appendChild(newOption);
-    }
+=
+await supabaseClient
 
-    brandLanguageInput.value = normalizedLanguage;
-  }
+.from("profiles")
 
-  function openCreateBrandModal() {
-    resetBrandForm();
-    openModal(brandModal);
+.select("full_name")
 
-    window.setTimeout(() => {
-      brandNameInput?.focus();
-    }, 100);
-  }
+.eq("id",userId)
 
-  function openEditBrandModal(brandId) {
-    const brand = brands.find((item) => item.id === brandId);
+.maybeSingle();
 
-    if (!brand) {
-      showToast("error", "Marca não encontrada", "Não foi possível carregar os dados da marca.");
 
-      return;
-    }
 
-    resetBrandForm();
+if(error){
 
-    if (brandIdInput) {
-      brandIdInput.value = brand.id;
-    }
+console.warn(error.message);
 
-    if (brandNameInput) {
-      brandNameInput.value = brand.name || "";
-    }
+return null;
 
-    if (brandIndustryInput) {
-      brandIndustryInput.value = brand.industry || "";
-    }
+}
 
-    if (brandDescriptionInput) {
-      brandDescriptionInput.value = brand.description || "";
-    }
 
-    if (brandWebsiteInput) {
-      brandWebsiteInput.value = brand.website_url || "";
-    }
 
-    if (brandLogoInput) {
-      brandLogoInput.value = brand.logo_url || "";
-    }
+return data;
 
-    setLanguageFormValue(brand.default_language);
 
-    const primaryColor = getSafeColor(brand.primary_color, "#6D28D9");
+}
 
-    const secondaryColor = getSafeColor(brand.secondary_color, "#A78BFA");
 
-    if (primaryColorInput) {
-      primaryColorInput.value = primaryColor;
-    }
 
-    if (primaryColorPicker) {
-      primaryColorPicker.value = primaryColor;
-    }
 
-    if (secondaryColorInput) {
-      secondaryColorInput.value = secondaryColor;
-    }
 
-    if (secondaryColorPicker) {
-      secondaryColorPicker.value = secondaryColor;
-    }
 
-    if (brandModalTitle) {
-      brandModalTitle.textContent = "Editar marca";
-    }
 
-    if (brandFormSubmitText) {
-      brandFormSubmitText.textContent = "Guardar alterações";
-    }
+async function loadCurrentWorkspace(userId){
 
-    updateDescriptionCounter();
-    clearFormErrors();
-    openModal(brandModal);
 
-    window.setTimeout(() => {
-      brandNameInput?.focus();
-    }, 100);
-  }
+const {
 
-  function validateBrandForm() {
-    clearFormErrors();
+data:membership,
 
-    let isValid = true;
+error
 
-    const brandName = brandNameInput?.value.trim() || "";
+}
 
-    const website = brandWebsiteInput?.value.trim() || "";
+=
+await supabaseClient
 
-    const logoUrl = brandLogoInput?.value.trim() || "";
+.from("workspace_members")
 
-    const primaryColor = primaryColorInput?.value.trim() || "";
+.select(
+"workspace_id, role, status"
+)
 
-    const secondaryColor = secondaryColorInput?.value.trim() || "";
+.eq(
+"user_id",
+userId
+)
 
-    if (!brandName) {
-      setFieldError(brandNameInput, brandNameError, "Informe o nome da marca.");
+.eq(
+"status",
+"active"
+)
 
-      isValid = false;
-    } else if (brandName.length < 2) {
-      setFieldError(brandNameInput, brandNameError, "O nome deve ter pelo menos 2 caracteres.");
+.limit(1)
 
-      isValid = false;
-    } else if (brandName.length > 100) {
-      setFieldError(brandNameInput, brandNameError, "O nome deve ter no máximo 100 caracteres.");
+.maybeSingle();
 
-      isValid = false;
-    }
 
-    if (!isValidHttpUrl(website)) {
-      setFieldError(
-        brandWebsiteInput,
-        brandWebsiteError,
-        "Informe um endereço válido iniciado por http:// ou https://."
-      );
 
-      isValid = false;
-    }
+if(error){
 
-    if (!isValidHttpUrl(logoUrl)) {
-      brandLogoInput?.classList.add("is-invalid");
+throw error;
 
-      setGeneralFormError("A URL do logótipo deve começar com http:// ou https://.");
+}
 
-      isValid = false;
-    }
 
-    if (primaryColor && !isValidHexColor(primaryColor)) {
-      primaryColorInput?.classList.add("is-invalid");
 
-      setGeneralFormError("A cor principal deve seguir o formato #RRGGBB.");
+if(!membership?.workspace_id){
 
-      isValid = false;
-    }
+throw new Error(
+"Workspace não encontrado"
+);
 
-    if (secondaryColor && !isValidHexColor(secondaryColor)) {
-      secondaryColorInput?.classList.add("is-invalid");
+}
 
-      setGeneralFormError("A cor secundária deve seguir o formato #RRGGBB.");
 
-      isValid = false;
-    }
 
-    return isValid;
-  }
+const {
 
-  /* ======================================================
-       Campos do formulário
-    ====================================================== */
+data:workspace,
 
-  brandDescriptionInput?.addEventListener("input", updateDescriptionCounter);
+error:workspaceError
 
-  primaryColorPicker?.addEventListener("input", () => {
-    if (!primaryColorInput) {
-      return;
-    }
+}
 
-    primaryColorInput.value = primaryColorPicker.value.toUpperCase();
-  });
+=
+await supabaseClient
 
-  primaryColorInput?.addEventListener("input", () => {
-    const color = normalizeHexColor(primaryColorInput.value);
+.from("workspaces")
 
-    primaryColorInput.value = color;
+.select(
+"id,name,status"
+)
 
-    primaryColorInput.classList.remove("is-invalid");
+.eq(
+"id",
+membership.workspace_id
+)
 
-    if (primaryColorPicker && isValidHexColor(color)) {
-      primaryColorPicker.value = color;
-    }
-  });
+.single();
 
-  secondaryColorPicker?.addEventListener("input", () => {
-    if (!secondaryColorInput) {
-      return;
-    }
 
-    secondaryColorInput.value = secondaryColorPicker.value.toUpperCase();
-  });
 
-  secondaryColorInput?.addEventListener("input", () => {
-    const color = normalizeHexColor(secondaryColorInput.value);
+if(workspaceError){
 
-    secondaryColorInput.value = color;
+throw workspaceError;
 
-    secondaryColorInput.classList.remove("is-invalid");
+}
 
-    if (secondaryColorPicker && isValidHexColor(color)) {
-      secondaryColorPicker.value = color;
-    }
-  });
 
-  brandNameInput?.addEventListener("input", () => {
-    clearFieldError(brandNameInput, brandNameError);
-  });
 
-  brandWebsiteInput?.addEventListener("input", () => {
-    clearFieldError(brandWebsiteInput, brandWebsiteError);
-  });
+return {
 
-  brandLogoInput?.addEventListener("input", () => {
-    brandLogoInput.classList.remove("is-invalid");
-  });
+...workspace,
 
-  updateDescriptionCounter();
+role:membership.role
 
-  /* ======================================================
-       Criar e editar marca
-    ====================================================== */
+};
 
-  brandForm?.addEventListener("submit", async (event) => {
-    event.preventDefault();
 
-    const isValid = validateBrandForm();
+}
 
-    if (!isValid) {
-      showToast("error", "Verifique o formulário", "Existem campos que precisam ser corrigidos.");
+/* ======================================================
+   IDENTIDADE DO DASHBOARD
+====================================================== */
 
-      return;
-    }
 
-    if (!currentWorkspace?.id) {
-      showToast(
-        "error",
-        "Workspace indisponível",
-        "Não foi possível identificar o workspace atual."
-      );
+function updateDashboardIdentity(
+user,
+profile,
+workspace
+){
 
-      return;
-    }
 
-    const editingBrandId = brandIdInput?.value.trim() || null;
+const name =
+profile?.full_name ||
+user.email?.split("@")[0] ||
+"Utilizador";
 
-    const isEditing = Boolean(editingBrandId);
 
-    setBrandFormSubmitting(true);
+const avatar =
+name
+.charAt(0)
+.toUpperCase();
 
-    if (brandFormError) {
-      brandFormError.textContent = "";
 
-      brandFormError.classList.add("hidden");
-    }
 
-    const commonParameters = {
-      brand_name: brandNameInput.value.trim(),
+if(currentWorkspaceName){
 
-      brand_description: brandDescriptionInput?.value.trim() || null,
+currentWorkspaceName.textContent =
+workspace.name;
 
-      brand_industry: brandIndustryInput?.value.trim() || null,
+}
 
-      brand_website_url: brandWebsiteInput?.value.trim() || null,
 
-      brand_primary_color: primaryColorInput?.value.trim() || "#6D28D9",
+if(sidebarUserName){
 
-      brand_secondary_color: secondaryColorInput?.value.trim() || "#A78BFA",
+sidebarUserName.textContent =
+name;
 
-      brand_logo_url: brandLogoInput?.value.trim() || null,
+}
 
-      brand_default_language: brandLanguageInput?.value || "pt-PT",
-    };
 
-    try {
-      const functionName = isEditing ? "update_brand" : "create_brand";
+if(sidebarUserEmail){
 
-      const parameters = isEditing
-        ? {
-            target_brand_id: editingBrandId,
+sidebarUserEmail.textContent =
+user.email;
 
-            ...commonParameters,
-          }
-        : {
-            target_workspace_id: currentWorkspace.id,
+}
 
-            ...commonParameters,
-          };
 
-      const { data, error } = await supabaseClient.rpc(functionName, parameters);
+if(sidebarUserAvatar){
 
-      if (error) {
-        throw error;
-      }
+sidebarUserAvatar.textContent =
+avatar;
 
-      console.log(isEditing ? "Marca atualizada:" : "Marca criada:", data);
+}
 
-      closeModal(brandModal);
 
-      await loadBrands();
+if(topbarAvatar){
 
-      showToast(
-        "success",
-        isEditing ? "Marca atualizada" : "Marca criada",
-        isEditing
-          ? "As alterações foram guardadas com sucesso."
-          : "A nova marca foi adicionada ao workspace."
-      );
-    } catch (error) {
-      console.error(isEditing ? "Erro ao atualizar marca:" : "Erro ao criar marca:", error);
+topbarAvatar.textContent =
+avatar;
 
-      const message =
-        error?.message ||
-        (isEditing ? "Não foi possível atualizar a marca." : "Não foi possível criar a marca.");
+}
 
-      setGeneralFormError(message);
 
-      showToast("error", isEditing ? "Erro ao atualizar marca" : "Erro ao criar marca", message);
-    } finally {
-      setBrandFormSubmitting(false);
-    }
-  });
+}
 
-  /* ======================================================
-       Arquivar e restaurar marcas
-    ====================================================== */
 
-  function openArchiveBrandModal(brandId) {
-    if (!archiveBrandModal) {
-      console.error('Elemento com id="archive-brand-modal" não encontrado.');
 
-      return;
-    }
 
-    selectedBrandId = brandId;
 
-    openModal(archiveBrandModal);
-  }
 
-  function closeArchiveBrandModal() {
-    closeModal(archiveBrandModal);
+async function initializeWorkspaceContext(){
 
-    selectedBrandId = null;
-  }
 
-  function setArchiveSubmitting(isSubmitting) {
-    if (!archiveBrandConfirm) {
-      return;
-    }
+const user =
+await window.studioVAuthReady;
 
-    archiveBrandConfirm.disabled = isSubmitting;
 
-    archiveBrandConfirm.setAttribute("aria-busy", String(isSubmitting));
 
-    archiveBrandConfirm.textContent = isSubmitting ? "A arquivar..." : "Arquivar marca";
-  }
+if(!user){
 
-  async function archiveBrand(brandId) {
-    setArchiveSubmitting(true);
+return;
 
-    try {
-      const { data, error } = await supabaseClient.rpc("archive_brand", {
-        target_brand_id: brandId,
-      });
+}
 
-      if (error) {
-        throw error;
-      }
 
-      console.log("Marca arquivada:", data);
 
-      closeArchiveBrandModal();
+try{
 
-      await loadBrands();
 
-      showToast("success", "Marca arquivada", "A marca foi arquivada com sucesso.");
-    } catch (error) {
-      console.error("Erro ao arquivar marca:", error);
+const [
 
-      showToast(
-        "error",
-        "Erro ao arquivar marca",
-        error?.message || "Não foi possível arquivar a marca."
-      );
-    } finally {
-      setArchiveSubmitting(false);
-    }
-  }
+profile,
 
-  async function restoreBrand(brandId) {
-    try {
-      const { data, error } = await supabaseClient.rpc("restore_brand", {
-        target_brand_id: brandId,
-      });
+workspace
 
-      if (error) {
-        throw error;
-      }
+]
 
-      console.log("Marca restaurada:", data);
+=
+await Promise.all([
 
-      await loadBrands();
+loadUserProfile(user.id),
 
-      showToast("success", "Marca restaurada", "A marca voltou a ficar ativa.");
-    } catch (error) {
-      console.error("Erro ao restaurar marca:", error);
+loadCurrentWorkspace(user.id)
 
-      showToast(
-        "error",
-        "Erro ao restaurar marca",
-        error?.message || "Não foi possível restaurar a marca."
-      );
-    }
-  }
+]);
 
-  /* ======================================================
-       Eventos dos modais
-    ====================================================== */
 
-  createBrandButton?.addEventListener("click", openCreateBrandModal);
 
-  emptyCreateBrandButton?.addEventListener("click", openCreateBrandModal);
+currentWorkspace =
+workspace;
 
-  brandModalClose?.addEventListener("click", () => {
-    closeModal(brandModal);
-  });
 
-  brandFormCancel?.addEventListener("click", () => {
-    closeModal(brandModal);
-  });
 
-  brandModal?.addEventListener("click", (event) => {
-    if (event.target === brandModal) {
-      closeModal(brandModal);
-    }
-  });
+updateDashboardIdentity(
+user,
+profile,
+workspace
+);
 
-  archiveBrandCancel?.addEventListener("click", closeArchiveBrandModal);
 
-  archiveBrandModal?.addEventListener("click", (event) => {
-    if (event.target === archiveBrandModal) {
-      closeArchiveBrandModal();
-    }
-  });
 
-  archiveBrandConfirm?.addEventListener("click", async () => {
-    if (!selectedBrandId) {
-      return;
-    }
+console.log(
+"Workspace carregado:",
+workspace
+);
 
-    await archiveBrand(selectedBrandId);
-  });
 
-  /* ======================================================
-       Eventos dos cartões
-    ====================================================== */
 
-  brandsGrid?.addEventListener("click", async (event) => {
-    const actionButton = event.target.closest("[data-brand-action]");
+}catch(error){
 
-    if (!actionButton) {
-      return;
-    }
 
-    const brandCard = actionButton.closest("[data-brand-id]");
+console.error(
+"Erro workspace:",
+error
+);
 
-    const brandId = brandCard?.dataset.brandId;
 
-    const action = actionButton.dataset.brandAction;
 
-    console.log("Ação da marca:", action, brandId);
+showToast(
+"error",
+"Erro",
+"Não foi possível carregar o workspace."
+);
 
-    if (!brandId) {
-      return;
-    }
 
-    if (action === "edit") {
-      openEditBrandModal(brandId);
+}
 
-      return;
-    }
 
-    if (action === "archive") {
-      openArchiveBrandModal(brandId);
 
-      return;
-    }
+}
 
-    if (action === "restore") {
-      actionButton.disabled = true;
 
-      await restoreBrand(brandId);
 
-      /*
-       * O botão pode já não existir após
-       * a lista ser renderizada novamente.
-       */
-      if (actionButton.isConnected) {
-        actionButton.disabled = false;
-      }
-    }
-  });
 
-  /* ======================================================
-       Pesquisa e filtros
-    ====================================================== */
 
-  brandsSearchInput?.addEventListener("input", applyBrandFilters);
 
-  brandsStatusFilter?.addEventListener("change", applyBrandFilters);
 
-  brandsSortSelect?.addEventListener("change", applyBrandFilters);
 
-  clearBrandFiltersButton?.addEventListener("click", () => {
-    if (brandsSearchInput) {
-      brandsSearchInput.value = "";
-    }
 
-    if (brandsStatusFilter) {
-      brandsStatusFilter.value = "all";
-    }
+/* ======================================================
+   ESTADOS DA PÁGINA
+====================================================== */
 
-    if (brandsSortSelect) {
-      brandsSortSelect.value = "newest";
-    }
 
-    applyBrandFilters();
+function setBrandsView(view){
 
-    showToast("info", "Filtros removidos", "A pesquisa e os filtros foram redefinidos.");
-  });
 
-  /* ======================================================
-       Tecla Escape
-    ====================================================== */
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") {
-      return;
-    }
+brandsLoading?.classList.toggle(
+"hidden",
+view !== "loading"
+);
 
-    if (archiveBrandModal && archiveBrandModal.classList.contains("is-open")) {
-      closeArchiveBrandModal();
-      return;
-    }
 
-    if (brandModal && brandModal.classList.contains("is-open")) {
-      closeModal(brandModal);
-      return;
-    }
 
-    if (body.classList.contains("sidebar-open")) {
-      closeSidebar();
-    }
-  });
+brandsEmpty?.classList.toggle(
+"hidden",
+view !== "empty"
+);
 
-  /* ======================================================
-       Inicialização
-    ====================================================== */
 
-  await initializeWorkspaceContext();
 
-  if (currentWorkspace) {
-    await loadBrands();
-  }
+brandsNoResults?.classList.toggle(
+"hidden",
+view !== "no-results"
+);
 
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
+
+
+brandsGrid?.classList.toggle(
+"hidden",
+view !== "grid"
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+function updateBrandCounters(){
+
+
+const active =
+brands.filter(
+brand =>
+brand.status === "active"
+)
+.length;
+
+
+
+const archived =
+brands.filter(
+brand =>
+brand.status === "archived"
+)
+.length;
+
+
+
+if(totalBrandsCount){
+
+totalBrandsCount.textContent =
+brands.length;
+
+}
+
+
+
+if(activeBrandsCount){
+
+activeBrandsCount.textContent =
+active;
+
+}
+
+
+
+if(archivedBrandsCount){
+
+archivedBrandsCount.textContent =
+archived;
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ======================================================
+   FILTROS
+====================================================== */
+
+
+function getFilteredAndSortedBrands(){
+
+
+const search =
+normalizeSearchText(
+brandsSearchInput?.value || ""
+);
+
+
+
+const status =
+brandsStatusFilter?.value ||
+"all";
+
+
+
+const sort =
+brandsSortSelect?.value ||
+"newest";
+
+
+
+
+let filtered =
+brands.filter(brand=>{
+
+
+const matchStatus =
+status==="all" ||
+brand.status===status;
+
+
+
+const content =
+normalizeSearchText(
+
+[
+brand.name,
+
+brand.industry,
+
+brand.description,
+
+brand.website_url
+
+]
+
+.filter(Boolean)
+
+.join(" ")
+
+);
+
+
+
+const matchSearch =
+!search ||
+content.includes(search);
+
+
+
+return (
+matchStatus &&
+matchSearch
+);
+
+
+});
+
+
+
+
+
+
+filtered.sort(
+(a,b)=>{
+
+
+if(sort==="name-asc"){
+
+return a.name.localeCompare(
+b.name
+);
+
+}
+
+
+
+if(sort==="name-desc"){
+
+return b.name.localeCompare(
+a.name
+);
+
+}
+
+
+
+if(sort==="oldest"){
+
+return new Date(a.created_at)
+-
+new Date(b.created_at);
+
+}
+
+
+
+return new Date(b.created_at)
+-
+new Date(a.created_at);
+
+
+
+}
+
+);
+
+
+
+return filtered;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function applyBrandFilters(){
+
+
+if(brands.length===0){
+
+setBrandsView(
+"empty"
+);
+
+return;
+
+}
+
+
+
+const filtered =
+getFilteredAndSortedBrands();
+
+
+
+if(filtered.length===0){
+
+
+if(brandsGrid){
+
+brandsGrid.innerHTML="";
+
+}
+
+
+
+setBrandsView(
+"no-results"
+);
+
+
+
+return;
+
+}
+
+
+
+renderBrands(filtered);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ======================================================
+   RENDER CARDS
+====================================================== */
+
+
+function renderBrands(items=[]){
+
+
+if(!brandsGrid){
+
+return;
+
+}
+
+
+
+brandsGrid.innerHTML="";
+
+
+
+
+
+items.forEach(brand=>{
+
+
+const primary =
+getSafeColor(
+brand.primary_color,
+"#6D28D9"
+);
+
+
+
+const secondary =
+getSafeColor(
+brand.secondary_color,
+"#A78BFA"
+);
+
+
+
+const language =
+getLanguageInfo(
+brand.default_language
+);
+
+
+
+const archived =
+brand.status==="archived";
+
+
+
+const initial =
+brand.name
+?.charAt(0)
+.toUpperCase()
+||
+"M";
+
+
+
+
+
+const card =
+document.createElement("article");
+
+
+
+card.className =
+"content-card";
+
+
+
+card.dataset.brandId =
+brand.id;
+
+
+
+
+
+
+card.innerHTML = `
+
+
+<header class="content-card-header">
+
+
+<div class="content-card-identity">
+
+
+<div
+
+class="content-card-avatar"
+
+style="background:${primary}"
+
+>
+
+
+${
+brand.logo_url
+
+?
+
+`
+
+<img
+
+src="${escapeHtml(brand.logo_url)}"
+
+alt="${escapeHtml(brand.name)}"
+
+>
+
+`
+
+:
+
+initial
+
+}
+
+
+</div>
+
+
+
+
+
+<div>
+
+
+<h2 class="content-card-title">
+
+${escapeHtml(brand.name)}
+
+</h2>
+
+
+
+
+<p class="content-card-subtitle">
+
+${escapeHtml(
+brand.industry ||
+"Segmento não definido"
+)}
+
+</p>
+
+
+
+</div>
+
+
+
+</div>
+
+
+</header>
+
+
+
+
+
+
+
+<div class="content-card-body">
+
+
+<p>
+
+${escapeHtml(
+brand.description ||
+"Nenhuma descrição adicionada."
+)}
+
+</p>
+
+
+
+
+
+
+<div class="brand-colors">
+
+
+<span
+
+style="background:${primary}"
+
+></span>
+
+
+<span
+
+style="background:${secondary}"
+
+></span>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="brand-information">
+
+
+
+<div>
+
+<span>
+Idioma
+</span>
+
+
+<strong>
+
+${language.short}
+
+</strong>
+
+
+</div>
+
+
+
+
+<div>
+
+<span>
+Website
+</span>
+
+
+<strong>
+
+${escapeHtml(
+brand.website_url ||
+"Não definido"
+)}
+
+</strong>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<footer class="content-card-footer">
+
+
+
+<div>
+
+
+<span
+
+class="status-badge ${
+archived
+?
+"status-inactive"
+:
+"status-active"
+}"
+
+>
+
+
+${
+archived
+?
+"Arquivada"
+:
+"Ativa"
+}
+
+
+</span>
+
+
+
+<small>
+
+Criada em
+
+${formatBrandDate(
+brand.created_at
+)}
+
+</small>
+
+
+</div>
+
+
+
+
+
+
+<div class="content-card-actions">
+
+
+
+<button
+
+type="button"
+
+class="brand-action-button"
+
+data-brand-action="edit"
+
+>
+
+<i data-lucide="pencil"></i>
+
+Editar
+
+</button>
+
+
+
+
+
+
+<button
+
+type="button"
+
+class="brand-action-button"
+
+data-brand-action="${
+archived
+?
+"restore"
+:
+"archive"
+}"
+
+>
+
+<i data-lucide="${
+archived
+?
+"rotate-ccw"
+:
+"archive"
+}"></i>
+
+
+${
+archived
+?
+"Restaurar"
+:
+"Arquivar"
+}
+
+
+</button>
+
+
+
+
+</div>
+
+
+
+</footer>
+
+
+
+`;
+
+
+
+
+
+brandsGrid.appendChild(card);
+
+
+
+});
+
+
+
+
+setBrandsView(
+"grid"
+);
+
+
+
+window.lucide?.createIcons();
+
+
+
+}
+
+/* ======================================================
+   CARREGAR MARCAS
+====================================================== */
+
+
+async function loadBrands(){
+
+
+if(!currentWorkspace?.id){
+
+return;
+
+}
+
+
+
+setBrandsView("loading");
+
+
+
+try{
+
+
+const {
+
+data,
+
+error
+
+}
+
+=
+await supabaseClient
+
+.from("brands")
+
+.select("*")
+
+.eq(
+"workspace_id",
+currentWorkspace.id
+)
+
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+
+
+
+if(error){
+
+throw error;
+
+}
+
+
+
+brands =
+data || [];
+
+
+
+updateBrandCounters();
+
+
+
+if(brands.length===0){
+
+setBrandsView("empty");
+
+return;
+
+}
+
+
+
+applyBrandFilters();
+
+
+
+}catch(error){
+
+
+console.error(
+"Erro ao carregar marcas:",
+error
+);
+
+
+
+showToast(
+"error",
+"Erro",
+"Não foi possível carregar marcas."
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ======================================================
+   MODAIS
+====================================================== */
+
+
+function openModal(modal){
+
+
+if(!modal){
+
+return;
+
+}
+
+
+
+lastFocusedElement =
+document.activeElement;
+
+
+
+modal.classList.remove(
+"hidden"
+);
+
+
+
+modal.classList.add(
+"is-open"
+);
+
+
+
+modal.setAttribute(
+"aria-hidden",
+"false"
+);
+
+
+
+body.classList.add(
+"modal-open"
+);
+
+
+
+}
+
+
+
+
+
+function closeModal(modal){
+
+
+if(!modal){
+
+return;
+
+}
+
+
+
+modal.classList.remove(
+"is-open"
+);
+
+
+
+modal.classList.add(
+"hidden"
+);
+
+
+
+modal.setAttribute(
+"aria-hidden",
+"true"
+);
+
+
+
+body.classList.remove(
+"modal-open"
+);
+
+
+
+lastFocusedElement?.focus();
+
+
+
+}
+
+
+
+
+
+
+
+
+/* ======================================================
+   FORMULÁRIO
+====================================================== */
+
+
+function clearForm(){
+
+
+brandForm?.reset();
+
+
+
+if(brandIdInput){
+
+brandIdInput.value="";
+
+}
+
+
+
+if(primaryColorInput){
+
+primaryColorInput.value="#6D28D9";
+
+}
+
+
+
+if(secondaryColorInput){
+
+secondaryColorInput.value="#A78BFA";
+
+}
+
+
+
+if(brandModalTitle){
+
+brandModalTitle.textContent =
+"Nova marca";
+
+}
+
+
+
+if(brandFormSubmitText){
+
+brandFormSubmitText.textContent =
+"Criar marca";
+
+}
+
+
+
+if(brandFormError){
+
+brandFormError.textContent="";
+
+}
+
+
+
+}
+
+
+
+
+function openCreateBrandModal(){
+
+
+clearForm();
+
+
+openModal(
+brandModal
+);
+
+
+
+}
+
+
+
+
+
+function openEditBrandModal(id){
+
+
+const brand =
+brands.find(
+item=>item.id===id
+);
+
+
+
+if(!brand){
+
+return;
+
+}
+
+
+
+clearForm();
+
+
+
+brandIdInput.value =
+brand.id;
+
+
+
+brandNameInput.value =
+brand.name || "";
+
+
+
+brandIndustryInput.value =
+brand.industry || "";
+
+
+
+brandDescriptionInput.value =
+brand.description || "";
+
+
+
+brandWebsiteInput.value =
+brand.website_url || "";
+
+
+
+brandLogoInput.value =
+brand.logo_url || "";
+
+
+
+brandLanguageInput.value =
+brand.default_language || "pt-PT";
+
+
+
+primaryColorInput.value =
+brand.primary_color ||
+"#6D28D9";
+
+
+
+secondaryColorInput.value =
+brand.secondary_color ||
+"#A78BFA";
+
+
+
+brandModalTitle.textContent =
+"Editar marca";
+
+
+
+brandFormSubmitText.textContent =
+"Guardar alterações";
+
+
+
+openModal(
+brandModal
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+async function saveBrand(event){
+
+
+event.preventDefault();
+
+
+
+
+const name =
+brandNameInput.value.trim();
+
+
+
+if(!name){
+
+showToast(
+"error",
+"Erro",
+"Informe o nome da marca."
+);
+
+
+return;
+
+}
+
+
+
+const editing =
+Boolean(
+brandIdInput.value
+);
+
+
+
+
+
+const payload = {
+
+
+brand_name:name,
+
+
+brand_description:
+brandDescriptionInput.value.trim(),
+
+
+brand_industry:
+brandIndustryInput.value.trim(),
+
+
+brand_website_url:
+brandWebsiteInput.value.trim(),
+
+
+brand_logo_url:
+brandLogoInput.value.trim(),
+
+
+brand_primary_color:
+primaryColorInput.value,
+
+
+brand_secondary_color:
+secondaryColorInput.value,
+
+
+brand_default_language:
+brandLanguageInput.value
+
+
+};
+
+
+
+
+
+try{
+
+
+let response;
+
+
+
+if(editing){
+
+
+response =
+await supabaseClient.rpc(
+"update_brand",
+{
+
+target_brand_id:
+brandIdInput.value,
+
+...payload
+
+}
+);
+
+
+
+}else{
+
+
+response =
+await supabaseClient.rpc(
+"create_brand",
+{
+
+target_workspace_id:
+currentWorkspace.id,
+
+...payload
+
+}
+);
+
+
+
+}
+
+
+
+if(response.error){
+
+throw response.error;
+
+}
+
+
+
+closeModal(
+brandModal
+);
+
+
+
+await loadBrands();
+
+
+
+showToast(
+"success",
+"Sucesso",
+editing
+?
+"Marca atualizada."
+:
+"Marca criada."
+);
+
+
+
+}catch(error){
+
+
+console.error(error);
+
+
+
+showToast(
+"error",
+"Erro",
+error.message
+);
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+/* ======================================================
+   ARQUIVAR / RESTAURAR
+====================================================== */
+
+
+function openArchiveBrandModal(id){
+
+
+selectedBrandId =
+id;
+
+
+openModal(
+archiveBrandModal
+);
+
+
+
+}
+
+
+
+
+async function archiveBrand(){
+
+
+if(!selectedBrandId){
+
+return;
+
+}
+
+
+
+try{
+
+
+const {
+
+error
+
+}
+
+=
+await supabaseClient.rpc(
+"archive_brand",
+{
+
+target_brand_id:
+selectedBrandId
+
+}
+);
+
+
+
+if(error){
+
+throw error;
+
+}
+
+
+
+closeModal(
+archiveBrandModal
+);
+
+
+
+await loadBrands();
+
+
+
+showToast(
+"success",
+"Marca arquivada",
+"A marca foi arquivada."
+);
+
+
+
+}catch(error){
+
+
+console.error(error);
+
+
+
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+async function restoreBrand(id){
+
+
+try{
+
+
+const {
+
+error
+
+}
+
+=
+await supabaseClient.rpc(
+"restore_brand",
+{
+
+target_brand_id:id
+
+}
+);
+
+
+
+if(error){
+
+throw error;
+
+}
+
+
+
+await loadBrands();
+
+
+
+showToast(
+"success",
+"Marca restaurada",
+"A marca voltou a ficar ativa."
+);
+
+
+
+}catch(error){
+
+
+console.error(error);
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+/* ======================================================
+   EVENTOS
+====================================================== */
+
+
+createBrandButton?.addEventListener(
+"click",
+openCreateBrandModal
+);
+
+
+
+emptyCreateBrandButton?.addEventListener(
+"click",
+openCreateBrandModal
+);
+
+
+
+brandModalClose?.addEventListener(
+"click",
+()=>{
+
+closeModal(
+brandModal
+);
+
+});
+
+
+
+brandFormCancel?.addEventListener(
+"click",
+()=>{
+
+closeModal(
+brandModal
+);
+
+});
+
+
+
+brandForm?.addEventListener(
+"submit",
+saveBrand
+);
+
+
+
+
+archiveBrandConfirm?.addEventListener(
+"click",
+archiveBrand
+);
+
+
+
+
+
+brandsGrid?.addEventListener(
+"click",
+async event=>{
+
+
+const button =
+event.target.closest(
+"[data-brand-action]"
+);
+
+
+
+if(!button){
+
+return;
+
+}
+
+
+
+const card =
+button.closest(
+"[data-brand-id]"
+);
+
+
+
+const id =
+card.dataset.brandId;
+
+
+
+const action =
+button.dataset.brandAction;
+
+
+
+
+if(action==="edit"){
+
+openEditBrandModal(id);
+
+}
+
+
+
+if(action==="archive"){
+
+openArchiveBrandModal(id);
+
+}
+
+
+
+if(action==="restore"){
+
+await restoreBrand(id);
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+brandsSearchInput?.addEventListener(
+"input",
+applyBrandFilters
+);
+
+
+
+brandsStatusFilter?.addEventListener(
+"change",
+applyBrandFilters
+);
+
+
+
+brandsSortSelect?.addEventListener(
+"change",
+applyBrandFilters
+);
+
+
+
+
+
+
+
+
+
+/* ======================================================
+   SIDEBAR MOBILE
+====================================================== */
+
+
+sidebarOpenButton?.addEventListener(
+"click",
+()=>{
+
+body.classList.add(
+"sidebar-open"
+);
+
+});
+
+
+
+sidebarCloseButton?.addEventListener(
+"click",
+()=>{
+
+body.classList.remove(
+"sidebar-open"
+);
+
+});
+
+
+
+sidebarOverlay?.addEventListener(
+"click",
+()=>{
+
+body.classList.remove(
+"sidebar-open"
+);
+
+});
+
+
+
+
+
+
+
+
+
+/* ======================================================
+   INICIALIZAÇÃO
+====================================================== */
+
+
+await initializeWorkspaceContext();
+
+
+
+if(currentWorkspace){
+
+await loadBrands();
+
+}
+
+
+
+window.lucide?.createIcons();
+
+
+
 });

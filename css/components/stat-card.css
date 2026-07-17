@@ -1,0 +1,117 @@
+/* ==========================================================
+   StudioV — Stat Card Component
+========================================================== */
+
+
+.stat-card {
+
+  background: var(--color-background-surface-light);
+
+  border: 1px solid var(--color-border-light);
+
+  border-radius: var(--radius-lg);
+
+  padding: 24px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  min-height: 96px;
+
+  transition: var(--transition-normal);
+
+}
+
+
+
+.stat-card:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow: var(--shadow-sm);
+
+}
+
+
+
+/* ==========================================================
+   Icon
+========================================================== */
+
+
+.stat-card-icon {
+
+  width: 48px;
+
+  height: 48px;
+
+  border-radius: var(--radius-md);
+
+  background: #ede9fe;
+
+  color: var(--color-primary);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+}
+
+
+
+.stat-card-icon svg {
+
+  width: 24px;
+
+  height: 24px;
+
+}
+
+
+
+
+/* ==========================================================
+   Content
+========================================================== */
+
+
+.stat-card-content {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+}
+
+
+
+.stat-card-label {
+
+  font-size: var(--font-size-small);
+
+  color: var(--color-text-secondary-light);
+
+}
+
+
+
+.stat-card-value {
+
+  font-size: 24px;
+
+  line-height: 32px;
+
+  font-weight: var(--font-weight-bold);
+
+  color: var(--color-text-primary-light);
+
+}

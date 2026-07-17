@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="pt-PT">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Objetivos | StudioV</title>
+
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  />
+
+
+  <!-- Fonts -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- Global -->
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/variables.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/reset.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/typography.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/utilities.css"
+  >
+
+
+  <!-- Components -->
+
+  <link
+    rel="stylesheet"
+    href="/css/components/button.css"
+  >
+
+
+  <!-- Onboarding -->
+
+  <link
+    rel="stylesheet"
+    href="/css/pages/onboarding.css"
+  >
+
+
+</head>
+
+
+<body>
+
+
+<main class="onboarding-layout">
+
+
+<section class="onboarding-card">
+
+
+
+<div class="onboarding-logo">
+
+<img
+src="/assets/logos/svg/logo-studiov2000.png"
+alt="StudioV"
+/>
+
+</div>
+
+
+
+<div class="onboarding-progress">
+
+<span></span>
+<span></span>
+<span class="active"></span>
+<span></span>
+<span></span>
+
+</div>
+
+
+
+
+<div class="onboarding-icon">
+
+<i data-lucide="target"></i>
+
+</div>
+
+
+
+
+<span class="onboarding-eyebrow">
+
+Personalização
+
+</span>
+
+
+
+
+<h1>
+
+Quais são seus principais objetivos?
+
+</h1>
+
+
+
+
+<p>
+
+Escolha as opções que mais representam
+como você pretende utilizar a StudioV.
+
+</p>
+
+
+
+
+<form
+id="goals-form"
+class="onboarding-options"
+>
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="checkbox"
+name="goals"
+value="content"
+/>
+
+
+<div>
+
+<i data-lucide="file-text"></i>
+
+
+<strong>
+Criar conteúdos
+</strong>
+
+
+<span>
+Planejar e organizar publicações.
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="checkbox"
+name="goals"
+value="brands"
+/>
+
+
+<div>
+
+<i data-lucide="palette"></i>
+
+
+<strong>
+Organizar marcas
+</strong>
+
+
+<span>
+Centralizar identidade e informações.
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="checkbox"
+name="goals"
+value="clients"
+/>
+
+
+<div>
+
+<i data-lucide="users"></i>
+
+
+<strong>
+Gerenciar clientes
+</strong>
+
+
+<span>
+Controlar projetos e clientes.
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="checkbox"
+name="goals"
+value="automation"
+/>
+
+
+<div>
+
+<i data-lucide="zap"></i>
+
+
+<strong>
+Automatizar processos
+</strong>
+
+
+<span>
+Ganhar tempo nas tarefas.
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="checkbox"
+name="goals"
+value="analytics"
+/>
+
+
+<div>
+
+<i data-lucide="chart-column"></i>
+
+
+<strong>
+Analisar resultados
+</strong>
+
+
+<span>
+Acompanhar métricas e evolução.
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+<div
+class="onboarding-error hidden"
+id="goals-error"
+>
+
+Selecione pelo menos um objetivo.
+
+</div>
+
+
+
+
+<button
+class="btn btn-primary"
+type="submit"
+>
+
+Continuar
+
+<i data-lucide="arrow-right"></i>
+
+</button>
+
+
+
+</form>
+
+
+
+</section>
+
+
+</main>
+
+
+
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+
+<script>
+
+lucide.createIcons();
+
+</script>
+
+
+<script src="/js/onboarding/goals.js"></script>
+
+
+</body>
+
+</html>

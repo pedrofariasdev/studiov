@@ -1,0 +1,284 @@
+/* ==========================================================
+   StudioV — Workspace Page
+========================================================== */
+
+
+
+/* ==========================================================
+   Page Header
+========================================================== */
+
+
+.page-header {
+
+  margin-bottom: 32px;
+
+}
+
+
+
+.page-header-content h1 {
+
+  margin-top: 8px;
+
+  font-family:
+    var(--font-family-heading);
+
+  font-size:
+    var(--font-size-h1);
+
+  line-height:
+    var(--line-height-h1);
+
+  font-weight:
+    var(--font-weight-bold);
+
+  color:
+    var(--color-text-primary-light);
+
+}
+
+
+
+.page-header-content p {
+
+  margin-top: 12px;
+
+  max-width: 620px;
+
+  color:
+    var(--color-text-secondary-light);
+
+  font-size:
+    var(--font-size-body);
+
+  line-height:
+    var(--line-height-body);
+
+}
+
+
+
+
+
+
+/* ==========================================================
+   Workspace Cards Grid
+========================================================== */
+
+
+.workspace-grid {
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap:
+    var(--spacing-lg);
+
+  margin-bottom:
+    40px;
+
+}
+
+
+
+
+
+
+/* ==========================================================
+   Workspace Card
+========================================================== */
+
+
+
+
+
+
+
+
+.workspace-card:hover {
+
+
+  transform:
+    translateY(-3px);
+
+
+
+  border-color:
+    var(--color-primary-light);
+
+
+}
+
+
+
+
+
+
+
+
+/* ==========================================================
+   Settings Card
+========================================================== */
+
+
+.workspace-settings-card {
+
+
+  padding:
+    32px;
+
+
+
+  background:
+    var(--color-background-surface-light);
+
+
+
+  border:
+    1px solid var(--color-border-light);
+
+
+
+  border-radius:
+    var(--radius-xl);
+
+
+
+  box-shadow:
+    var(--shadow-sm);
+
+
+
+}
+
+
+
+
+
+.workspace-settings-card h2 {
+
+
+  font-family:
+    var(--font-family-heading);
+
+
+
+  font-size:
+    var(--font-size-h2);
+
+
+
+  line-height:
+    var(--line-height-h2);
+
+
+
+  margin-bottom:
+    12px;
+
+
+
+  color:
+    var(--color-text-primary-light);
+
+
+}
+
+
+
+
+
+
+.workspace-settings-card p {
+
+
+  max-width:
+    600px;
+
+
+
+  margin-bottom:
+    24px;
+
+
+
+  color:
+    var(--color-text-secondary-light);
+
+
+
+  line-height:
+    var(--line-height-body);
+
+
+}
+
+
+
+
+
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+
+@media(max-width:1200px){
+
+
+  .workspace-grid {
+
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+
+  }
+
+
+}
+
+
+
+
+
+@media(max-width:768px){
+
+
+  .page-header-content h1 {
+
+
+    font-size:
+      var(--font-size-h2);
+
+
+  }
+
+
+
+  .workspace-grid {
+
+
+    grid-template-columns:
+      1fr;
+
+
+  }
+
+
+
+  .workspace-settings-card {
+
+
+    padding:
+      24px;
+
+
+  }
+
+
+
+}

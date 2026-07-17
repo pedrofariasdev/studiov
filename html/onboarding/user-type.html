@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="pt-PT">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Tipo de utilização | StudioV</title>
+
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  />
+
+
+  <!-- Fonts -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- Global -->
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/variables.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/reset.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/typography.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/utilities.css"
+  >
+
+
+  <!-- Components -->
+
+  <link
+    rel="stylesheet"
+    href="/css/components/button.css"
+  >
+
+
+  <!-- Onboarding -->
+
+  <link
+    rel="stylesheet"
+    href="/css/pages/onboarding.css"
+  >
+
+
+</head>
+
+
+<body>
+
+
+<main class="onboarding-layout">
+
+
+<section class="onboarding-card">
+
+
+
+<div class="onboarding-logo">
+
+<img
+src="/assets/logos/svg/logo-studiov2000.png"
+alt="StudioV"
+/>
+
+</div>
+
+
+
+<div class="onboarding-progress">
+
+<span></span>
+<span class="active"></span>
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+
+
+
+<div class="onboarding-icon">
+
+<i data-lucide="users"></i>
+
+</div>
+
+
+
+
+<span class="onboarding-eyebrow">
+
+Personalização
+
+</span>
+
+
+
+
+<h1>
+
+Como você pretende usar a StudioV?
+
+</h1>
+
+
+
+
+<p>
+
+Isso ajuda a personalizar sua experiência
+e preparar as melhores ferramentas para você.
+
+</p>
+
+
+
+
+<form
+id="user-type-form"
+class="onboarding-options"
+>
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="radio"
+name="user_type"
+value="creator"
+/>
+
+
+<div>
+
+<i data-lucide="video"></i>
+
+
+<strong>
+Criador de conteúdo
+</strong>
+
+
+<span>
+Produzo conteúdos para redes sociais.
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="radio"
+name="user_type"
+value="agency"
+/>
+
+
+<div>
+
+<i data-lucide="briefcase"></i>
+
+
+<strong>
+Agência
+</strong>
+
+
+<span>
+Gerencio marcas e clientes.
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="radio"
+name="user_type"
+value="company"
+/>
+
+
+<div>
+
+<i data-lucide="building-2"></i>
+
+
+<strong>
+Empresa
+</strong>
+
+
+<span>
+Organizo o conteúdo da minha empresa.
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+<label class="onboarding-option">
+
+
+<input
+type="radio"
+name="user_type"
+value="freelancer"
+/>
+
+
+<div>
+
+<i data-lucide="user-round"></i>
+
+
+<strong>
+Freelancer
+</strong>
+
+
+<span>
+Trabalho sozinho com clientes.
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+<div
+class="onboarding-error hidden"
+id="user-type-error"
+>
+
+Selecione uma opção para continuar.
+
+</div>
+
+
+
+
+<button
+class="btn btn-primary"
+type="submit"
+>
+
+Continuar
+
+<i data-lucide="arrow-right"></i>
+
+</button>
+
+
+
+</form>
+
+
+
+</section>
+
+
+</main>
+
+
+
+
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+
+<script>
+
+lucide.createIcons();
+
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script src="/js/services/supabase.js"></script>
+
+
+<script src="/js/onboarding/user-type.js"></script>
+
+
+</body>
+
+</html>

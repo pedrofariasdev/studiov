@@ -44,6 +44,12 @@
 
     <link rel="stylesheet" href="/css/components/button.css" />
 
+    <link rel="stylesheet" href="/css/components/stat-card.css"/>
+
+    <link rel="stylesheet" href="/css/components/content-card.css">
+
+    
+
     <!-- Dashboard CSS -->
     <link rel="stylesheet" href="/css/pages/dashboard.css" />
 
@@ -81,7 +87,7 @@
               </li>
 
               <li>
-                <a href="/html/dashboard/projects.html" class="sidebar-link">
+                <a href="/html/dashboard/workspace.html" class="sidebar-link">
                   <i data-lucide="building-2"></i>
                   <span>Workspace</span>
                 </a>
@@ -306,39 +312,129 @@
 
           <!-- Resumo -->
 
-          <section class="brands-summary" aria-label="Resumo das marcas">
-            <article class="summary-card">
-              <div class="summary-card-icon">
-                <i data-lucide="palette"></i>
-              </div>
+          <section 
+          class="brands-summary" 
+          aria-label="Resumo das marcas"
+          >
 
-              <div class="summary-card-content">
-                <span>Total de marcas</span>
-                <strong id="total-brands-count">0</strong>
-              </div>
-            </article>
 
-            <article class="summary-card">
-              <div class="summary-card-icon">
-                <i data-lucide="circle-check-big"></i>
-              </div>
 
-              <div class="summary-card-content">
-                <span>Marcas ativas</span>
-                <strong id="active-brands-count">0</strong>
-              </div>
-            </article>
+          <article class="stat-card">
 
-            <article class="summary-card">
-              <div class="summary-card-icon">
-                <i data-lucide="archive"></i>
-              </div>
 
-              <div class="summary-card-content">
-                <span>Arquivadas</span>
-                <strong id="archived-brands-count">0</strong>
-              </div>
-            </article>
+          <div class="stat-card-icon">
+
+          <i data-lucide="palette"></i>
+
+          </div>
+
+
+          <div class="stat-card-content">
+
+
+          <span class="stat-card-label">
+
+          Total de marcas
+
+          </span>
+
+
+          <strong
+          class="stat-card-value"
+          id="total-brands-count"
+          >
+
+          0
+
+          </strong>
+
+
+          </div>
+
+
+          </article>
+
+
+
+
+
+          <article class="stat-card">
+
+
+          <div class="stat-card-icon">
+
+          <i data-lucide="circle-check-big"></i>
+
+          </div>
+
+
+          <div class="stat-card-content">
+
+
+          <span class="stat-card-label">
+
+          Marcas ativas
+
+          </span>
+
+
+          <strong
+          class="stat-card-value"
+          id="active-brands-count"
+          >
+
+          0
+
+          </strong>
+
+
+          </div>
+
+
+          </article>
+
+
+
+
+
+
+          <article class="stat-card">
+
+
+          <div class="stat-card-icon">
+
+          <i data-lucide="archive"></i>
+
+          </div>
+
+
+          <div class="stat-card-content">
+
+
+          <span class="stat-card-label">
+
+          Arquivadas
+
+          </span>
+
+
+          <strong
+          class="stat-card-value"
+          id="archived-brands-count"
+          >
+
+          0
+
+          </strong>
+
+
+          </div>
+
+
+          </article>
+
+
+
           </section>
 
           <!-- Pesquisa e filtros -->
