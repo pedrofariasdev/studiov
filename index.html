@@ -159,7 +159,7 @@
               Começar gratuitamente
             </a>
 
-            <a href="#demo" class="btn btn-secondary btn-lg"> Ver demonstração </a>
+            <a href="html/landing/demo.html" class="btn btn-secondary btn-lg"> Ver demonstração </a>
           </div>
         </div>
 
@@ -680,17 +680,27 @@
     </footer>
 
     <script>
-      const currentYear = document.getElementById("current-year");
+        const currentYear =
+            document.getElementById("current-year");
 
-      if (currentYear) {
-        currentYear.textContent = new Date().getFullYear();
-      }
+        if (currentYear) {
+            currentYear.textContent =
+                new Date().getFullYear();
+        }
     </script>
 
+    <!-- Supabase -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+    <script src="/js/services/supabase.js"></script>
+
+    <!-- Ícones -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
-      lucide.createIcons();
+        lucide.createIcons();
     </script>
   </body>
 </html>

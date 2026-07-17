@@ -1,0 +1,636 @@
+/* ==========================================================
+   StudioV — Tema global
+========================================================== */
+
+
+/* ==========================================================
+   Tokens semânticos — tema claro padrão
+========================================================== */
+
+:root {
+  color-scheme: light;
+
+  --color-background:
+    var(--color-background-page-light);
+
+  --color-bg:
+    var(--color-background-page-light);
+
+  --color-page-background:
+    var(--color-background-page-light);
+
+  --color-surface:
+    var(--color-background-surface-light);
+
+  --color-surface-soft:
+    #f8fafc;
+
+  --color-surface-hover:
+    #f1f5f9;
+
+  --color-card:
+    var(--color-background-surface-light);
+
+  --color-input-background:
+    var(--color-background-surface-light);
+
+  --color-text-primary:
+    var(--color-text-primary-light);
+
+  --color-text-secondary:
+    var(--color-text-secondary-light);
+
+  --color-text-muted:
+    var(--color-text-muted-light);
+
+  --color-border:
+    var(--color-border-light);
+
+  --color-border-strong:
+    #cbd5e1;
+
+  --border-color:
+    var(--color-border-light);
+
+  --topbar-background:
+    rgba(255, 255, 255, 0.94);
+
+  --color-primary-soft:
+    rgba(109, 40, 217, 0.08);
+
+  --color-primary-border:
+    rgba(109, 40, 217, 0.22);
+}
+
+
+/* ==========================================================
+   Tema escuro
+========================================================== */
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  /*
+   * Compatibilidade com componentes antigos.
+   *
+   * Muitos arquivos ainda usam variáveis com o sufixo
+   * "light". No tema escuro elas recebem temporariamente
+   * os valores escuros equivalentes.
+   */
+
+  --color-background-page-light:
+    #0f172a;
+
+  --color-background-surface-light:
+    #111827;
+
+  --color-text-primary-light:
+    #f8fafc;
+
+  --color-text-secondary-light:
+    #cbd5e1;
+
+  --color-text-muted-light:
+    #94a3b8;
+
+  --color-border-light:
+    #263449;
+
+
+  /* Tokens semânticos */
+
+  --color-background:
+    #0b1120;
+
+  --color-bg:
+    #0b1120;
+
+  --color-page-background:
+    #0f172a;
+
+  --color-surface:
+    #111827;
+
+  --color-surface-soft:
+    #172033;
+
+  --color-surface-hover:
+    #1e293b;
+
+  --color-card:
+    #111827;
+
+  --color-input-background:
+    #0f172a;
+
+  --color-text-primary:
+    #f8fafc;
+
+  --color-text-secondary:
+    #cbd5e1;
+
+  --color-text-muted:
+    #94a3b8;
+
+  --color-border:
+    #263449;
+
+  --color-border-strong:
+    #3b4a61;
+
+  --border-color:
+    #263449;
+
+  --topbar-background:
+    rgba(17, 24, 39, 0.96);
+
+  --color-primary-soft:
+    rgba(139, 92, 246, 0.14);
+
+  --color-primary-border:
+    rgba(167, 139, 250, 0.32);
+
+
+  /* Sombras adaptadas */
+
+  --shadow-sm:
+    0 8px 24px rgba(0, 0, 0, 0.2);
+
+  --shadow-md:
+    0 18px 40px rgba(0, 0, 0, 0.28);
+
+  --shadow-lg:
+    0 30px 80px rgba(0, 0, 0, 0.38);
+}
+
+
+/* ==========================================================
+   Página e estrutura
+========================================================== */
+
+body {
+  color: var(--color-text-primary);
+  background-color: var(--color-page-background);
+}
+
+.dashboard-layout,
+.dashboard-wrapper,
+.dashboard-content,
+.dashboard-main,
+.main-content,
+.page-content {
+  color: var(--color-text-primary);
+  background-color: var(--color-page-background);
+}
+
+
+/* ==========================================================
+   Topbar
+========================================================== */
+
+.dashboard-topbar,
+.topbar,
+.main-header {
+  color: var(--color-text-primary);
+  background-color: var(--topbar-background);
+
+  border-color: var(--color-border);
+}
+
+.workspace-selector-button {
+  color: var(--color-text-primary);
+}
+
+.workspace-selector-button:hover {
+  background-color: var(--color-surface-hover);
+
+  border-color: var(--color-border);
+}
+
+.workspace-selector-content small {
+  color: var(--color-text-muted);
+}
+
+.workspace-selector-content strong {
+  color: var(--color-text-primary);
+}
+
+.workspace-selector-button > svg {
+  color: var(--color-text-muted);
+}
+
+.topbar-menu-button,
+.topbar-icon-button {
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface);
+
+  border-color: var(--color-border);
+}
+
+.topbar-menu-button:hover,
+.topbar-icon-button:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+
+  border-color: var(--color-primary-border);
+}
+
+.notification-indicator {
+  border-color: var(--color-surface);
+}
+
+
+/* ==========================================================
+   Cabeçalhos das páginas
+========================================================== */
+
+.page-header h1,
+.dashboard-main h1 {
+  color: var(--color-text-primary);
+}
+
+.page-header p,
+.page-description {
+  color: var(--color-text-secondary);
+}
+
+
+/* ==========================================================
+   Cards principais
+========================================================== */
+
+.dashboard-main :is(
+  .card,
+  .stat-card,
+  .content-card,
+  .brand-card,
+  .client-card,
+  .publication-card,
+  .planner-card,
+  .calendar-card,
+  .library-card,
+  .workspace-panel,
+  .workspace-summary-card,
+  .summary-card,
+  .dashboard-card,
+  .analytics-card,
+  .ai-card,
+  .settings-card,
+  .page-panel,
+  .content-panel,
+  .filters-panel,
+  .quick-action-card,
+  .quick-action-item
+) {
+  color: var(--color-text-primary);
+  background-color: var(--color-card);
+
+  border-color: var(--color-border);
+}
+
+
+/* ==========================================================
+   Stat cards
+========================================================== */
+
+.stat-card {
+  color: var(--color-text-primary);
+  background-color: var(--color-card);
+
+  border-color: var(--color-border);
+}
+
+.stat-card-label {
+  color: var(--color-text-secondary);
+}
+
+.stat-card-value {
+  color: var(--color-text-primary);
+}
+
+.stat-card-icon {
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+}
+
+
+/* ==========================================================
+   Textos gerais
+========================================================== */
+
+.dashboard-main :is(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  label,
+  legend
+) {
+  color: var(--color-text-primary);
+}
+
+.dashboard-main :is(
+  p,
+  small,
+  .subtitle,
+  .description,
+  .page-description,
+  .text-secondary,
+  .card-description
+) {
+  color: var(--color-text-secondary);
+}
+
+.dashboard-main :is(
+  .text-muted,
+  .caption,
+  .meta,
+  .metadata
+) {
+  color: var(--color-text-muted);
+}
+
+
+/* ==========================================================
+   Barras, pesquisa e filtros
+========================================================== */
+
+:is(
+  .toolbar,
+  .page-toolbar,
+  .filters-bar,
+  .filter-bar,
+  .search-bar,
+  .publications-toolbar,
+  .contents-toolbar,
+  .clients-toolbar,
+  .brands-toolbar,
+  .planner-toolbar,
+  .calendar-toolbar,
+  .library-toolbar
+) {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+
+  border-color: var(--color-border);
+}
+
+
+/* ==========================================================
+   Formulários
+========================================================== */
+
+.dashboard-main input:not(
+  [type="checkbox"]
+):not(
+  [type="radio"]
+),
+.dashboard-main select,
+.dashboard-main textarea {
+  color: var(--color-text-primary);
+  background-color: var(--color-input-background);
+
+  border-color: var(--color-border-strong);
+}
+
+.dashboard-main input::placeholder,
+.dashboard-main textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.dashboard-main input:focus,
+.dashboard-main select:focus,
+.dashboard-main textarea:focus {
+  border-color: var(--color-primary);
+
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.16);
+}
+
+.dashboard-main select option {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+}
+
+
+/* ==========================================================
+   Botões secundários
+========================================================== */
+
+:is(
+  .btn-outline,
+  .btn-secondary,
+  .button-outline,
+  .icon-button
+) {
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface);
+
+  border-color: var(--color-border-strong);
+}
+
+:is(
+  .btn-outline,
+  .btn-secondary,
+  .button-outline,
+  .icon-button
+):hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-hover);
+
+  border-color: var(--color-primary);
+}
+
+
+/* ==========================================================
+   Tabelas
+========================================================== */
+
+.dashboard-main table {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+
+  border-color: var(--color-border);
+}
+
+.dashboard-main thead {
+  background-color: var(--color-surface-soft);
+}
+
+.dashboard-main th {
+  color: var(--color-text-secondary);
+
+  border-color: var(--color-border);
+}
+
+.dashboard-main td {
+  color: var(--color-text-primary);
+
+  border-color: var(--color-border);
+}
+
+.dashboard-main tbody tr:hover {
+  background-color: var(--color-surface-hover);
+}
+
+
+/* ==========================================================
+   Modais, dropdowns e menus
+========================================================== */
+
+:is(
+  .modal-content,
+  .modal-dialog,
+  .dropdown-menu,
+  .user-menu,
+  .context-menu,
+  .popover,
+  .dialog-content,
+  .settings-modal-dialog
+) {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+
+  border-color: var(--color-border);
+}
+
+:is(
+  .modal-header,
+  .modal-footer,
+  .dropdown-divider
+) {
+  border-color: var(--color-border);
+}
+
+
+/* ==========================================================
+   Estados vazios
+========================================================== */
+
+:is(
+  .empty-state,
+  .loading-state,
+  .error-state,
+  .skeleton-card
+) {
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface);
+
+  border-color: var(--color-border);
+}
+
+.empty-state h2,
+.empty-state h3,
+.empty-state strong {
+  color: var(--color-text-primary);
+}
+
+.empty-state p {
+  color: var(--color-text-secondary);
+}
+
+
+/* ==========================================================
+   Skeleton
+========================================================== */
+
+html[data-theme="dark"] :is(
+  .skeleton,
+  .skeleton-line,
+  .skeleton-block
+) {
+  background:
+    linear-gradient(
+      90deg,
+      #172033 25%,
+      #263449 50%,
+      #172033 75%
+    );
+}
+
+
+/* ==========================================================
+   Separadores
+========================================================== */
+
+:is(
+  hr,
+  .divider,
+  .separator
+) {
+  border-color: var(--color-border);
+}
+
+
+/* ==========================================================
+   Scrollbar
+========================================================== */
+
+html[data-theme="dark"] {
+  scrollbar-color: #475569 #0f172a;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+  background-color: #0f172a;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background-color: #475569;
+
+  border: 2px solid #0f172a;
+  border-radius: var(--radius-full);
+}
+
+html[data-theme="dark"]
+::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b;
+}
+
+
+/* ==========================================================
+   Transições
+========================================================== */
+
+body,
+.dashboard-main,
+.dashboard-topbar,
+.topbar,
+.card,
+.stat-card,
+.content-card,
+.brand-card,
+.client-card,
+.publication-card {
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+
+/* ==========================================================
+   Redução de movimento
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .dashboard-main,
+  .dashboard-topbar,
+  .topbar,
+  .card,
+  .stat-card,
+  .content-card,
+  .brand-card,
+  .client-card,
+  .publication-card {
+    transition: none;
+  }
+}

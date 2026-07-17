@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Prepare o ambiente de demonstração da plataforma StudioV."
+  >
+
+  <title>Demonstração | StudioV</title>
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Estilos globais -->
+  <link
+    rel="stylesheet"
+    href="/css/globals/variables.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/reset.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/typography.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/utilities.css"
+  >
+
+  <!-- Componentes -->
+  <link
+    rel="stylesheet"
+    href="/css/components/button.css"
+  >
+
+  <!-- Página -->
+  <link
+    rel="stylesheet"
+    href="/css/pages/demo.css"
+  >
+</head>
+
+<body class="demo-page">
+
+  <main class="demo-main">
+
+    <section
+      class="demo-card"
+      aria-labelledby="demo-title"
+    >
+
+      <!-- Logo -->
+      <a
+        href="/index.html"
+        class="demo-logo"
+        aria-label="Voltar para a página inicial da StudioV"
+      >
+        <span class="demo-logo-mark">
+          V
+        </span>
+
+        <span class="demo-logo-text">
+          StudioV
+        </span>
+      </a>
+
+
+      <!-- Ícone de carregamento -->
+      <div
+        id="demo-loader"
+        class="demo-loader"
+        aria-hidden="true"
+      >
+        <span class="demo-loader-ring"></span>
+
+        <span class="demo-loader-icon">
+          <i data-lucide="sparkles"></i>
+        </span>
+      </div>
+
+
+      <!-- Conteúdo principal -->
+      <div class="demo-content">
+
+        <span class="demo-badge">
+          <i data-lucide="play-circle"></i>
+
+          Demonstração interativa
+        </span>
+
+        <h1 id="demo-title">
+          Preparando seu ambiente StudioV
+        </h1>
+
+        <p id="demo-description">
+          Estamos criando um workspace completo com clientes,
+          marcas, conteúdos, publicações e calendário.
+        </p>
+
+      </div>
+
+
+      <!-- Progresso -->
+      <div
+        id="demo-progress"
+        class="demo-progress"
+        aria-live="polite"
+      >
+
+        <div
+          class="demo-progress-bar"
+          aria-hidden="true"
+        >
+          <span
+            id="demo-progress-value"
+            class="demo-progress-value"
+          ></span>
+        </div>
+
+        <p
+          id="demo-status"
+          class="demo-status"
+        >
+          Iniciando demonstração...
+        </p>
+
+      </div>
+
+
+      <!-- Etapas -->
+      <div class="demo-steps">
+
+        <div
+          id="demo-step-auth"
+          class="demo-step"
+          data-status="pending"
+        >
+          <span class="demo-step-icon">
+            <i data-lucide="user-check"></i>
+          </span>
+
+          <div class="demo-step-content">
+            <strong>
+              Sessão segura
+            </strong>
+
+            <span>
+              Preparando o acesso temporário
+            </span>
+          </div>
+
+          <span class="demo-step-status">
+            <i data-lucide="circle"></i>
+          </span>
+        </div>
+
+
+        <div
+          id="demo-step-workspace"
+          class="demo-step"
+          data-status="pending"
+        >
+          <span class="demo-step-icon">
+            <i data-lucide="briefcase-business"></i>
+          </span>
+
+          <div class="demo-step-content">
+            <strong>
+              Workspace demo
+            </strong>
+
+            <span>
+              Criando o ambiente da StudioV
+            </span>
+          </div>
+
+          <span class="demo-step-status">
+            <i data-lucide="circle"></i>
+          </span>
+        </div>
+
+
+        <div
+          id="demo-step-data"
+          class="demo-step"
+          data-status="pending"
+        >
+          <span class="demo-step-icon">
+            <i data-lucide="database"></i>
+          </span>
+
+          <div class="demo-step-content">
+            <strong>
+              Dados de demonstração
+            </strong>
+
+            <span>
+              Adicionando marcas, conteúdos e calendário
+            </span>
+          </div>
+
+          <span class="demo-step-status">
+            <i data-lucide="circle"></i>
+          </span>
+        </div>
+
+
+        <div
+          id="demo-step-dashboard"
+          class="demo-step"
+          data-status="pending"
+        >
+          <span class="demo-step-icon">
+            <i data-lucide="layout-dashboard"></i>
+          </span>
+
+          <div class="demo-step-content">
+            <strong>
+              Dashboard
+            </strong>
+
+            <span>
+              Abrindo sua demonstração
+            </span>
+          </div>
+
+          <span class="demo-step-status">
+            <i data-lucide="circle"></i>
+          </span>
+        </div>
+
+      </div>
+
+
+      <!-- Mensagem de erro -->
+      <div
+        id="demo-error"
+        class="demo-error"
+        role="alert"
+        hidden
+      >
+        <span class="demo-error-icon">
+          <i data-lucide="circle-alert"></i>
+        </span>
+
+        <div class="demo-error-content">
+          <strong>
+            Não foi possível abrir a demonstração
+          </strong>
+
+          <p id="demo-error-message">
+            Ocorreu um erro inesperado.
+          </p>
+        </div>
+      </div>
+
+
+      <!-- Ações -->
+      <div class="demo-actions">
+
+        <button
+          id="demo-retry-button"
+          class="btn btn-primary"
+          type="button"
+          hidden
+        >
+          <i data-lucide="refresh-cw"></i>
+
+          Tentar novamente
+        </button>
+
+        <a
+          id="demo-home-link"
+          href="/index.html"
+          class="btn btn-outline"
+        >
+          <i data-lucide="arrow-left"></i>
+
+          Voltar para o início
+        </a>
+
+      </div>
+
+
+      <!-- Informação -->
+      <p class="demo-note">
+        <i data-lucide="shield-check"></i>
+
+        O ambiente é temporário e pode ser removido
+        automaticamente após 24 horas.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- Supabase -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
+
+  <script src="/js/services/supabase.js"></script>
+
+
+  <!-- Ícones -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+
+  <!-- Lógica da demonstração -->
+  <script src="/js/landing/demo.js"></script>
+
+
+  <script>
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      }
+    );
+  </script>
+
+</body>
+</html>
