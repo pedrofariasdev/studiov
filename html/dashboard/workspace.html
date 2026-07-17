@@ -2,889 +2,1214 @@
 <html lang="pt-PT">
 
 <head>
+  <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workspace | StudioV</title>
 
+  <meta
+    name="description"
+    content="Gerencie o workspace da sua conta StudioV."
+  >
 
-<title>Workspace | StudioV</title>
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
 
+  <meta
+    name="theme-color"
+    content="#6D28D9"
+  >
 
-<meta 
-name="description"
-content="Gerencie o workspace da sua conta StudioV."
->
+  <!-- Fonts -->
 
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
 
-<meta 
-name="robots"
-content="noindex, nofollow"
->
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-<meta 
-name="theme-color"
-content="#6D28D9"
->
+  <!-- Global -->
 
+  <link
+    rel="stylesheet"
+    href="/css/globals/variables.css"
+  >
 
+  <link
+    rel="stylesheet"
+    href="/css/globals/reset.css"
+  >
 
-<!-- Fonts -->
+  <link
+    rel="stylesheet"
+    href="/css/globals/typography.css"
+  >
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    rel="stylesheet"
+    href="/css/globals/utilities.css"
+  >
 
-<link 
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin
->
+  <!-- Components -->
 
+  <link
+    rel="stylesheet"
+    href="/css/components/button.css"
+  >
 
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-rel="stylesheet"
-/>
+  <link
+    rel="stylesheet"
+    href="/css/components/stat-card.css"
+  >
 
+  <link
+    rel="stylesheet"
+    href="/css/components/content-card.css"
+  >
 
+  <!-- Dashboard -->
 
+  <link
+    rel="stylesheet"
+    href="/css/pages/dashboard.css"
+  >
 
-<!-- Global -->
-
-<link rel="stylesheet" href="/css/globals/variables.css">
-
-<link rel="stylesheet" href="/css/globals/reset.css">
-
-<link rel="stylesheet" href="/css/globals/typography.css">
-
-<link rel="stylesheet" href="/css/globals/utilities.css">
-
-
-
-
-
-<!-- Components -->
-
-<link rel="stylesheet" href="/css/components/button.css">
-
-<link rel="stylesheet" href="/css/components/stat-card.css">
-
-<link rel="stylesheet" href="/css/components/content-card.css" />
-
-
-
-
-
-<!-- Dashboard -->
-
-<link rel="stylesheet" href="/css/pages/dashboard.css">
-
-<link rel="stylesheet" href="/css/pages/workspace.css">
-
-
-
+  <link
+    rel="stylesheet"
+    href="/css/pages/workspace.css"
+  >
 </head>
-
-
 
 <body>
 
+  <div class="dashboard-layout">
+
+    <!-- =====================================================
+         Sidebar
+    ====================================================== -->
+
+    <aside
+      class="dashboard-sidebar"
+      id="dashboard-sidebar"
+    >
+
+      <div class="sidebar-header">
+
+        <a
+          href="/html/dashboard/home.html"
+          class="sidebar-logo"
+        >
+          <img
+            src="/assets/logos/svg/logo-studiov2000.png"
+            alt="StudioV"
+          >
+        </a>
+
+        <button
+          class="sidebar-close"
+          id="sidebar-close"
+          type="button"
+          aria-label="Fechar menu"
+        >
+          <i data-lucide="x"></i>
+        </button>
+
+      </div>
+
+      <nav class="sidebar-navigation">
+
+        <div class="sidebar-section">
+
+          <span class="sidebar-section-title">
+            Principal
+          </span>
+
+          <ul class="sidebar-menu">
+
+            <li>
+              <a
+                href="/html/dashboard/home.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="layout-dashboard"></i>
+
+                <span>
+                  Dashboard
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/workspace.html"
+                class="sidebar-link is-active"
+              >
+                <i data-lucide="building-2"></i>
+
+                <span>
+                  Workspace
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/brands.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="palette"></i>
+
+                <span>
+                  Marcas
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/clients.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="users"></i>
+
+                <span>
+                  Clientes
+                </span>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="sidebar-section">
+
+          <span class="sidebar-section-title">
+            Conteúdo
+          </span>
+
+          <ul class="sidebar-menu">
+
+            <li>
+              <a
+                href="/html/dashboard/planner.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="clipboard-list"></i>
+
+                <span>
+                  Planner
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/calendar.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="calendar-days"></i>
+
+                <span>
+                  Calendário
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/content.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="files"></i>
+
+                <span>
+                  Conteúdos
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/media.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="images"></i>
+
+                <span>
+                  Biblioteca
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/publishing.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="send"></i>
+
+                <span>
+                  Publicações
+                </span>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="sidebar-section">
+
+          <span class="sidebar-section-title">
+            Inteligência
+          </span>
+
+          <ul class="sidebar-menu">
+
+            <li>
+              <a
+                href="/html/dashboard/ai.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="sparkles"></i>
+
+                <span>
+                  Inteligência Artificial
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/analytics.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="chart-no-axes-combined"></i>
+
+                <span>
+                  Analytics
+                </span>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="sidebar-section sidebar-section-bottom">
+
+          <ul class="sidebar-menu">
+
+            <li>
+              <a
+                href="/html/dashboard/settings.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="settings"></i>
+
+                <span>
+                  Configurações
+                </span>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </nav>
+
+      <div class="sidebar-user">
+
+        <div
+          class="sidebar-user-avatar"
+          id="sidebar-user-avatar"
+        >
+          U
+        </div>
+
+        <div class="sidebar-user-info">
+
+          <strong id="sidebar-user-name">
+            Utilizador
+          </strong>
 
+          <span id="sidebar-user-email">
+            utilizador@studiov.pt
+          </span>
 
-<div class="dashboard-layout">
+        </div>
+
+      </div>
 
+    </aside>
+
+    <button
+      class="sidebar-overlay"
+      id="sidebar-overlay"
+      type="button"
+      aria-label="Fechar menu"
+    ></button>
+
+    <!-- =====================================================
+         Conteúdo principal
+    ====================================================== -->
+
+    <div class="dashboard-main">
+
+      <!-- Topbar -->
+
+      <header class="dashboard-topbar">
 
+        <div class="topbar-left">
 
-<!-- SIDEBAR -->
+          <button
+            class="topbar-menu-button"
+            id="topbar-menu-button"
+            type="button"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+          >
+            <i data-lucide="menu"></i>
+          </button>
 
-<aside 
-class="dashboard-sidebar"
-id="dashboard-sidebar"
->
+          <div class="workspace-selector">
 
+            <button
+              class="workspace-selector-button"
+              type="button"
+            >
+              <i data-lucide="building-2"></i>
 
-<div class="sidebar-header">
+              <span id="current-workspace-name">
+                Workspace
+              </span>
 
+              <i data-lucide="chevrons-up-down"></i>
+            </button>
 
-<a 
-href="/html/dashboard/home.html"
-class="sidebar-logo"
->
+          </div>
 
+        </div>
 
-<img
-src="/assets/logos/svg/logo-studiov2000.png"
-alt="StudioV"
-/>
+        <div class="topbar-actions">
 
+          <button
+            class="topbar-action-button"
+            type="button"
+            aria-label="Pesquisar"
+          >
+            <i data-lucide="search"></i>
+          </button>
 
-</a>
+          <button
+            class="topbar-action-button"
+            type="button"
+            aria-label="Notificações"
+          >
+            <i data-lucide="bell"></i>
+          </button>
 
+          <a
+            href="/html/dashboard/profile.html"
+            class="topbar-avatar"
+            id="topbar-avatar"
+          >
+            U
+          </a>
 
+        </div>
 
-<button
-class="sidebar-close"
-id="sidebar-close"
-type="button"
->
+      </header>
 
-<i data-lucide="x"></i>
+      <!-- Página -->
 
-</button>
+      <main class="dashboard-content">
 
+        <!-- Cabeçalho -->
 
+        <section class="page-header workspace-page-header">
 
-</div>
+          <div class="page-header-content">
 
+            <span class="page-eyebrow">
+              Configuração
+            </span>
 
+            <h1>
+              Workspace
+            </h1>
 
+            <p>
+              Gerencie as informações, a equipa e a utilização
+              do ambiente principal da sua organização.
+            </p>
 
+          </div>
 
-<nav class="sidebar-navigation">
+          <button
+            class="btn btn-primary"
+            id="edit-workspace-button"
+            type="button"
+          >
+            <i data-lucide="pencil"></i>
 
+            Editar Workspace
+          </button>
 
+        </section>
 
-<div class="sidebar-section">
+        <!-- Resumo -->
 
+        <section
+          class="workspace-summary"
+          aria-label="Resumo do workspace"
+        >
 
-<span class="sidebar-section-title">
+          <article class="stat-card">
 
-Principal
+            <div class="stat-card-icon">
+              <i data-lucide="building-2"></i>
+            </div>
 
-</span>
+            <div class="stat-card-content">
 
+              <span class="stat-card-label">
+                Workspace atual
+              </span>
 
+              <strong
+                class="stat-card-value"
+                id="workspace-name-summary"
+              >
+                —
+              </strong>
 
+            </div>
 
-<ul class="sidebar-menu">
+          </article>
 
+          <article class="stat-card">
 
+            <div class="stat-card-icon">
+              <i data-lucide="users"></i>
+            </div>
 
-<li>
+            <div class="stat-card-content">
 
-<a
-href="/html/dashboard/home.html"
-class="sidebar-link"
->
+              <span class="stat-card-label">
+                Membros
+              </span>
 
-<i data-lucide="layout-dashboard"></i>
+              <strong
+                class="stat-card-value"
+                id="workspace-members-count"
+              >
+                0
+              </strong>
 
-<span>
-Dashboard
-</span>
+            </div>
 
-</a>
+          </article>
 
-</li>
+          <article class="stat-card">
 
+            <div class="stat-card-icon">
+              <i data-lucide="credit-card"></i>
+            </div>
 
+            <div class="stat-card-content">
 
+              <span class="stat-card-label">
+                Plano
+              </span>
 
-<li>
+              <strong
+                class="stat-card-value"
+                id="workspace-plan-name"
+              >
+                —
+              </strong>
 
-<a
-href="/html/dashboard/workspace.html"
-class="sidebar-link is-active"
->
+            </div>
 
-<i data-lucide="building-2"></i>
+          </article>
 
+          <article class="stat-card">
 
-<span>
-Workspace
-</span>
+            <div class="stat-card-icon">
+              <i data-lucide="palette"></i>
+            </div>
 
+            <div class="stat-card-content">
 
-</a>
+              <span class="stat-card-label">
+                Marcas
+              </span>
 
-</li>
+              <strong
+                class="stat-card-value"
+                id="workspace-brands-count"
+              >
+                0
+              </strong>
 
+            </div>
 
+          </article>
 
+        </section>
 
+        <!-- Informações e utilização -->
 
-<li>
+        <section class="workspace-main-grid">
 
-<a
-href="/html/dashboard/brands.html"
-class="sidebar-link"
->
+          <!-- Informações -->
 
+          <article class="workspace-panel">
 
-<i data-lucide="palette"></i>
+            <header class="workspace-panel-header">
 
+              <div>
 
-<span>
-Marcas
-</span>
+                <span class="workspace-panel-eyebrow">
+                  Organização
+                </span>
 
+                <h2>
+                  Informações do Workspace
+                </h2>
 
-</a>
+                <p>
+                  Dados principais utilizados no ambiente da sua equipa.
+                </p>
 
+              </div>
 
-</li>
+              <button
+                class="workspace-panel-action"
+                id="edit-workspace-secondary-button"
+                type="button"
+              >
+                <i data-lucide="pencil"></i>
 
+                Editar
+              </button>
 
+            </header>
 
+            <div class="workspace-details-list">
 
+              <div class="workspace-detail-item">
 
-<li>
+                <div class="workspace-detail-icon">
+                  <i data-lucide="building-2"></i>
+                </div>
 
-<a
-href="/html/dashboard/clients.html"
-class="sidebar-link"
->
+                <div>
+                  <span>
+                    Nome
+                  </span>
 
+                  <strong id="workspace-detail-name">
+                    —
+                  </strong>
+                </div>
 
-<i data-lucide="users"></i>
+              </div>
 
+              <div class="workspace-detail-item">
 
-<span>
-Clientes
-</span>
+                <div class="workspace-detail-icon">
+                  <i data-lucide="align-left"></i>
+                </div>
 
+                <div>
+                  <span>
+                    Descrição
+                  </span>
 
-</a>
+                  <strong id="workspace-detail-description">
+                    Nenhuma descrição adicionada.
+                  </strong>
+                </div>
 
+              </div>
 
-</li>
+              <div class="workspace-detail-item">
 
+                <div class="workspace-detail-icon">
+                  <i data-lucide="languages"></i>
+                </div>
 
+                <div>
+                  <span>
+                    Idioma
+                  </span>
 
-</ul>
+                  <strong id="workspace-detail-language">
+                    —
+                  </strong>
+                </div>
 
+              </div>
 
-</div>
+              <div class="workspace-detail-item">
 
+                <div class="workspace-detail-icon">
+                  <i data-lucide="clock-3"></i>
+                </div>
 
+                <div>
+                  <span>
+                    Fuso horário
+                  </span>
 
+                  <strong id="workspace-detail-timezone">
+                    —
+                  </strong>
+                </div>
 
+              </div>
 
-<div class="sidebar-section">
+              <div class="workspace-detail-item">
 
+                <div class="workspace-detail-icon">
+                  <i data-lucide="circle-check-big"></i>
+                </div>
 
-<span class="sidebar-section-title">
+                <div>
+                  <span>
+                    Estado
+                  </span>
 
-Conteúdo
+                  <strong
+                    class="workspace-status"
+                    id="workspace-detail-status"
+                  >
+                    —
+                  </strong>
+                </div>
 
-</span>
+              </div>
 
+            </div>
 
+          </article>
 
-<ul class="sidebar-menu">
+          <!-- Plano -->
 
+          <article class="workspace-panel workspace-plan-panel">
 
-<li>
+            <header class="workspace-panel-header">
 
-<a
-href="/html/dashboard/planner.html"
-class="sidebar-link"
->
+              <div>
 
-<i data-lucide="clipboard-list"></i>
+                <span class="workspace-panel-eyebrow">
+                  Subscrição
+                </span>
 
-<span>
-Planner
-</span>
+                <h2>
+                  Plano e utilização
+                </h2>
 
-</a>
+                <p>
+                  Acompanhe os recursos disponíveis no plano atual.
+                </p>
 
+              </div>
 
-</li>
+              <span
+                class="workspace-plan-badge"
+                id="workspace-plan-badge"
+              >
+                Free
+              </span>
 
+            </header>
 
+            <div class="workspace-usage-list">
 
+              <!-- Membros -->
 
-<li>
+              <div class="workspace-usage-item">
 
-<a
-href="/html/dashboard/calendar.html"
-class="sidebar-link"
->
+                <div class="workspace-usage-heading">
 
+                  <span>
+                    Membros
+                  </span>
 
-<i data-lucide="calendar-days"></i>
+                  <strong id="workspace-members-usage">
+                    0 / 0
+                  </strong>
 
+                </div>
 
-<span>
-Calendário
-</span>
+                <div class="workspace-progress">
 
+                  <span
+                    id="workspace-members-progress"
+                    style="width: 0%;"
+                  ></span>
 
-</a>
+                </div>
 
+              </div>
 
-</li>
+              <!-- Marcas -->
 
+              <div class="workspace-usage-item">
 
+                <div class="workspace-usage-heading">
 
+                  <span>
+                    Marcas
+                  </span>
 
-<li>
+                  <strong id="workspace-brands-usage">
+                    0 / 0
+                  </strong>
 
-<a
-href="/html/dashboard/content.html"
-class="sidebar-link"
->
+                </div>
 
+                <div class="workspace-progress">
 
-<i data-lucide="files"></i>
+                  <span
+                    id="workspace-brands-progress"
+                    style="width: 0%;"
+                  ></span>
 
+                </div>
 
-<span>
-Conteúdos
-</span>
+              </div>
 
+              <!-- Contas sociais -->
 
-</a>
+              <div class="workspace-usage-item">
 
+                <div class="workspace-usage-heading">
 
-</li>
+                  <span>
+                    Contas sociais
+                  </span>
 
+                  <strong id="workspace-social-usage">
+                    0 / 0
+                  </strong>
 
+                </div>
 
-</ul>
+                <div class="workspace-progress">
 
+                  <span
+                    id="workspace-social-progress"
+                    style="width: 0%;"
+                  ></span>
 
-</div>
+                </div>
 
+              </div>
 
+              <!-- Armazenamento -->
 
+              <div class="workspace-usage-item">
 
+                <div class="workspace-usage-heading">
 
-<div class="sidebar-section sidebar-section-bottom">
+                  <span>
+                    Armazenamento
+                  </span>
 
+                  <strong id="workspace-storage-usage">
+                    0 MB / 0 MB
+                  </strong>
 
-<ul class="sidebar-menu">
+                </div>
 
+                <div class="workspace-progress">
 
-<li>
+                  <span
+                    id="workspace-storage-progress"
+                    style="width: 0%;"
+                  ></span>
 
+                </div>
 
-<a
-href="/html/dashboard/settings.html"
-class="sidebar-link"
->
+              </div>
 
+            </div>
 
-<i data-lucide="settings"></i>
+            <div class="workspace-plan-footer">
 
+              <div>
 
-<span>
-Configurações
-</span>
+                <span>
+                  Conteúdos criados
+                </span>
 
+                <strong id="workspace-contents-count">
+                  0
+                </strong>
 
-</a>
+              </div>
 
+              <a
+                href="/html/dashboard/settings.html"
+                class="workspace-plan-link"
+              >
+                Gerenciar plano
 
-</li>
+                <i data-lucide="arrow-right"></i>
+              </a>
 
+            </div>
 
-</ul>
+          </article>
 
+        </section>
 
-</div>
+        <!-- Membros -->
 
+        <section class="workspace-panel workspace-members-panel">
 
+          <header class="workspace-panel-header">
 
+            <div>
 
-</nav>
+              <span class="workspace-panel-eyebrow">
+                Equipa
+              </span>
 
+              <h2>
+                Membros do Workspace
+              </h2>
 
+              <p>
+                Pessoas com acesso ao ambiente e às suas permissões.
+              </p>
 
+            </div>
 
+            <button
+              class="btn btn-secondary"
+              id="invite-member-button"
+              type="button"
+              disabled
+              title="Disponível numa próxima fase"
+            >
+              <i data-lucide="user-plus"></i>
 
-<div class="sidebar-user">
+              Convidar membro
+            </button>
 
+          </header>
 
-<div 
-class="sidebar-user-avatar"
-id="sidebar-user-avatar"
->
+          <div
+            class="workspace-members-list"
+            id="workspace-members-list"
+          >
 
-U
+            <div class="workspace-list-loading">
 
-</div>
+              <span class="workspace-loading-spinner"></span>
 
+              Carregando membros...
 
+            </div>
 
-<div class="sidebar-user-info">
+          </div>
 
+        </section>
 
-<strong id="sidebar-user-name">
+        <!-- Integrações -->
 
-Utilizador
+        <section class="workspace-panel workspace-integrations-panel">
 
-</strong>
+          <header class="workspace-panel-header">
 
+            <div>
 
-<span id="sidebar-user-email">
+              <span class="workspace-panel-eyebrow">
+                Integrações
+              </span>
 
-utilizador@studiov.pt
+              <h2>
+                Contas sociais
+              </h2>
 
-</span>
+              <p>
+                Contas conectadas às marcas deste workspace.
+              </p>
 
+            </div>
 
-</div>
+            <a
+              href="/html/dashboard/settings.html"
+              class="btn btn-secondary"
+            >
+              <i data-lucide="plug"></i>
 
+              Gerenciar integrações
+            </a>
 
+          </header>
 
-</div>
+          <div
+            class="workspace-integrations-list"
+            id="workspace-integrations-list"
+          >
 
+            <div class="workspace-list-loading">
 
+              <span class="workspace-loading-spinner"></span>
 
-</aside>
+              Carregando integrações...
 
+            </div>
 
+          </div>
 
+        </section>
 
+      </main>
 
-<div class="dashboard-main">
+    </div>
 
+  </div>
 
+  <!-- =====================================================
+       Modal de edição
+  ====================================================== -->
 
-<header class="dashboard-topbar">
+  <div
+    class="modal-overlay hidden"
+    id="workspace-modal"
+    aria-hidden="true"
+  >
 
+    <div
+      class="modal-container"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="workspace-modal-title"
+    >
 
-<div class="topbar-left">
+      <header class="modal-header">
 
+        <div>
 
-<button
-class="topbar-menu-button"
-id="topbar-menu-button"
-type="button"
->
+          <span class="modal-eyebrow">
+            Configuração
+          </span>
 
+          <h2 id="workspace-modal-title">
+            Editar Workspace
+          </h2>
 
-<i data-lucide="menu"></i>
+        </div>
 
+        <button
+          class="modal-close-button"
+          id="workspace-modal-close"
+          type="button"
+          aria-label="Fechar modal"
+        >
+          <i data-lucide="x"></i>
+        </button>
 
-</button>
+      </header>
 
+      <form
+        class="workspace-form"
+        id="workspace-form"
+        novalidate
+      >
 
+        <div class="form-grid">
 
+          <div class="form-field form-field-full">
 
+            <label for="workspace-name-input">
+              Nome do workspace
+              <span>*</span>
+            </label>
 
-<div class="workspace-selector">
+            <input
+              id="workspace-name-input"
+              name="workspace_name"
+              type="text"
+              minlength="2"
+              maxlength="100"
+              autocomplete="organization"
+              required
+            >
 
+            <small
+              class="form-error"
+              id="workspace-name-error"
+            ></small>
 
-<button
-class="workspace-selector-button"
-type="button"
->
+          </div>
 
+          <div class="form-field form-field-full">
 
-<i data-lucide="building-2"></i>
+            <label for="workspace-description-input">
+              Descrição
+            </label>
 
+            <textarea
+              id="workspace-description-input"
+              name="workspace_description"
+              maxlength="1000"
+              rows="5"
+              placeholder="Descreva o objetivo deste workspace."
+            ></textarea>
 
-<span>
+          </div>
 
-Meu Workspace
+          <div class="form-field">
 
-</span>
+            <label for="workspace-language-input">
+              Idioma
+            </label>
 
+            <select
+              id="workspace-language-input"
+              name="workspace_language"
+            >
+              <option value="pt-PT">
+                Português — Portugal
+              </option>
 
-</button>
+              <option value="pt-BR">
+                Português — Brasil
+              </option>
 
+              <option value="en-GB">
+                English — United Kingdom
+              </option>
 
-</div>
+              <option value="en-US">
+                English — United States
+              </option>
 
+              <option value="es-ES">
+                Español — España
+              </option>
+            </select>
 
+          </div>
 
-</div>
+          <div class="form-field">
 
+            <label for="workspace-timezone-input">
+              Fuso horário
+            </label>
 
+            <select
+              id="workspace-timezone-input"
+              name="workspace_timezone"
+            >
+              <option value="Europe/Lisbon">
+                Europe/Lisbon
+              </option>
 
+              <option value="Europe/Madrid">
+                Europe/Madrid
+              </option>
 
+              <option value="Europe/London">
+                Europe/London
+              </option>
 
-<div class="topbar-actions">
+              <option value="America/Sao_Paulo">
+                America/Sao_Paulo
+              </option>
 
+              <option value="UTC">
+                UTC
+              </option>
+            </select>
 
-<a
-href="/html/dashboard/profile.html"
-class="topbar-avatar"
->
+          </div>
 
-U
+        </div>
 
-</a>
+        <div
+          class="form-general-error hidden"
+          id="workspace-form-error"
+        ></div>
 
+        <footer class="modal-footer">
 
-</div>
+          <button
+            class="btn btn-secondary"
+            id="workspace-form-cancel"
+            type="button"
+          >
+            Cancelar
+          </button>
 
+          <button
+            class="btn btn-primary"
+            id="workspace-form-submit"
+            type="submit"
+          >
+            <span
+              class="button-loader hidden"
+              id="workspace-form-loader"
+            ></span>
 
+            <span id="workspace-form-submit-text">
+              Guardar alterações
+            </span>
+          </button>
 
-</header>
+        </footer>
 
-<!-- ==================================================
-     Conteúdo Workspace
-================================================== -->
+      </form>
 
+    </div>
 
-<main class="dashboard-content">
+  </div>
 
+  <!-- Toasts -->
 
+  <div
+    class="toast-container"
+    id="toast-container"
+    aria-live="polite"
+  ></div>
 
+  <!-- Scripts -->
 
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-<section class="page-header">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <script src="/js/services/supabase.js"></script>
 
-<div class="page-header-content">
+  <script src="/js/auth/auth-guard.js"></script>
 
-
-<span class="page-eyebrow">
-
-Configuração
-
-</span>
-
-
-
-
-<h1>
-
-Workspace
-
-</h1>
-
-
-
-
-<p>
-
-Gerencie o ambiente principal da sua organização
-dentro da StudioV.
-
-</p>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-
-<!-- ==================================================
-     Estatísticas Workspace
-================================================== -->
-
-
-<section class="workspace-grid">
-
-
-
-
-
-<article class="stat-card">
-
-
-<div class="stat-card-icon">
-
-
-<i data-lucide="building-2"></i>
-
-
-</div>
-
-
-
-
-<div class="stat-card-content">
-
-
-<span class="stat-card-label">
-
-Workspace atual
-
-</span>
-
-
-
-
-<strong
-class="stat-card-value"
-id="workspace-name"
->
-
-Meu Workspace
-
-</strong>
-
-
-
-</div>
-
-
-
-</article>
-
-
-
-
-
-
-
-<article class="stat-card">
-
-
-<div class="stat-card-icon">
-
-
-<i data-lucide="users"></i>
-
-
-</div>
-
-
-
-
-<div class="stat-card-content">
-
-
-<span class="stat-card-label">
-
-Membros
-
-</span>
-
-
-
-
-<strong class="stat-card-value">
-
-1 membro
-
-</strong>
-
-
-
-</div>
-
-
-
-</article>
-
-
-
-
-
-
-
-<article class="stat-card">
-
-
-<div class="stat-card-icon">
-
-
-<i data-lucide="credit-card"></i>
-
-
-</div>
-
-
-
-
-<div class="stat-card-content">
-
-
-<span class="stat-card-label">
-
-Plano
-
-</span>
-
-
-
-
-<strong class="stat-card-value">
-
-Free
-
-</strong>
-
-
-
-</div>
-
-
-
-</article>
-
-
-
-
-
-
-
-<article class="stat-card">
-
-
-<div class="stat-card-icon">
-
-
-<i data-lucide="palette"></i>
-
-
-</div>
-
-
-
-
-<div class="stat-card-content">
-
-
-<span class="stat-card-label">
-
-Marcas
-
-</span>
-
-
-
-
-<strong class="stat-card-value">
-
-0
-
-</strong>
-
-
-
-</div>
-
-
-
-</article>
-
-
-
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- ==================================================
-     Configurações
-================================================== -->
-
-
-<section class="content-card workspace-settings-card">
-
-
-
-<div class="content-card-header">
-
-
-<h2>
-
-Configurações do Workspace
-
-</h2>
-
-
-
-<p>
-
-Gerencie informações, membros, permissões
-e integrações do seu ambiente.
-
-</p>
-
-
-
-</div>
-
-
-
-
-
-
-<button
-class="btn btn-primary"
-type="button"
->
-
-
-<i data-lucide="settings"></i>
-
-
-Editar Workspace
-
-
-</button>
-
-
-
-
-
-</section>
-
-
-
-
-
-
-
-</main>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- ==================================================
-     Scripts
-================================================== -->
-
-
-<script src="https://unpkg.com/lucide@latest"></script>
-
-
-<script>
-
-lucide.createIcons();
-
-</script>
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-<script src="/js/services/supabase.js"></script>
-
-
-<script src="/js/auth/auth-guard.js"></script>
-
-
-<script src="/js/dashboard/workspace.js"></script>
-
-
+  <script src="/js/dashboard/workspace.js"></script>
 
 </body>
 
