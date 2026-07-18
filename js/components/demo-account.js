@@ -14,6 +14,9 @@
   const COMPLETE_ACCOUNT_PATH =
     "/html/auth/complete-account.html";
 
+  const PRODUCTION_ORIGIN =
+  "https://studiov.pt";
+
   let modal = null;
   let form = null;
   let formContent = null;
@@ -626,7 +629,28 @@
     }
   }
 
+  /* ========================================================
+    URL de confirmação
+  ======================================================== */
 
+  function getCompleteAccountRedirectUrl() {
+    const hostname =
+      window.location.hostname;
+
+    const isLocalEnvironment =
+      hostname === "127.0.0.1" ||
+      hostname === "localhost";
+
+    const origin =
+      isLocalEnvironment
+        ? PRODUCTION_ORIGIN
+        : window.location.origin;
+
+    return (
+      `${origin}` +
+      COMPLETE_ACCOUNT_PATH
+    );
+  }
   /* ========================================================
      Enviar formulário
   ======================================================== */
@@ -710,8 +734,7 @@
 
 
       const redirectTo =
-        `${window.location.origin}` +
-        COMPLETE_ACCOUNT_PATH;
+        getCompleteAccountRedirectUrl();
 
 
       const {

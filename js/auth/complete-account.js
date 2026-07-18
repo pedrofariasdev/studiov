@@ -1,20 +1,34 @@
 "use strict";
 
 /* ==========================================================
-   StudioV — Concluir conta Demo
+   StudioV — Concluir conversão da conta Demo
 ========================================================== */
 
 (function initializeCompleteAccount() {
   const ROUTES = {
     dashboard: "/html/dashboard/home.html",
+    login: "/html/auth/login.html",
+    verifyEmail: "/html/auth/verify-email.html",
   };
 
   const STORAGE_KEYS = {
-    demoMode: "studiov_demo_mode",
-    demoUserId: "studiov_demo_user_id",
-    tourCompleted: "studiov_demo_tour_completed",
-    pendingEmail: "studiov_account_pending_email",
-    pendingName: "studiov_account_pending_name",
+    activeWorkspace:
+      "studiov_active_workspace_id",
+
+    demoMode:
+      "studiov_demo_mode",
+
+    demoUserId:
+      "studiov_demo_user_id",
+
+    tourCompleted:
+      "studiov_demo_tour_completed",
+
+    pendingEmail:
+      "studiov_account_pending_email",
+
+    pendingName:
+      "studiov_account_pending_name",
   };
 
   const elements = {
@@ -139,10 +153,13 @@
     elements.invalid.hidden = true;
   }
 
+
   function showLoading() {
     hideAllStates();
+
     elements.loading.hidden = false;
   }
+
 
   function showForm(user) {
     hideAllStates();
@@ -150,26 +167,36 @@
     currentUser = user;
 
     elements.email.textContent =
-      user?.email || "Email confirmado";
+      user?.email ||
+      localStorage.getItem(
+        STORAGE_KEYS.pendingEmail
+      ) ||
+      "Email confirmado";
 
     elements.formContent.hidden = false;
+
+    refreshIcons();
 
     window.setTimeout(function () {
       elements.password.focus();
     }, 50);
   }
 
+
   function showSuccess() {
     hideAllStates();
+
     elements.success.hidden = false;
 
     refreshIcons();
 
     window.setTimeout(function () {
-      window.location.href =
-        `${ROUTES.dashboard}?account=created`;
+      window.location.replace(
+        `${ROUTES.dashboard}?account=created`
+      );
     }, 1800);
   }
+
 
   function showInvalid(message) {
     hideAllStates();
@@ -184,13 +211,16 @@
 
 
   /* ========================================================
-     Erros do formulário
+     Mensagem de erro
   ======================================================== */
 
   function showFormError(message) {
-    elements.error.textContent = message;
+    elements.error.textContent =
+      message;
+
     elements.error.hidden = false;
   }
+
 
   function clearFormError() {
     elements.error.textContent = "";
@@ -199,12 +229,17 @@
 
 
   /* ========================================================
-     Carregamento
+     Estado do botão
   ======================================================== */
 
   function setSubmitting(isSubmitting) {
     elements.submit.disabled =
       isSubmitting;
+
+    elements.submit.setAttribute(
+      "aria-busy",
+      String(isSubmitting)
+    );
 
     elements.submit.innerHTML =
       isSubmitting
@@ -222,7 +257,7 @@
 
 
   /* ========================================================
-     Callback do Supabase
+     Erro recebido no callback
   ======================================================== */
 
   function readCallbackError() {
@@ -247,6 +282,11 @@
     );
   }
 
+
+  /* ========================================================
+     Procurar utilizador confirmado
+  ======================================================== */
+
   async function findConfirmedUser() {
     const client = getClient();
 
@@ -265,21 +305,26 @@
       throw sessionError;
     }
 
-    if (sessionData?.session?.user) {
-      const {
-        data: userData,
-        error: userError,
-      } = await client.auth.getUser();
-
-      if (userError) {
-        throw userError;
-      }
-
-      return userData?.user || null;
+    if (!sessionData?.session?.user) {
+      return null;
     }
 
-    return null;
+    const {
+      data: userData,
+      error: userError,
+    } = await client.auth.getUser();
+
+    if (userError) {
+      throw userError;
+    }
+
+    return userData?.user || null;
   }
+
+
+  /* ========================================================
+     Preparar página
+  ======================================================== */
 
   async function prepareAccountPage() {
     if (initializationFinished) {
@@ -293,7 +338,9 @@
       initializationFinished = true;
 
       showInvalid(
-        decodeURIComponent(callbackError)
+        decodeURIComponent(
+          callbackError
+        )
       );
 
       return;
@@ -304,6 +351,76 @@
         await findConfirmedUser();
 
       if (!user) {
+        return;
+      }
+
+      const metadata =
+        user.user_metadata || {};
+
+      const conversionStarted =
+        metadata
+          .account_conversion_started ===
+        true;
+
+      const conversionCompleted =
+        metadata
+          .account_conversion_completed ===
+        true;
+
+      const emailConfirmed =
+        Boolean(
+          user.email_confirmed_at ||
+          user.confirmed_at
+        );
+
+      /*
+       * Conta já finalizada.
+       */
+
+      if (
+        user.is_anonymous !== true &&
+        conversionCompleted
+      ) {
+        initializationFinished = true;
+
+        finishDemoMode();
+
+        window.location.replace(
+          ROUTES.dashboard
+        );
+
+        return;
+      }
+
+      /*
+       * Email ainda não foi confirmado.
+       */
+
+      if (
+        user.is_anonymous === true ||
+        !emailConfirmed
+      ) {
+        initializationFinished = true;
+
+        window.location.replace(
+          ROUTES.verifyEmail
+        );
+
+        return;
+      }
+
+      /*
+       * Conta tradicional que não veio
+       * da demonstração.
+       */
+
+      if (!conversionStarted) {
+        initializationFinished = true;
+
+        window.location.replace(
+          ROUTES.dashboard
+        );
+
         return;
       }
 
@@ -326,13 +443,17 @@
 
 
   /* ========================================================
-     Validação
+     Validação da palavra-passe
   ======================================================== */
 
   function validatePassword(
     password,
     confirmation
   ) {
+    if (!password) {
+      return "Informe uma palavra-passe.";
+    }
+
     if (password.length < 8) {
       return (
         "A palavra-passe deve ter pelo menos " +
@@ -358,10 +479,166 @@
 
 
   /* ========================================================
-     Perfil
+     Resolver workspace Demo
   ======================================================== */
 
-  async function finalizeProfile(user) {
+  async function resolveWorkspaceId(
+    client,
+    user
+  ) {
+    const storedWorkspaceId =
+      localStorage.getItem(
+        STORAGE_KEYS.activeWorkspace
+      );
+
+    if (storedWorkspaceId) {
+      return storedWorkspaceId;
+    }
+
+    /*
+     * Procura a sessão Demo ligada ao utilizador.
+     */
+
+    const {
+      data: demoSession,
+      error: demoSessionError,
+    } = await client
+      .from("demo_sessions")
+      .select(
+        `
+          workspace_id,
+          status,
+          created_at
+        `
+      )
+      .eq("user_id", user.id)
+      .in(
+        "status",
+        [
+          "active",
+          "completed",
+        ]
+      )
+      .order(
+        "created_at",
+        {
+          ascending: false,
+        }
+      )
+      .limit(1)
+      .maybeSingle();
+
+    if (demoSessionError) {
+      console.warn(
+        "Não foi possível localizar a sessão Demo:",
+        demoSessionError.message
+      );
+    }
+
+    if (demoSession?.workspace_id) {
+      localStorage.setItem(
+        STORAGE_KEYS.activeWorkspace,
+        demoSession.workspace_id
+      );
+
+      return demoSession.workspace_id;
+    }
+
+    /*
+     * Fallback: workspace ativo pertencente
+     * ao próprio utilizador.
+     */
+
+    const {
+      data: workspace,
+      error: workspaceError,
+    } = await client
+      .from("workspaces")
+      .select("id")
+      .eq("owner_id", user.id)
+      .eq("status", "active")
+      .order(
+        "created_at",
+        {
+          ascending: false,
+        }
+      )
+      .limit(1)
+      .maybeSingle();
+
+    if (workspaceError) {
+      console.warn(
+        "Não foi possível localizar o workspace:",
+        workspaceError.message
+      );
+    }
+
+    if (workspace?.id) {
+      localStorage.setItem(
+        STORAGE_KEYS.activeWorkspace,
+        workspace.id
+      );
+
+      return workspace.id;
+    }
+
+    throw new Error(
+      "Não foi possível localizar o workspace da demonstração."
+    );
+  }
+
+
+  /* ========================================================
+     Limpar dados Demo no banco
+  ======================================================== */
+
+  async function finalizeDemoWorkspace(
+    client,
+    user
+  ) {
+    const workspaceId =
+      await resolveWorkspaceId(
+        client,
+        user
+      );
+
+    const {
+      data,
+      error,
+    } = await client.rpc(
+      "finalize_demo_account",
+      {
+        p_workspace_id:
+          workspaceId,
+      }
+    );
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data?.success) {
+      throw new Error(
+        "A limpeza do workspace não foi concluída."
+      );
+    }
+
+    console.log(
+      "Workspace Demo convertido:",
+      data
+    );
+
+    return data;
+  }
+
+
+  /* ========================================================
+     Finalizar perfil e metadados
+  ======================================================== */
+
+  async function finalizeProfile(
+    user
+  ) {
     const client = getClient();
 
     const pendingName =
@@ -374,13 +651,19 @@
     }
 
     const metadata = {
-      account_conversion_completed: true,
+      account_conversion_started:
+        true,
+
+      account_conversion_completed:
+        true,
+
       account_conversion_completed_at:
         new Date().toISOString(),
     };
 
     if (pendingName) {
-      metadata.full_name = pendingName;
+      metadata.full_name =
+        pendingName;
     }
 
     const {
@@ -390,10 +673,7 @@
     });
 
     if (metadataError) {
-      console.warn(
-        "Metadados não atualizados:",
-        metadataError.message
-      );
+      throw metadataError;
     }
 
     if (pendingName) {
@@ -403,12 +683,15 @@
         .from("profiles")
         .update({
           full_name: pendingName,
+          onboarding_completed: true,
+          updated_at:
+            new Date().toISOString(),
         })
         .eq("id", user.id);
 
       if (profileError) {
         console.warn(
-          "Perfil não atualizado:",
+          "O perfil público não foi atualizado:",
           profileError.message
         );
       }
@@ -417,10 +700,16 @@
 
 
   /* ========================================================
-     Limpar modo Demo
+     Limpar modo Demo local
   ======================================================== */
 
   function finishDemoMode() {
+    /*
+     * O workspace ativo não é removido.
+     * Ele continua sendo o mesmo workspace,
+     * agora convertido em workspace real.
+     */
+
     localStorage.removeItem(
       STORAGE_KEYS.demoMode
     );
@@ -441,6 +730,10 @@
       STORAGE_KEYS.pendingName
     );
 
+    document.documentElement
+      .classList
+      .remove("demo-mode");
+
     document.body.classList.remove(
       "demo-mode"
     );
@@ -448,7 +741,102 @@
 
 
   /* ========================================================
-     Enviar palavra-passe
+     Traduzir erros do RPC
+  ======================================================== */
+
+  function mapFinalizationError(error) {
+    const message =
+      String(
+        error?.message || ""
+      ).toUpperCase();
+
+    if (
+      message.includes(
+        "EMAIL_NOT_CONFIRMED"
+      )
+    ) {
+      return (
+        "O email ainda não foi confirmado. " +
+        "Confirme o endereço recebido antes " +
+        "de continuar."
+      );
+    }
+
+    if (
+      message.includes(
+        "PASSWORD_NOT_CONFIGURED"
+      )
+    ) {
+      return (
+        "A palavra-passe ainda não foi " +
+        "registada. Tente novamente."
+      );
+    }
+
+    if (
+      message.includes(
+        "WORKSPACE_NOT_OWNED"
+      )
+    ) {
+      return (
+        "Este workspace não pertence ao " +
+        "utilizador autenticado."
+      );
+    }
+
+    if (
+      message.includes(
+        "ACTIVE_DEMO_SESSION_NOT_FOUND"
+      )
+    ) {
+      return (
+        "Não foi encontrada uma sessão de " +
+        "demonstração ativa para esta conta."
+      );
+    }
+
+    if (
+      message.includes(
+        "FREE_PLAN_NOT_FOUND"
+      )
+    ) {
+      return (
+        "O plano Free não está disponível. " +
+        "Contacte o suporte da StudioV."
+      );
+    }
+
+    if (
+      message.includes(
+        "AUTH_REQUIRED"
+      ) ||
+      message.includes(
+        "USER_NOT_FOUND"
+      )
+    ) {
+      return (
+        "A sessão terminou. Entre novamente " +
+        "para concluir a conta."
+      );
+    }
+
+    if (
+      message.includes("WEAK PASSWORD")
+    ) {
+      return (
+        "Escolha uma palavra-passe mais segura."
+      );
+    }
+
+    return (
+      error?.message ||
+      "Não foi possível concluir a criação da conta."
+    );
+  }
+
+
+  /* ========================================================
+     Enviar formulário
   ======================================================== */
 
   async function handleSubmit(event) {
@@ -460,7 +848,9 @@
       elements.password.value;
 
     const confirmation =
-      elements.passwordConfirmation.value;
+      elements
+        .passwordConfirmation
+        .value;
 
     const validationError =
       validatePassword(
@@ -469,7 +859,10 @@
       );
 
     if (validationError) {
-      showFormError(validationError);
+      showFormError(
+        validationError
+      );
+
       return;
     }
 
@@ -486,6 +879,10 @@
     setSubmitting(true);
 
     try {
+      /*
+       * 1. Criar a palavra-passe.
+       */
+
       const {
         data,
         error,
@@ -498,36 +895,51 @@
       }
 
       const user =
-        data?.user || currentUser;
+        data?.user ||
+        currentUser;
+
+      if (!user) {
+        throw new Error(
+          "O utilizador não foi encontrado."
+        );
+      }
+
+      /*
+       * 2. Limpar todos os dados demonstrativos
+       *    e converter o workspace para Free.
+       */
+
+      await finalizeDemoWorkspace(
+        client,
+        user
+      );
+
+      /*
+       * 3. Marcar a conversão como concluída.
+       */
 
       await finalizeProfile(user);
 
+      /*
+       * 4. Remover apenas o estado local da Demo.
+       */
+
       finishDemoMode();
+
+      /*
+       * 5. Mostrar sucesso e abrir Dashboard.
+       */
 
       showSuccess();
     } catch (error) {
       console.error(
-        "Erro ao definir palavra-passe:",
+        "Erro ao finalizar conta Demo:",
         error
       );
 
-      const message =
-        String(error?.message || "")
-          .toLowerCase();
-
-      if (
-        message.includes("weak password") ||
-        message.includes("password")
-      ) {
-        showFormError(
-          "Escolha uma palavra-passe mais segura."
-        );
-      } else {
-        showFormError(
-          error?.message ||
-          "Não foi possível concluir a conta."
-        );
-      }
+      showFormError(
+        mapFinalizationError(error)
+      );
     } finally {
       setSubmitting(false);
     }
@@ -535,7 +947,7 @@
 
 
   /* ========================================================
-     Mostrar palavra-passe
+     Mostrar e ocultar palavra-passe
   ======================================================== */
 
   function registerPasswordToggles() {
@@ -548,17 +960,21 @@
           "click",
           function () {
             const inputId =
-              button.dataset.passwordToggle;
+              button.dataset
+                .passwordToggle;
 
             const input =
-              document.getElementById(inputId);
+              document.getElementById(
+                inputId
+              );
 
             if (!input) {
               return;
             }
 
             const isPassword =
-              input.type === "password";
+              input.type ===
+              "password";
 
             input.type =
               isPassword
@@ -574,8 +990,12 @@
 
             button.innerHTML =
               isPassword
-                ? '<i data-lucide="eye-off"></i>'
-                : '<i data-lucide="eye"></i>';
+                ? `
+                    <i data-lucide="eye-off"></i>
+                  `
+                : `
+                    <i data-lucide="eye"></i>
+                  `;
 
             refreshIcons();
           }
@@ -606,9 +1026,22 @@
           return;
         }
 
-        initializationFinished = true;
+        const user =
+          session.user;
 
-        showForm(session.user);
+        const metadata =
+          user.user_metadata || {};
+
+        if (
+          user.is_anonymous !== true &&
+          metadata
+            .account_conversion_started ===
+            true
+        ) {
+          initializationFinished = true;
+
+          showForm(user);
+        }
       }
     );
 
@@ -636,26 +1069,34 @@
 
     await prepareAccountPage();
 
-    window.setTimeout(function () {
-      if (!initializationFinished) {
-        prepareAccountPage();
-      }
-    }, 1200);
+    window.setTimeout(
+      function () {
+        if (!initializationFinished) {
+          prepareAccountPage();
+        }
+      },
+      1200
+    );
 
-    window.setTimeout(function () {
-      if (!initializationFinished) {
-        initializationFinished = true;
+    window.setTimeout(
+      function () {
+        if (!initializationFinished) {
+          initializationFinished = true;
 
-        showInvalid(
-          "A sessão de confirmação não foi encontrada. " +
-          "Abra novamente o link recebido por email."
-        );
-      }
-    }, 7000);
+          showInvalid(
+            "A sessão de confirmação não foi encontrada. " +
+            "Abra novamente o link recebido por email."
+          );
+        }
+      },
+      7000
+    );
   }
 
+
   if (
-    document.readyState === "loading"
+    document.readyState ===
+    "loading"
   ) {
     document.addEventListener(
       "DOMContentLoaded",
@@ -664,6 +1105,7 @@
   } else {
     initialize();
   }
+
 
   window.addEventListener(
     "beforeunload",
