@@ -4,284 +4,608 @@
    StudioV — Menu do utilizador
 ========================================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
-  const trigger = document.getElementById(
-    "sidebar-user-trigger"
-  );
+document.addEventListener(
+  "DOMContentLoaded",
+  function initializeUserMenu() {
+    const ROUTES = {
+      profile:
+        "/html/dashboard/profile.html",
 
-  const menu = document.getElementById(
-    "sidebar-user-menu"
-  );
+      home:
+        "/html/dashboard/home.html",
 
-  const restartTourButton = document.getElementById(
-    "restart-demo-tour"
-  );
+      login:
+        "/html/auth/login.html",
+    };
 
-  const createAccountButton = document.getElementById(
-    "create-account-demo"
-  );
+    const STORAGE_KEYS = {
+      demoMode:
+        "studiov_demo_mode",
 
-  const logoutButton = document.getElementById(
-    "logout-user"
-  );
+      demoUserId:
+        "studiov_demo_user_id",
 
-  if (!trigger || !menu) {
-    console.error(
-      "Menu do utilizador não encontrado no HTML."
-    );
+      activeWorkspace:
+        "studiov_active_workspace_id",
 
-    return;
-  }
+      tourCompleted:
+        "studiov_demo_tour_completed",
 
-  /* ========================================================
-     Abrir e fechar
-  ======================================================== */
+      pendingEmail:
+        "studiov_account_pending_email",
 
-  function openMenu() {
-    menu.hidden = false;
+      pendingName:
+        "studiov_account_pending_name",
+    };
 
-    trigger.setAttribute(
-      "aria-expanded",
-      "true"
-    );
-  }
 
-  function closeMenu() {
-    menu.hidden = true;
+    /* ========================================================
+       Elementos
+    ======================================================== */
 
-    trigger.setAttribute(
-      "aria-expanded",
-      "false"
-    );
-  }
+    const trigger =
+      document.getElementById(
+        "sidebar-user-trigger"
+      );
 
-  function toggleMenu() {
-    const isOpen =
-      trigger.getAttribute("aria-expanded") ===
-      "true";
+    const menu =
+      document.getElementById(
+        "sidebar-user-menu"
+      );
 
-    if (isOpen) {
-      closeMenu();
+    const restartTourButton =
+      document.getElementById(
+        "restart-demo-tour"
+      );
+
+    const createAccountButton =
+      document.getElementById(
+        "create-account-demo"
+      );
+
+    const logoutButton =
+      document.getElementById(
+        "logout-user"
+      );
+
+    /*
+     * Procura o botão Meu perfil por diferentes
+     * formatos possíveis no HTML.
+     */
+
+    const profileButton =
+      document.getElementById(
+        "open-user-profile"
+      ) ||
+
+      document.getElementById(
+        "user-profile-link"
+      ) ||
+
+      menu?.querySelector(
+        `
+          [data-user-profile],
+          [data-action="profile"],
+          a[href$="/profile.html"],
+          a[href*="/profile.html"]
+        `
+      );
+
+
+    if (!trigger || !menu) {
+      console.error(
+        "Menu do utilizador não encontrado no HTML."
+      );
+
       return;
     }
 
-    openMenu();
-  }
 
-  trigger.addEventListener(
-    "click",
-    function (event) {
-      event.preventDefault();
-      event.stopPropagation();
+    /* ========================================================
+       Supabase
+    ======================================================== */
 
-      toggleMenu();
+    function getSupabaseClient() {
+      return window.supabaseClient || null;
     }
-  );
 
-  menu.addEventListener(
-    "click",
-    function (event) {
-      event.stopPropagation();
-    }
-  );
 
-  document.addEventListener(
-    "click",
-    function () {
-      closeMenu();
-    }
-  );
+    /* ========================================================
+       Abrir e fechar
+    ======================================================== */
 
-  document.addEventListener(
-    "keydown",
-    function (event) {
-      if (event.key === "Escape") {
-        closeMenu();
-        trigger.focus();
-      }
-    }
-  );
+    function openMenu() {
+      menu.hidden = false;
 
-  /* ========================================================
-     Modo demo
-  ======================================================== */
-
-  const isDemoMode =
-    localStorage.getItem(
-      "studiov_demo_mode"
-    ) === "true";
-
-  document.body.classList.toggle(
-    "demo-mode",
-    isDemoMode
-  );
-
-  if (createAccountButton) {
-    createAccountButton.hidden =
-      !isDemoMode;
-  }
-
-  /* ========================================================
-     Reiniciar tutorial
-  ======================================================== */
-
-  restartTourButton?.addEventListener(
-    "click",
-    function () {
-      localStorage.removeItem(
-        "studiov_demo_tour_completed"
+      trigger.setAttribute(
+        "aria-expanded",
+        "true"
       );
+    }
 
-      closeMenu();
 
-      const isHomePage =
-        window.location.pathname.endsWith(
-          "/home.html"
-        );
+    function closeMenu() {
+      menu.hidden = true;
 
-      if (
-        isHomePage &&
-        window.StudioVDemoTour
-      ) {
-        window.StudioVDemoTour.restart();
+      trigger.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+    }
+
+
+    function toggleMenu() {
+      const isOpen =
+        trigger.getAttribute(
+          "aria-expanded"
+        ) === "true";
+
+      if (isOpen) {
+        closeMenu();
         return;
       }
 
-      window.location.href =
-        "/html/dashboard/home.html?tour=1";
+      openMenu();
     }
-  );
 
-  /* ========================================================
-     Criar conta
-  ======================================================== */
 
-    const createAccountDemo =
-    document.getElementById(
-        "create-account-demo"
+    trigger.addEventListener(
+      "click",
+      function handleTriggerClick(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        toggleMenu();
+      }
     );
 
-    if (createAccountDemo) {
-    createAccountDemo.addEventListener(
-        "click",
-        function () {
-        /*
-        * Fecha o menu do utilizador.
-        */
 
-        const userMenu =
-            document.getElementById(
-            "sidebar-user-menu"
-            );
+    menu.addEventListener(
+      "click",
+      function handleMenuClick(event) {
+        event.stopPropagation();
+      }
+    );
 
-        const userTrigger =
-            document.getElementById(
-            "sidebar-user-trigger"
-            );
 
-        if (userMenu) {
-            userMenu.hidden = true;
+    document.addEventListener(
+      "click",
+      function handleDocumentClick() {
+        closeMenu();
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      function handleKeyboard(event) {
+        if (event.key !== "Escape") {
+          return;
         }
 
-        if (userTrigger) {
-            userTrigger.setAttribute(
-            "aria-expanded",
-            "false"
-            );
-        }
+        closeMenu();
+        trigger.focus();
+      }
+    );
 
-        /*
-        * Abre o modal de conversão
-        * da conta demo.
-        */
 
-        if (
-            window.StudioVDemoAccount &&
-            typeof window.StudioVDemoAccount.open ===
-            "function"
-        ) {
-            window.StudioVDemoAccount.open();
-            return;
-        }
+    /* ========================================================
+       Controlar estado visual Demo
+    ======================================================== */
 
-        console.error(
-            "O componente demo-account.js não foi carregado."
+    function applyDemoState(
+      isDemoMode,
+      user = null
+    ) {
+      document.body.classList.toggle(
+        "demo-mode",
+        isDemoMode
+      );
+
+      document.documentElement
+        .classList
+        .toggle(
+          "demo-mode",
+          isDemoMode
         );
+
+
+      if (createAccountButton) {
+        createAccountButton.hidden =
+          !isDemoMode;
+      }
+
+
+      if (restartTourButton) {
+        restartTourButton.hidden =
+          !isDemoMode;
+      }
+
+
+      if (isDemoMode) {
+        localStorage.setItem(
+          STORAGE_KEYS.demoMode,
+          "true"
+        );
+
+        if (user?.id) {
+          localStorage.setItem(
+            STORAGE_KEYS.demoUserId,
+            user.id
+          );
         }
-    );
+
+        return;
+      }
+
+
+      localStorage.removeItem(
+        STORAGE_KEYS.demoMode
+      );
+
+      localStorage.removeItem(
+        STORAGE_KEYS.demoUserId
+      );
+
+      localStorage.removeItem(
+        STORAGE_KEYS.tourCompleted
+      );
     }
-  /* ========================================================
-     Logout
-  ======================================================== */
 
-  logoutButton?.addEventListener(
-    "click",
-    async function () {
-      closeMenu();
 
-      logoutButton.disabled = true;
+    /* ========================================================
+       Resolver estado real do utilizador
+    ======================================================== */
+
+    async function resolveUserState() {
+      /*
+       * Evita que os botões Demo apareçam
+       * por alguns milissegundos em contas reais.
+       */
+
+      if (createAccountButton) {
+        createAccountButton.hidden = true;
+      }
+
+      if (restartTourButton) {
+        restartTourButton.hidden = true;
+      }
+
+
+      const client =
+        getSupabaseClient();
+
+
+      if (!client) {
+        console.warn(
+          "Supabase não disponível no menu do utilizador."
+        );
+
+        applyDemoState(false);
+
+        return;
+      }
+
 
       try {
-        const client =
-          window.supabaseClient;
+        /*
+         * Aguarda o auth-guard quando ele estiver
+         * disponível na página.
+         */
 
-        if (client) {
-          const { error } =
-            await client.auth.signOut();
-
-          if (error) {
-            throw error;
+        if (
+          window.studioVAuthReady &&
+          typeof window.studioVAuthReady.then ===
+            "function"
+        ) {
+          try {
+            await window.studioVAuthReady;
+          } catch (error) {
+            console.warn(
+              "O auth-guard terminou com aviso:",
+              error
+            );
           }
         }
 
-        localStorage.removeItem(
-          "studiov_demo_mode"
-        );
 
-        localStorage.removeItem(
-          "studiov_demo_user_id"
-        );
+        const {
+          data,
+          error,
+        } = await client.auth.getUser();
 
-        localStorage.removeItem(
-          "studiov_active_workspace_id"
-        );
 
-        localStorage.removeItem(
-          "studiov_demo_tour_completed"
-        );
+        if (error) {
+          throw error;
+        }
 
-        window.location.href =
-          "/html/auth/login.html";
+
+        const user =
+          data?.user || null;
+
+
+        if (!user) {
+          applyDemoState(false);
+          return;
+        }
+
+
+        const metadata =
+          user.user_metadata || {};
+
+
+        const conversionStarted =
+          metadata
+            .account_conversion_started ===
+          true;
+
+
+        const conversionCompleted =
+          metadata
+            .account_conversion_completed ===
+          true;
+
+
+        /*
+         * O botão Criar minha conta só aparece
+         * enquanto a conta for realmente anónima
+         * e a conversão ainda não tiver começado.
+         */
+
+        const isRealDemo =
+          user.is_anonymous === true &&
+          conversionStarted !== true &&
+          conversionCompleted !== true;
+
+
+        applyDemoState(
+          isRealDemo,
+          user
+        );
       } catch (error) {
         console.error(
-          "Erro ao terminar sessão:",
+          "Erro ao verificar estado do utilizador:",
           error
         );
 
-        logoutButton.disabled = false;
+        /*
+         * Em caso de erro, escondemos as ações
+         * Demo por segurança.
+         */
 
-        alert(
-          "Não foi possível terminar a sessão."
-        );
+        applyDemoState(false);
       }
     }
-  );
 
-  /* ========================================================
-     API pública
-  ======================================================== */
 
-  window.StudioVUserMenu = {
-    open: openMenu,
-    close: closeMenu,
-    toggle: toggleMenu,
-  };
+    /* ========================================================
+       Meu perfil
+    ======================================================== */
 
-  if (window.lucide) {
-    window.lucide.createIcons();
+    profileButton?.addEventListener(
+      "click",
+      function handleProfileClick(event) {
+        event.preventDefault();
+
+        closeMenu();
+
+        window.location.href =
+          ROUTES.profile;
+      }
+    );
+
+
+    /* ========================================================
+       Reiniciar tutorial
+    ======================================================== */
+
+    restartTourButton?.addEventListener(
+      "click",
+      function handleRestartTour() {
+        localStorage.removeItem(
+          STORAGE_KEYS.tourCompleted
+        );
+
+        closeMenu();
+
+
+        const isHomePage =
+          window.location.pathname.endsWith(
+            "/home.html"
+          );
+
+
+        if (
+          isHomePage &&
+          window.StudioVDemoTour &&
+          typeof window.StudioVDemoTour.restart ===
+            "function"
+        ) {
+          window.StudioVDemoTour.restart();
+          return;
+        }
+
+
+        window.location.href =
+          `${ROUTES.home}?tour=1`;
+      }
+    );
+
+
+    /* ========================================================
+       Criar conta
+    ======================================================== */
+
+    createAccountButton?.addEventListener(
+      "click",
+      function handleCreateAccount() {
+        closeMenu();
+
+
+        if (
+          window.StudioVDemoAccount &&
+          typeof window.StudioVDemoAccount.open ===
+            "function"
+        ) {
+          window.StudioVDemoAccount.open();
+          return;
+        }
+
+
+        console.error(
+          "O componente demo-account.js não foi carregado."
+        );
+      }
+    );
+
+
+    /* ========================================================
+       Limpar armazenamento local
+    ======================================================== */
+
+    function clearLocalSession() {
+      localStorage.removeItem(
+        STORAGE_KEYS.demoMode
+      );
+
+      localStorage.removeItem(
+        STORAGE_KEYS.demoUserId
+      );
+
+      localStorage.removeItem(
+        STORAGE_KEYS.activeWorkspace
+      );
+
+      localStorage.removeItem(
+        STORAGE_KEYS.tourCompleted
+      );
+
+      localStorage.removeItem(
+        STORAGE_KEYS.pendingEmail
+      );
+
+      localStorage.removeItem(
+        STORAGE_KEYS.pendingName
+      );
+    }
+
+
+    /* ========================================================
+       Logout
+    ======================================================== */
+
+    logoutButton?.addEventListener(
+      "click",
+      async function handleLogout() {
+        closeMenu();
+
+        logoutButton.disabled = true;
+
+        logoutButton.setAttribute(
+          "aria-busy",
+          "true"
+        );
+
+
+        try {
+          const client =
+            getSupabaseClient();
+
+
+          if (client) {
+            const {
+              error,
+            } = await client.auth.signOut();
+
+
+            if (error) {
+              throw error;
+            }
+          }
+
+
+          clearLocalSession();
+
+
+          window.location.replace(
+            ROUTES.login
+          );
+        } catch (error) {
+          console.error(
+            "Erro ao terminar sessão:",
+            error
+          );
+
+
+          logoutButton.disabled = false;
+
+          logoutButton.setAttribute(
+            "aria-busy",
+            "false"
+          );
+
+
+          alert(
+            "Não foi possível terminar a sessão."
+          );
+        }
+      }
+    );
+
+
+    /* ========================================================
+       Atualizações de autenticação
+    ======================================================== */
+
+    const client =
+      getSupabaseClient();
+
+
+    client?.auth.onAuthStateChange(
+      function handleAuthStateChange(
+        event
+      ) {
+        if (
+          event === "SIGNED_IN" ||
+          event === "USER_UPDATED" ||
+          event === "TOKEN_REFRESHED"
+        ) {
+          resolveUserState();
+        }
+      }
+    );
+
+
+    /* ========================================================
+       API pública
+    ======================================================== */
+
+    window.StudioVUserMenu = {
+      open: openMenu,
+      close: closeMenu,
+      toggle: toggleMenu,
+      refresh: resolveUserState,
+    };
+
+
+    /* ========================================================
+       Inicialização
+    ======================================================== */
+
+    if (
+      window.lucide &&
+      typeof window.lucide.createIcons ===
+        "function"
+    ) {
+      window.lucide.createIcons();
+    }
+
+
+    resolveUserState();
+
+
+    console.log(
+      "Menu do utilizador carregado com sucesso."
+    );
   }
-
-  console.log(
-    "Menu do utilizador carregado com sucesso."
-  );
-});
+);
