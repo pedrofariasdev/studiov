@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", async function () {
      Configurações gerais
   ======================================================= */
 
-  const LOGIN_URL = "/html/login.html";
+  const LOGIN_URL =
+  "/html/auth/login.html";
 
   const STORAGE_KEYS = {
     theme: "studiov_theme",
@@ -28,11 +29,64 @@ document.addEventListener("DOMContentLoaded", async function () {
     productNews: false,
   };
 
+  const PLANNED_PAID_PLANS = [
+    {
+      code: "starter",
+      name: "Starter",
+      description:
+        "Para criadores que estão a começar a organizar várias marcas.",
+      limits: {
+        brands: 3,
+        members: 2,
+        social_accounts: 5,
+        storage_bytes:
+          2 * 1024 * 1024 * 1024,
+      },
+    },
+
+    {
+      code: "professional",
+      name: "Professional",
+      description:
+        "Para profissionais e pequenas equipas de conteúdo.",
+      limits: {
+        brands: 10,
+        members: 5,
+        social_accounts: 15,
+        storage_bytes:
+          10 * 1024 * 1024 * 1024,
+      },
+    },
+
+    {
+      code: "business",
+      name: "Business",
+      description:
+        "Para agências e equipas que gerenciam vários clientes.",
+      limits: {
+        brands: 30,
+        members: 15,
+        social_accounts: 50,
+        storage_bytes:
+          50 * 1024 * 1024 * 1024,
+      },
+    },
+  ];
+
 
 
   let currentUser = null;
   let currentProfile = null;
   let currentWorkspaceId = null;
+  let currentWorkspace = null;
+
+  let currentBillingSummary = null;
+  let availableBillingPlans = [];
+
+  let workspaceMembers = [];
+  let workspaceMemberProfiles =
+    new Map();
+
   let saveStatusTimeout = null;
 
   /* =======================================================
@@ -117,6 +171,56 @@ document.addEventListener("DOMContentLoaded", async function () {
     "settings-integrations-list"
   );
 
+  const currentPlanName =
+    document.getElementById(
+      "settings-current-plan-name"
+    );
+
+  const currentPlanDescription =
+    document.getElementById(
+      "settings-current-plan-description"
+    );
+
+  const currentPlanStatus =
+    document.getElementById(
+      "settings-current-plan-status"
+    );
+
+  const plansGrid =
+    document.getElementById(
+      "settings-plans-grid"
+    );
+
+  const membersList =
+    document.getElementById(
+      "settings-members-list"
+    );
+
+  const inviteMemberForm =
+    document.getElementById(
+      "settings-invite-member-form"
+    );
+
+  const inviteMemberEmail =
+    document.getElementById(
+      "settings-member-email"
+    );
+
+  const inviteMemberRole =
+    document.getElementById(
+      "settings-member-role"
+    );
+
+  const inviteMemberButton =
+    document.getElementById(
+      "settings-invite-member-button"
+    );
+
+  const connectSocialAccountButton =
+    document.getElementById(
+      "connect-social-account-button"
+    );
+
   const toastContainer = document.getElementById(
     "settings-toast-container"
   );
@@ -193,6 +297,50 @@ document.addEventListener("DOMContentLoaded", async function () {
     const cleanValue = String(value || "U").trim();
 
     return cleanValue.charAt(0).toUpperCase() || "U";
+  }
+
+  function formatStorage(bytes) {
+    const value =
+      Number(bytes) || 0;
+
+    if (value <= 0) {
+      return "0 MB";
+    }
+
+    if (
+      value >=
+      1024 * 1024 * 1024
+    ) {
+      return (
+        value /
+        (1024 * 1024 * 1024)
+      ).toFixed(
+        value %
+          (1024 * 1024 * 1024) ===
+          0
+          ? 0
+          : 1
+      ) + " GB";
+    }
+
+    return Math.round(
+      value /
+      (1024 * 1024)
+    ) + " MB";
+  }
+
+
+  function getRoleLabel(role) {
+    const labels = {
+      owner: "Proprietário",
+      admin: "Administrador",
+      editor: "Editor",
+      viewer: "Visualizador",
+    };
+
+    return labels[role] ||
+      role ||
+      "Membro";
   }
 
   function setButtonLoading(
@@ -1000,27 +1148,46 @@ document.addEventListener("DOMContentLoaded", async function () {
         STORAGE_KEYS.workspaceId
       );
 
+
     if (storedWorkspaceId) {
       const {
         data: workspace,
         error,
       } = await supabaseClient
         .from("workspaces")
-        .select("id, name")
-        .eq("id", storedWorkspaceId)
+        .select(`
+          id,
+          owner_id,
+          name,
+          plan,
+          status,
+          created_at
+        `)
+        .eq(
+          "id",
+          storedWorkspaceId
+        )
         .maybeSingle();
 
+
       if (!error && workspace) {
-        currentWorkspaceId = workspace.id;
+        currentWorkspaceId =
+          workspace.id;
+
+        currentWorkspace =
+          workspace;
+
 
         if (currentWorkspaceName) {
           currentWorkspaceName.textContent =
             workspace.name;
         }
 
+
         return workspace;
       }
     }
+
 
     const {
       data: membership,
@@ -1028,10 +1195,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     } = await supabaseClient
       .from("workspace_members")
       .select("workspace_id")
-      .eq("user_id", currentUser.id)
-      .eq("status", "active")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .eq(
+        "status",
+        "active"
+      )
       .limit(1)
       .maybeSingle();
+
 
     if (membershipError) {
       console.warn(
@@ -1042,20 +1216,36 @@ document.addEventListener("DOMContentLoaded", async function () {
       return null;
     }
 
+
     if (!membership?.workspace_id) {
       return null;
     }
+
 
     const {
       data: workspace,
       error: workspaceError,
     } = await supabaseClient
       .from("workspaces")
-      .select("id, name")
-      .eq("id", membership.workspace_id)
+      .select(`
+        id,
+        owner_id,
+        name,
+        plan,
+        status,
+        created_at
+      `)
+      .eq(
+        "id",
+        membership.workspace_id
+      )
       .maybeSingle();
 
-    if (workspaceError || !workspace) {
+
+    if (
+      workspaceError ||
+      !workspace
+    ) {
       console.warn(
         "Erro ao carregar workspace:",
         workspaceError?.message
@@ -1064,19 +1254,645 @@ document.addEventListener("DOMContentLoaded", async function () {
       return null;
     }
 
-    currentWorkspaceId = workspace.id;
+
+    currentWorkspaceId =
+      workspace.id;
+
+    currentWorkspace =
+      workspace;
+
 
     safeLocalStorageSet(
       STORAGE_KEYS.workspaceId,
       workspace.id
     );
 
+
     if (currentWorkspaceName) {
       currentWorkspaceName.textContent =
         workspace.name;
     }
 
+
     return workspace;
+  }
+
+  /* =======================================================
+    Plano e faturação
+  ======================================================= */
+
+  function getPlanHighlights(plan) {
+    const limits =
+      plan?.limits || {};
+
+    return [
+      `${
+        limits.brands ?? "—"
+      } marcas`,
+
+      `${
+        limits.members ?? "—"
+      } membros`,
+
+      `${
+        limits.social_accounts ?? "—"
+      } contas sociais`,
+
+      `${formatStorage(
+        limits.storage_bytes
+      )} de armazenamento`,
+    ];
+  }
+
+
+  function renderBillingPlans() {
+    if (!plansGrid) {
+      return;
+    }
+
+
+    const currentPlanCode =
+      currentBillingSummary
+        ?.plan_code ||
+      currentWorkspace?.plan ||
+      "free";
+
+
+    const databaseCodes =
+      new Set(
+        availableBillingPlans.map(
+          function (plan) {
+            return plan.code;
+          }
+        )
+      );
+
+
+    const plannedPlans =
+      PLANNED_PAID_PLANS.filter(
+        function (plan) {
+          return !databaseCodes.has(
+            plan.code
+          );
+        }
+      );
+
+
+    const plans = [
+      ...availableBillingPlans.map(
+        function (plan) {
+          return {
+            ...plan,
+            available: true,
+          };
+        }
+      ),
+
+      ...plannedPlans.map(
+        function (plan) {
+          return {
+            ...plan,
+            available: false,
+          };
+        }
+      ),
+    ];
+
+
+    plansGrid.innerHTML =
+      plans
+        .map(function (plan) {
+          const isCurrent =
+            plan.code ===
+            currentPlanCode;
+
+          const price =
+            Number(
+              plan.monthly_price_cents
+            ) > 0
+              ? new Intl.NumberFormat(
+                  "pt-PT",
+                  {
+                    style: "currency",
+                    currency:
+                      plan.currency ||
+                      "EUR",
+                  }
+                ).format(
+                  plan.monthly_price_cents /
+                    100
+                )
+              : plan.code === "free"
+                ? "Grátis"
+                : "Preço a definir";
+
+
+          const highlights =
+            getPlanHighlights(plan)
+              .map(function (item) {
+                return `
+                  <li>
+                    <i data-lucide="check"></i>
+                    <span>
+                      ${escapeHtml(item)}
+                    </span>
+                  </li>
+                `;
+              })
+              .join("");
+
+
+          return `
+            <article
+              class="
+                settings-plan-card
+                ${
+                  isCurrent
+                    ? "is-current"
+                    : ""
+                }
+              "
+            >
+
+              <div class="settings-plan-card-header">
+
+                <div>
+                  <span>
+                    ${
+                      isCurrent
+                        ? "Plano atual"
+                        : plan.available
+                          ? "Disponível"
+                          : "Em preparação"
+                    }
+                  </span>
+
+                  <h4>
+                    ${escapeHtml(plan.name)}
+                  </h4>
+                </div>
+
+                ${
+                  isCurrent
+                    ? `
+                      <i
+                        data-lucide="badge-check"
+                        class="settings-plan-current-icon"
+                      ></i>
+                    `
+                    : ""
+                }
+
+              </div>
+
+
+              <p class="settings-plan-price">
+                ${escapeHtml(price)}
+
+                ${
+                  Number(
+                    plan.monthly_price_cents
+                  ) > 0
+                    ? "<small>/mês</small>"
+                    : ""
+                }
+              </p>
+
+
+              <p class="settings-plan-description">
+                ${escapeHtml(
+                  plan.description ||
+                  "Plano StudioV."
+                )}
+              </p>
+
+
+              <ul class="settings-plan-features">
+                ${highlights}
+              </ul>
+
+
+              <button
+                class="
+                  btn
+                  ${
+                    isCurrent
+                      ? "btn-outline"
+                      : "btn-primary"
+                  }
+                "
+                type="button"
+                disabled
+              >
+                ${
+                  isCurrent
+                    ? "Plano atual"
+                    : plan.available
+                      ? "Pagamento indisponível"
+                      : "Em breve"
+                }
+              </button>
+
+            </article>
+          `;
+        })
+        .join("");
+
+
+    refreshIcons();
+  }
+
+
+  async function loadBillingInformation() {
+    if (!currentWorkspaceId) {
+      return;
+    }
+
+
+    const [
+      billingResponse,
+      plansResponse,
+    ] = await Promise.all([
+      supabaseClient.rpc(
+        "get_workspace_billing_summary",
+        {
+          workspace_id_value:
+            currentWorkspaceId,
+        }
+      ),
+
+      supabaseClient
+        .from("billing_plans")
+        .select(`
+          id,
+          code,
+          name,
+          description,
+          currency,
+          monthly_price_cents,
+          yearly_price_cents,
+          limits,
+          features,
+          is_public,
+          is_active,
+          sort_order
+        `)
+        .eq("is_active", true)
+        .eq("is_public", true)
+        .order(
+          "sort_order",
+          {
+            ascending: true,
+          }
+        ),
+    ]);
+
+
+    if (billingResponse.error) {
+      console.warn(
+        "Não foi possível carregar a subscrição:",
+        billingResponse.error.message
+      );
+    }
+
+
+    if (plansResponse.error) {
+      console.warn(
+        "Não foi possível carregar os planos:",
+        plansResponse.error.message
+      );
+    }
+
+
+    currentBillingSummary =
+      Array.isArray(
+        billingResponse.data
+      )
+        ? billingResponse.data[0] ||
+          null
+        : billingResponse.data ||
+          null;
+
+
+    availableBillingPlans =
+      plansResponse.data || [];
+
+
+    const planName =
+      currentBillingSummary
+        ?.plan_name ||
+      currentWorkspace?.plan ||
+      "Free";
+
+
+    if (currentPlanName) {
+      currentPlanName.textContent =
+        planName;
+    }
+
+
+    if (currentPlanDescription) {
+      currentPlanDescription.textContent =
+        currentBillingSummary
+          ?.plan_description ||
+        "O workspace utiliza atualmente o plano ativo apresentado abaixo.";
+    }
+
+
+    if (currentPlanStatus) {
+      currentPlanStatus.textContent =
+        "Ativo";
+    }
+
+
+    renderBillingPlans();
+  }
+
+  /* =======================================================
+    Membros
+  ======================================================= */
+
+  function renderWorkspaceMembers() {
+    if (!membersList) {
+      return;
+    }
+
+
+    if (
+      workspaceMembers.length === 0
+    ) {
+      membersList.innerHTML = `
+        <div class="settings-empty-state">
+
+          <i data-lucide="users"></i>
+
+          <strong>
+            Nenhum membro encontrado
+          </strong>
+
+          <p>
+            Ainda não existem membros neste workspace.
+          </p>
+
+        </div>
+      `;
+
+      refreshIcons();
+      return;
+    }
+
+
+    membersList.innerHTML =
+      workspaceMembers
+        .map(function (member) {
+          const profile =
+            workspaceMemberProfiles.get(
+              member.user_id
+            );
+
+          const isCurrentUser =
+            member.user_id ===
+            currentUser.id;
+
+          const name =
+            profile?.full_name ||
+            (
+              isCurrentUser
+                ? currentProfile
+                    ?.full_name
+                : null
+            ) ||
+            "Membro do workspace";
+
+
+          const email =
+            isCurrentUser
+              ? currentUser.email
+              : "Email protegido";
+
+
+          return `
+            <article class="settings-member-row">
+
+              <span class="settings-member-avatar">
+                ${escapeHtml(
+                  getInitial(name)
+                )}
+              </span>
+
+
+              <div class="settings-member-information">
+
+                <strong>
+                  ${escapeHtml(name)}
+                </strong>
+
+                <span>
+                  ${escapeHtml(email)}
+                </span>
+
+              </div>
+
+
+              <span class="settings-member-role">
+                ${escapeHtml(
+                  getRoleLabel(
+                    member.role
+                  )
+                )}
+              </span>
+
+
+              <span class="settings-member-status">
+                ${
+                  member.status ===
+                  "active"
+                    ? "Ativo"
+                    : escapeHtml(
+                        member.status
+                      )
+                }
+              </span>
+
+            </article>
+          `;
+        })
+        .join("");
+
+
+    refreshIcons();
+  }
+
+
+  async function loadWorkspaceMembers() {
+    if (!currentWorkspaceId) {
+      return;
+    }
+
+
+    const {
+      data: members,
+      error,
+    } = await supabaseClient
+      .from("workspace_members")
+      .select(`
+        id,
+        workspace_id,
+        user_id,
+        role,
+        status,
+        invited_at,
+        joined_at,
+        created_at
+      `)
+      .eq(
+        "workspace_id",
+        currentWorkspaceId
+      )
+      .order(
+        "created_at",
+        {
+          ascending: true,
+        }
+      );
+
+
+    if (error) {
+      console.warn(
+        "Não foi possível carregar os membros:",
+        error.message
+      );
+
+      workspaceMembers = [];
+      renderWorkspaceMembers();
+
+      return;
+    }
+
+
+    workspaceMembers =
+      members || [];
+
+
+    const userIds =
+      workspaceMembers
+        .map(function (member) {
+          return member.user_id;
+        })
+        .filter(Boolean);
+
+
+    workspaceMemberProfiles =
+      new Map();
+
+
+    if (userIds.length > 0) {
+      const {
+        data: profiles,
+        error: profilesError,
+      } = await supabaseClient
+        .from("profiles")
+        .select(
+          "id, full_name, avatar_url"
+        )
+        .in(
+          "id",
+          userIds
+        );
+
+
+      if (profilesError) {
+        console.warn(
+          "Alguns perfis não puderam ser carregados:",
+          profilesError.message
+        );
+      }
+
+
+      (
+        profiles || []
+      ).forEach(
+        function (profile) {
+          workspaceMemberProfiles.set(
+            profile.id,
+            profile
+          );
+        }
+      );
+    }
+
+
+    renderWorkspaceMembers();
+  }
+
+
+  function handleInviteMember(
+    event
+  ) {
+    event.preventDefault();
+
+
+    const email =
+      inviteMemberEmail
+        ?.value
+        .trim()
+        .toLowerCase() ||
+      "";
+
+
+    const memberLimit =
+      Number(
+        currentBillingSummary
+          ?.plan_limits
+          ?.members
+      ) || 0;
+
+
+    if (!email) {
+      showToast(
+        "error",
+        "Email obrigatório",
+        "Informe o email da pessoa que deseja convidar."
+      );
+
+      inviteMemberEmail?.focus();
+      return;
+    }
+
+
+    if (
+      memberLimit > 0 &&
+      workspaceMembers.length >=
+        memberLimit
+    ) {
+      showToast(
+        "info",
+        "Limite do plano atingido",
+        `O plano atual permite ${memberLimit} membro. Os planos pagos serão disponibilizados posteriormente.`
+      );
+
+      return;
+    }
+
+
+    showToast(
+      "info",
+      "Convites em preparação",
+      "A área de membros está pronta, mas nenhum convite foi enviado. O envio seguro por email será implementado na próxima etapa."
+    );
+
+
+    console.log(
+      "Convite preparado:",
+      {
+        email,
+        role:
+          inviteMemberRole?.value ||
+          "viewer",
+        workspaceId:
+          currentWorkspaceId,
+      }
+    );
   }
 
   /* =======================================================
@@ -1282,6 +2098,24 @@ document.addEventListener("DOMContentLoaded", async function () {
       "A terminar..."
     );
 
+    inviteMemberForm?.addEventListener(
+      "submit",
+      handleInviteMember
+    );
+
+
+    connectSocialAccountButton
+      ?.addEventListener(
+        "click",
+        function () {
+          showToast(
+            "info",
+            "Integração em preparação",
+            "A conexão real com redes sociais será implementada utilizando as APIs oficiais de cada plataforma."
+          );
+        }
+      );    
+
     try {
       const {
         error,
@@ -1401,7 +2235,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       renderUserInformation();
 
       await loadCurrentWorkspace();
-      await loadIntegrations();
+
+      await Promise.all([
+        loadIntegrations(),
+        loadBillingInformation(),
+        loadWorkspaceMembers(),
+      ]);
 
       console.log(
         "Configurações carregadas com sucesso."

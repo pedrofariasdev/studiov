@@ -510,6 +510,37 @@
             </button>
 
             <button
+              class="settings-navigation-item"
+              type="button"
+              data-settings-section="billing"
+            >
+              <span class="settings-navigation-icon">
+                <i data-lucide="credit-card"></i>
+              </span>
+
+              <span>
+                <strong>Plano e faturação</strong>
+                <small>Subscrição e limites</small>
+              </span>
+            </button>
+
+
+            <button
+              class="settings-navigation-item"
+              type="button"
+              data-settings-section="members"
+            >
+              <span class="settings-navigation-icon">
+                <i data-lucide="users-round"></i>
+              </span>
+
+              <span>
+                <strong>Membros</strong>
+                <small>Equipa e permissões</small>
+              </span>
+            </button>
+
+            <button
                 class="settings-navigation-item"
                 type="button"
                 data-settings-section="account"
@@ -872,6 +903,301 @@
                 </div>
             </section>
 
+            <!-- Plano e faturação -->
+
+            <section
+              id="settings-section-billing"
+              class="settings-section"
+              data-section-name="billing"
+              hidden
+            >
+              <header class="settings-section-header">
+
+                <div class="settings-section-heading">
+
+                  <span class="settings-section-icon">
+                    <i data-lucide="credit-card"></i>
+                  </span>
+
+                  <div>
+                    <h2>Plano e faturação</h2>
+
+                    <p>
+                      Consulte o plano atual, os limites disponíveis
+                      e as futuras opções de subscrição.
+                    </p>
+                  </div>
+
+                </div>
+
+              </header>
+
+
+              <article class="settings-card settings-current-plan">
+
+                <div class="settings-current-plan-content">
+
+                  <span class="settings-current-plan-icon">
+                    <i data-lucide="badge-check"></i>
+                  </span>
+
+                  <div>
+
+                    <span class="settings-current-plan-label">
+                      Plano atual
+                    </span>
+
+                    <h3 id="settings-current-plan-name">
+                      A carregar...
+                    </h3>
+
+                    <p id="settings-current-plan-description">
+                      A consultar os dados da subscrição.
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                <span
+                  class="settings-current-plan-status"
+                  id="settings-current-plan-status"
+                >
+                  Ativo
+                </span>
+
+              </article>
+
+
+              <div class="settings-card">
+
+                <div class="settings-card-heading">
+
+                  <div>
+                    <h3>Planos disponíveis</h3>
+
+                    <p>
+                      Compare os recursos da StudioV. Os pagamentos
+                      serão ativados numa fase posterior.
+                    </p>
+                  </div>
+
+                </div>
+
+
+                <div
+                  class="settings-plans-grid"
+                  id="settings-plans-grid"
+                >
+                  <div class="settings-loading-row">
+
+                    <span class="settings-loading-icon"></span>
+
+                    <span>
+                      A carregar planos...
+                    </span>
+
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="settings-information-card">
+
+                <i data-lucide="info"></i>
+
+                <div>
+
+                  <strong>Pagamentos ainda não ativados</strong>
+
+                  <p>
+                    Os planos pagos serão ligados posteriormente a um
+                    provedor de pagamentos. Nenhuma cobrança será feita
+                    nesta versão.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </section>
+
+
+            <!-- Membros -->
+
+            <section
+              id="settings-section-members"
+              class="settings-section"
+              data-section-name="members"
+              hidden
+            >
+              <header class="settings-section-header">
+
+                <div class="settings-section-heading">
+
+                  <span class="settings-section-icon">
+                    <i data-lucide="users-round"></i>
+                  </span>
+
+                  <div>
+                    <h2>Membros</h2>
+
+                    <p>
+                      Consulte as pessoas com acesso ao workspace
+                      e prepare novos convites.
+                    </p>
+                  </div>
+
+                </div>
+
+              </header>
+
+
+              <form
+                class="settings-card settings-form"
+                id="settings-invite-member-form"
+                novalidate
+              >
+
+                <div class="settings-card-heading">
+
+                  <div>
+                    <h3>Convidar membro</h3>
+
+                    <p>
+                      Informe o email e a função que a pessoa terá
+                      dentro do workspace.
+                    </p>
+                  </div>
+
+                </div>
+
+
+                <div class="settings-form-grid">
+
+                  <div class="settings-field">
+
+                    <label for="settings-member-email">
+                      Email
+                    </label>
+
+                    <div class="settings-input-with-icon">
+
+                      <i data-lucide="mail"></i>
+
+                      <input
+                        id="settings-member-email"
+                        name="memberEmail"
+                        type="email"
+                        autocomplete="email"
+                        placeholder="membro@email.com"
+                        required
+                      >
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="settings-field">
+
+                    <label for="settings-member-role">
+                      Função
+                    </label>
+
+                    <select
+                      id="settings-member-role"
+                      name="memberRole"
+                    >
+                      <option value="viewer">
+                        Visualizador
+                      </option>
+
+                      <option value="editor">
+                        Editor
+                      </option>
+
+                      <option value="admin">
+                        Administrador
+                      </option>
+                    </select>
+
+                  </div>
+
+                </div>
+
+
+                <div class="settings-form-actions">
+
+                  <button
+                    class="btn btn-primary"
+                    id="settings-invite-member-button"
+                    type="submit"
+                  >
+                    <i data-lucide="send"></i>
+
+                    Enviar convite
+                  </button>
+
+                </div>
+
+              </form>
+
+
+              <div class="settings-card">
+
+                <div class="settings-card-heading">
+
+                  <div>
+                    <h3>Membros do workspace</h3>
+
+                    <p>
+                      Pessoas que atualmente possuem acesso ao ambiente.
+                    </p>
+                  </div>
+
+                </div>
+
+
+                <div
+                  class="settings-members-list"
+                  id="settings-members-list"
+                >
+                  <div class="settings-loading-row">
+
+                    <span class="settings-loading-icon"></span>
+
+                    <span>
+                      A carregar membros...
+                    </span>
+
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="settings-information-card">
+
+                <i data-lucide="shield-check"></i>
+
+                <div>
+
+                  <strong>Convites seguros</strong>
+
+                  <p>
+                    O envio real por email será ativado depois da criação
+                    da função segura de convites no Supabase.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </section>
+
 
             <!-- Conta -->
             <section
@@ -1062,20 +1388,22 @@
                 <div class="settings-card">
                 <div class="settings-card-heading settings-card-heading--between">
                     <div>
-                    <h3>Contas conectadas</h3>
+                      <h3>Contas conectadas</h3>
 
-                    <p>
-                        Estado das plataformas ligadas às suas marcas.
-                    </p>
+                      <p>
+                          Estado das plataformas ligadas às suas marcas.
+                      </p>
                     </div>
 
-                    <a
-                    href="/html/dashboard/workspace.html"
+                  <button
+                    id="connect-social-account-button"
                     class="btn btn-outline"
-                    >
-                    <i data-lucide="external-link"></i>
-                    Gerir integrações
-                    </a>
+                    type="button"
+                  >
+                    <i data-lucide="plus"></i>
+
+                    Conectar conta
+                  </button>
                 </div>
 
                 <div

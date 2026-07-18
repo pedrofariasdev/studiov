@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Minha conta | StudioV</title>
+
+  <!-- Tema global -->
+  <script src="/js/globals/theme.js"></script>
+
+  <!-- Estilos globais -->
+  <link
+    rel="stylesheet"
+    href="/css/globals/variables.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/reset.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/typography.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/utilities.css"
+  >
+
+  <!-- Página -->
+  <link
+    rel="stylesheet"
+    href="/css/pages/profile.css"
+  >
+
+  <!-- Tema sempre por último -->
+  <link
+    rel="stylesheet"
+    href="/css/globals/theme.css"
+  >
+</head>
+
+
+<body class="profile-page">
+
+  <div class="profile-layout">
+
+    <!-- ====================================================
+         Sidebar
+    ===================================================== -->
+
+    <aside
+      class="profile-sidebar"
+      id="profile-sidebar"
+      aria-label="Navegação da conta"
+    >
+
+      <div class="profile-sidebar-top">
+
+        <a
+          class="profile-brand"
+          href="/html/dashboard/home.html"
+          aria-label="StudioV"
+        >
+          StudioV<span>.</span>
+        </a>
+
+
+        <a
+          class="profile-back-link"
+          href="/html/dashboard/home.html"
+        >
+          <i data-lucide="arrow-left"></i>
+
+          <span>Voltar ao dashboard</span>
+        </a>
+
+
+        <div class="profile-sidebar-heading">
+
+          <span class="profile-sidebar-eyebrow">
+            Configurações
+          </span>
+
+          <h2>Minha conta</h2>
+
+        </div>
+
+
+        <nav class="profile-navigation">
+
+          <button
+            class="profile-navigation-item is-active"
+            type="button"
+            data-profile-section="overview"
+            aria-current="page"
+          >
+            <i data-lucide="layout-dashboard"></i>
+
+            <span>Visão geral</span>
+          </button>
+
+
+          <button
+            class="profile-navigation-item"
+            type="button"
+            data-profile-section="personal"
+          >
+            <i data-lucide="user-round"></i>
+
+            <span>Dados pessoais</span>
+          </button>
+
+
+          <button
+            class="profile-navigation-item"
+            type="button"
+            data-profile-section="security"
+          >
+            <i data-lucide="shield-check"></i>
+
+            <span>Segurança</span>
+          </button>
+
+
+          <button
+            class="profile-navigation-item"
+            type="button"
+            data-profile-section="preferences"
+          >
+            <i data-lucide="sliders-horizontal"></i>
+
+            <span>Preferências</span>
+          </button>
+
+        </nav>
+
+      </div>
+
+
+      <div class="profile-sidebar-footer">
+
+        <div class="profile-sidebar-user">
+
+          <div class="profile-sidebar-avatar">
+
+            <img
+              data-profile-avatar-image
+              alt=""
+              hidden
+            >
+
+            <span data-profile-avatar-fallback>
+              U
+            </span>
+
+          </div>
+
+
+          <div class="profile-sidebar-user-info">
+
+            <strong id="sidebar-profile-name">
+              A carregar...
+            </strong>
+
+            <span id="sidebar-profile-email">
+              A carregar...
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="profile-sidebar-logout"
+          id="profile-logout"
+          type="button"
+        >
+          <i data-lucide="log-out"></i>
+
+          <span>Sair</span>
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- Overlay mobile -->
+
+    <button
+      class="profile-sidebar-overlay"
+      id="profile-sidebar-overlay"
+      type="button"
+      aria-label="Fechar menu"
+      hidden
+    ></button>
+
+
+    <!-- ====================================================
+         Conteúdo principal
+    ===================================================== -->
+
+    <main class="profile-main">
+
+      <!-- Topbar -->
+
+      <header class="profile-topbar">
+
+        <div class="profile-topbar-left">
+
+          <button
+            class="profile-mobile-menu"
+            id="profile-mobile-menu"
+            type="button"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+          >
+            <i data-lucide="menu"></i>
+          </button>
+
+
+          <div>
+
+            <span class="profile-topbar-eyebrow">
+              Minha conta
+            </span>
+
+            <h1 id="profile-page-title">
+              Visão geral
+            </h1>
+
+          </div>
+
+        </div>
+
+
+        <a
+          class="profile-topbar-back"
+          href="/html/dashboard/home.html"
+        >
+          <i data-lucide="arrow-left"></i>
+
+          <span>Dashboard</span>
+        </a>
+
+      </header>
+
+
+      <!-- Estado de carregamento -->
+
+      <section
+        class="profile-loading"
+        id="profile-loading"
+      >
+
+        <span class="profile-loading-icon">
+          <i data-lucide="loader-circle"></i>
+        </span>
+
+        <h2>A carregar a sua conta</h2>
+
+        <p>
+          Estamos a buscar os seus dados no StudioV.
+        </p>
+
+      </section>
+
+
+      <!-- Estado de erro -->
+
+      <section
+        class="profile-error-state"
+        id="profile-error-state"
+        hidden
+      >
+
+        <span class="profile-error-icon">
+          <i data-lucide="triangle-alert"></i>
+        </span>
+
+        <h2>Não foi possível carregar a conta</h2>
+
+        <p id="profile-error-message">
+          Ocorreu um erro ao carregar os seus dados.
+        </p>
+
+        <a href="/html/auth/login.html">
+          Voltar ao login
+        </a>
+
+      </section>
+
+
+      <!-- Conteúdo -->
+
+      <div
+        class="profile-content"
+        id="profile-content"
+        hidden
+      >
+
+        <!-- ================================================
+             Visão geral
+        ================================================= -->
+
+        <section
+          class="profile-panel"
+          data-profile-panel="overview"
+        >
+
+          <div class="profile-panel-header">
+
+            <div>
+
+              <span class="profile-section-eyebrow">
+                Conta StudioV
+              </span>
+
+              <h2>Visão geral</h2>
+
+              <p>
+                Consulte as principais informações da sua
+                conta e do workspace atual.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <article class="profile-hero-card">
+
+            <div class="profile-main-avatar">
+
+              <img
+                data-profile-avatar-image
+                
+                alt=""
+                hidden
+              >
+
+              <span data-profile-avatar-fallback>
+                U
+              </span>
+
+            </div>
+
+
+            <div class="profile-hero-info">
+
+              <div class="profile-hero-title">
+
+                <div>
+
+                  <h3 id="overview-profile-name">
+                    A carregar...
+                  </h3>
+
+                  <p id="overview-profile-email">
+                    A carregar...
+                  </p>
+
+                </div>
+
+
+                <span
+                  class="profile-status-badge"
+                  id="overview-account-status"
+                >
+                  Conta ativa
+                </span>
+
+              </div>
+
+
+              <p class="profile-hero-description">
+                Esta é a sua conta pessoal StudioV. As
+                configurações do workspace continuam
+                separadas na área Configurações.
+              </p>
+
+
+              <button
+                class="profile-primary-button"
+                type="button"
+                data-profile-open-section="personal"
+              >
+                <i data-lucide="user-pen"></i>
+
+                <span>Editar dados pessoais</span>
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <div class="profile-summary-grid">
+
+            <article class="profile-summary-card">
+
+              <span class="profile-summary-icon">
+                <i data-lucide="credit-card"></i>
+              </span>
+
+              <div>
+
+                <span>Plano atual</span>
+
+                <strong id="overview-plan">
+                  —
+                </strong>
+
+              </div>
+
+            </article>
+
+
+            <article class="profile-summary-card">
+
+              <span class="profile-summary-icon">
+                <i data-lucide="briefcase-business"></i>
+              </span>
+
+              <div>
+
+                <span>Workspace</span>
+
+                <strong id="overview-workspace">
+                  —
+                </strong>
+
+              </div>
+
+            </article>
+
+
+            <article class="profile-summary-card">
+
+              <span class="profile-summary-icon">
+                <i data-lucide="calendar-days"></i>
+              </span>
+
+              <div>
+
+                <span>Membro desde</span>
+
+                <strong id="overview-created-at">
+                  —
+                </strong>
+
+              </div>
+
+            </article>
+
+
+            <article class="profile-summary-card">
+
+              <span class="profile-summary-icon">
+                <i data-lucide="clock-3"></i>
+              </span>
+
+              <div>
+
+                <span>Fuso horário</span>
+
+                <strong id="overview-timezone">
+                  —
+                </strong>
+
+              </div>
+
+            </article>
+
+          </div>
+
+
+          <article class="profile-information-card">
+
+            <span>
+              <i data-lucide="circle-check-big"></i>
+            </span>
+
+            <div>
+
+              <h3>Conta confirmada</h3>
+
+              <p>
+                O seu email foi confirmado e a conta está
+                pronta para utilizar os recursos do plano
+                atual.
+              </p>
+
+            </div>
+
+          </article>
+
+        </section>
+
+
+        <!-- ================================================
+             Dados pessoais
+        ================================================= -->
+
+        <section
+          class="profile-panel"
+          data-profile-panel="personal"
+          hidden
+        >
+
+          <div class="profile-panel-header">
+
+            <div>
+
+              <span class="profile-section-eyebrow">
+                Perfil
+              </span>
+
+              <h2>Dados pessoais</h2>
+
+              <p>
+                Atualize o nome e as informações básicas
+                associadas à sua conta.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <form
+            class="profile-form-card"
+            id="personal-profile-form"
+            novalidate
+          >
+
+            <div class="profile-avatar-section">
+
+              <div class="profile-form-avatar">
+
+                <img
+                  data-profile-avatar-image
+                  
+                  alt=""
+                  hidden
+                >
+
+                <span data-profile-avatar-fallback>
+                  U
+                </span>
+
+              </div>
+
+
+              <div>
+
+                <h3>Imagem do perfil</h3>
+
+                <p>
+                  Nesta primeira versão será utilizada a
+                  inicial do seu nome. O upload da fotografia
+                  será integrado ao Supabase Storage.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="profile-form-grid">
+
+              <div class="profile-field">
+
+                <label for="personal-full-name">
+                  Nome completo
+                </label>
+
+                <input
+                  id="personal-full-name"
+                  name="fullName"
+                  type="text"
+                  minlength="2"
+                  maxlength="100"
+                  autocomplete="name"
+                  required
+                >
+
+              </div>
+
+
+              <div class="profile-field">
+
+                <label for="personal-email">
+                  Email
+                </label>
+
+                <input
+                  id="personal-email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  disabled
+                >
+
+                <small>
+                  A alteração do email terá um fluxo de
+                  confirmação próprio.
+                </small>
+
+              </div>
+
+
+                <div class="profile-field profile-field--full">
+
+                <label for="personal-country">
+                    País
+                </label>
+
+                <select
+                    id="personal-country"
+                    name="country"
+                    autocomplete="country"
+                >
+                    <option value="">
+                    Selecionar país
+                    </option>
+
+                    <option value="PT">
+                    Portugal
+                    </option>
+
+                    <option value="BR">
+                    Brasil
+                    </option>
+
+                    <option value="ES">
+                    Espanha
+                    </option>
+
+                    <option value="FR">
+                    França
+                    </option>
+
+                    <option value="GB">
+                    Reino Unido
+                    </option>
+
+                    <option value="US">
+                    Estados Unidos
+                    </option>
+                </select>
+
+                <small>
+                    O país é guardado utilizando o código internacional.
+                </small>
+
+                </div>
+
+            </div>
+
+
+            <p
+              class="profile-form-message"
+              id="personal-profile-message"
+              role="status"
+              hidden
+            ></p>
+
+
+            <div class="profile-form-actions">
+
+              <button
+                class="profile-secondary-button"
+                id="personal-profile-reset"
+                type="button"
+              >
+                Cancelar alterações
+              </button>
+
+
+              <button
+                class="profile-primary-button"
+                id="personal-profile-submit"
+                type="submit"
+              >
+                <i data-lucide="save"></i>
+
+                <span>Guardar alterações</span>
+              </button>
+
+            </div>
+
+          </form>
+
+        </section>
+
+
+        <!-- ================================================
+             Segurança
+        ================================================= -->
+
+        <section
+          class="profile-panel"
+          data-profile-panel="security"
+          hidden
+        >
+
+          <div class="profile-panel-header">
+
+            <div>
+
+              <span class="profile-section-eyebrow">
+                Proteção da conta
+              </span>
+
+              <h2>Segurança</h2>
+
+              <p>
+                Altere a palavra-passe utilizada para entrar
+                na StudioV.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <article class="profile-security-note">
+
+            <span>
+              <i data-lucide="shield-check"></i>
+            </span>
+
+            <div>
+
+              <h3>Escolha uma palavra-passe segura</h3>
+
+              <p>
+                Utilize pelo menos 8 caracteres e evite
+                palavras-passe utilizadas noutros serviços.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <form
+            class="profile-form-card"
+            id="security-profile-form"
+            novalidate
+          >
+
+            <div class="profile-form-grid">
+
+              <div class="profile-field profile-field--full">
+
+                <label for="current-password">
+                  Palavra-passe atual
+                </label>
+
+                <div class="profile-password-field">
+
+                  <input
+                    id="current-password"
+                    name="currentPassword"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                  >
+
+                  <button
+                    type="button"
+                    data-password-toggle="current-password"
+                    aria-label="Mostrar palavra-passe"
+                  >
+                    <i data-lucide="eye"></i>
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <div class="profile-field">
+
+                <label for="new-password">
+                  Nova palavra-passe
+                </label>
+
+                <div class="profile-password-field">
+
+                  <input
+                    id="new-password"
+                    name="newPassword"
+                    type="password"
+                    minlength="8"
+                    autocomplete="new-password"
+                    required
+                  >
+
+                  <button
+                    type="button"
+                    data-password-toggle="new-password"
+                    aria-label="Mostrar palavra-passe"
+                  >
+                    <i data-lucide="eye"></i>
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <div class="profile-field">
+
+                <label for="confirm-new-password">
+                  Confirmar nova palavra-passe
+                </label>
+
+                <div class="profile-password-field">
+
+                  <input
+                    id="confirm-new-password"
+                    name="confirmPassword"
+                    type="password"
+                    minlength="8"
+                    autocomplete="new-password"
+                    required
+                  >
+
+                  <button
+                    type="button"
+                    data-password-toggle="confirm-new-password"
+                    aria-label="Mostrar palavra-passe"
+                  >
+                    <i data-lucide="eye"></i>
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <p
+              class="profile-form-message"
+              id="security-profile-message"
+              role="status"
+              hidden
+            ></p>
+
+
+            <div class="profile-form-actions">
+
+              <button
+                class="profile-primary-button"
+                id="security-profile-submit"
+                type="submit"
+              >
+                <i data-lucide="key-round"></i>
+
+                <span>Atualizar palavra-passe</span>
+              </button>
+
+            </div>
+
+          </form>
+
+        </section>
+
+
+        <!-- ================================================
+             Preferências
+        ================================================= -->
+
+        <section
+          class="profile-panel"
+          data-profile-panel="preferences"
+          hidden
+        >
+
+          <div class="profile-panel-header">
+
+            <div>
+
+              <span class="profile-section-eyebrow">
+                Personalização
+              </span>
+
+              <h2>Preferências</h2>
+
+              <p>
+                Defina o idioma, fuso horário e aparência
+                utilizados na sua conta.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <form
+            class="profile-form-card"
+            id="preferences-profile-form"
+            novalidate
+          >
+
+            <div class="profile-form-grid">
+
+              <div class="profile-field">
+
+                <label for="profile-language">
+                  Idioma
+                </label>
+
+                <select
+                  id="profile-language"
+                  name="language"
+                >
+                  <option value="pt-PT">
+                    Português — Portugal
+                  </option>
+
+                  <option value="pt-BR">
+                    Português — Brasil
+                  </option>
+
+                  <option value="en-US">
+                    English
+                  </option>
+
+                  <option value="es-ES">
+                    Español
+                  </option>
+                </select>
+
+              </div>
+
+
+              <div class="profile-field">
+
+                <label for="profile-timezone">
+                  Fuso horário
+                </label>
+
+                <select
+                  id="profile-timezone"
+                  name="timezone"
+                >
+                  <option value="Europe/Lisbon">
+                    Europe/Lisbon
+                  </option>
+
+                  <option value="Europe/Madrid">
+                    Europe/Madrid
+                  </option>
+
+                  <option value="Europe/London">
+                    Europe/London
+                  </option>
+
+                  <option value="America/Sao_Paulo">
+                    America/Sao_Paulo
+                  </option>
+
+                  <option value="UTC">
+                    UTC
+                  </option>
+                </select>
+
+              </div>
+
+            </div>
+
+
+            <fieldset class="profile-theme-options">
+
+              <legend>Aparência</legend>
+
+
+              <label class="profile-theme-option">
+
+                <input
+                  type="radio"
+                  name="profileTheme"
+                  value="light"
+                >
+
+                <span class="profile-theme-preview profile-theme-preview--light">
+
+                  <span></span>
+
+                  <span></span>
+
+                </span>
+
+                <span>
+
+                  <strong>Tema claro</strong>
+
+                  <small>
+                    Fundo claro e maior luminosidade.
+                  </small>
+
+                </span>
+
+              </label>
+
+
+              <label class="profile-theme-option">
+
+                <input
+                  type="radio"
+                  name="profileTheme"
+                  value="dark"
+                >
+
+                <span class="profile-theme-preview profile-theme-preview--dark">
+
+                  <span></span>
+
+                  <span></span>
+
+                </span>
+
+                <span>
+
+                  <strong>Tema escuro</strong>
+
+                  <small>
+                    Fundo escuro e menor luminosidade.
+                  </small>
+
+                </span>
+
+              </label>
+
+            </fieldset>
+
+
+            <p
+              class="profile-form-message"
+              id="preferences-profile-message"
+              role="status"
+              hidden
+            ></p>
+
+
+            <div class="profile-form-actions">
+
+              <button
+                class="profile-secondary-button"
+                id="preferences-profile-reset"
+                type="button"
+              >
+                Repor preferências
+              </button>
+
+
+              <button
+                class="profile-primary-button"
+                id="preferences-profile-submit"
+                type="submit"
+              >
+                <i data-lucide="save"></i>
+
+                <span>Guardar preferências</span>
+              </button>
+
+            </div>
+
+          </form>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- Supabase -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
+
+  <script src="/js/services/supabase.js"></script>
+
+  <script src="/js/auth/auth-guard.js"></script>
+
+
+  <!-- Ícones -->
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+
+  <!-- Página -->
+
+  <script src="/js/dashboard/profile.js"></script>
+
+</body>
+
+</html>
