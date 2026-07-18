@@ -3,157 +3,97 @@
 ========================================================== */
 
 
+/* ==========================================================
+   StudioV — User Menu
+========================================================== */
+
 .sidebar-user {
   position: relative;
+
+  display: block;
+  grid-template-columns: none;
+
+  gap: 0;
+
+  padding: var(--spacing-lg);
+
+  border-top: 1px solid var(--color-border-dark);
 }
 
-
-/* Botão principal */
-
 .sidebar-user-trigger {
-
-  width: 100%;
-
   display: flex;
   align-items: center;
 
-  gap: 12px;
+  gap: var(--spacing-md);
 
-  padding: 10px;
+  width: 100%;
+  min-width: 0;
 
-  color: inherit;
+  padding: 8px;
+
+  color: var(--color-text-primary-dark);
   background: transparent;
 
   border: 0;
-
   border-radius: var(--radius-md);
+
+  font-family: inherit;
+  text-align: left;
 
   cursor: pointer;
 
-  text-align: left;
+  appearance: none;
+  -webkit-appearance: none;
 
   transition:
     background-color var(--transition-fast),
     transform var(--transition-fast);
 }
 
-
 .sidebar-user-trigger:hover {
-
-  background:
-    var(--color-surface-hover);
-
+  background-color: rgba(255, 255, 255, 0.08);
 }
-
 
 .sidebar-user-trigger:active {
-
   transform: scale(0.98);
-
 }
 
-
-/* Avatar */
-
-.sidebar-user-avatar {
-
+.sidebar-user-trigger .sidebar-user-avatar {
   width: 42px;
-
   height: 42px;
+
+  flex: 0 0 42px;
+}
+
+.sidebar-user-trigger .sidebar-user-info {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.sidebar-user-trigger .sidebar-user-info strong {
+  color: var(--color-text-primary-dark);
+}
+
+.sidebar-user-trigger .sidebar-user-info span {
+  color: var(--color-text-muted-dark);
+}
+
+.sidebar-user-chevron {
+  width: 18px;
+  height: 18px;
 
   flex-shrink: 0;
 
-  display: flex;
+  color: var(--color-text-muted-dark);
 
-  align-items: center;
-
-  justify-content: center;
-
-  border-radius: var(--radius-full);
-
-  color: #ffffff;
-
-  background:
-    var(--color-primary);
-
-  font-weight:
-    var(--font-weight-bold);
-
+  transition: transform var(--transition-fast);
 }
-
-
-/* Informações */
-
-.sidebar-user-info {
-
-  display: flex;
-
-  flex-direction: column;
-
-  min-width: 0;
-
-  flex: 1;
-
-}
-
-
-.sidebar-user-info strong {
-
-  overflow: hidden;
-
-  color:
-    var(--color-text-primary);
-
-  font-size:
-    var(--font-size-small);
-
-  text-overflow: ellipsis;
-
-  white-space: nowrap;
-
-}
-
-
-.sidebar-user-info span {
-
-  overflow: hidden;
-
-  color:
-    var(--color-text-muted);
-
-  font-size:
-    var(--font-size-caption);
-
-  text-overflow: ellipsis;
-
-  white-space: nowrap;
-
-}
-
-
-/* Seta */
-
-.sidebar-user-chevron {
-
-  width: 18px;
-
-  height: 18px;
-
-  color:
-    var(--color-text-muted);
-
-  transition:
-    transform var(--transition-fast);
-
-}
-
 
 .sidebar-user-trigger[aria-expanded="true"]
 .sidebar-user-chevron {
-
-  transform:
-    rotate(180deg);
-
+  transform: rotate(180deg);
 }
 
 
@@ -370,4 +310,35 @@ body.demo-mode .demo-only {
 
   display: flex;
 
+}
+
+/* ==========================================================
+   Garantir visibilidade do dropdown
+========================================================== */
+
+.dashboard-sidebar {
+  overflow: visible;
+}
+
+.sidebar-navigation {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar-user {
+  position: relative;
+  z-index: 50;
+
+  overflow: visible;
+}
+
+.sidebar-user-menu {
+  position: absolute;
+  right: 16px;
+  bottom: calc(100% + 10px);
+  left: 16px;
+  z-index: 9999;
+
+  width: auto;
+  min-width: 220px;
 }

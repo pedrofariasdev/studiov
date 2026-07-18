@@ -482,44 +482,92 @@ Configurações
 
 
 <div class="sidebar-user">
+  <button
+    class="sidebar-user-trigger"
+    id="sidebar-user-trigger"
+    type="button"
+    aria-expanded="false"
+    aria-haspopup="menu"
+    aria-controls="sidebar-user-menu"
+  >
+    <div
+      class="sidebar-user-avatar"
+      id="sidebar-user-avatar"
+      aria-hidden="true"
+    >
+      U
+    </div>
 
+    <div class="sidebar-user-info">
+      <strong id="sidebar-user-name">
+        Utilizador
+      </strong>
 
-<div 
-class="sidebar-user-avatar"
-id="sidebar-user-avatar"
->
-U
+      <span id="sidebar-user-email">
+        utilizador@studiov.pt
+      </span>
+    </div>
+
+    <i
+      data-lucide="chevron-up"
+      class="sidebar-user-chevron"
+      aria-hidden="true"
+    ></i>
+  </button>
+
+  <div
+    class="sidebar-user-menu"
+    id="sidebar-user-menu"
+    role="menu"
+    hidden
+  >
+    <a
+      href="/html/dashboard/profile.html"
+      class="sidebar-user-menu-item"
+      role="menuitem"
+    >
+      <i data-lucide="user"></i>
+      <span>Meu perfil</span>
+    </a>
+
+    <button
+      class="sidebar-user-menu-item"
+      id="restart-demo-tour"
+      type="button"
+      role="menuitem"
+    >
+      <i data-lucide="sparkles"></i>
+      <span>Reiniciar tutorial</span>
+    </button>
+
+    <button
+      class="sidebar-user-menu-item demo-only"
+      id="create-account-demo"
+      type="button"
+      role="menuitem"
+      hidden
+    >
+      <i data-lucide="rocket"></i>
+      <span>Criar minha conta</span>
+    </button>
+
+    <div
+      class="sidebar-user-divider"
+      role="separator"
+    ></div>
+
+    <button
+      class="sidebar-user-menu-item danger"
+      id="logout-user"
+      type="button"
+      role="menuitem"
+    >
+      <i data-lucide="log-out"></i>
+      <span>Sair</span>
+    </button>
+  </div>
 </div>
 
-
-
-<div class="sidebar-user-info">
-
-
-<strong id="sidebar-user-name">
-Utilizador
-</strong>
-
-
-<span id="sidebar-user-email">
-utilizador@studiov.pt
-</span>
-
-
-</div>
-
-
-<a 
-href="/html/dashboard/profile.html"
-class="sidebar-user-action"
->
-
-<i data-lucide="chevron-right"></i>
-
-</a>
-
-
-</div>
 
 
 </aside>
