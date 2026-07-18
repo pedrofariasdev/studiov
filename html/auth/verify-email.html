@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Confirme o seu email | StudioV</title>
+
+  <!-- Tema -->
+  <script src="/js/globals/theme.js"></script>
+
+  <!-- Globais -->
+  <link
+    rel="stylesheet"
+    href="/css/globals/variables.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/reset.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/typography.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/utilities.css"
+  >
+
+  <!-- Página -->
+  <link
+    rel="stylesheet"
+    href="/css/pages/verify-email.css"
+  >
+
+  <!-- Tema sempre por último -->
+  <link
+    rel="stylesheet"
+    href="/css/globals/theme.css"
+  >
+</head>
+
+
+<body class="verify-email-page">
+
+  <main class="verify-email-layout">
+
+    <!-- Logo -->
+
+    <a
+      class="verify-email-logo"
+      href="/index.html"
+      aria-label="Página inicial da StudioV"
+    >
+      StudioV<span>.</span>
+    </a>
+
+
+    <!-- Card -->
+
+    <section
+      class="verify-email-card"
+      aria-labelledby="verify-email-title"
+    >
+
+      <!-- Estado principal -->
+
+      <div
+        class="verify-email-content"
+        id="verify-email-content"
+      >
+
+        <span class="verify-email-icon">
+          <i data-lucide="mail-check"></i>
+        </span>
+
+
+        <span class="verify-email-eyebrow">
+          Confirmação necessária
+        </span>
+
+
+        <h1 id="verify-email-title">
+          Confirme o seu email
+        </h1>
+
+
+        <p class="verify-email-description">
+          Enviamos uma mensagem de confirmação para:
+        </p>
+
+
+        <div class="verify-email-address">
+
+          <i data-lucide="mail"></i>
+
+          <strong id="verify-email-address">
+            A carregar...
+          </strong>
+
+        </div>
+
+
+        <p class="verify-email-instruction">
+          Abra a mensagem recebida e clique no botão de
+          confirmação. Depois disso, poderá criar a sua
+          palavra-passe e concluir a conta StudioV.
+        </p>
+
+
+        <!-- Passos -->
+
+        <div class="verify-email-steps">
+
+          <div class="verify-email-step">
+
+            <span>1</span>
+
+            <div>
+              <strong>Abra o seu email</strong>
+
+              <p>
+                Procure uma mensagem enviada pela StudioV.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="verify-email-step">
+
+            <span>2</span>
+
+            <div>
+              <strong>Confirme o endereço</strong>
+
+              <p>
+                Clique no botão de confirmação presente
+                na mensagem.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="verify-email-step">
+
+            <span>3</span>
+
+            <div>
+              <strong>Crie a palavra-passe</strong>
+
+              <p>
+                Será encaminhado para o último passo da
+                criação da conta.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Mensagens -->
+
+        <p
+          class="verify-email-message verify-email-message--error"
+          id="verify-email-error"
+          role="alert"
+          hidden
+        ></p>
+
+
+        <p
+          class="verify-email-message verify-email-message--success"
+          id="verify-email-success"
+          role="status"
+          hidden
+        ></p>
+
+
+        <!-- Ações -->
+
+        <div class="verify-email-actions">
+
+          <button
+            class="verify-email-button verify-email-button--primary"
+            id="verify-email-check"
+            type="button"
+          >
+            <span>Já confirmei o email</span>
+
+            <i data-lucide="refresh-cw"></i>
+          </button>
+
+
+          <button
+            class="verify-email-button verify-email-button--secondary"
+            id="verify-email-logout"
+            type="button"
+          >
+            <i data-lucide="log-out"></i>
+
+            <span>Sair</span>
+          </button>
+
+        </div>
+
+
+        <!-- Verificação automática -->
+
+        <div class="verify-email-auto-check">
+
+          <span class="verify-email-pulse"></span>
+
+          <span>
+            A verificar automaticamente a confirmação
+            do email.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- Estado confirmado -->
+
+      <div
+        class="verify-email-confirmed"
+        id="verify-email-confirmed"
+        hidden
+      >
+
+        <span class="verify-email-icon verify-email-icon--success">
+          <i data-lucide="circle-check-big"></i>
+        </span>
+
+        <h1>Email confirmado</h1>
+
+        <p>
+          Confirmação concluída. Estamos a encaminhá-lo
+          para a criação da palavra-passe.
+        </p>
+
+      </div>
+
+
+      <!-- Estado inválido -->
+
+      <div
+        class="verify-email-invalid"
+        id="verify-email-invalid"
+        hidden
+      >
+
+        <span class="verify-email-icon verify-email-icon--error">
+          <i data-lucide="triangle-alert"></i>
+        </span>
+
+        <h1>Sessão não encontrada</h1>
+
+        <p>
+          Não foi possível encontrar uma conversão de conta
+          em andamento.
+        </p>
+
+        <a
+          class="verify-email-return"
+          href="/html/auth/login.html"
+        >
+          Voltar ao login
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Supabase -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
+
+  <script src="/js/services/supabase.js"></script>
+
+
+  <!-- Ícones -->
+
+  <script
+    src="https://unpkg.com/lucide@latest"
+  ></script>
+
+
+  <!-- Página -->
+
+  <script src="/js/auth/verify-email.js"></script>
+
+</body>
+
+</html>
