@@ -156,21 +156,60 @@ document.addEventListener("DOMContentLoaded", function () {
      Criar conta
   ======================================================== */
 
-  createAccountButton?.addEventListener(
-    "click",
-    function () {
-      closeMenu();
+    const createAccountDemo =
+    document.getElementById(
+        "create-account-demo"
+    );
 
-      console.log(
-        "Iniciar conversão da conta demo."
-      );
+    if (createAccountDemo) {
+    createAccountDemo.addEventListener(
+        "click",
+        function () {
+        /*
+        * Fecha o menu do utilizador.
+        */
 
-      alert(
-        "O fluxo de criação da conta será implementado no próximo passo."
-      );
+        const userMenu =
+            document.getElementById(
+            "sidebar-user-menu"
+            );
+
+        const userTrigger =
+            document.getElementById(
+            "sidebar-user-trigger"
+            );
+
+        if (userMenu) {
+            userMenu.hidden = true;
+        }
+
+        if (userTrigger) {
+            userTrigger.setAttribute(
+            "aria-expanded",
+            "false"
+            );
+        }
+
+        /*
+        * Abre o modal de conversão
+        * da conta demo.
+        */
+
+        if (
+            window.StudioVDemoAccount &&
+            typeof window.StudioVDemoAccount.open ===
+            "function"
+        ) {
+            window.StudioVDemoAccount.open();
+            return;
+        }
+
+        console.error(
+            "O componente demo-account.js não foi carregado."
+        );
+        }
+    );
     }
-  );
-
   /* ========================================================
      Logout
   ======================================================== */

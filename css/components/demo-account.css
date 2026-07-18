@@ -1,0 +1,826 @@
+/* ==========================================================
+   StudioV — Modal de criação de conta Demo
+========================================================== */
+
+
+/* ==========================================================
+   Overlay
+========================================================== */
+
+.demo-account-modal {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background-color: rgba(15, 23, 42, 0.68);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  animation: demoAccountFadeIn 0.2s ease;
+}
+
+.demo-account-modal[hidden] {
+  display: none;
+}
+
+
+/* ==========================================================
+   Caixa principal
+========================================================== */
+
+.demo-account-dialog {
+  width: min(100%, 520px);
+  max-height: calc(100vh - 48px);
+
+  overflow-y: auto;
+
+  color: var(
+    --color-text-primary,
+    #111827
+  );
+
+  background-color: var(
+    --color-surface,
+    #ffffff
+  );
+
+  border: 1px solid var(
+    --color-border,
+    #e5e7eb
+  );
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 30px 70px rgba(15, 23, 42, 0.28);
+
+  animation: demoAccountSlideIn 0.24s ease;
+}
+
+
+/* ==========================================================
+   Cabeçalho
+========================================================== */
+
+.demo-account-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 28px 28px 22px;
+
+  border-bottom: 1px solid var(
+    --color-border,
+    #e5e7eb
+  );
+}
+
+.demo-account-header-content {
+  display: flex;
+  align-items: flex-start;
+
+  min-width: 0;
+
+  gap: 15px;
+}
+
+.demo-account-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 48px;
+  height: 48px;
+
+  color: var(
+    --color-primary,
+    #6d28d9
+  );
+
+  background-color: rgba(
+    109,
+    40,
+    217,
+    0.1
+  );
+
+  border: 1px solid rgba(
+    109,
+    40,
+    217,
+    0.18
+  );
+
+  border-radius: 14px;
+}
+
+.demo-account-icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.demo-account-header h2 {
+  margin: 0 0 7px;
+
+  color: var(
+    --color-text-primary,
+    #111827
+  );
+
+  font-family: var(
+    --font-family-heading,
+    "Space Grotesk",
+    sans-serif
+  );
+
+  font-size: 23px;
+  line-height: 1.25;
+}
+
+.demo-account-header p {
+  margin: 0;
+
+  color: var(
+    --color-text-secondary,
+    #6b7280
+  );
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* ==========================================================
+   Botão fechar
+========================================================== */
+
+.demo-account-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 38px;
+  height: 38px;
+
+  padding: 0;
+
+  color: var(
+    --color-text-muted,
+    #6b7280
+  );
+
+  background-color: transparent;
+
+  border: 0;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.demo-account-close:hover {
+  color: var(
+    --color-text-primary,
+    #111827
+  );
+
+  background-color: var(
+    --color-background-soft,
+    #f3f4f6
+  );
+}
+
+.demo-account-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* ==========================================================
+   Corpo
+========================================================== */
+
+.demo-account-body {
+  padding: 25px 28px 28px;
+}
+
+
+/* ==========================================================
+   Aviso
+========================================================== */
+
+.demo-account-note {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 11px;
+
+  margin-bottom: 22px;
+  padding: 13px 14px;
+
+  color: var(
+    --color-text-secondary,
+    #4b5563
+  );
+
+  background-color: rgba(
+    109,
+    40,
+    217,
+    0.07
+  );
+
+  border: 1px solid rgba(
+    109,
+    40,
+    217,
+    0.16
+  );
+
+  border-radius: 13px;
+
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.demo-account-note svg {
+  flex-shrink: 0;
+
+  width: 19px;
+  height: 19px;
+
+  margin-top: 1px;
+
+  color: var(
+    --color-primary,
+    #6d28d9
+  );
+}
+
+
+/* ==========================================================
+   Formulário
+========================================================== */
+
+.demo-account-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+.demo-account-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.demo-account-field label {
+  color: var(
+    --color-text-primary,
+    #111827
+  );
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.demo-account-field input {
+  width: 100%;
+  min-height: 48px;
+
+  padding: 11px 14px;
+
+  color: var(
+    --color-text-primary,
+    #111827
+  );
+
+  background-color: var(
+    --color-input-background,
+    #ffffff
+  );
+
+  border: 1px solid var(
+    --color-border-strong,
+    #d1d5db
+  );
+
+  border-radius: 12px;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.demo-account-field input::placeholder {
+  color: var(
+    --color-text-muted,
+    #9ca3af
+  );
+}
+
+.demo-account-field input:hover {
+  border-color: rgba(
+    109,
+    40,
+    217,
+    0.5
+  );
+}
+
+.demo-account-field input:focus {
+  border-color: var(
+    --color-primary,
+    #6d28d9
+  );
+
+  box-shadow:
+    0 0 0 3px rgba(
+      109,
+      40,
+      217,
+      0.14
+    );
+}
+
+.demo-account-field small {
+  color: var(
+    --color-text-muted,
+    #6b7280
+  );
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* ==========================================================
+   Erro
+========================================================== */
+
+.demo-account-error {
+  display: none;
+
+  margin: 0;
+  padding: 11px 13px;
+
+  color: #b91c1c;
+  background-color: rgba(
+    239,
+    68,
+    68,
+    0.09
+  );
+
+  border: 1px solid rgba(
+    239,
+    68,
+    68,
+    0.22
+  );
+
+  border-radius: 11px;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.demo-account-error.is-visible {
+  display: block;
+}
+
+
+/* ==========================================================
+   Ações
+========================================================== */
+
+.demo-account-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 11px;
+
+  margin-top: 4px;
+}
+
+.demo-account-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 44px;
+  padding: 10px 17px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  border-radius: 11px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.demo-account-button:active {
+  transform: scale(0.98);
+}
+
+.demo-account-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.demo-account-button svg {
+  width: 17px;
+  height: 17px;
+}
+
+
+/* ==========================================================
+   Botão secundário
+========================================================== */
+
+.demo-account-button--secondary {
+  color: var(
+    --color-text-secondary,
+    #4b5563
+  );
+
+  background-color: transparent;
+
+  border: 1px solid var(
+    --color-border-strong,
+    #d1d5db
+  );
+}
+
+.demo-account-button--secondary:hover {
+  color: var(
+    --color-text-primary,
+    #111827
+  );
+
+  background-color: var(
+    --color-background-soft,
+    #f3f4f6
+  );
+
+  border-color: var(
+    --color-border-strong,
+    #9ca3af
+  );
+}
+
+
+/* ==========================================================
+   Botão principal
+========================================================== */
+
+.demo-account-button--primary {
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #6d28d9
+    );
+
+  border: 1px solid #6d28d9;
+
+  box-shadow:
+    0 10px 24px rgba(
+      109,
+      40,
+      217,
+      0.22
+    );
+}
+
+.demo-account-button--primary:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #6d28d9,
+      #5b21b6
+    );
+
+  box-shadow:
+    0 13px 28px rgba(
+      109,
+      40,
+      217,
+      0.3
+    );
+}
+
+.demo-account-button--primary:focus-visible,
+.demo-account-button--secondary:focus-visible,
+.demo-account-close:focus-visible {
+  outline: 3px solid rgba(
+    109,
+    40,
+    217,
+    0.2
+  );
+
+  outline-offset: 2px;
+}
+
+
+/* ==========================================================
+   Estado de sucesso
+========================================================== */
+
+.demo-account-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 16px 4px 4px;
+
+  text-align: center;
+}
+
+.demo-account-success[hidden] {
+  display: none;
+}
+
+.demo-account-success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 68px;
+  height: 68px;
+
+  margin-bottom: 18px;
+
+  color: var(
+    --color-primary,
+    #6d28d9
+  );
+
+  background-color: rgba(
+    109,
+    40,
+    217,
+    0.1
+  );
+
+  border: 1px solid rgba(
+    109,
+    40,
+    217,
+    0.2
+  );
+
+  border-radius: 50%;
+}
+
+.demo-account-success-icon svg {
+  width: 31px;
+  height: 31px;
+}
+
+.demo-account-success h3 {
+  margin: 0 0 10px;
+
+  color: var(
+    --color-text-primary,
+    #111827
+  );
+
+  font-family: var(
+    --font-family-heading,
+    "Space Grotesk",
+    sans-serif
+  );
+
+  font-size: 23px;
+}
+
+.demo-account-success p {
+  margin: 0 0 10px;
+
+  color: var(
+    --color-text-secondary,
+    #6b7280
+  );
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.demo-account-success strong {
+  display: inline-block;
+
+  max-width: 100%;
+
+  overflow-wrap: anywhere;
+
+  color: var(
+    --color-primary,
+    #6d28d9
+  );
+}
+
+.demo-account-success
+.demo-account-button {
+  margin-top: 12px;
+}
+
+
+/* ==========================================================
+   Modo escuro
+========================================================== */
+
+html[data-theme="dark"]
+.demo-account-dialog {
+  color: #f8fafc;
+  background-color: #111827;
+
+  border-color: #263244;
+
+  box-shadow:
+    0 30px 80px rgba(
+      0,
+      0,
+      0,
+      0.55
+    );
+}
+
+html[data-theme="dark"]
+.demo-account-header {
+  border-color: #263244;
+}
+
+html[data-theme="dark"]
+.demo-account-header h2,
+html[data-theme="dark"]
+.demo-account-field label,
+html[data-theme="dark"]
+.demo-account-success h3 {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"]
+.demo-account-header p,
+html[data-theme="dark"]
+.demo-account-note,
+html[data-theme="dark"]
+.demo-account-success p {
+  color: #aab4c5;
+}
+
+html[data-theme="dark"]
+.demo-account-field input {
+  color: #f8fafc;
+  background-color: #172033;
+
+  border-color: #334155;
+}
+
+html[data-theme="dark"]
+.demo-account-field input::placeholder {
+  color: #718096;
+}
+
+html[data-theme="dark"]
+.demo-account-close:hover,
+html[data-theme="dark"]
+.demo-account-button--secondary:hover {
+  color: #f8fafc;
+  background-color: #1e293b;
+}
+
+html[data-theme="dark"]
+.demo-account-button--secondary {
+  color: #cbd5e1;
+
+  border-color: #334155;
+}
+
+
+/* ==========================================================
+   Animações
+========================================================== */
+
+@keyframes demoAccountFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes demoAccountSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0)
+      scale(1);
+  }
+}
+
+.demo-account-button--primary
+[data-lucide="loader-circle"] {
+  animation: demoAccountSpin
+    0.8s linear infinite;
+}
+
+@keyframes demoAccountSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ==========================================================
+   Responsividade
+========================================================== */
+
+@media (max-width: 600px) {
+  .demo-account-modal {
+    align-items: flex-end;
+
+    padding: 12px;
+  }
+
+  .demo-account-dialog {
+    width: 100%;
+    max-height: calc(100vh - 24px);
+
+    border-radius: 22px;
+  }
+
+  .demo-account-header {
+    padding: 22px 20px 18px;
+  }
+
+  .demo-account-body {
+    padding: 21px 20px 24px;
+  }
+
+  .demo-account-header-content {
+    gap: 12px;
+  }
+
+  .demo-account-icon {
+    width: 43px;
+    height: 43px;
+  }
+
+  .demo-account-header h2 {
+    font-size: 20px;
+  }
+
+  .demo-account-actions {
+    flex-direction: column-reverse;
+  }
+
+  .demo-account-button {
+    width: 100%;
+  }
+}

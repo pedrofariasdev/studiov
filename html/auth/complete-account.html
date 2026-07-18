@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Concluir conta | StudioV</title>
+
+  <!-- Aplicação antecipada do tema -->
+  <script src="/js/globals/theme.js"></script>
+
+  <!-- Globais -->
+  <link
+    rel="stylesheet"
+    href="/css/globals/variables.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/reset.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/typography.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/utilities.css"
+  >
+
+  <!-- Página -->
+  <link
+    rel="stylesheet"
+    href="/css/pages/complete-account.css"
+  >
+
+  <!-- Tema sempre por último -->
+  <link
+    rel="stylesheet"
+    href="/css/globals/theme.css"
+  >
+</head>
+
+<body class="complete-account-page">
+
+  <main class="complete-account-layout">
+
+    <a
+      href="/index.html"
+      class="complete-account-logo"
+      aria-label="Voltar à StudioV"
+    >
+      <img
+        src="/assets/logos/svg/logo-studiov2000.png"
+        alt="StudioV"
+      >
+    </a>
+
+
+    <section
+      class="complete-account-card"
+      aria-labelledby="complete-account-title"
+    >
+
+      <!-- Estado de carregamento -->
+
+      <div
+        class="complete-account-state"
+        id="complete-account-loading"
+      >
+        <span class="complete-account-state-icon">
+          <i data-lucide="loader-circle"></i>
+        </span>
+
+        <h1>A validar o seu email</h1>
+
+        <p>
+          Aguarde enquanto confirmamos os dados da sua conta.
+        </p>
+      </div>
+
+
+      <!-- Formulário -->
+
+      <div
+        class="complete-account-content"
+        id="complete-account-form-content"
+        hidden
+      >
+        <header class="complete-account-header">
+          <span class="complete-account-header-icon">
+            <i data-lucide="shield-check"></i>
+          </span>
+
+          <div>
+            <span class="complete-account-eyebrow">
+              Último passo
+            </span>
+
+            <h1 id="complete-account-title">
+              Defina a sua palavra-passe
+            </h1>
+
+            <p>
+              O email foi confirmado. Crie uma palavra-passe
+              para entrar na StudioV.
+            </p>
+          </div>
+        </header>
+
+
+        <div class="complete-account-email">
+          <i data-lucide="mail-check"></i>
+
+          <div>
+            <span>Email confirmado</span>
+
+            <strong id="confirmed-account-email">
+              —
+            </strong>
+          </div>
+        </div>
+
+
+        <form
+          class="complete-account-form"
+          id="complete-account-form"
+          novalidate
+        >
+
+          <div class="complete-account-field">
+            <label for="account-password">
+              Palavra-passe
+            </label>
+
+            <div class="complete-account-password">
+              <input
+                id="account-password"
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                minlength="8"
+                placeholder="Mínimo de 8 caracteres"
+                required
+              >
+
+              <button
+                class="complete-account-password-toggle"
+                type="button"
+                data-password-toggle="account-password"
+                aria-label="Mostrar palavra-passe"
+              >
+                <i data-lucide="eye"></i>
+              </button>
+            </div>
+
+            <small>
+              Utilize pelo menos 8 caracteres.
+            </small>
+          </div>
+
+
+          <div class="complete-account-field">
+            <label for="account-password-confirmation">
+              Confirmar palavra-passe
+            </label>
+
+            <div class="complete-account-password">
+              <input
+                id="account-password-confirmation"
+                name="passwordConfirmation"
+                type="password"
+                autocomplete="new-password"
+                minlength="8"
+                placeholder="Repita a palavra-passe"
+                required
+              >
+
+              <button
+                class="complete-account-password-toggle"
+                type="button"
+                data-password-toggle="account-password-confirmation"
+                aria-label="Mostrar confirmação"
+              >
+                <i data-lucide="eye"></i>
+              </button>
+            </div>
+          </div>
+
+
+          <label class="complete-account-terms">
+            <input
+              id="account-terms"
+              type="checkbox"
+              required
+            >
+
+            <span>
+              Confirmo que aceito os termos de utilização
+              e a política de privacidade da StudioV.
+            </span>
+          </label>
+
+
+          <p
+            class="complete-account-message
+                   complete-account-message--error"
+            id="complete-account-error"
+            role="alert"
+            hidden
+          ></p>
+
+
+          <button
+            class="complete-account-submit"
+            id="complete-account-submit"
+            type="submit"
+          >
+            <span>Concluir criação da conta</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+
+        </form>
+      </div>
+
+
+      <!-- Estado de sucesso -->
+
+      <div
+        class="complete-account-state"
+        id="complete-account-success"
+        hidden
+      >
+        <span
+          class="
+            complete-account-state-icon
+            complete-account-state-icon--success
+          "
+        >
+          <i data-lucide="circle-check-big"></i>
+        </span>
+
+        <h1>Conta criada com sucesso</h1>
+
+        <p>
+          A sua conta StudioV está pronta. Estamos a
+          encaminhá-lo para o dashboard.
+        </p>
+      </div>
+
+
+      <!-- Estado de erro -->
+
+      <div
+        class="complete-account-state"
+        id="complete-account-invalid"
+        hidden
+      >
+        <span
+          class="
+            complete-account-state-icon
+            complete-account-state-icon--error
+          "
+        >
+          <i data-lucide="triangle-alert"></i>
+        </span>
+
+        <h1>Não foi possível validar o link</h1>
+
+        <p id="complete-account-invalid-message">
+          O link pode estar expirado ou já ter sido utilizado.
+        </p>
+
+        <a
+          href="/html/dashboard/home.html"
+          class="complete-account-return"
+        >
+          Voltar ao dashboard
+        </a>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
+
+  <script src="/js/services/supabase.js"></script>
+
+  <script
+    src="https://unpkg.com/lucide@latest"
+  ></script>
+
+  <script
+    src="/js/auth/complete-account.js"
+  ></script>
+
+</body>
+</html>

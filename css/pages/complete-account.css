@@ -1,0 +1,501 @@
+/* ==========================================================
+   StudioV — Concluir criação da conta
+========================================================== */
+
+.complete-account-page {
+  min-width: 320px;
+  min-height: 100vh;
+
+  color: var(--color-text-primary);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(109, 40, 217, 0.14),
+      transparent 32%
+    ),
+    var(--color-page-background);
+}
+
+
+/* ==========================================================
+   Layout
+========================================================== */
+
+.complete-account-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 100vh;
+
+  padding: 96px 24px 48px;
+}
+
+
+/* ==========================================================
+   Logo
+========================================================== */
+
+.complete-account-logo {
+  position: fixed;
+  top: 28px;
+  left: 32px;
+
+  display: inline-flex;
+  align-items: center;
+}
+
+.complete-account-logo img {
+  width: 132px;
+  height: auto;
+}
+
+
+/* ==========================================================
+   Card
+========================================================== */
+
+.complete-account-card {
+  width: min(100%, 540px);
+
+  padding: 34px;
+
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+
+  box-shadow: var(--shadow-md);
+}
+
+
+/* ==========================================================
+   Cabeçalho
+========================================================== */
+
+.complete-account-header {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 16px;
+
+  margin-bottom: 26px;
+}
+
+.complete-account-header-icon,
+.complete-account-state-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 50px;
+  height: 50px;
+
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+
+  border: 1px solid var(--color-primary-border);
+  border-radius: var(--radius-md);
+}
+
+.complete-account-header-icon svg,
+.complete-account-state-icon svg {
+  width: 25px;
+  height: 25px;
+}
+
+.complete-account-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 5px;
+
+  color: var(--color-primary);
+
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.complete-account-header h1,
+.complete-account-state h1 {
+  margin: 0 0 8px;
+
+  color: var(--color-text-primary);
+
+  font-family: var(--font-family-heading);
+  font-size: 27px;
+  line-height: 35px;
+}
+
+.complete-account-header p,
+.complete-account-state p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-size-small);
+  line-height: 1.65;
+}
+
+
+/* ==========================================================
+   Email confirmado
+========================================================== */
+
+.complete-account-email {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 24px;
+  padding: 14px;
+
+  background-color: var(--color-primary-soft);
+
+  border: 1px solid var(--color-primary-border);
+  border-radius: var(--radius-md);
+}
+
+.complete-account-email > svg {
+  flex-shrink: 0;
+
+  width: 20px;
+  height: 20px;
+
+  color: var(--color-primary);
+}
+
+.complete-account-email div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.complete-account-email span {
+  color: var(--color-text-muted);
+
+  font-size: var(--font-size-caption);
+}
+
+.complete-account-email strong {
+  overflow: hidden;
+
+  color: var(--color-text-primary);
+
+  font-size: var(--font-size-small);
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* ==========================================================
+   Formulário
+========================================================== */
+
+.complete-account-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+.complete-account-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.complete-account-field label {
+  color: var(--color-text-primary);
+
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+}
+
+.complete-account-field small {
+  color: var(--color-text-muted);
+
+  font-size: var(--font-size-caption);
+}
+
+.complete-account-password {
+  position: relative;
+}
+
+.complete-account-password input {
+  width: 100%;
+  min-height: 48px;
+
+  padding: 11px 48px 11px 14px;
+
+  color: var(--color-text-primary);
+  background-color: var(--color-input-background);
+
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+
+  font: inherit;
+
+  outline: none;
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.complete-account-password input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.complete-account-password input:focus {
+  border-color: var(--color-primary);
+
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.16);
+}
+
+.complete-account-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 7px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  color: var(--color-text-muted);
+  background: transparent;
+
+  border: 0;
+  border-radius: var(--radius-sm);
+
+  cursor: pointer;
+
+  transform: translateY(-50%);
+}
+
+.complete-account-password-toggle:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+}
+
+.complete-account-password-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* ==========================================================
+   Termos
+========================================================== */
+
+.complete-account-terms {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-size-caption);
+  line-height: 1.55;
+
+  cursor: pointer;
+}
+
+.complete-account-terms input {
+  flex-shrink: 0;
+
+  width: 17px;
+  height: 17px;
+  margin-top: 1px;
+
+  accent-color: var(--color-primary);
+}
+
+
+/* ==========================================================
+   Mensagens
+========================================================== */
+
+.complete-account-message {
+  margin: 0;
+  padding: 12px 14px;
+
+  font-size: var(--font-size-small);
+
+  border-radius: var(--radius-md);
+}
+
+.complete-account-message[hidden] {
+  display: none;
+}
+
+.complete-account-message--error {
+  color: #b91c1c;
+  background-color: rgba(239, 68, 68, 0.1);
+
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+
+/* ==========================================================
+   Botão
+========================================================== */
+
+.complete-account-submit,
+.complete-account-return {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 46px;
+  padding: 11px 18px;
+
+  color: #ffffff;
+  background-color: var(--color-primary);
+
+  font: inherit;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.complete-account-submit:hover,
+.complete-account-return:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.complete-account-submit:active,
+.complete-account-return:active {
+  transform: scale(0.98);
+}
+
+.complete-account-submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.complete-account-submit svg {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* ==========================================================
+   Estados
+========================================================== */
+
+.complete-account-state {
+  padding: 20px 4px;
+
+  text-align: center;
+}
+
+.complete-account-state[hidden],
+.complete-account-content[hidden] {
+  display: none;
+}
+
+.complete-account-state-icon {
+  width: 66px;
+  height: 66px;
+
+  margin-bottom: 20px;
+
+  border-radius: var(--radius-full);
+}
+
+.complete-account-state-icon--success {
+  color: var(--color-success);
+  background-color: rgba(34, 197, 94, 0.12);
+
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.complete-account-state-icon--error {
+  color: var(--color-error);
+  background-color: rgba(239, 68, 68, 0.1);
+
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.complete-account-return {
+  margin-top: 22px;
+
+  text-decoration: none;
+}
+
+
+/* ==========================================================
+   Ícone de carregamento
+========================================================== */
+
+#complete-account-loading
+.complete-account-state-icon svg {
+  animation: completeAccountSpin 0.9s linear infinite;
+}
+
+@keyframes completeAccountSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ==========================================================
+   Responsividade
+========================================================== */
+
+@media (max-width: 600px) {
+  .complete-account-layout {
+    align-items: flex-start;
+
+    padding: 92px 16px 32px;
+  }
+
+  .complete-account-logo {
+    top: 24px;
+    left: 20px;
+  }
+
+  .complete-account-logo img {
+    width: 116px;
+  }
+
+  .complete-account-card {
+    padding: 25px 20px;
+
+    border-radius: 20px;
+  }
+
+  .complete-account-header {
+    flex-direction: column;
+  }
+
+  .complete-account-header h1,
+  .complete-account-state h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
