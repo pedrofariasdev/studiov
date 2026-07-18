@@ -64,16 +64,19 @@
 
     <link rel="stylesheet" href="/css/pages/content.css" />
 
+    <link rel="stylesheet" href="/css/components/user-menu.css">
+
     <link rel="stylesheet" href="/css/globals/theme.css">
-    
+
   </head>
 
   <body>
-    <div class="dashboard-layout">
-      <!-- ==================================================
+
+          <!-- ==================================================
              Sidebar
         =================================================== -->
 
+    <div class="dashboard-layout">
       <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Navegação principal">
         <div class="sidebar-header">
           <a href="/html/dashboard/home.html" class="sidebar-logo" aria-label="StudioV Dashboard">
@@ -200,10 +203,116 @@
         <div class="sidebar-user">
           <div class="sidebar-user-avatar" id="sidebar-user-avatar" aria-hidden="true">U</div>
 
-          <div class="sidebar-user-info">
-            <strong id="sidebar-user-name"> Utilizador </strong>
+          <div class="sidebar-user">
 
-            <span id="sidebar-user-email"> utilizador@studiov.pt </span>
+            <button
+              class="sidebar-user-trigger"
+              id="sidebar-user-trigger"
+              type="button"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+
+              <div
+                class="sidebar-user-avatar"
+                id="sidebar-user-avatar"
+                aria-hidden="true"
+              >
+                U
+              </div>
+
+
+              <div class="sidebar-user-info">
+
+                <strong id="sidebar-user-name">
+                  Utilizador
+                </strong>
+
+                <span id="sidebar-user-email">
+                  utilizador@studiov.pt
+                </span>
+
+              </div>
+
+
+              <i
+                data-lucide="chevron-up"
+                class="sidebar-user-chevron"
+              ></i>
+
+            </button>
+
+
+            <div
+              class="sidebar-user-menu"
+              id="sidebar-user-menu"
+              hidden
+            >
+
+              <a
+                href="/html/dashboard/profile.html"
+                class="sidebar-user-menu-item"
+              >
+
+                <i data-lucide="user"></i>
+
+                <span>
+                  Meu perfil
+                </span>
+
+              </a>
+
+
+              <button
+                class="sidebar-user-menu-item"
+                id="restart-demo-tour"
+                type="button"
+              >
+
+                <i data-lucide="sparkles"></i>
+
+                <span>
+                  Reiniciar tutorial
+                </span>
+
+              </button>
+
+
+              <button
+                class="sidebar-user-menu-item demo-only"
+                id="create-account-demo"
+                type="button"
+              >
+
+                <i data-lucide="rocket"></i>
+
+                <span>
+                  Criar minha conta
+                </span>
+
+              </button>
+
+
+              <div class="sidebar-user-divider"></div>
+
+
+              <button
+                class="sidebar-user-menu-item danger"
+                id="logout-user"
+                type="button"
+              >
+
+                <i data-lucide="log-out"></i>
+
+                <span>
+                  Sair
+                </span>
+
+              </button>
+
+
+            </div>
+
           </div>
 
           <a
@@ -773,5 +882,7 @@
     <!-- Conteúdos -->
 
     <script src="/js/dashboard/content.js"></script>
+
+    <script src="/js/components/user-menu.js"></script>
   </body>
 </html>
