@@ -445,31 +445,86 @@
          Conteúdo principal
     ====================================================== -->
 
-    <main class="dashboard-main settings-page">
+    <main class="dashboard-main">
 
-        <header class="settings-header">
-            <div>
-            <span class="settings-eyebrow">
-                Preferências pessoais
-            </span>
+      <header class="dashboard-topbar">
 
-            <h1>Configurações</h1>
+        <div class="topbar-left">
 
-            <p>
-                Gerencie a aparência, as notificações, a sua conta
-                e as integrações da StudioV.
-            </p>
-            </div>
+          <button
+            class="topbar-menu-button"
+            id="topbar-menu-button"
+            type="button"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+          >
+            <i data-lucide="menu"></i>
+          </button>
 
-            <div
-            id="settings-save-status"
-            class="settings-save-status"
-            aria-live="polite"
+          <div class="workspace-selector">
+
+            <button
+              class="workspace-selector-button"
+              type="button"
+              aria-label="Selecionar workspace"
             >
-            <i data-lucide="cloud-check"></i>
-            <span>Alterações guardadas</span>
-            </div>
-        </header>
+
+              <span class="workspace-selector-icon">
+                <i data-lucide="building-2"></i>
+              </span>
+
+              <span class="workspace-selector-content">
+
+                <small>
+                  Workspace
+                </small>
+
+                <strong id="current-workspace-name">
+                  Workspace StudioV
+                </strong>
+
+              </span>
+
+              <i data-lucide="chevrons-up-down"></i>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="topbar-actions">
+
+          <button
+            class="topbar-icon-button"
+            id="global-search-button"
+            type="button"
+            aria-label="Pesquisar"
+          >
+            <i data-lucide="search"></i>
+          </button>
+
+          <a
+            href="/html/dashboard/notifications.html"
+            class="topbar-icon-button topbar-notification-button"
+            aria-label="Notificações"
+          >
+            <i data-lucide="bell"></i>
+          </a>
+
+          <a
+            href="/html/dashboard/profile.html"
+            class="topbar-avatar"
+            id="topbar-avatar"
+            aria-label="Abrir perfil"
+          >
+            U
+          </a>
+
+        </div>
+
+      </header>
 
 
         <div class="settings-layout">
@@ -1533,13 +1588,17 @@
 
         <!-- Toasts -->
         <div
-            id="settings-toast-container"
-            class="settings-toast-container"
-            aria-live="polite"
-            aria-atomic="true"
+          id="settings-toast-container"
+          class="settings-toast-container"
+          aria-live="polite"
+          aria-atomic="true"
         ></div>
 
-        </main>
+        </div>
+
+      </main>
+
+    </div>
 
   <!-- Scripts -->
 

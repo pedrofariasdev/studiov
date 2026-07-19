@@ -71,7 +71,7 @@
 
   gap: 24px;
 
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .settings-header > div:first-child {
@@ -983,7 +983,7 @@
    Integrações
 ========================================================== */
 
-.settings-integrations-list {
+.settings-.settings-headers-list {
   display: flex;
   flex-direction: column;
 }

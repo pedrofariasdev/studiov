@@ -467,16 +467,32 @@
           <div class="workspace-selector">
 
             <button
-              class="workspace-selector-button"
-              type="button"
+            class="workspace-selector-button"
+            type="button"
             >
-              <i data-lucide="building-2"></i>
 
-              <span id="current-workspace-name">
-                Workspace
+              <span class="workspace-selector-icon">
+
+                <i data-lucide="building-2"></i>
+
               </span>
 
+
+              <span class="workspace-selector-content">
+
+                <small>
+                  Workspace
+                </small>
+
+                <strong id="current-workspace-name">
+                  Workspace StudioV
+                </strong>
+
+              </span>
+
+
               <i data-lucide="chevrons-up-down"></i>
+
             </button>
 
           </div>
@@ -486,20 +502,22 @@
         <div class="topbar-actions">
 
           <button
-            class="topbar-action-button"
+            class="topbar-icon-button"
             type="button"
             aria-label="Pesquisar"
           >
             <i data-lucide="search"></i>
           </button>
 
-          <button
-            class="topbar-action-button"
-            type="button"
+
+          <a
+            href="/html/dashboard/notifications.html"
+            class="topbar-icon-button"
             aria-label="Notificações"
           >
             <i data-lucide="bell"></i>
-          </button>
+          </a>
+
 
           <a
             href="/html/dashboard/profile.html"
