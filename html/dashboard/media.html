@@ -699,8 +699,15 @@
           </button>
         </div>
 
-        <form id="create-folder-form">
-          <div class="media-modal-body">
+          <form id="create-folder-form">
+
+            <input
+              type="hidden"
+              id="create-folder-id"
+              value=""
+            >
+
+            <div class="media-modal-body">
             <div class="media-form-grid">
               <div class="media-form-field media-form-field-full">
                 <label for="create-folder-name"> Nome da pasta </label>
@@ -872,6 +879,15 @@
           <button class="btn media-restore-button hidden" id="media-details-restore" type="button">
             <i data-lucide="rotate-ccw"></i>
             Restaurar
+          </button>
+
+          <button
+            class="btn media-delete-button hidden"
+            id="media-details-delete"
+            type="button"
+          >
+            <i data-lucide="trash-2"></i>
+            Eliminar definitivamente
           </button>
 
           <button class="btn media-archive-button" id="media-details-archive" type="button">

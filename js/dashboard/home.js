@@ -65,7 +65,10 @@ async function initializeHomeDashboard(client) {
       return;
     }
 
-    updateTopbarUser(homeCurrentUser);
+    await updateTopbarUser(
+      client,
+      homeCurrentUser
+    );
 
     homeCurrentWorkspace =
       await resolveActiveWorkspace(
@@ -434,33 +437,105 @@ function updateWorkspaceInterface(workspace) {
    Atualizar utilizador na topbar
 ========================================================== */
 
-function updateTopbarUser(user) {
-  const metadata =
-    user?.user_metadata || {};
+  async function updateTopbarUser(
+    client,
+    user
+  ) {
+    const metadata =
+      user?.user_metadata || {};
 
-  const displayName =
-    metadata.full_name ||
-    metadata.name ||
-    (
-      user?.is_anonymous
-        ? "Utilizador demo"
-        : user?.email?.split("@")[0]
-    ) ||
-    "Utilizador";
+    let profile = null;
 
-  const avatarLetter =
-    displayName
-      .trim()
-      .charAt(0)
-      .toUpperCase() || "U";
+    if (
+      user?.id &&
+      !user.is_anonymous
+    ) {
+      const {
+        data,
+        error,
+      } = await client
+        .from("profiles")
+        .select(`
+          full_name,
+          avatar_url
+        `)
+        .eq("id", user.id)
+        .maybeSingle();
 
-  document
-    .querySelectorAll(".topbar-avatar")
-    .forEach(function (element) {
-      element.textContent =
+      if (error) {
+        console.warn(
+          "Não foi possível carregar a identidade do utilizador:",
+          error.message
+        );
+      } else {
+        profile = data;
+      }
+    }
+
+    const displayName =
+      profile?.full_name ||
+      metadata.full_name ||
+      metadata.name ||
+      (
+        user?.is_anonymous
+          ? "Utilizador demo"
+          : user?.email?.split("@")[0]
+      ) ||
+      "Utilizador";
+
+    const displayEmail =
+      user?.email ||
+      (
+        user?.is_anonymous
+          ? "Sessão de demonstração"
+          : "Email indisponível"
+      );
+
+    const avatarLetter =
+      displayName
+        .trim()
+        .charAt(0)
+        .toUpperCase() || "U";
+
+    document
+      .querySelectorAll(
+        ".topbar-avatar"
+      )
+      .forEach(function (element) {
+        element.textContent =
+          avatarLetter;
+      });
+
+    const sidebarName =
+      document.getElementById(
+        "sidebar-user-name"
+      );
+
+    const sidebarEmail =
+      document.getElementById(
+        "sidebar-user-email"
+      );
+
+    const sidebarAvatar =
+      document.getElementById(
+        "sidebar-user-avatar"
+      );
+
+    if (sidebarName) {
+      sidebarName.textContent =
+        displayName;
+    }
+
+    if (sidebarEmail) {
+      sidebarEmail.textContent =
+        displayEmail;
+    }
+
+    if (sidebarAvatar) {
+      sidebarAvatar.textContent =
         avatarLetter;
-    });
-}
+    }
+  }
 
 
 /* ==========================================================

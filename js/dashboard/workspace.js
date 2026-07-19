@@ -169,6 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let workspaceBrands = [];
   let socialAccounts = [];
   let contentsCount = 0;
+  let workspaceStorageBytes = 0;
   let billingSummary = null;
 
   /* ========================================================
@@ -306,12 +307,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
   }
 
-  function formatBytes(bytes) {
+  function formatBytes(bytes = 0) {
     const numericBytes =
       Number(bytes) || 0;
 
-    if (numericBytes === 0) {
-      return "0 MB";
+    if (numericBytes <= 0) {
+      return "0 B";
     }
 
     const units = [
@@ -334,11 +335,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       numericBytes /
       Math.pow(1024, unitIndex);
 
+    const decimals =
+      unitIndex === 0 ? 0 : 1;
+
     const formattedValue =
-      value >= 10 ||
-      unitIndex === 0
-        ? Math.round(value)
-        : value.toFixed(1);
+      Number(
+        value.toFixed(decimals)
+      ).toString();
 
     return `${formattedValue} ${units[unitIndex]}`;
   }
@@ -676,6 +679,68 @@ document.addEventListener("DOMContentLoaded", async () => {
     return data || [];
   }
 
+  async function loadWorkspaceStorageUsage() {
+    const {
+      data,
+      error,
+    } =
+      await supabaseClient
+        .from("media_assets")
+        .select(`
+          file_size,
+          status,
+          status_before_archive,
+          storage_object_id
+        `)
+        .eq(
+          "workspace_id",
+          currentWorkspace.id
+        )
+        .in(
+          "status",
+          [
+            "ready",
+            "archived",
+          ]
+        );
+
+    if (error) {
+      throw error;
+    }
+
+    return (data || []).reduce(
+      (total, asset) => {
+        const hasStoredObject =
+          Boolean(
+            asset.storage_object_id
+          );
+
+        const isReady =
+          asset.status === "ready";
+
+        const wasReadyBeforeArchive =
+          asset.status === "archived" &&
+          asset.status_before_archive ===
+            "ready";
+
+        const occupiesStorage =
+          hasStoredObject ||
+          isReady ||
+          wasReadyBeforeArchive;
+
+        if (!occupiesStorage) {
+          return total;
+        }
+
+        return (
+          total +
+          Number(asset.file_size || 0)
+        );
+      },
+      0
+    );
+  }
+
   async function loadBillingSummary() {
     const {
       data,
@@ -711,6 +776,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       brandsResult,
       contentsResult,
       socialResult,
+      storageResult,
       billingResult,
     ] =
       await Promise.all([
@@ -718,6 +784,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         loadBrands(),
         loadContentsCount(),
         loadSocialAccounts(),
+        loadWorkspaceStorageUsage(),
         loadBillingSummary(),
       ]);
 
@@ -735,6 +802,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     socialAccounts =
       socialResult;
+
+    workspaceStorageBytes =
+      storageResult;
 
     billingSummary =
       billingResult;
@@ -959,7 +1029,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const currentStorage =
       Number(
-        billingSummary?.storage_bytes
+        workspaceStorageBytes
       ) || 0;
 
     const activeSocialAccounts =

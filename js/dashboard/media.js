@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Elementos gerais
-    ====================================================== */
+  ====================================================== */
 
   const currentWorkspaceName = $("current-workspace-name");
   const sidebarUserName = $("sidebar-user-name");
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Biblioteca
-    ====================================================== */
+  ====================================================== */
 
   const mediaLoading = $("media-loading");
   const mediaEmpty = $("media-empty");
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Upload
-    ====================================================== */
+  ====================================================== */
 
   const uploadMediaModal = $("upload-media-modal");
   const uploadMediaModalClose = $("upload-media-modal-close");
@@ -77,12 +77,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Pastas
-    ====================================================== */
+  ====================================================== */
 
   const createFolderModal = $("create-folder-modal");
   const createFolderModalClose = $("create-folder-modal-close");
   const createFolderCancel = $("create-folder-cancel");
   const createFolderForm = $("create-folder-form");
+
+  const createFolderId = $("create-folder-id");
+  const createFolderModalTitle = $("create-folder-modal-title");
+
   const createFolderSubmit = $("create-folder-submit");
   const createFolderSubmitText = $("create-folder-submit-text");
 
@@ -94,7 +98,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Detalhes
-    ====================================================== */
+  ====================================================== */
 
   const mediaDetailsModal = $("media-details-modal");
   const mediaDetailsClose = $("media-details-close");
@@ -119,13 +123,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   const mediaDetailsDownload = $("media-details-download");
   const mediaDetailsArchive = $("media-details-archive");
   const mediaDetailsRestore = $("media-details-restore");
+  const mediaDetailsDelete = $("media-details-delete");
   const mediaDetailsSave = $("media-details-save");
 
   /* ======================================================
        Confirmação
-    ====================================================== */
+  ====================================================== */
 
   const mediaConfirmModal = $("media-confirm-modal");
+  const mediaConfirmIcon = $("media-confirm-icon");
   const mediaConfirmTitle = $("media-confirm-title");
   const mediaConfirmDescription = $("media-confirm-description");
   const mediaConfirmCancel = $("media-confirm-cancel");
@@ -133,7 +139,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Estado
-    ====================================================== */
+  ====================================================== */
 
   let currentWorkspace = null;
 
@@ -192,7 +198,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Utilitários
-    ====================================================== */
+  ====================================================== */
 
   function escapeHtml(value = "") {
     const element = document.createElement("div");
@@ -220,7 +226,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const units = ["B", "KB", "MB", "GB", "TB"];
     const index = Math.floor(Math.log(value) / Math.log(1024));
 
-    return `${(value / Math.pow(1024, index)).toFixed(index === 0 ? 0 : 1)} ${units[index]}`;
+    return `${(value / Math.pow(1024, index)).toFixed(
+      index === 0 ? 0 : 1
+    )} ${units[index]}`;
   }
 
   function formatDate(value) {
@@ -249,6 +257,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     return assets.find((asset) => asset.id === id) || null;
   }
 
+  function canAccessStoredAsset(asset) {
+    if (!asset) {
+      return false;
+    }
+
+    if (asset.status === "ready") {
+      return true;
+    }
+
+    return (
+      asset.status === "archived" &&
+      asset.status_before_archive === "ready"
+    );
+  }
+
   function getFileIconFromMime(mimeType = "") {
     if (mimeType.startsWith("image/")) {
       return "image";
@@ -273,7 +296,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (asset.duration_ms) {
       const seconds = Math.round(asset.duration_ms / 1000);
 
-      return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+      return `${Math.floor(seconds / 60)}:${String(
+        seconds % 60
+      ).padStart(2, "0")}`;
     }
 
     return "Não disponível";
@@ -281,7 +306,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Toast
-    ====================================================== */
+  ====================================================== */
 
   function showToast(type, title, message) {
     if (!toastContainer) {
@@ -300,27 +325,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     toast.className = `toast is-${type}`;
 
     toast.innerHTML = `
-            <div class="toast-icon">
-                <i data-lucide="${icons[type] || icons.info}"></i>
-            </div>
+      <div class="toast-icon">
+        <i data-lucide="${icons[type] || icons.info}"></i>
+      </div>
 
-            <div class="toast-content">
-                <strong>${escapeHtml(title)}</strong>
-                <p>${escapeHtml(message)}</p>
-            </div>
+      <div class="toast-content">
+        <strong>${escapeHtml(title)}</strong>
+        <p>${escapeHtml(message)}</p>
+      </div>
 
-            <button
-                class="toast-close"
-                type="button"
-                aria-label="Fechar"
-            >
-                <i data-lucide="x"></i>
-            </button>
-        `;
+      <button
+        class="toast-close"
+        type="button"
+        aria-label="Fechar"
+      >
+        <i data-lucide="x"></i>
+      </button>
+    `;
 
     toastContainer.appendChild(toast);
 
-    toast.querySelector(".toast-close")?.addEventListener("click", () => toast.remove());
+    toast
+      .querySelector(".toast-close")
+      ?.addEventListener("click", () => toast.remove());
 
     window.lucide?.createIcons();
 
@@ -329,7 +356,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Modais
-    ====================================================== */
+  ====================================================== */
 
   function openModal(modal) {
     if (!modal) {
@@ -354,7 +381,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     modal.classList.add("hidden");
     modal.setAttribute("aria-hidden", "true");
 
-    const openModalElement = document.querySelector(".media-modal-overlay:not(.hidden)");
+    const openModalElement = document.querySelector(
+      ".media-modal-overlay:not(.hidden)"
+    );
 
     if (!openModalElement) {
       body.classList.remove("modal-open");
@@ -363,7 +392,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Perfil e workspace
-    ====================================================== */
+  ====================================================== */
 
   async function loadUserProfile(userId) {
     const { data, error } = await supabaseClient
@@ -382,31 +411,35 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   async function loadCurrentWorkspace(userId) {
-    const { data: membership, error: membershipError } = await supabaseClient
-      .from("workspace_members")
-      .select("workspace_id, role, status, created_at")
-      .eq("user_id", userId)
-      .eq("status", "active")
-      .order("created_at", {
-        ascending: true,
-      })
-      .limit(1)
-      .maybeSingle();
+    const { data: membership, error: membershipError } =
+      await supabaseClient
+        .from("workspace_members")
+        .select("workspace_id, role, status, created_at")
+        .eq("user_id", userId)
+        .eq("status", "active")
+        .order("created_at", {
+          ascending: true,
+        })
+        .limit(1)
+        .maybeSingle();
 
     if (membershipError) {
       throw membershipError;
     }
 
     if (!membership?.workspace_id) {
-      throw new Error("O utilizador não possui um workspace ativo.");
+      throw new Error(
+        "O utilizador não possui um workspace ativo."
+      );
     }
 
-    const { data: workspace, error: workspaceError } = await supabaseClient
-      .from("workspaces")
-      .select("id, name, status")
-      .eq("id", membership.workspace_id)
-      .eq("status", "active")
-      .single();
+    const { data: workspace, error: workspaceError } =
+      await supabaseClient
+        .from("workspaces")
+        .select("id, name, status")
+        .eq("id", membership.workspace_id)
+        .eq("status", "active")
+        .single();
 
     if (workspaceError) {
       throw workspaceError;
@@ -419,16 +452,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function updateIdentity(user, profile, workspace) {
-    const fullName = profile?.full_name?.trim() || user.email?.split("@")[0] || "Utilizador";
+    const fullName =
+      profile?.full_name?.trim() ||
+      user.email?.split("@")[0] ||
+      "Utilizador";
 
     const email = user.email || "Email não disponível";
     const avatarLetter = fullName.charAt(0).toUpperCase();
 
-    currentWorkspaceName.textContent = workspace.name;
-    sidebarUserName.textContent = fullName;
-    sidebarUserEmail.textContent = email;
-    sidebarUserAvatar.textContent = avatarLetter;
-    topbarAvatar.textContent = avatarLetter;
+    if (currentWorkspaceName) {
+      currentWorkspaceName.textContent = workspace.name;
+    }
+
+    if (sidebarUserName) {
+      sidebarUserName.textContent = fullName;
+    }
+
+    if (sidebarUserEmail) {
+      sidebarUserEmail.textContent = email;
+    }
+
+    if (sidebarUserAvatar) {
+      sidebarUserAvatar.textContent = avatarLetter;
+    }
+
+    if (topbarAvatar) {
+      topbarAvatar.textContent = avatarLetter;
+    }
   }
 
   async function initializeContext() {
@@ -456,20 +506,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Carregamento
-    ====================================================== */
+  ====================================================== */
 
   function setLoading(isLoading) {
-    mediaLoading.classList.toggle("hidden", !isLoading);
+    mediaLoading?.classList.toggle("hidden", !isLoading);
 
     if (isLoading) {
-      mediaAssetsGrid.classList.add("hidden");
-      mediaEmpty.classList.add("hidden");
-      mediaNoResults.classList.add("hidden");
+      mediaAssetsGrid?.classList.add("hidden");
+      mediaEmpty?.classList.add("hidden");
+      mediaNoResults?.classList.add("hidden");
     }
   }
 
   async function createAssetSignedUrl(asset) {
-    if (asset.status !== "ready") {
+    if (!canAccessStoredAsset(asset)) {
       return null;
     }
 
@@ -478,7 +528,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       .createSignedUrl(asset.object_path, 3600);
 
     if (error) {
-      console.warn(`Não foi possível gerar URL para ${asset.display_name}:`, error.message);
+      console.warn(
+        `Não foi possível gerar URL para ${asset.display_name}:`,
+        error.message
+      );
 
       return null;
     }
@@ -489,10 +542,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   async function hydrateSignedUrls() {
     signedUrls.clear();
 
-    const readyAssets = assets.filter((asset) => asset.status === "ready");
+    const previewableAssets = assets.filter(
+      canAccessStoredAsset
+    );
 
     await Promise.all(
-      readyAssets.map(async (asset) => {
+      previewableAssets.map(async (asset) => {
         const url = await createAssetSignedUrl(asset);
 
         if (url) {
@@ -510,31 +565,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     setLoading(true);
 
     try {
-      const [brandsResult, foldersResult, assetsResult] = await Promise.all([
-        supabaseClient
-          .from("brands")
-          .select("id, name, primary_color, status")
-          .eq("workspace_id", currentWorkspace.id)
-          .order("name", {
-            ascending: true,
-          }),
+      const [brandsResult, foldersResult, assetsResult] =
+        await Promise.all([
+          supabaseClient
+            .from("brands")
+            .select("id, name, primary_color, status")
+            .eq("workspace_id", currentWorkspace.id)
+            .order("name", {
+              ascending: true,
+            }),
 
-        supabaseClient
-          .from("media_folders")
-          .select("*")
-          .eq("workspace_id", currentWorkspace.id)
-          .order("name", {
-            ascending: true,
-          }),
+          supabaseClient
+            .from("media_folders")
+            .select("*")
+            .eq("workspace_id", currentWorkspace.id)
+            .order("name", {
+              ascending: true,
+            }),
 
-        supabaseClient
-          .from("media_assets")
-          .select("*")
-          .eq("workspace_id", currentWorkspace.id)
-          .order("created_at", {
-            ascending: false,
-          }),
-      ]);
+          supabaseClient
+            .from("media_assets")
+            .select("*")
+            .eq("workspace_id", currentWorkspace.id)
+            .order("created_at", {
+              ascending: false,
+            }),
+        ]);
 
       if (brandsResult.error) {
         throw brandsResult.error;
@@ -564,7 +620,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       showToast(
         "error",
         "Erro ao carregar Biblioteca",
-        error?.message || "Não foi possível carregar os ficheiros."
+        error?.message ||
+          "Não foi possível carregar os ficheiros."
       );
     } finally {
       setLoading(false);
@@ -573,9 +630,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Selects
-    ====================================================== */
+  ====================================================== */
 
   function appendOption(select, value, label) {
+    if (!select) {
+      return;
+    }
+
     const option = document.createElement("option");
 
     option.value = value;
@@ -584,7 +645,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     select.appendChild(option);
   }
 
-  function populateBrandSelect(select, firstLabel, firstValue) {
+  function populateBrandSelect(
+    select,
+    firstLabel,
+    firstValue
+  ) {
+    if (!select) {
+      return;
+    }
+
     const previousValue = select.value;
 
     select.innerHTML = "";
@@ -597,12 +666,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         appendOption(select, brand.id, brand.name);
       });
 
-    if (Array.from(select.options).some((option) => option.value === previousValue)) {
+    if (
+      Array.from(select.options).some(
+        (option) => option.value === previousValue
+      )
+    ) {
       select.value = previousValue;
     }
   }
 
-  function populateFolderSelect(select, brandId, firstLabel, firstValue, includeArchived = false) {
+  function populateFolderSelect(
+    select,
+    brandId,
+    firstLabel,
+    firstValue,
+    includeArchived = false
+  ) {
+    if (!select) {
+      return;
+    }
+
     const previousValue = select.value;
 
     select.innerHTML = "";
@@ -611,9 +694,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     folders
       .filter((folder) => {
-        const correctBrand = (folder.brand_id || "") === (brandId || "");
+        const correctBrand =
+          (folder.brand_id || "") === (brandId || "");
 
-        const correctStatus = includeArchived || folder.status === "active";
+        const correctStatus =
+          includeArchived || folder.status === "active";
 
         return correctBrand && correctStatus;
       })
@@ -621,92 +706,188 @@ document.addEventListener("DOMContentLoaded", async () => {
         appendOption(select, folder.id, folder.name);
       });
 
-    if (Array.from(select.options).some((option) => option.value === previousValue)) {
+    if (
+      Array.from(select.options).some(
+        (option) => option.value === previousValue
+      )
+    ) {
       select.value = previousValue;
     }
   }
 
   function populateFilterFolders() {
+    if (!mediaFolderFilter) {
+      return;
+    }
+
     const previousValue = mediaFolderFilter.value;
 
     mediaFolderFilter.innerHTML = "";
 
-    appendOption(mediaFolderFilter, "all", "Todas as pastas");
+    appendOption(
+      mediaFolderFilter,
+      "all",
+      "Todas as pastas"
+    );
 
-    appendOption(mediaFolderFilter, "none", "Sem pasta");
+    appendOption(
+      mediaFolderFilter,
+      "none",
+      "Sem pasta"
+    );
 
     folders
       .filter((folder) => folder.status === "active")
       .forEach((folder) => {
-        appendOption(mediaFolderFilter, folder.id, folder.name);
+        appendOption(
+          mediaFolderFilter,
+          folder.id,
+          folder.name
+        );
       });
 
-    if (Array.from(mediaFolderFilter.options).some((option) => option.value === previousValue)) {
+    if (
+      Array.from(mediaFolderFilter.options).some(
+        (option) => option.value === previousValue
+      )
+    ) {
       mediaFolderFilter.value = previousValue;
     }
   }
 
   function populateAllSelects() {
-    populateBrandSelect(mediaBrandFilter, "Todas as marcas", "all");
+    populateBrandSelect(
+      mediaBrandFilter,
+      "Todas as marcas",
+      "all"
+    );
 
-    populateBrandSelect(uploadMediaBrand, "Ficheiro partilhado", "");
+    populateBrandSelect(
+      uploadMediaBrand,
+      "Ficheiro partilhado",
+      ""
+    );
 
-    populateBrandSelect(createFolderBrand, "Pasta partilhada", "");
+    populateBrandSelect(
+      createFolderBrand,
+      "Pasta partilhada",
+      ""
+    );
 
     populateFilterFolders();
 
-    populateFolderSelect(uploadMediaFolder, uploadMediaBrand.value, "Sem pasta", "");
+    populateFolderSelect(
+      uploadMediaFolder,
+      uploadMediaBrand?.value || "",
+      "Sem pasta",
+      ""
+    );
 
-    populateFolderSelect(createFolderParent, createFolderBrand.value, "Nenhuma", "");
+    populateFolderSelect(
+      createFolderParent,
+      createFolderBrand?.value || "",
+      "Nenhuma",
+      ""
+    );
   }
 
   /* ======================================================
        Resumo
-    ====================================================== */
+  ====================================================== */
 
   function updateSummary() {
-    const activeAssets = assets.filter((asset) => asset.status !== "archived");
+    const activeAssets = assets.filter(
+      (asset) => asset.status !== "archived"
+    );
 
-    const images = activeAssets.filter((asset) => asset.media_type === "image");
+    const images = activeAssets.filter(
+      (asset) => asset.media_type === "image"
+    );
 
-    const videos = activeAssets.filter((asset) => asset.media_type === "video");
+    const videos = activeAssets.filter(
+      (asset) => asset.media_type === "video"
+    );
 
     const usedStorage = activeAssets
       .filter((asset) => asset.status === "ready")
-      .reduce((total, asset) => total + Number(asset.file_size || 0), 0);
+      .reduce(
+        (total, asset) =>
+          total + Number(asset.file_size || 0),
+        0
+      );
 
-    mediaTotalCount.textContent = String(activeAssets.length);
-    mediaImageCount.textContent = String(images.length);
-    mediaVideoCount.textContent = String(videos.length);
-    mediaStorageCount.textContent = formatBytes(usedStorage);
+    if (mediaTotalCount) {
+      mediaTotalCount.textContent =
+        String(activeAssets.length);
+    }
+
+    if (mediaImageCount) {
+      mediaImageCount.textContent =
+        String(images.length);
+    }
+
+    if (mediaVideoCount) {
+      mediaVideoCount.textContent =
+        String(videos.length);
+    }
+
+    if (mediaStorageCount) {
+      mediaStorageCount.textContent =
+        formatBytes(usedStorage);
+    }
   }
 
   /* ======================================================
        Pastas
-    ====================================================== */
+  ====================================================== */
 
   function renderFolders() {
+    if (
+      !mediaFoldersGrid ||
+      !mediaFoldersEmpty ||
+      !toggleArchivedFoldersButton
+    ) {
+      return;
+    }
+
     mediaFoldersGrid.innerHTML = "";
 
     const visibleFolders = folders.filter((folder) =>
-      showArchivedFolders ? folder.status === "archived" : folder.status === "active"
+      showArchivedFolders
+        ? folder.status === "archived"
+        : folder.status === "active"
     );
 
-    mediaFoldersEmpty.classList.toggle("hidden", visibleFolders.length > 0);
+    mediaFoldersEmpty.classList.toggle(
+      "hidden",
+      visibleFolders.length > 0
+    );
 
     visibleFolders.forEach((folder) => {
       const brand = getBrandById(folder.brand_id);
 
       const assetCount = assets.filter(
-        (asset) => asset.folder_id === folder.id && asset.status !== "archived"
+        (asset) => {
+          if (asset.folder_id !== folder.id) {
+            return false;
+          }
+
+          return showArchivedFolders
+            ? asset.status === "archived"
+            : asset.status !== "archived";
+        }
       ).length;
 
       const card = document.createElement("article");
 
       card.className = [
         "media-folder-card",
-        folder.status === "archived" ? "is-archived" : "",
-        mediaFolderFilter.value === folder.id ? "is-selected" : "",
+        folder.status === "archived"
+          ? "is-archived"
+          : "",
+        mediaFolderFilter?.value === folder.id
+          ? "is-selected"
+          : "",
       ]
         .filter(Boolean)
         .join(" ");
@@ -714,71 +895,145 @@ document.addEventListener("DOMContentLoaded", async () => {
       card.dataset.folderId = folder.id;
 
       card.innerHTML = `
-                <div class="media-folder-icon">
-                    <i data-lucide="${
-                      folder.status === "archived" ? "folder-archive" : "folder"
-                    }"></i>
-                </div>
+        <div class="media-folder-icon">
+          <i
+            data-lucide="${
+              folder.status === "archived"
+                ? "folder-archive"
+                : "folder"
+            }"
+          ></i>
+        </div>
 
-                <div class="media-folder-content">
-                    <strong>
-                        ${escapeHtml(folder.name)}
-                    </strong>
+        <div class="media-folder-content">
+          <strong>
+            ${escapeHtml(folder.name)}
+          </strong>
 
-                    <span>
-                        ${brand ? escapeHtml(brand.name) : "Partilhada"}
-                        · ${assetCount} ficheiro${assetCount === 1 ? "" : "s"}
-                    </span>
-                </div>
+          <span>
+            ${
+              brand
+                ? escapeHtml(brand.name)
+                : "Partilhada"
+            }
+            · ${assetCount}
+            ficheiro${assetCount === 1 ? "" : "s"}
+          </span>
+        </div>
 
+        <div class="media-folder-actions">
+
+          ${
+            folder.status === "active"
+              ? `
                 <button
-                    class="media-folder-action"
-                    type="button"
-                    data-folder-action="${folder.status === "archived" ? "restore" : "archive"}"
-                    data-folder-id="${folder.id}"
-                    aria-label="${
-                      folder.status === "archived" ? "Restaurar pasta" : "Arquivar pasta"
-                    }"
+                  class="media-folder-action"
+                  type="button"
+                  data-folder-action="rename"
+                  data-folder-id="${folder.id}"
+                  aria-label="Renomear pasta"
+                  title="Renomear pasta"
                 >
-                    <i data-lucide="${folder.status === "archived" ? "rotate-ccw" : "archive"}"></i>
+                  <i data-lucide="pencil"></i>
                 </button>
-            `;
+              `
+              : ""
+          }
+
+          <button
+            class="media-folder-action ${
+              folder.status === "active"
+                ? "is-danger"
+                : ""
+            }"
+            type="button"
+            data-folder-action="${
+              folder.status === "archived"
+                ? "restore"
+                : "archive"
+            }"
+            data-folder-id="${folder.id}"
+            aria-label="${
+              folder.status === "archived"
+                ? "Restaurar pasta"
+                : "Arquivar pasta"
+            }"
+            title="${
+              folder.status === "archived"
+                ? "Restaurar pasta"
+                : "Arquivar pasta"
+            }"
+          >
+            <i
+              data-lucide="${
+                folder.status === "archived"
+                  ? "rotate-ccw"
+                  : "archive"
+              }"
+            ></i>
+          </button>
+
+        </div>
+      `;
 
       mediaFoldersGrid.appendChild(card);
     });
 
     toggleArchivedFoldersButton.innerHTML = `
-            <i data-lucide="${showArchivedFolders ? "folder" : "archive"}"></i>
+      <i
+        data-lucide="${
+          showArchivedFolders
+            ? "folder"
+            : "archive"
+        }"
+      ></i>
 
-            ${showArchivedFolders ? "Ver pastas ativas" : "Ver pastas arquivadas"}
-        `;
+      ${
+        showArchivedFolders
+          ? "Ver pastas ativas"
+          : "Ver pastas arquivadas"
+      }
+    `;
 
     window.lucide?.createIcons();
   }
 
   /* ======================================================
        Filtros
-    ====================================================== */
+  ====================================================== */
 
   function hasActiveFilters() {
     return Boolean(
-      mediaSearchInput.value.trim() ||
-      mediaBrandFilter.value !== "all" ||
-      mediaFolderFilter.value !== "all" ||
-      mediaTypeFilter.value !== "all" ||
-      mediaStatusFilter.value !== "all"
+      mediaSearchInput?.value.trim() ||
+        mediaBrandFilter?.value !== "all" ||
+        mediaFolderFilter?.value !== "all" ||
+        mediaTypeFilter?.value !== "all" ||
+        mediaStatusFilter?.value !== "all"
     );
   }
 
   function getFilteredAssets() {
-    const search = normalizeText(mediaSearchInput.value);
-    const brand = mediaBrandFilter.value;
-    const folder = mediaFolderFilter.value;
-    const type = mediaTypeFilter.value;
-    const status = mediaStatusFilter.value;
+    const search = normalizeText(
+      mediaSearchInput?.value || ""
+    );
+
+    const brand =
+      mediaBrandFilter?.value || "all";
+
+    const folder =
+      mediaFolderFilter?.value || "all";
+
+    const type =
+      mediaTypeFilter?.value || "all";
+
+    const status =
+      mediaStatusFilter?.value || "all";
 
     return assets.filter((asset) => {
-      if (status === "all" && asset.status === "archived") {
+      if (
+        status === "all" &&
+        asset.status === "archived"
+      ) {
         return false;
       }
 
@@ -795,105 +1050,179 @@ document.addEventListener("DOMContentLoaded", async () => {
           .join(" ")
       );
 
-      const matchesSearch = !search || searchable.includes(search);
+      const matchesSearch =
+        !search || searchable.includes(search);
 
-      const matchesBrand = brand === "all" || asset.brand_id === brand;
+      const matchesBrand =
+        brand === "all" ||
+        asset.brand_id === brand;
 
       const matchesFolder =
-        folder === "all" || (folder === "none" ? !asset.folder_id : asset.folder_id === folder);
+        folder === "all" ||
+        (
+          folder === "none"
+            ? !asset.folder_id
+            : asset.folder_id === folder
+        );
 
-      const matchesType = type === "all" || asset.media_type === type;
+      const matchesType =
+        type === "all" ||
+        asset.media_type === type;
 
-      const matchesStatus = status === "all" || asset.status === status;
+      const matchesStatus =
+        status === "all" ||
+        asset.status === status;
 
-      return matchesSearch && matchesBrand && matchesFolder && matchesType && matchesStatus;
+      return (
+        matchesSearch &&
+        matchesBrand &&
+        matchesFolder &&
+        matchesType &&
+        matchesStatus
+      );
     });
   }
 
   /* ======================================================
        Cards
-    ====================================================== */
+  ====================================================== */
 
   function createAssetPreview(asset) {
     const signedUrl = signedUrls.get(asset.id);
 
-    if (asset.media_type === "image" && signedUrl) {
+    if (
+      asset.media_type === "image" &&
+      signedUrl
+    ) {
       return `
-                <img
-                    src="${escapeHtml(signedUrl)}"
-                    alt="${escapeHtml(asset.alt_text || asset.display_name)}"
-                    loading="lazy"
-                >
-            `;
+        <img
+          src="${escapeHtml(signedUrl)}"
+          alt="${escapeHtml(
+            asset.alt_text ||
+              asset.display_name
+          )}"
+          loading="lazy"
+        >
+      `;
     }
 
     return `
-            <i data-lucide="${mediaTypeIcons[asset.media_type] || "file"}"></i>
-        `;
+      <i
+        data-lucide="${
+          mediaTypeIcons[asset.media_type] ||
+          "file"
+        }"
+      ></i>
+    `;
   }
 
   function renderAssets() {
-    const filteredAssets = getFilteredAssets();
+    if (
+      !mediaAssetsGrid ||
+      !mediaEmpty ||
+      !mediaNoResults
+    ) {
+      return;
+    }
+
+    const filteredAssets =
+      getFilteredAssets();
 
     mediaAssetsGrid.innerHTML = "";
 
-    mediaEmpty.classList.toggle("hidden", assets.length > 0);
+    mediaEmpty.classList.toggle(
+      "hidden",
+      assets.length > 0
+    );
 
     mediaNoResults.classList.toggle(
       "hidden",
-      !(assets.length > 0 && filteredAssets.length === 0 && hasActiveFilters())
+      !(
+        assets.length > 0 &&
+        filteredAssets.length === 0 &&
+        hasActiveFilters()
+      )
     );
 
-    mediaAssetsGrid.classList.toggle("hidden", filteredAssets.length === 0);
+    mediaAssetsGrid.classList.toggle(
+      "hidden",
+      filteredAssets.length === 0
+    );
 
-    mediaAssetsGrid.classList.toggle("is-list", currentView === "list");
+    mediaAssetsGrid.classList.toggle(
+      "is-list",
+      currentView === "list"
+    );
 
     filteredAssets.forEach((asset) => {
-      const brand = getBrandById(asset.brand_id);
-      const folder = getFolderById(asset.folder_id);
+      const brand = getBrandById(
+        asset.brand_id
+      );
 
-      const card = document.createElement("article");
+      const folder = getFolderById(
+        asset.folder_id
+      );
 
-      card.className = "media-asset-card";
+      const card =
+        document.createElement("article");
+
+      card.className =
+        "media-asset-card";
+
       card.dataset.assetId = asset.id;
 
       card.innerHTML = `
-                <div class="media-asset-preview">
+        <div class="media-asset-preview">
 
-                    ${createAssetPreview(asset)}
+          ${createAssetPreview(asset)}
 
-                    <span class="media-asset-preview-status">
-                        ${statusLabels[asset.status] || asset.status}
-                    </span>
+          <span class="media-asset-preview-status">
+            ${
+              statusLabels[asset.status] ||
+              asset.status
+            }
+          </span>
 
-                </div>
+        </div>
 
-                <div class="media-asset-content">
+        <div class="media-asset-content">
 
-                    <h3>
-                        ${escapeHtml(asset.display_name)}
-                    </h3>
+          <h3>
+            ${escapeHtml(asset.display_name)}
+          </h3>
 
-                    <p>
-                        ${folder ? escapeHtml(folder.name) : "Sem pasta"}
-                        ·
-                        ${brand ? escapeHtml(brand.name) : "Partilhado"}
-                    </p>
+          <p>
+            ${
+              folder
+                ? escapeHtml(folder.name)
+                : "Sem pasta"
+            }
+            ·
+            ${
+              brand
+                ? escapeHtml(brand.name)
+                : "Partilhado"
+            }
+          </p>
 
-                    <div class="media-asset-meta">
+          <div class="media-asset-meta">
 
-                        <span>
-                            ${escapeHtml(mediaTypeLabels[asset.media_type] || asset.media_type)}
-                        </span>
+            <span>
+              ${escapeHtml(
+                mediaTypeLabels[
+                  asset.media_type
+                ] || asset.media_type
+              )}
+            </span>
 
-                        <span>
-                            ${formatBytes(asset.file_size)}
-                        </span>
+            <span>
+              ${formatBytes(asset.file_size)}
+            </span>
 
-                    </div>
+          </div>
 
-                </div>
-            `;
+        </div>
+      `;
 
       mediaAssetsGrid.appendChild(card);
     });
@@ -903,35 +1232,44 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ======================================================
        Upload
-    ====================================================== */
+  ====================================================== */
 
   function resetUploadForm() {
-    uploadMediaForm.reset();
+    uploadMediaForm?.reset();
 
     selectedFiles = [];
 
-    uploadMediaError.textContent = "";
-    uploadMediaError.classList.add("hidden");
+    if (uploadMediaError) {
+      uploadMediaError.textContent = "";
+      uploadMediaError.classList.add("hidden");
+    }
 
-    mediaUploadFiles.innerHTML = "";
-    mediaUploadFiles.classList.add("hidden");
+    if (mediaUploadFiles) {
+      mediaUploadFiles.innerHTML = "";
+      mediaUploadFiles.classList.add("hidden");
+    }
 
-    uploadMediaDisplayName.disabled = false;
+    if (uploadMediaDisplayName) {
+      uploadMediaDisplayName.disabled = false;
+    }
 
-    populateFolderSelect(uploadMediaFolder, "", "Sem pasta", "");
+    populateFolderSelect(
+      uploadMediaFolder,
+      "",
+      "Sem pasta",
+      ""
+    );
 
     renderSelectedFiles();
   }
 
   function openUploadModal() {
     resetUploadForm();
-
     openModal(uploadMediaModal);
   }
 
   function closeUploadModal() {
     closeModal(uploadMediaModal);
-
     resetUploadForm();
   }
 
@@ -939,15 +1277,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const validFiles = [];
     const errors = [];
 
-    Array.from(files).forEach((file) => {
+    Array.from(files || []).forEach((file) => {
       if (!allowedMimeTypes.has(file.type)) {
-        errors.push(`${file.name}: formato não suportado.`);
+        errors.push(
+          `${file.name}: formato não suportado.`
+        );
 
         return;
       }
 
-      if (file.size < 1 || file.size > maximumFileSize) {
-        errors.push(`${file.name}: o ficheiro deve ter no máximo 250 MiB.`);
+      if (
+        file.size < 1 ||
+        file.size > maximumFileSize
+      ) {
+        errors.push(
+          `${file.name}: o ficheiro deve ter no máximo 250 MiB.`
+        );
 
         return;
       }
@@ -956,7 +1301,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     if (errors.length > 0) {
-      showToast("warning", "Alguns ficheiros foram ignorados", errors.join(" "));
+      showToast(
+        "warning",
+        "Alguns ficheiros foram ignorados",
+        errors.join(" ")
+      );
     }
 
     return validFiles;
@@ -966,12 +1315,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     const validFiles = validateFiles(files);
 
     validFiles.forEach((file) => {
-      const alreadySelected = selectedFiles.some(
-        (selected) =>
-          selected.name === file.name &&
-          selected.size === file.size &&
-          selected.lastModified === file.lastModified
-      );
+      const alreadySelected =
+        selectedFiles.some(
+          (selected) =>
+            selected.name === file.name &&
+            selected.size === file.size &&
+            selected.lastModified ===
+              file.lastModified
+        );
 
       if (!alreadySelected) {
         selectedFiles.push(file);
@@ -982,48 +1333,72 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function renderSelectedFiles() {
+    if (
+      !mediaUploadFiles ||
+      !uploadMediaDisplayName
+    ) {
+      return;
+    }
+
     mediaUploadFiles.innerHTML = "";
 
-    mediaUploadFiles.classList.toggle("hidden", selectedFiles.length === 0);
+    mediaUploadFiles.classList.toggle(
+      "hidden",
+      selectedFiles.length === 0
+    );
 
-    uploadMediaDisplayName.disabled = selectedFiles.length !== 1;
+    uploadMediaDisplayName.disabled =
+      selectedFiles.length !== 1;
 
     if (selectedFiles.length !== 1) {
       uploadMediaDisplayName.value = "";
     }
 
     selectedFiles.forEach((file, index) => {
-      const row = document.createElement("div");
+      const row =
+        document.createElement("div");
 
-      row.className = "media-upload-file";
-      row.dataset.uploadIndex = String(index);
+      row.className =
+        "media-upload-file";
+
+      row.dataset.uploadIndex =
+        String(index);
 
       row.innerHTML = `
-                <div class="media-upload-file-icon">
-                    <i data-lucide="${getFileIconFromMime(file.type)}"></i>
-                </div>
+        <div class="media-upload-file-icon">
+          <i
+            data-lucide="${getFileIconFromMime(
+              file.type
+            )}"
+          ></i>
+        </div>
 
-                <div class="media-upload-file-content">
-                    <strong>${escapeHtml(file.name)}</strong>
-                    <span>${formatBytes(file.size)}</span>
-                </div>
+        <div class="media-upload-file-content">
+          <strong>
+            ${escapeHtml(file.name)}
+          </strong>
 
-                <span
-                    class="media-upload-file-status"
-                    data-upload-status="${index}"
-                >
-                    Pronto
-                </span>
+          <span>
+            ${formatBytes(file.size)}
+          </span>
+        </div>
 
-                <button
-                    class="media-upload-file-remove"
-                    type="button"
-                    data-remove-upload="${index}"
-                    aria-label="Remover ficheiro"
-                >
-                    <i data-lucide="x"></i>
-                </button>
-            `;
+        <span
+          class="media-upload-file-status"
+          data-upload-status="${index}"
+        >
+          Pronto
+        </span>
+
+        <button
+          class="media-upload-file-remove"
+          type="button"
+          data-remove-upload="${index}"
+          aria-label="Remover ficheiro"
+        >
+          <i data-lucide="x"></i>
+        </button>
+      `;
 
       mediaUploadFiles.appendChild(row);
     });
@@ -1031,8 +1406,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.lucide?.createIcons();
   }
 
-  function updateUploadFileStatus(index, status, type = "") {
-    const element = document.querySelector(`[data-upload-status="${index}"]`);
+  function updateUploadFileStatus(
+    index,
+    status,
+    type = ""
+  ) {
+    const element = document.querySelector(
+      `[data-upload-status="${index}"]`
+    );
 
     if (!element) {
       return;
@@ -1040,37 +1421,58 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     element.textContent = status;
 
-    element.className = ["media-upload-file-status", type ? `is-${type}` : ""]
+    element.className = [
+      "media-upload-file-status",
+      type ? `is-${type}` : "",
+    ]
       .filter(Boolean)
       .join(" ");
   }
 
-  async function uploadSingleFile(file, index) {
-    updateUploadFileStatus(index, "A preparar...");
+  async function uploadSingleFile(
+    file,
+    index
+  ) {
+    updateUploadFileStatus(
+      index,
+      "A preparar..."
+    );
 
     const displayName =
-      selectedFiles.length === 1 && uploadMediaDisplayName.value.trim()
+      selectedFiles.length === 1 &&
+      uploadMediaDisplayName?.value.trim()
         ? uploadMediaDisplayName.value.trim()
         : file.name;
 
-    const { data: preparedData, error: prepareError } = await supabaseClient.rpc(
+    const {
+      data: preparedData,
+      error: prepareError,
+    } = await supabaseClient.rpc(
       "prepare_media_upload",
       {
-        target_workspace_id: currentWorkspace.id,
+        target_workspace_id:
+          currentWorkspace.id,
 
-        original_file_name: file.name,
+        original_file_name:
+          file.name,
 
-        mime_type_value: file.type,
+        mime_type_value:
+          file.type,
 
-        file_size_value: file.size,
+        file_size_value:
+          file.size,
 
-        target_brand_id: uploadMediaBrand.value || null,
+        target_brand_id:
+          uploadMediaBrand?.value || null,
 
-        target_folder_id: uploadMediaFolder.value || null,
+        target_folder_id:
+          uploadMediaFolder?.value || null,
 
-        display_name_value: displayName,
+        display_name_value:
+          displayName,
 
-        source_value: "upload",
+        source_value:
+          "upload",
       }
     );
 
@@ -1078,51 +1480,115 @@ document.addEventListener("DOMContentLoaded", async () => {
       throw prepareError;
     }
 
-    const preparedAsset = Array.isArray(preparedData) ? preparedData[0] : preparedData;
+    const preparedAsset =
+      Array.isArray(preparedData)
+        ? preparedData[0]
+        : preparedData;
 
-    if (!preparedAsset?.id || !preparedAsset?.object_path) {
-      throw new Error("O Supabase não retornou os dados do upload.");
+    if (
+      !preparedAsset?.id ||
+      !preparedAsset?.object_path
+    ) {
+      throw new Error(
+        "O Supabase não retornou os dados do upload."
+      );
     }
 
-    updateUploadFileStatus(index, "A enviar...");
+    updateUploadFileStatus(
+      index,
+      "A enviar..."
+    );
 
-    const { error: storageError } = await supabaseClient.storage
+    const {
+      error: storageError,
+    } = await supabaseClient.storage
       .from(preparedAsset.bucket_id)
-      .upload(preparedAsset.object_path, file, {
-        contentType: file.type,
-        upsert: false,
-        cacheControl: "3600",
-      });
+      .upload(
+        preparedAsset.object_path,
+        file,
+        {
+          contentType: file.type,
+          upsert: false,
+          cacheControl: "3600",
+        }
+      );
 
     if (storageError) {
       throw storageError;
     }
 
-    updateUploadFileStatus(index, "A concluir...");
+    updateUploadFileStatus(
+      index,
+      "A concluir..."
+    );
 
-    const { error: completeError } = await supabaseClient.rpc("complete_media_upload", {
-      target_asset_id: preparedAsset.id,
-    });
+    const {
+      error: completeError,
+    } = await supabaseClient.rpc(
+      "complete_media_upload",
+      {
+        target_asset_id:
+          preparedAsset.id,
+      }
+    );
 
     if (completeError) {
       throw completeError;
     }
 
-    updateUploadFileStatus(index, "Concluído", "success");
+    updateUploadFileStatus(
+      index,
+      "Concluído",
+      "success"
+    );
   }
 
   /* ======================================================
        Pastas
-    ====================================================== */
+  ====================================================== */
 
   function resetCreateFolderForm() {
-    createFolderForm.reset();
+    createFolderForm?.reset();
 
-    createFolderNameError.textContent = "";
-    createFolderError.textContent = "";
-    createFolderError.classList.add("hidden");
+    if (createFolderId) {
+      createFolderId.value = "";
+    }
 
-    populateFolderSelect(createFolderParent, "", "Nenhuma", "");
+    if (createFolderModalTitle) {
+      createFolderModalTitle.textContent =
+        "Nova pasta";
+    }
+
+    if (createFolderSubmitText) {
+      createFolderSubmitText.textContent =
+        "Criar pasta";
+    }
+
+    if (createFolderBrand) {
+      createFolderBrand.disabled = false;
+    }
+
+    if (createFolderParent) {
+      createFolderParent.disabled = false;
+    }
+
+    if (createFolderNameError) {
+      createFolderNameError.textContent = "";
+    }
+
+    if (createFolderError) {
+      createFolderError.textContent = "";
+      createFolderError.classList.add(
+        "hidden"
+      );
+    }
+
+    populateFolderSelect(
+      createFolderParent,
+      "",
+      "Nenhuma",
+      ""
+    );
   }
 
   function openCreateFolderModal() {
@@ -1130,20 +1596,81 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     openModal(createFolderModal);
 
-    window.setTimeout(() => createFolderName.focus(), 100);
+    window.setTimeout(
+      () => createFolderName?.focus(),
+      100
+    );
   }
 
   function closeCreateFolderModal() {
     closeModal(createFolderModal);
+    resetCreateFolderForm();
+  }
+
+  function openRenameFolderModal(
+    folderId
+  ) {
+    const folder =
+      getFolderById(folderId);
+
+    if (
+      !folder ||
+      folder.status !== "active"
+    ) {
+      showToast(
+        "error",
+        "Pasta indisponível",
+        "Não foi possível abrir a pasta para edição."
+      );
+
+      return;
+    }
 
     resetCreateFolderForm();
+
+    createFolderId.value = folder.id;
+    createFolderName.value = folder.name;
+
+    createFolderBrand.value =
+      folder.brand_id || "";
+
+    populateFolderSelect(
+      createFolderParent,
+      folder.brand_id || "",
+      "Nenhuma",
+      ""
+    );
+
+    createFolderParent.value =
+      folder.parent_id || "";
+
+    createFolderBrand.disabled = true;
+    createFolderParent.disabled = true;
+
+    createFolderModalTitle.textContent =
+      "Renomear pasta";
+
+    createFolderSubmitText.textContent =
+      "Guardar nome";
+
+    openModal(createFolderModal);
+
+    window.setTimeout(() => {
+      createFolderName.focus();
+      createFolderName.select();
+    }, 100);
   }
 
   async function restoreFolder(folderId) {
     try {
-      const { error } = await supabaseClient.rpc("restore_media_folder", {
-        target_folder_id: folderId,
-      });
+      const { error } =
+        await supabaseClient.rpc(
+          "restore_media_folder",
+          {
+            target_folder_id:
+              folderId,
+          }
+        );
 
       if (error) {
         throw error;
@@ -1151,41 +1678,64 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       await loadMediaData();
 
-      showToast("success", "Pasta restaurada", "A pasta voltou para a Biblioteca.");
+      showToast(
+        "success",
+        "Pasta restaurada",
+        "A pasta voltou para a Biblioteca."
+      );
     } catch (error) {
-      console.error("Erro ao restaurar pasta:", error);
+      console.error(
+        "Erro ao restaurar pasta:",
+        error
+      );
 
       showToast(
         "error",
         "Erro ao restaurar pasta",
-        error?.message || "Não foi possível restaurar a pasta."
+        error?.message ||
+          "Não foi possível restaurar a pasta."
       );
     }
   }
 
   /* ======================================================
        Detalhes
-    ====================================================== */
+  ====================================================== */
 
   function renderDetailsPreview(asset) {
-    const signedUrl = signedUrls.get(asset.id);
+    if (!mediaDetailsPreview) {
+      return;
+    }
 
-    if (asset.status !== "ready" || !signedUrl) {
+    const signedUrl =
+      signedUrls.get(asset.id);
+
+    if (
+      asset.status !== "ready" ||
+      !signedUrl
+    ) {
       mediaDetailsPreview.innerHTML = `
-                <div class="media-details-preview-message">
+        <div class="media-details-preview-message">
 
-                    <i data-lucide="${mediaTypeIcons[asset.media_type] || "file"}"></i>
+          <i
+            data-lucide="${
+              mediaTypeIcons[
+                asset.media_type
+              ] || "file"
+            }"
+          ></i>
 
-                    <span>
-                        ${
-                          asset.status === "pending_upload"
-                            ? "O upload deste ficheiro ainda não foi concluído."
-                            : "Pré-visualização indisponível."
-                        }
-                    </span>
+          <span>
+            ${
+              asset.status ===
+              "pending_upload"
+                ? "O upload deste ficheiro ainda não foi concluído."
+                : "Pré-visualização indisponível."
+            }
+          </span>
 
-                </div>
-            `;
+        </div>
+      `;
 
       window.lucide?.createIcons();
 
@@ -1194,214 +1744,323 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (asset.media_type === "image") {
       mediaDetailsPreview.innerHTML = `
-                <img
-                    src="${escapeHtml(signedUrl)}"
-                    alt="${escapeHtml(asset.alt_text || asset.display_name)}"
-                >
-            `;
+        <img
+          src="${escapeHtml(signedUrl)}"
+          alt="${escapeHtml(
+            asset.alt_text ||
+              asset.display_name
+          )}"
+        >
+      `;
 
       return;
     }
 
     if (asset.media_type === "video") {
       mediaDetailsPreview.innerHTML = `
-                <video
-                    src="${escapeHtml(signedUrl)}"
-                    controls
-                    preload="metadata"
-                ></video>
-            `;
+        <video
+          src="${escapeHtml(signedUrl)}"
+          controls
+          preload="metadata"
+        ></video>
+      `;
 
       return;
     }
 
     if (asset.media_type === "audio") {
       mediaDetailsPreview.innerHTML = `
-                <audio
-                    src="${escapeHtml(signedUrl)}"
-                    controls
-                ></audio>
-            `;
+        <audio
+          src="${escapeHtml(signedUrl)}"
+          controls
+        ></audio>
+      `;
 
       return;
     }
 
-    if (asset.media_type === "document" && asset.mime_type === "application/pdf") {
+    if (
+      asset.media_type === "document" &&
+      asset.mime_type === "application/pdf"
+    ) {
       mediaDetailsPreview.innerHTML = `
-                <iframe
-                    src="${escapeHtml(signedUrl)}"
-                    title="${escapeHtml(asset.display_name)}"
-                ></iframe>
-            `;
+        <iframe
+          src="${escapeHtml(signedUrl)}"
+          title="${escapeHtml(
+            asset.display_name
+          )}"
+        ></iframe>
+      `;
 
       return;
     }
 
     mediaDetailsPreview.innerHTML = `
-            <i data-lucide="file"></i>
-        `;
+      <i data-lucide="file"></i>
+    `;
 
     window.lucide?.createIcons();
   }
 
-  function populateDetailsFolderSelect(asset) {
-    populateFolderSelect(mediaDetailsFolder, asset.brand_id || "", "Sem pasta", "");
+  function populateDetailsFolderSelect(
+    asset
+  ) {
+    populateFolderSelect(
+      mediaDetailsFolder,
+      asset.brand_id || "",
+      "Sem pasta",
+      ""
+    );
 
-    mediaDetailsFolder.value = asset.folder_id || "";
+    if (mediaDetailsFolder) {
+      mediaDetailsFolder.value =
+        asset.folder_id || "";
+    }
   }
 
   function openAssetDetails(assetId) {
-    const asset = getAssetById(assetId);
+    const asset =
+      getAssetById(assetId);
 
     if (!asset) {
-      showToast("error", "Ficheiro não encontrado", "Não foi possível localizar o ficheiro.");
+      showToast(
+        "error",
+        "Ficheiro não encontrado",
+        "Não foi possível localizar o ficheiro."
+      );
 
       return;
     }
 
     selectedAssetId = asset.id;
 
-    const brand = getBrandById(asset.brand_id);
+    const brand =
+      getBrandById(asset.brand_id);
 
-    mediaDetailsTitle.textContent = asset.display_name;
+    mediaDetailsTitle.textContent =
+      asset.display_name;
 
-    mediaDetailsStatus.className = `media-status-badge is-${asset.status}`;
+    mediaDetailsStatus.className =
+      `media-status-badge is-${asset.status}`;
 
-    mediaDetailsStatus.textContent = statusLabels[asset.status] || asset.status;
+    mediaDetailsStatus.textContent =
+      statusLabels[asset.status] ||
+      asset.status;
 
-    mediaDetailsType.textContent = mediaTypeLabels[asset.media_type] || asset.media_type;
+    mediaDetailsType.textContent =
+      mediaTypeLabels[
+        asset.media_type
+      ] || asset.media_type;
 
-    mediaDetailsName.value = asset.display_name || "";
+    mediaDetailsName.value =
+      asset.display_name || "";
 
-    mediaDetailsAltText.value = asset.alt_text || "";
+    mediaDetailsAltText.value =
+      asset.alt_text || "";
 
-    mediaDetailsCaption.value = asset.caption || "";
+    mediaDetailsCaption.value =
+      asset.caption || "";
 
     populateDetailsFolderSelect(asset);
 
-    mediaDetailsBrand.textContent = brand?.name || "Partilhado";
+    mediaDetailsBrand.textContent =
+      brand?.name || "Partilhado";
 
-    mediaDetailsFormat.textContent = asset.mime_type;
+    mediaDetailsFormat.textContent =
+      asset.mime_type;
 
-    mediaDetailsSize.textContent = formatBytes(asset.file_size);
+    mediaDetailsSize.textContent =
+      formatBytes(asset.file_size);
 
-    mediaDetailsDimensions.textContent = getDimensionsText(asset);
+    mediaDetailsDimensions.textContent =
+      getDimensionsText(asset);
 
-    mediaDetailsCreatedAt.textContent = formatDate(asset.created_at);
+    mediaDetailsCreatedAt.textContent =
+      formatDate(asset.created_at);
 
-    mediaDetailsOriginalName.textContent = asset.original_name;
+    mediaDetailsOriginalName.textContent =
+      asset.original_name;
 
     mediaDetailsError.textContent = "";
-    mediaDetailsError.classList.add("hidden");
+    mediaDetailsError.classList.add(
+      "hidden"
+    );
 
-    const isArchived = asset.status === "archived";
+    const isArchived =
+      asset.status === "archived";
 
-    mediaDetailsName.disabled = isArchived;
-    mediaDetailsFolder.disabled = isArchived;
-    mediaDetailsAltText.disabled = isArchived;
-    mediaDetailsCaption.disabled = isArchived;
-    mediaDetailsSave.disabled = isArchived;
+    mediaDetailsName.disabled =
+      isArchived;
 
-    mediaDetailsArchive.classList.toggle("hidden", isArchived);
+    mediaDetailsFolder.disabled =
+      isArchived;
 
-    mediaDetailsRestore.classList.toggle("hidden", !isArchived);
+    mediaDetailsAltText.disabled =
+      isArchived;
 
-    mediaDetailsDownload.disabled = asset.status !== "ready";
+    mediaDetailsCaption.disabled =
+      isArchived;
+
+    mediaDetailsSave.disabled =
+      isArchived;
+
+    const canAccessFile =
+      canAccessStoredAsset(asset);
+
+    mediaDetailsArchive.classList.toggle(
+      "hidden",
+      isArchived
+    );
+
+    mediaDetailsRestore.classList.toggle(
+      "hidden",
+      !isArchived
+    );
+
+    mediaDetailsDelete.classList.toggle(
+      "hidden",
+      !isArchived
+    );
+
+    mediaDetailsSave.classList.toggle(
+      "hidden",
+      isArchived
+    );
+
+    mediaDetailsDownload.disabled =
+      !canAccessFile;
 
     renderDetailsPreview(asset);
-
     openModal(mediaDetailsModal);
   }
 
   function closeAssetDetails() {
     closeModal(mediaDetailsModal);
-
     selectedAssetId = null;
   }
 
   async function saveAssetMetadata() {
-    const asset = getAssetById(selectedAssetId);
+    const asset =
+      getAssetById(selectedAssetId);
 
     if (!asset) {
       return;
     }
 
-    const displayName = mediaDetailsName.value.trim();
+    const displayName =
+      mediaDetailsName.value.trim();
 
-    if (displayName.length < 1 || displayName.length > 255) {
-      mediaDetailsError.textContent = "O nome deve ter entre 1 e 255 caracteres.";
+    if (
+      displayName.length < 1 ||
+      displayName.length > 255
+    ) {
+      mediaDetailsError.textContent =
+        "O nome deve ter entre 1 e 255 caracteres.";
 
-      mediaDetailsError.classList.remove("hidden");
+      mediaDetailsError.classList.remove(
+        "hidden"
+      );
 
       return;
     }
 
     mediaDetailsSave.disabled = true;
-    mediaDetailsSave.textContent = "A guardar...";
+    mediaDetailsSave.textContent =
+      "A guardar...";
 
     try {
-      const { error } = await supabaseClient.rpc("update_media_asset_metadata", {
-        target_asset_id: asset.id,
+      const { error } =
+        await supabaseClient.rpc(
+          "update_media_asset_metadata",
+          {
+            target_asset_id:
+              asset.id,
 
-        target_folder_id: mediaDetailsFolder.value || null,
+            target_folder_id:
+              mediaDetailsFolder.value ||
+              null,
 
-        display_name_value: displayName,
+            display_name_value:
+              displayName,
 
-        alt_text_value: mediaDetailsAltText.value.trim() || null,
+            alt_text_value:
+              mediaDetailsAltText.value.trim() ||
+              null,
 
-        caption_value: mediaDetailsCaption.value.trim() || null,
-      });
+            caption_value:
+              mediaDetailsCaption.value.trim() ||
+              null,
+          }
+        );
 
       if (error) {
         throw error;
       }
 
       closeAssetDetails();
-
       await loadMediaData();
 
-      showToast("success", "Ficheiro atualizado", "As informações foram guardadas.");
+      showToast(
+        "success",
+        "Ficheiro atualizado",
+        "As informações foram guardadas."
+      );
     } catch (error) {
-      console.error("Erro ao atualizar ficheiro:", error);
+      console.error(
+        "Erro ao atualizar ficheiro:",
+        error
+      );
 
-      mediaDetailsError.textContent = error?.message || "Não foi possível guardar as alterações.";
+      mediaDetailsError.textContent =
+        error?.message ||
+        "Não foi possível guardar as alterações.";
 
-      mediaDetailsError.classList.remove("hidden");
+      mediaDetailsError.classList.remove(
+        "hidden"
+      );
     } finally {
       mediaDetailsSave.disabled = false;
 
       mediaDetailsSave.innerHTML = `
-                <i data-lucide="save"></i>
-                Guardar alterações
-            `;
+        <i data-lucide="save"></i>
+        Guardar alterações
+      `;
 
       window.lucide?.createIcons();
     }
   }
 
   async function downloadAsset() {
-    const asset = getAssetById(selectedAssetId);
+    const asset =
+      getAssetById(selectedAssetId);
 
-    if (!asset || asset.status !== "ready") {
-      return;
-    }
+      if (!canAccessStoredAsset(asset)) {
+        return;
+      }
 
     mediaDetailsDownload.disabled = true;
 
     try {
-      const { data, error } = await supabaseClient.storage
-        .from(asset.bucket_id)
-        .download(asset.object_path);
+      const { data, error } =
+        await supabaseClient.storage
+          .from(asset.bucket_id)
+          .download(asset.object_path);
 
       if (error) {
         throw error;
       }
 
-      const url = URL.createObjectURL(data);
-      const link = document.createElement("a");
+      const url =
+        URL.createObjectURL(data);
+
+      const link =
+        document.createElement("a");
 
       link.href = url;
-      link.download = asset.original_name || asset.display_name;
+
+      link.download =
+        asset.original_name ||
+        asset.display_name;
 
       document.body.appendChild(link);
 
@@ -1410,70 +2069,171 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       URL.revokeObjectURL(url);
 
-      showToast("success", "Download iniciado", "O ficheiro está a ser descarregado.");
+      showToast(
+        "success",
+        "Download iniciado",
+        "O ficheiro está a ser descarregado."
+      );
     } catch (error) {
-      console.error("Erro no download:", error);
+      console.error(
+        "Erro no download:",
+        error
+      );
 
       showToast(
         "error",
         "Erro no download",
-        error?.message || "Não foi possível descarregar o ficheiro."
+        error?.message ||
+          "Não foi possível descarregar o ficheiro."
       );
     } finally {
-      mediaDetailsDownload.disabled = false;
+      mediaDetailsDownload.disabled =
+        false;
     }
   }
 
   async function restoreAsset(assetId) {
     try {
-      const { error } = await supabaseClient.rpc("restore_media_asset", {
-        target_asset_id: assetId,
-      });
+      const { error } =
+        await supabaseClient.rpc(
+          "restore_media_asset",
+          {
+            target_asset_id:
+              assetId,
+          }
+        );
 
       if (error) {
         throw error;
       }
 
       closeAssetDetails();
-
       await loadMediaData();
 
-      showToast("success", "Ficheiro restaurado", "O ficheiro voltou para a Biblioteca.");
+      showToast(
+        "success",
+        "Ficheiro restaurado",
+        "O ficheiro voltou para a Biblioteca."
+      );
     } catch (error) {
-      console.error("Erro ao restaurar ficheiro:", error);
+      console.error(
+        "Erro ao restaurar ficheiro:",
+        error
+      );
 
       showToast(
         "error",
         "Erro ao restaurar ficheiro",
-        error?.message || "Não foi possível restaurar o ficheiro."
+        error?.message ||
+          "Não foi possível restaurar o ficheiro."
       );
     }
   }
 
   /* ======================================================
        Confirmação
-    ====================================================== */
+  ====================================================== */
 
-  function openArchiveConfirmation(type, id) {
+  function setConfirmationAppearance({
+    icon = "archive",
+    danger = false,
+    submitLabel = "Arquivar",
+  } = {}) {
+    if (mediaConfirmIcon) {
+      mediaConfirmIcon.innerHTML = `
+        <i data-lucide="${icon}"></i>
+      `;
+
+      mediaConfirmIcon.classList.toggle(
+        "is-danger",
+        danger
+      );
+    }
+
+    if (mediaConfirmSubmit) {
+      mediaConfirmSubmit.textContent =
+        submitLabel;
+
+      mediaConfirmSubmit.classList.toggle(
+        "is-danger",
+        danger
+      );
+    }
+
+    window.lucide?.createIcons();
+  }
+
+  function openArchiveConfirmation(
+    type,
+    id
+  ) {
     confirmationAction = {
       type,
       id,
     };
 
+    setConfirmationAppearance({
+      icon: "archive",
+      danger: false,
+      submitLabel: "Arquivar",
+    });
+
     if (type === "asset") {
-      mediaConfirmTitle.textContent = "Arquivar ficheiro?";
+      mediaConfirmTitle.textContent =
+        "Arquivar ficheiro?";
 
       mediaConfirmDescription.textContent =
         "O ficheiro será removido da visualização principal, mas poderá ser restaurado.";
     } else {
-      mediaConfirmTitle.textContent = "Arquivar pasta?";
+      mediaConfirmTitle.textContent =
+        "Arquivar pasta?";
 
       mediaConfirmDescription.textContent =
         "A pasta será arquivada. Os ficheiros dentro dela continuarão disponíveis na Biblioteca.";
     }
 
     closeAssetDetails();
+    openModal(mediaConfirmModal);
+  }
 
+  function openDeleteAssetConfirmation(
+    assetId
+  ) {
+    const asset =
+      getAssetById(assetId);
+
+    if (
+      !asset ||
+      asset.status !== "archived"
+    ) {
+      showToast(
+        "warning",
+        "Eliminação indisponível",
+        "Arquive o ficheiro antes de eliminá-lo permanentemente."
+      );
+
+      return;
+    }
+
+    confirmationAction = {
+      type: "delete_asset",
+      id: asset.id,
+    };
+
+    mediaConfirmTitle.textContent =
+      "Eliminar definitivamente?";
+
+    mediaConfirmDescription.textContent =
+      "Esta ação remove o ficheiro do Storage e do banco de dados. Não será possível restaurá-lo.";
+
+    setConfirmationAppearance({
+      icon: "trash-2",
+      danger: true,
+      submitLabel:
+        "Eliminar definitivamente",
+    });
+
+    closeAssetDetails();
     openModal(mediaConfirmModal);
   }
 
@@ -1481,6 +2241,72 @@ document.addEventListener("DOMContentLoaded", async () => {
     closeModal(mediaConfirmModal);
 
     confirmationAction = null;
+
+    setConfirmationAppearance({
+      icon: "archive",
+      danger: false,
+      submitLabel: "Arquivar",
+    });
+  }
+
+  async function deleteAssetPermanently(
+    assetId
+  ) {
+    const {
+      data: deletionData,
+      error: infoError,
+    } = await supabaseClient.rpc(
+      "get_media_asset_deletion_info",
+      {
+        target_asset_id:
+          assetId,
+      }
+    );
+
+    if (infoError) {
+      throw infoError;
+    }
+
+    const deletionInfo =
+      Array.isArray(deletionData)
+        ? deletionData[0]
+        : deletionData;
+
+    if (
+      !deletionInfo?.asset_id ||
+      !deletionInfo?.bucket_id ||
+      !deletionInfo?.object_path
+    ) {
+      throw new Error(
+        "O Supabase não retornou os dados necessários para a eliminação."
+      );
+    }
+
+    const {
+      error: storageError,
+    } = await supabaseClient.storage
+      .from(deletionInfo.bucket_id)
+      .remove([
+        deletionInfo.object_path,
+      ]);
+
+    if (storageError) {
+      throw storageError;
+    }
+
+    const {
+      error: recordError,
+    } = await supabaseClient.rpc(
+      "delete_media_asset_record",
+      {
+        target_asset_id:
+          deletionInfo.asset_id,
+      }
+    );
+
+    if (recordError) {
+      throw recordError;
+    }
   }
 
   async function confirmArchive() {
@@ -1488,286 +2314,581 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+    const action = {
+      ...confirmationAction,
+    };
+
+    const isDelete =
+      action.type === "delete_asset";
+
     mediaConfirmSubmit.disabled = true;
-    mediaConfirmSubmit.textContent = "A arquivar...";
+
+    mediaConfirmSubmit.textContent =
+      isDelete
+        ? "A eliminar..."
+        : "A arquivar...";
 
     try {
-      const isAsset = confirmationAction.type === "asset";
+      if (isDelete) {
+        await deleteAssetPermanently(
+          action.id
+        );
 
-      const rpcName = isAsset ? "archive_media_asset" : "archive_media_folder";
+        closeArchiveConfirmation();
+        await loadMediaData();
 
-      const parameters = isAsset
-        ? {
-            target_asset_id: confirmationAction.id,
-          }
-        : {
-            target_folder_id: confirmationAction.id,
-          };
+        showToast(
+          "success",
+          "Ficheiro eliminado",
+          "O ficheiro foi removido permanentemente da Biblioteca."
+        );
 
-      const { error } = await supabaseClient.rpc(rpcName, parameters);
+        return;
+      }
+
+      const isAsset =
+        action.type === "asset";
+
+      const rpcName =
+        isAsset
+          ? "archive_media_asset"
+          : "archive_media_folder";
+
+      const parameters =
+        isAsset
+          ? {
+              target_asset_id:
+                action.id,
+            }
+          : {
+              target_folder_id:
+                action.id,
+            };
+
+      const { error } =
+        await supabaseClient.rpc(
+          rpcName,
+          parameters
+        );
 
       if (error) {
         throw error;
       }
 
       closeArchiveConfirmation();
-
       await loadMediaData();
 
       showToast(
         "success",
-        isAsset ? "Ficheiro arquivado" : "Pasta arquivada",
-        isAsset ? "O ficheiro foi enviado para o arquivo." : "A pasta foi enviada para o arquivo."
+
+        isAsset
+          ? "Ficheiro arquivado"
+          : "Pasta arquivada",
+
+        isAsset
+          ? "O ficheiro foi enviado para o arquivo."
+          : "A pasta foi enviada para o arquivo."
       );
     } catch (error) {
-      console.error("Erro ao arquivar:", error);
+      console.error(
+        isDelete
+          ? "Erro ao eliminar ficheiro:"
+          : "Erro ao arquivar:",
+        error
+      );
 
-      showToast("error", "Erro ao arquivar", error?.message || "Não foi possível arquivar o item.");
+      showToast(
+        "error",
+
+        isDelete
+          ? "Erro ao eliminar ficheiro"
+          : "Erro ao arquivar",
+
+        error?.message ||
+          (
+            isDelete
+              ? "Não foi possível eliminar o ficheiro."
+              : "Não foi possível arquivar o item."
+          )
+      );
     } finally {
       mediaConfirmSubmit.disabled = false;
-      mediaConfirmSubmit.textContent = "Arquivar";
+
+      setConfirmationAppearance({
+        icon:
+          isDelete
+            ? "trash-2"
+            : "archive",
+
+        danger: isDelete,
+
+        submitLabel:
+          isDelete
+            ? "Eliminar definitivamente"
+            : "Arquivar",
+      });
     }
   }
 
   /* ======================================================
        Eventos do upload
-    ====================================================== */
+  ====================================================== */
 
-  uploadMediaButton.addEventListener("click", openUploadModal);
+  uploadMediaButton?.addEventListener(
+    "click",
+    openUploadModal
+  );
 
-  emptyUploadMediaButton.addEventListener("click", openUploadModal);
+  emptyUploadMediaButton?.addEventListener(
+    "click",
+    openUploadModal
+  );
 
-  uploadMediaModalClose.addEventListener("click", closeUploadModal);
+  uploadMediaModalClose?.addEventListener(
+    "click",
+    closeUploadModal
+  );
 
-  uploadMediaCancel.addEventListener("click", closeUploadModal);
+  uploadMediaCancel?.addEventListener(
+    "click",
+    closeUploadModal
+  );
 
-  uploadMediaModal.addEventListener("click", (event) => {
-    if (event.target === uploadMediaModal) {
-      closeUploadModal();
-    }
-  });
-
-  mediaDropzone.addEventListener("click", () => {
-    mediaFileInput.click();
-  });
-
-  mediaDropzone.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-
-      mediaFileInput.click();
-    }
-  });
-
-  mediaDropzone.addEventListener("dragover", (event) => {
-    event.preventDefault();
-
-    mediaDropzone.classList.add("is-dragging");
-  });
-
-  mediaDropzone.addEventListener("dragleave", () => {
-    mediaDropzone.classList.remove("is-dragging");
-  });
-
-  mediaDropzone.addEventListener("drop", (event) => {
-    event.preventDefault();
-
-    mediaDropzone.classList.remove("is-dragging");
-
-    addSelectedFiles(event.dataTransfer.files);
-  });
-
-  mediaFileInput.addEventListener("change", () => {
-    addSelectedFiles(mediaFileInput.files);
-
-    mediaFileInput.value = "";
-  });
-
-  mediaUploadFiles.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-remove-upload]");
-
-    if (!button) {
-      return;
-    }
-
-    const index = Number(button.dataset.removeUpload);
-
-    selectedFiles.splice(index, 1);
-
-    renderSelectedFiles();
-  });
-
-  uploadMediaBrand.addEventListener("change", () => {
-    populateFolderSelect(uploadMediaFolder, uploadMediaBrand.value, "Sem pasta", "");
-  });
-
-  uploadMediaForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    uploadMediaError.textContent = "";
-    uploadMediaError.classList.add("hidden");
-
-    if (selectedFiles.length === 0) {
-      uploadMediaError.textContent = "Selecione pelo menos um ficheiro.";
-
-      uploadMediaError.classList.remove("hidden");
-
-      return;
-    }
-
-    uploadMediaSubmit.disabled = true;
-    uploadMediaSubmitText.textContent = "A enviar...";
-
-    let successCount = 0;
-    let errorCount = 0;
-
-    for (let index = 0; index < selectedFiles.length; index += 1) {
-      try {
-        await uploadSingleFile(selectedFiles[index], index);
-
-        successCount += 1;
-      } catch (error) {
-        errorCount += 1;
-
-        console.error(`Erro no upload de ${selectedFiles[index].name}:`, error);
-
-        updateUploadFileStatus(index, "Erro", "error");
+  uploadMediaModal?.addEventListener(
+    "click",
+    (event) => {
+      if (event.target === uploadMediaModal) {
+        closeUploadModal();
       }
     }
+  );
 
-    uploadMediaSubmit.disabled = false;
-    uploadMediaSubmitText.textContent = "Enviar ficheiros";
+  mediaDropzone?.addEventListener(
+    "click",
+    () => {
+      mediaFileInput?.click();
+    }
+  );
 
-    if (successCount > 0) {
-      await loadMediaData();
+  mediaDropzone?.addEventListener(
+    "keydown",
+    (event) => {
+      if (
+        event.key === "Enter" ||
+        event.key === " "
+      ) {
+        event.preventDefault();
 
-      showToast(
-        "success",
-        "Upload concluído",
-        `${successCount} ficheiro${successCount === 1 ? "" : "s"} enviado${
-          successCount === 1 ? "" : "s"
-        } com sucesso.`
+        mediaFileInput?.click();
+      }
+    }
+  );
+
+  mediaDropzone?.addEventListener(
+    "dragover",
+    (event) => {
+      event.preventDefault();
+
+      mediaDropzone.classList.add(
+        "is-dragging"
       );
     }
+  );
 
-    if (errorCount === 0) {
-      closeUploadModal();
-    } else {
-      uploadMediaError.textContent = `${errorCount} ficheiro${errorCount === 1 ? "" : "s"} não ${
-        errorCount === 1 ? "foi enviado" : "foram enviados"
-      }. Consulte o console para mais detalhes.`;
-
-      uploadMediaError.classList.remove("hidden");
+  mediaDropzone?.addEventListener(
+    "dragleave",
+    () => {
+      mediaDropzone.classList.remove(
+        "is-dragging"
+      );
     }
-  });
+  );
+
+  mediaDropzone?.addEventListener(
+    "drop",
+    (event) => {
+      event.preventDefault();
+
+      mediaDropzone.classList.remove(
+        "is-dragging"
+      );
+
+      addSelectedFiles(
+        event.dataTransfer?.files
+      );
+    }
+  );
+
+  mediaFileInput?.addEventListener(
+    "change",
+    () => {
+      addSelectedFiles(
+        mediaFileInput.files
+      );
+
+      mediaFileInput.value = "";
+    }
+  );
+
+  mediaUploadFiles?.addEventListener(
+    "click",
+    (event) => {
+      const button = event.target.closest(
+        "[data-remove-upload]"
+      );
+
+      if (!button) {
+        return;
+      }
+
+      const index = Number(
+        button.dataset.removeUpload
+      );
+
+      selectedFiles.splice(index, 1);
+
+      renderSelectedFiles();
+    }
+  );
+
+  uploadMediaBrand?.addEventListener(
+    "change",
+    () => {
+      populateFolderSelect(
+        uploadMediaFolder,
+        uploadMediaBrand.value,
+        "Sem pasta",
+        ""
+      );
+    }
+  );
+
+  uploadMediaForm?.addEventListener(
+    "submit",
+    async (event) => {
+      event.preventDefault();
+
+      uploadMediaError.textContent = "";
+      uploadMediaError.classList.add(
+        "hidden"
+      );
+
+      if (selectedFiles.length === 0) {
+        uploadMediaError.textContent =
+          "Selecione pelo menos um ficheiro.";
+
+        uploadMediaError.classList.remove(
+          "hidden"
+        );
+
+        return;
+      }
+
+      uploadMediaSubmit.disabled = true;
+
+      uploadMediaSubmitText.textContent =
+        "A enviar...";
+
+      let successCount = 0;
+      let errorCount = 0;
+
+      for (
+        let index = 0;
+        index < selectedFiles.length;
+        index += 1
+      ) {
+        try {
+          await uploadSingleFile(
+            selectedFiles[index],
+            index
+          );
+
+          successCount += 1;
+        } catch (error) {
+          errorCount += 1;
+
+          console.error(
+            `Erro no upload de ${selectedFiles[index].name}:`,
+            error
+          );
+
+          updateUploadFileStatus(
+            index,
+            "Erro",
+            "error"
+          );
+        }
+      }
+
+      uploadMediaSubmit.disabled = false;
+
+      uploadMediaSubmitText.textContent =
+        "Enviar ficheiros";
+
+      if (successCount > 0) {
+        await loadMediaData();
+
+        showToast(
+          "success",
+          "Upload concluído",
+
+          `${successCount} ficheiro${
+            successCount === 1 ? "" : "s"
+          } enviado${
+            successCount === 1 ? "" : "s"
+          } com sucesso.`
+        );
+      }
+
+      if (errorCount === 0) {
+        closeUploadModal();
+      } else {
+        uploadMediaError.textContent =
+          `${errorCount} ficheiro${
+            errorCount === 1 ? "" : "s"
+          } não ${
+            errorCount === 1
+              ? "foi enviado"
+              : "foram enviados"
+          }. Consulte o console para mais detalhes.`;
+
+        uploadMediaError.classList.remove(
+          "hidden"
+        );
+      }
+    }
+  );
 
   /* ======================================================
        Eventos das pastas
-    ====================================================== */
+  ====================================================== */
 
-  createFolderButton.addEventListener("click", openCreateFolderModal);
+  createFolderButton?.addEventListener(
+    "click",
+    openCreateFolderModal
+  );
 
-  createFolderModalClose.addEventListener("click", closeCreateFolderModal);
+  createFolderModalClose?.addEventListener(
+    "click",
+    closeCreateFolderModal
+  );
 
-  createFolderCancel.addEventListener("click", closeCreateFolderModal);
+  createFolderCancel?.addEventListener(
+    "click",
+    closeCreateFolderModal
+  );
 
-  createFolderModal.addEventListener("click", (event) => {
-    if (event.target === createFolderModal) {
-      closeCreateFolderModal();
+  createFolderModal?.addEventListener(
+    "click",
+    (event) => {
+      if (
+        event.target === createFolderModal
+      ) {
+        closeCreateFolderModal();
+      }
     }
-  });
+  );
 
-  createFolderBrand.addEventListener("change", () => {
-    populateFolderSelect(createFolderParent, createFolderBrand.value, "Nenhuma", "");
-  });
-
-  createFolderForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const folderName = createFolderName.value.trim();
-
-    createFolderNameError.textContent = "";
-    createFolderError.classList.add("hidden");
-
-    if (folderName.length < 1 || folderName.length > 100) {
-      createFolderNameError.textContent = "O nome deve ter entre 1 e 100 caracteres.";
-
-      return;
+  createFolderBrand?.addEventListener(
+    "change",
+    () => {
+      populateFolderSelect(
+        createFolderParent,
+        createFolderBrand.value,
+        "Nenhuma",
+        ""
+      );
     }
+  );
 
-    createFolderSubmit.disabled = true;
-    createFolderSubmitText.textContent = "A criar...";
+  createFolderForm?.addEventListener(
+    "submit",
+    async (event) => {
+      event.preventDefault();
 
-    try {
-      const { error } = await supabaseClient.rpc("create_media_folder", {
-        target_workspace_id: currentWorkspace.id,
+      const folderName =
+        createFolderName.value.trim();
 
-        folder_name: folderName,
+      const editingFolderId =
+        createFolderId?.value.trim() || "";
 
-        target_brand_id: createFolderBrand.value || null,
+      const isEditing =
+        Boolean(editingFolderId);
 
-        target_parent_id: createFolderParent.value || null,
-      });
+      createFolderNameError.textContent =
+        "";
 
-      if (error) {
-        throw error;
+      createFolderError.textContent = "";
+
+      createFolderError.classList.add(
+        "hidden"
+      );
+
+      if (
+        folderName.length < 1 ||
+        folderName.length > 100
+      ) {
+        createFolderNameError.textContent =
+          "O nome deve ter entre 1 e 100 caracteres.";
+
+        return;
       }
 
-      closeCreateFolderModal();
+      createFolderSubmit.disabled = true;
 
-      await loadMediaData();
+      createFolderSubmitText.textContent =
+        isEditing
+          ? "A guardar..."
+          : "A criar...";
 
-      showToast("success", "Pasta criada", "A nova pasta foi adicionada à Biblioteca.");
-    } catch (error) {
-      console.error("Erro ao criar pasta:", error);
+      try {
+        const result =
+          isEditing
+            ? await supabaseClient.rpc(
+                "rename_media_folder",
+                {
+                  target_folder_id:
+                    editingFolderId,
 
-      createFolderError.textContent = error?.message || "Não foi possível criar a pasta.";
+                  folder_name:
+                    folderName,
+                }
+              )
+            : await supabaseClient.rpc(
+                "create_media_folder",
+                {
+                  target_workspace_id:
+                    currentWorkspace.id,
 
-      createFolderError.classList.remove("hidden");
-    } finally {
-      createFolderSubmit.disabled = false;
-      createFolderSubmitText.textContent = "Criar pasta";
+                  folder_name:
+                    folderName,
+
+                  target_brand_id:
+                    createFolderBrand.value ||
+                    null,
+
+                  target_parent_id:
+                    createFolderParent.value ||
+                    null,
+                }
+              );
+
+        if (result.error) {
+          throw result.error;
+        }
+
+        closeCreateFolderModal();
+        await loadMediaData();
+
+        showToast(
+          "success",
+
+          isEditing
+            ? "Pasta renomeada"
+            : "Pasta criada",
+
+          isEditing
+            ? "O novo nome da pasta foi guardado."
+            : "A nova pasta foi adicionada à Biblioteca."
+        );
+      } catch (error) {
+        console.error(
+          isEditing
+            ? "Erro ao renomear pasta:"
+            : "Erro ao criar pasta:",
+          error
+        );
+
+        createFolderError.textContent =
+          error?.message ||
+          (
+            isEditing
+              ? "Não foi possível renomear a pasta."
+              : "Não foi possível criar a pasta."
+          );
+
+        createFolderError.classList.remove(
+          "hidden"
+        );
+      } finally {
+        createFolderSubmit.disabled =
+          false;
+
+        createFolderSubmitText.textContent =
+          isEditing
+            ? "Guardar nome"
+            : "Criar pasta";
+      }
     }
-  });
+  );
 
-  toggleArchivedFoldersButton.addEventListener("click", () => {
-    showArchivedFolders = !showArchivedFolders;
+  toggleArchivedFoldersButton?.addEventListener(
+    "click",
+    () => {
+      showArchivedFolders =
+        !showArchivedFolders;
 
-    renderFolders();
-  });
+      renderFolders();
+    }
+  );
 
-  mediaFoldersGrid.addEventListener("click", (event) => {
-    const actionButton = event.target.closest("[data-folder-action]");
+  mediaFoldersGrid?.addEventListener(
+    "click",
+    (event) => {
+      const actionButton =
+        event.target.closest(
+          "[data-folder-action]"
+        );
 
-    if (actionButton) {
-      event.stopPropagation();
+      if (actionButton) {
+        event.stopPropagation();
 
-      const folderId = actionButton.dataset.folderId;
+        const folderId =
+          actionButton.dataset.folderId;
 
-      if (actionButton.dataset.folderAction === "restore") {
-        restoreFolder(folderId);
-      } else {
-        openArchiveConfirmation("folder", folderId);
+        const folderAction =
+          actionButton.dataset.folderAction;
+
+        if (
+          folderAction === "restore"
+        ) {
+          restoreFolder(folderId);
+        } else if (
+          folderAction === "rename"
+        ) {
+          openRenameFolderModal(
+            folderId
+          );
+        } else {
+          openArchiveConfirmation(
+            "folder",
+            folderId
+          );
+        }
+
+        return;
       }
 
-      return;
+      const folderCard =
+        event.target.closest(
+          "[data-folder-id]"
+        );
+
+      if (!folderCard) {
+        return;
+      }
+
+      mediaFolderFilter.value =
+        folderCard.dataset.folderId;
+
+      renderFolders();
+      renderAssets();
     }
-
-    const folderCard = event.target.closest("[data-folder-id]");
-
-    if (!folderCard) {
-      return;
-    }
-
-    mediaFolderFilter.value = folderCard.dataset.folderId;
-
-    renderFolders();
-    renderAssets();
-  });
+  );
 
   /* ======================================================
        Eventos dos filtros
-    ====================================================== */
+  ====================================================== */
 
   [
     mediaSearchInput,
@@ -1775,169 +2896,296 @@ document.addEventListener("DOMContentLoaded", async () => {
     mediaFolderFilter,
     mediaTypeFilter,
     mediaStatusFilter,
-  ].forEach((element) => {
-    element.addEventListener(element.tagName === "INPUT" ? "input" : "change", () => {
+  ]
+    .filter(Boolean)
+    .forEach((element) => {
+      element.addEventListener(
+        element.tagName === "INPUT"
+          ? "input"
+          : "change",
+        () => {
+          renderFolders();
+          renderAssets();
+        }
+      );
+    });
+
+  clearMediaFiltersButton?.addEventListener(
+    "click",
+    () => {
+      mediaSearchInput.value = "";
+      mediaBrandFilter.value = "all";
+      mediaFolderFilter.value = "all";
+      mediaTypeFilter.value = "all";
+      mediaStatusFilter.value = "all";
+
       renderFolders();
       renderAssets();
-    });
-  });
 
-  clearMediaFiltersButton.addEventListener("click", () => {
-    mediaSearchInput.value = "";
-    mediaBrandFilter.value = "all";
-    mediaFolderFilter.value = "all";
-    mediaTypeFilter.value = "all";
-    mediaStatusFilter.value = "all";
+      showToast(
+        "info",
+        "Filtros removidos",
+        "A pesquisa e os filtros foram redefinidos."
+      );
+    }
+  );
 
-    renderFolders();
-    renderAssets();
+  mediaGridViewButton?.addEventListener(
+    "click",
+    () => {
+      currentView = "grid";
 
-    showToast("info", "Filtros removidos", "A pesquisa e os filtros foram redefinidos.");
-  });
+      mediaGridViewButton.classList.add(
+        "is-active"
+      );
 
-  mediaGridViewButton.addEventListener("click", () => {
-    currentView = "grid";
+      mediaListViewButton.classList.remove(
+        "is-active"
+      );
 
-    mediaGridViewButton.classList.add("is-active");
-    mediaListViewButton.classList.remove("is-active");
+      renderAssets();
+    }
+  );
 
-    renderAssets();
-  });
+  mediaListViewButton?.addEventListener(
+    "click",
+    () => {
+      currentView = "list";
 
-  mediaListViewButton.addEventListener("click", () => {
-    currentView = "list";
+      mediaListViewButton.classList.add(
+        "is-active"
+      );
 
-    mediaListViewButton.classList.add("is-active");
-    mediaGridViewButton.classList.remove("is-active");
+      mediaGridViewButton.classList.remove(
+        "is-active"
+      );
 
-    renderAssets();
-  });
+      renderAssets();
+    }
+  );
 
   /* ======================================================
        Eventos dos ficheiros
-    ====================================================== */
+  ====================================================== */
 
-  mediaAssetsGrid.addEventListener("click", (event) => {
-    const card = event.target.closest("[data-asset-id]");
+  mediaAssetsGrid?.addEventListener(
+    "click",
+    (event) => {
+      const card = event.target.closest(
+        "[data-asset-id]"
+      );
 
-    if (!card) {
-      return;
+      if (!card) {
+        return;
+      }
+
+      openAssetDetails(
+        card.dataset.assetId
+      );
     }
+  );
 
-    openAssetDetails(card.dataset.assetId);
-  });
+  mediaDetailsClose?.addEventListener(
+    "click",
+    closeAssetDetails
+  );
 
-  mediaDetailsClose.addEventListener("click", closeAssetDetails);
-
-  mediaDetailsModal.addEventListener("click", (event) => {
-    if (event.target === mediaDetailsModal) {
-      closeAssetDetails();
+  mediaDetailsModal?.addEventListener(
+    "click",
+    (event) => {
+      if (
+        event.target === mediaDetailsModal
+      ) {
+        closeAssetDetails();
+      }
     }
-  });
+  );
 
-  mediaDetailsSave.addEventListener("click", saveAssetMetadata);
+  mediaDetailsSave?.addEventListener(
+    "click",
+    saveAssetMetadata
+  );
 
-  mediaDetailsDownload.addEventListener("click", downloadAsset);
+  mediaDetailsDownload?.addEventListener(
+    "click",
+    downloadAsset
+  );
 
-  mediaDetailsArchive.addEventListener("click", () => {
-    if (selectedAssetId) {
-      openArchiveConfirmation("asset", selectedAssetId);
+  mediaDetailsArchive?.addEventListener(
+    "click",
+    () => {
+      if (selectedAssetId) {
+        openArchiveConfirmation(
+          "asset",
+          selectedAssetId
+        );
+      }
     }
-  });
+  );
 
-  mediaDetailsRestore.addEventListener("click", () => {
-    if (selectedAssetId) {
-      restoreAsset(selectedAssetId);
+  mediaDetailsRestore?.addEventListener(
+    "click",
+    () => {
+      if (selectedAssetId) {
+        restoreAsset(
+          selectedAssetId
+        );
+      }
     }
-  });
+  );
+
+  mediaDetailsDelete?.addEventListener(
+    "click",
+    () => {
+      if (selectedAssetId) {
+        openDeleteAssetConfirmation(
+          selectedAssetId
+        );
+      }
+    }
+  );
 
   /* ======================================================
        Confirmação
-    ====================================================== */
+  ====================================================== */
 
-  mediaConfirmCancel.addEventListener("click", closeArchiveConfirmation);
+  mediaConfirmCancel?.addEventListener(
+    "click",
+    closeArchiveConfirmation
+  );
 
-  mediaConfirmModal.addEventListener("click", (event) => {
-    if (event.target === mediaConfirmModal) {
-      closeArchiveConfirmation();
+  mediaConfirmModal?.addEventListener(
+    "click",
+    (event) => {
+      if (
+        event.target === mediaConfirmModal
+      ) {
+        closeArchiveConfirmation();
+      }
     }
-  });
+  );
 
-  mediaConfirmSubmit.addEventListener("click", confirmArchive);
+  mediaConfirmSubmit?.addEventListener(
+    "click",
+    confirmArchive
+  );
 
   /* ======================================================
        Sidebar
-    ====================================================== */
+  ====================================================== */
 
   function openSidebar() {
     body.classList.add("sidebar-open");
 
-    sidebarOpenButton.setAttribute("aria-expanded", "true");
+    sidebarOpenButton?.setAttribute(
+      "aria-expanded",
+      "true"
+    );
   }
 
   function closeSidebar() {
     body.classList.remove("sidebar-open");
 
-    sidebarOpenButton.setAttribute("aria-expanded", "false");
+    sidebarOpenButton?.setAttribute(
+      "aria-expanded",
+      "false"
+    );
   }
 
-  sidebarOpenButton.addEventListener("click", openSidebar);
+  sidebarOpenButton?.addEventListener(
+    "click",
+    openSidebar
+  );
 
-  sidebarCloseButton.addEventListener("click", closeSidebar);
+  sidebarCloseButton?.addEventListener(
+    "click",
+    closeSidebar
+  );
 
-  sidebarOverlay.addEventListener("click", closeSidebar);
+  sidebarOverlay?.addEventListener(
+    "click",
+    closeSidebar
+  );
 
   /* ======================================================
        Escape
-    ====================================================== */
+  ====================================================== */
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") {
-      return;
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      if (
+        !mediaConfirmModal?.classList.contains(
+          "hidden"
+        )
+      ) {
+        closeArchiveConfirmation();
+
+        return;
+      }
+
+      if (
+        !mediaDetailsModal?.classList.contains(
+          "hidden"
+        )
+      ) {
+        closeAssetDetails();
+
+        return;
+      }
+
+      if (
+        !createFolderModal?.classList.contains(
+          "hidden"
+        )
+      ) {
+        closeCreateFolderModal();
+
+        return;
+      }
+
+      if (
+        !uploadMediaModal?.classList.contains(
+          "hidden"
+        )
+      ) {
+        closeUploadModal();
+
+        return;
+      }
+
+      closeSidebar();
     }
-
-    if (!mediaConfirmModal.classList.contains("hidden")) {
-      closeArchiveConfirmation();
-      return;
-    }
-
-    if (!mediaDetailsModal.classList.contains("hidden")) {
-      closeAssetDetails();
-      return;
-    }
-
-    if (!createFolderModal.classList.contains("hidden")) {
-      closeCreateFolderModal();
-      return;
-    }
-
-    if (!uploadMediaModal.classList.contains("hidden")) {
-      closeUploadModal();
-      return;
-    }
-
-    closeSidebar();
-  });
+  );
 
   /* ======================================================
        Inicialização
-    ====================================================== */
+  ====================================================== */
 
   try {
-    const contextLoaded = await initializeContext();
+    const contextLoaded =
+      await initializeContext();
 
     if (contextLoaded) {
       await loadMediaData();
     }
   } catch (error) {
-    console.error("Erro ao inicializar Biblioteca:", error);
+    console.error(
+      "Erro ao inicializar Biblioteca:",
+      error
+    );
 
     setLoading(false);
 
     showToast(
       "error",
       "Erro ao iniciar Biblioteca",
-      error?.message || "Não foi possível iniciar a página."
+      error?.message ||
+        "Não foi possível iniciar a página."
     );
   }
 

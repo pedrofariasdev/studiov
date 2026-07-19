@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Inteligência Artificial | StudioV</title>
+
+    <meta
+      name="description"
+      content="Crie conteúdos para redes sociais com a inteligência artificial do StudioV."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#6D28D9" />
+
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96x96.png" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
+    <link rel="icon" href="/assets/icons/favicon.ico" />
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/icons/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="/js/config/theme.js" defer></script>
+
+    <link rel="stylesheet" href="/css/globals/variables.css" />
+    <link rel="stylesheet" href="/css/globals/reset.css" />
+    <link rel="stylesheet" href="/css/globals/typography.css" />
+    <link rel="stylesheet" href="/css/globals/utilities.css" />
+    <link rel="stylesheet" href="/css/components/button.css" />
+    <link rel="stylesheet" href="/css/components/content-card.css" />
+    <link rel="stylesheet" href="/css/pages/dashboard.css" />
+    <link rel="stylesheet" href="/css/pages/ai.css" />
+    <link rel="stylesheet" href="/css/components/user-menu.css" />
+    <link rel="stylesheet" href="/css/components/demo-account.css" />
+    <link rel="stylesheet" href="/css/globals/theme.css" />
+  </head>
+
+  <body>
+    <div class="dashboard-layout">
+      <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Navegação principal">
+        <div class="sidebar-header">
+          <a href="/html/dashboard/home.html" class="sidebar-logo" aria-label="StudioV Dashboard">
+            <img src="/assets/logos/svg/logo-studiov2000.png" alt="StudioV" />
+          </a>
+
+          <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Fechar menu">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+
+        <nav class="sidebar-navigation">
+          <div class="sidebar-section">
+            <span class="sidebar-section-title">Principal</span>
+
+            <ul class="sidebar-menu">
+              <li>
+                <a href="/html/dashboard/home.html" class="sidebar-link">
+                  <i data-lucide="layout-dashboard"></i>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/workspace.html" class="sidebar-link">
+                  <i data-lucide="building-2"></i>
+                  <span>Workspace</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/brands.html" class="sidebar-link">
+                  <i data-lucide="palette"></i>
+                  <span>Marcas</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/clients.html" class="sidebar-link">
+                  <i data-lucide="users"></i>
+                  <span>Clientes</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <span class="sidebar-section-title">Conteúdo</span>
+
+            <ul class="sidebar-menu">
+              <li>
+                <a href="/html/dashboard/planner.html" class="sidebar-link">
+                  <i data-lucide="clipboard-list"></i>
+                  <span>Planner</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/calendar.html" class="sidebar-link">
+                  <i data-lucide="calendar-days"></i>
+                  <span>Calendário</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/content.html" class="sidebar-link">
+                  <i data-lucide="files"></i>
+                  <span>Conteúdos</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/media.html" class="sidebar-link">
+                  <i data-lucide="images"></i>
+                  <span>Biblioteca</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/publishing.html" class="sidebar-link">
+                  <i data-lucide="send"></i>
+                  <span>Publicações</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <span class="sidebar-section-title">Inteligência</span>
+
+            <ul class="sidebar-menu">
+              <li>
+                <a
+                  href="/html/dashboard/ai.html"
+                  class="sidebar-link is-active"
+                  aria-current="page"
+                >
+                  <i data-lucide="sparkles"></i>
+                  <span>Inteligência Artificial</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/html/dashboard/analytics.html" class="sidebar-link">
+                  <i data-lucide="chart-no-axes-combined"></i>
+                  <span>Analytics</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section sidebar-section-bottom">
+            <ul class="sidebar-menu">
+              <li>
+                <a href="/html/dashboard/settings.html" class="sidebar-link">
+                  <i data-lucide="settings"></i>
+                  <span>Configurações</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="sidebar-user">
+          <button
+            class="sidebar-user-trigger"
+            id="sidebar-user-trigger"
+            type="button"
+            aria-expanded="false"
+            aria-haspopup="menu"
+            aria-controls="sidebar-user-menu"
+          >
+            <div class="sidebar-user-avatar" id="sidebar-user-avatar" aria-hidden="true">U</div>
+
+            <div class="sidebar-user-info">
+              <strong id="sidebar-user-name">Utilizador</strong>
+              <span id="sidebar-user-email">utilizador@studiov.pt</span>
+            </div>
+
+            <i data-lucide="chevron-up" class="sidebar-user-chevron" aria-hidden="true"></i>
+          </button>
+
+          <div class="sidebar-user-menu" id="sidebar-user-menu" role="menu" hidden>
+            <a href="/html/dashboard/profile.html" class="sidebar-user-menu-item" role="menuitem">
+              <i data-lucide="user"></i>
+              <span>Meu perfil</span>
+            </a>
+
+            <button
+              class="sidebar-user-menu-item"
+              id="restart-demo-tour"
+              type="button"
+              role="menuitem"
+            >
+              <i data-lucide="sparkles"></i>
+              <span>Reiniciar tutorial</span>
+            </button>
+
+            <button
+              class="sidebar-user-menu-item demo-only"
+              id="create-account-demo"
+              type="button"
+              role="menuitem"
+              hidden
+            >
+              <i data-lucide="rocket"></i>
+              <span>Criar minha conta</span>
+            </button>
+
+            <div class="sidebar-user-divider" role="separator"></div>
+
+            <button
+              class="sidebar-user-menu-item danger"
+              id="logout-user"
+              type="button"
+              role="menuitem"
+            >
+              <i data-lucide="log-out"></i>
+              <span>Sair</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+      <div class="dashboard-main">
+        <header class="dashboard-topbar">
+          <div class="topbar-left">
+            <button
+              class="topbar-menu-button"
+              id="topbar-menu-button"
+              type="button"
+              aria-label="Abrir menu"
+              aria-controls="dashboard-sidebar"
+              aria-expanded="false"
+            >
+              <i data-lucide="menu"></i>
+            </button>
+
+            <div class="workspace-selector">
+              <button
+                class="workspace-selector-button"
+                id="workspace-selector-button"
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+              >
+                <span class="workspace-selector-icon">
+                  <i data-lucide="building-2"></i>
+                </span>
+
+                <span class="workspace-selector-content">
+                  <small>Workspace</small>
+                  <strong id="current-workspace-name">Meu Workspace</strong>
+                </span>
+
+                <i data-lucide="chevrons-up-down"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="topbar-actions">
+            <button
+              class="topbar-icon-button"
+              id="global-search-button"
+              type="button"
+              aria-label="Pesquisar"
+            >
+              <i data-lucide="search"></i>
+            </button>
+
+            <a
+              href="/html/dashboard/notifications.html"
+              class="topbar-icon-button"
+              aria-label="Notificações"
+            >
+              <i data-lucide="bell"></i>
+            </a>
+
+            <a
+              href="/html/dashboard/profile.html"
+              class="topbar-avatar"
+              id="topbar-avatar"
+              aria-label="Abrir perfil"
+            >
+              U
+            </a>
+          </div>
+        </header>
+
+        <main class="dashboard-content ai-page">
+          <section class="page-header">
+            <div class="page-header-content">
+              <span class="page-eyebrow">StudioV AI</span>
+              <h1>Criador de posts</h1>
+              <p>
+                Transforme uma ideia num post completo, adaptado à rede social, ao objetivo e ao tom
+                da sua marca.
+              </p>
+            </div>
+
+            <div class="ai-model-badge" aria-label="Modelo de inteligência artificial">
+              <span class="ai-model-dot" aria-hidden="true"></span>
+              IA pronta
+            </div>
+          </section>
+
+          <div class="ai-creator-grid">
+            <section class="ai-panel ai-form-panel" aria-labelledby="ai-form-title">
+              <div class="ai-panel-header">
+                <span class="ai-panel-icon" aria-hidden="true">
+                  <i data-lucide="wand-sparkles"></i>
+                </span>
+
+                <div>
+                  <span class="ai-panel-kicker">Pedido</span>
+                  <h2 id="ai-form-title">Descreva o conteúdo</h2>
+                </div>
+              </div>
+
+              <form id="ai-post-form" class="ai-form" novalidate>
+                <div class="ai-field ai-field-full">
+                  <div class="ai-label-row">
+                    <label for="ai-topic">
+                      Tema do post
+                      <span aria-hidden="true">*</span>
+                    </label>
+                    <small><span id="ai-topic-count">0</span>/500</small>
+                  </div>
+
+                  <textarea
+                    id="ai-topic"
+                    name="topic"
+                    rows="5"
+                    minlength="3"
+                    maxlength="500"
+                    placeholder="Ex.: Apresentar a nova coleção de verão e destacar os materiais sustentáveis."
+                    required
+                  ></textarea>
+
+                  <small class="ai-field-error" id="ai-topic-error"></small>
+                </div>
+
+                <div class="ai-form-grid">
+                  <div class="ai-field">
+                    <label for="ai-platform">Rede social</label>
+                    <select id="ai-platform" name="platform">
+                      <option value="instagram">Instagram</option>
+                      <option value="facebook">Facebook</option>
+                      <option value="linkedin">LinkedIn</option>
+                      <option value="tiktok">TikTok</option>
+                      <option value="threads">Threads</option>
+                      <option value="x">X</option>
+                    </select>
+                  </div>
+
+                  <div class="ai-field">
+                    <label for="ai-objective">Objetivo</label>
+                    <select id="ai-objective" name="objective">
+                      <option value="engage">Gerar envolvimento</option>
+                      <option value="sell">Vender</option>
+                      <option value="inform">Informar</option>
+                      <option value="launch">Divulgar lançamento</option>
+                      <option value="grow">Atrair seguidores</option>
+                    </select>
+                  </div>
+
+                  <div class="ai-field">
+                    <label for="ai-tone">Tom de comunicação</label>
+                    <select id="ai-tone" name="tone">
+                      <option value="inspiring">Inspirador</option>
+                      <option value="professional">Profissional</option>
+                      <option value="friendly">Próximo e amigável</option>
+                      <option value="fun">Divertido</option>
+                      <option value="direct">Direto</option>
+                      <option value="educational">Educativo</option>
+                    </select>
+                  </div>
+
+                  <div class="ai-field">
+                    <label for="ai-language">Idioma</label>
+                    <select id="ai-language" name="language">
+                      <option value="pt-PT">Português (Portugal)</option>
+                      <option value="pt-BR">Português (Brasil)</option>
+                      <option value="en">English</option>
+                      <option value="es">Español</option>
+                      <option value="fr">Français</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="ai-field ai-field-full">
+                  <div class="ai-label-row">
+                    <label for="ai-details">Pontos importantes</label>
+                    <small>Opcional</small>
+                  </div>
+
+                  <textarea
+                    id="ai-details"
+                    name="details"
+                    rows="4"
+                    maxlength="1000"
+                    placeholder="Inclua o público, benefícios, datas, oferta ou palavras que devem aparecer."
+                  ></textarea>
+                </div>
+
+                <div class="ai-form-error hidden" id="ai-form-error" role="alert"></div>
+
+                <button class="btn btn-primary ai-submit" id="ai-generate-button" type="submit">
+                  <i data-lucide="sparkles"></i>
+                  <span>Gerar post</span>
+                </button>
+
+                <p class="ai-form-note">
+                  <i data-lucide="shield-check" aria-hidden="true"></i>
+                  A chave da OpenAI permanece protegida no servidor.
+                </p>
+              </form>
+            </section>
+
+            <section class="ai-panel ai-result-panel" aria-labelledby="ai-result-title">
+              <div class="ai-panel-header ai-result-header">
+                <span class="ai-panel-icon is-result" aria-hidden="true">
+                  <i data-lucide="file-sparkles"></i>
+                </span>
+
+                <div>
+                  <span class="ai-panel-kicker">Resultado</span>
+                  <h2 id="ai-result-title">O seu post</h2>
+                </div>
+              </div>
+
+              <div class="ai-result-empty" id="ai-result-empty">
+                <div class="ai-empty-orbit" aria-hidden="true">
+                  <i data-lucide="sparkles"></i>
+                </div>
+                <h3>A sua ideia ganha forma aqui</h3>
+                <p>
+                  Preencha o formulário e receba um título, uma legenda, uma chamada para ação e
+                  hashtags.
+                </p>
+              </div>
+
+              <div class="ai-result-loading hidden" id="ai-result-loading" aria-live="polite">
+                <span class="ai-loader" aria-hidden="true"></span>
+                <div>
+                  <strong>A criar o seu post…</strong>
+                  <p>A IA está a adaptar a mensagem à rede escolhida.</p>
+                </div>
+              </div>
+
+              <div class="ai-result-content hidden" id="ai-result-content" aria-live="polite">
+                <div class="ai-result-field">
+                  <div class="ai-result-label">
+                    <label for="ai-result-title-input">Título</label>
+                    <button
+                      class="ai-copy-button"
+                      type="button"
+                      data-copy-target="ai-result-title-input"
+                      aria-label="Copiar título"
+                    >
+                      <i data-lucide="copy"></i>
+                    </button>
+                  </div>
+                  <input id="ai-result-title-input" type="text" />
+                </div>
+
+                <div class="ai-result-field">
+                  <div class="ai-result-label">
+                    <label for="ai-result-caption">Legenda</label>
+                    <button
+                      class="ai-copy-button"
+                      type="button"
+                      data-copy-target="ai-result-caption"
+                      aria-label="Copiar legenda"
+                    >
+                      <i data-lucide="copy"></i>
+                    </button>
+                  </div>
+                  <textarea id="ai-result-caption" rows="10"></textarea>
+                </div>
+
+                <div class="ai-result-field">
+                  <div class="ai-result-label">
+                    <label for="ai-result-cta">Chamada para ação</label>
+                    <button
+                      class="ai-copy-button"
+                      type="button"
+                      data-copy-target="ai-result-cta"
+                      aria-label="Copiar chamada para ação"
+                    >
+                      <i data-lucide="copy"></i>
+                    </button>
+                  </div>
+                  <textarea id="ai-result-cta" rows="3"></textarea>
+                </div>
+
+                <div class="ai-result-field">
+                  <div class="ai-result-label">
+                    <label for="ai-result-hashtags">Hashtags</label>
+                    <button
+                      class="ai-copy-button"
+                      type="button"
+                      data-copy-target="ai-result-hashtags"
+                      aria-label="Copiar hashtags"
+                    >
+                      <i data-lucide="copy"></i>
+                    </button>
+                  </div>
+                  <textarea id="ai-result-hashtags" rows="3"></textarea>
+                </div>
+
+                <div class="ai-result-actions">
+                  <button class="btn btn-secondary" id="ai-clear-button" type="button">
+                    <i data-lucide="rotate-ccw"></i>
+                    Recomeçar
+                  </button>
+
+                  <button class="btn btn-primary" id="ai-copy-all-button" type="button">
+                    <i data-lucide="copy-check"></i>
+                    Copiar post completo
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/js/services/supabase.js"></script>
+    <script src="/js/auth/auth-guard.js"></script>
+    <script src="/js/dashboard/ai.js"></script>
+    <script src="/js/components/demo-account.js"></script>
+    <script src="/js/components/user-menu.js"></script>
+  </body>
+</html>

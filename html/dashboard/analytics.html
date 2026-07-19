@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="pt-PT">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Analytics | StudioV</title>
+
+  <meta
+    name="description"
+    content="Acompanhe o desempenho dos conteúdos da StudioV."
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#6D28D9"
+  >
+
+  <!-- Fonts -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Theme -->
+
+  <script
+    src="/js/config/theme.js"
+    defer
+  ></script>
+
+  <!-- Global CSS -->
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/variables.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/reset.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/typography.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/utilities.css"
+  >
+
+  <!-- Components -->
+
+  <link
+    rel="stylesheet"
+    href="/css/components/button.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/components/user-menu.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/components/demo-account.css"
+  >
+
+  <!-- Dashboard -->
+
+  <link
+    rel="stylesheet"
+    href="/css/pages/dashboard.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/pages/analytics.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/globals/theme.css"
+  >
+</head>
+
+<body>
+
+  <div class="dashboard-layout">
+
+    <!-- =====================================================
+         Sidebar
+    ====================================================== -->
+
+    <aside
+      class="dashboard-sidebar"
+      id="dashboard-sidebar"
+    >
+
+      <div class="sidebar-header">
+
+        <a
+          href="/html/dashboard/home.html"
+          class="sidebar-logo"
+        >
+          <img
+            src="/assets/logos/svg/logo-studiov2000.png"
+            alt="StudioV"
+          >
+        </a>
+
+        <button
+          class="sidebar-close"
+          id="sidebar-close"
+          type="button"
+          aria-label="Fechar menu"
+        >
+          <i data-lucide="x"></i>
+        </button>
+
+      </div>
+
+      <nav class="sidebar-navigation">
+
+        <div class="sidebar-section">
+
+          <span class="sidebar-section-title">
+            Principal
+          </span>
+
+          <ul class="sidebar-menu">
+
+            <li>
+              <a
+                href="/html/dashboard/home.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="layout-dashboard"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/workspace.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="building-2"></i>
+                <span>Workspace</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/brands.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="palette"></i>
+                <span>Marcas</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/clients.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="users"></i>
+                <span>Clientes</span>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="sidebar-section">
+
+          <span class="sidebar-section-title">
+            Conteúdo
+          </span>
+
+          <ul class="sidebar-menu">
+
+            <li>
+              <a
+                href="/html/dashboard/planner.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="clipboard-list"></i>
+                <span>Planner</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/calendar.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="calendar-days"></i>
+                <span>Calendário</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/content.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="files"></i>
+                <span>Conteúdos</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/media.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="images"></i>
+                <span>Biblioteca</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/publishing.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="send"></i>
+                <span>Publicações</span>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="sidebar-section">
+
+          <span class="sidebar-section-title">
+            Inteligência
+          </span>
+
+          <ul class="sidebar-menu">
+
+            <li>
+              <a
+                href="/html/dashboard/ai.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="sparkles"></i>
+                <span>Inteligência Artificial</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/html/dashboard/analytics.html"
+                class="sidebar-link is-active"
+                aria-current="page"
+              >
+                <i data-lucide="chart-no-axes-combined"></i>
+                <span>Analytics</span>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="sidebar-section sidebar-section-bottom">
+
+          <ul class="sidebar-menu">
+
+            <li>
+              <a
+                href="/html/dashboard/settings.html"
+                class="sidebar-link"
+              >
+                <i data-lucide="settings"></i>
+                <span>Configurações</span>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </nav>
+
+      <!-- Utilizador -->
+
+      <div class="sidebar-user">
+
+        <button
+          class="sidebar-user-trigger"
+          id="sidebar-user-trigger"
+          type="button"
+          aria-expanded="false"
+          aria-haspopup="menu"
+          aria-controls="sidebar-user-menu"
+        >
+
+          <div
+            class="sidebar-user-avatar"
+            id="sidebar-user-avatar"
+            aria-hidden="true"
+          >
+            U
+          </div>
+
+          <div class="sidebar-user-info">
+
+            <strong id="sidebar-user-name">
+              Utilizador
+            </strong>
+
+            <span id="sidebar-user-email">
+              utilizador@studiov.pt
+            </span>
+
+          </div>
+
+          <i
+            data-lucide="chevron-up"
+            class="sidebar-user-chevron"
+          ></i>
+
+        </button>
+
+        <div
+          class="sidebar-user-menu"
+          id="sidebar-user-menu"
+          role="menu"
+          hidden
+        >
+
+          <a
+            href="/html/dashboard/profile.html"
+            class="sidebar-user-menu-item"
+            role="menuitem"
+          >
+            <i data-lucide="user"></i>
+            <span>Meu perfil</span>
+          </a>
+
+          <button
+            class="sidebar-user-menu-item"
+            id="restart-demo-tour"
+            type="button"
+            role="menuitem"
+          >
+            <i data-lucide="sparkles"></i>
+            <span>Reiniciar tutorial</span>
+          </button>
+
+          <button
+            class="sidebar-user-menu-item demo-only"
+            id="create-account-demo"
+            type="button"
+            role="menuitem"
+            hidden
+          >
+            <i data-lucide="rocket"></i>
+            <span>Criar minha conta</span>
+          </button>
+
+          <div
+            class="sidebar-user-divider"
+            role="separator"
+          ></div>
+
+          <button
+            class="sidebar-user-menu-item danger"
+            id="logout-user"
+            type="button"
+            role="menuitem"
+          >
+            <i data-lucide="log-out"></i>
+            <span>Sair</span>
+          </button>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+    <button
+      class="sidebar-overlay"
+      id="sidebar-overlay"
+      type="button"
+      aria-label="Fechar menu"
+    ></button>
+
+    <!-- =====================================================
+         Área principal
+    ====================================================== -->
+
+    <div class="dashboard-main">
+
+      <!-- Topbar -->
+
+      <header class="dashboard-topbar">
+
+        <div class="topbar-left">
+
+          <button
+            class="topbar-menu-button"
+            id="topbar-menu-button"
+            type="button"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+          >
+            <i data-lucide="menu"></i>
+          </button>
+
+            <div class="workspace-selector">
+
+                <button
+                    class="workspace-selector-button"
+                    type="button"
+                >
+
+                    <span class="workspace-selector-icon">
+                    <i data-lucide="building-2"></i>
+                    </span>
+
+                    <span class="workspace-selector-content">
+
+                    <small>
+                        Workspace
+                    </small>
+
+                    <strong id="current-workspace-name">
+                        StudioV
+                    </strong>
+
+                    </span>
+
+                    <i data-lucide="chevrons-up-down"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="topbar-actions">
+
+        <button
+            class="topbar-icon-button"
+            type="button"
+            aria-label="Pesquisar"
+        >
+            <i data-lucide="search"></i>
+        </button>
+
+        <a
+            href="/html/dashboard/notifications.html"
+            class="topbar-icon-button"
+            aria-label="Notificações"
+        >
+            <i data-lucide="bell"></i>
+        </a>
+
+        <a
+            href="/html/dashboard/profile.html"
+            class="topbar-avatar"
+            id="topbar-avatar"
+            aria-label="Abrir perfil"
+        >
+            U
+        </a>
+
+        </div>
+
+      </header>
+
+      <!-- Conteúdo -->
+
+      <main class="dashboard-content analytics-page">
+
+        <!-- Cabeçalho -->
+
+        <section class="analytics-header">
+
+          <div>
+
+            <span class="page-eyebrow">
+              Desempenho
+            </span>
+
+            <h1>Analytics</h1>
+
+            <p>
+              Acompanhe a produção de conteúdo e o progresso
+              das publicações do workspace.
+            </p>
+
+          </div>
+
+          <div class="analytics-period-control">
+
+            <label for="analytics-period">
+              Período
+            </label>
+
+            <select id="analytics-period">
+
+              <option value="180">
+                Últimos 6 meses
+              </option>
+
+              <option value="365">
+                Últimos 12 meses
+              </option>
+
+              <option value="all">
+                Todo o período
+              </option>
+
+            </select>
+
+          </div>
+
+        </section>
+
+        <!-- Estado geral -->
+
+        <div
+          class="analytics-page-message"
+          id="analytics-page-message"
+          hidden
+        ></div>
+
+        <!-- Indicadores -->
+
+        <section
+          class="analytics-kpi-grid"
+          aria-label="Indicadores principais"
+        >
+
+          <article class="analytics-kpi-card">
+
+            <div class="analytics-kpi-icon">
+              <i data-lucide="files"></i>
+            </div>
+
+            <div>
+
+              <span>Conteúdos</span>
+
+              <strong id="analytics-total-contents">
+                —
+              </strong>
+
+              <small>
+                No período selecionado
+              </small>
+
+            </div>
+
+          </article>
+
+          <article class="analytics-kpi-card">
+
+            <div class="analytics-kpi-icon">
+              <i data-lucide="circle-check-big"></i>
+            </div>
+
+            <div>
+
+              <span>Publicados</span>
+
+              <strong id="analytics-published-contents">
+                —
+              </strong>
+
+              <small>
+                Conteúdos concluídos
+              </small>
+
+            </div>
+
+          </article>
+
+          <article class="analytics-kpi-card">
+
+            <div class="analytics-kpi-icon">
+              <i data-lucide="calendar-clock"></i>
+            </div>
+
+            <div>
+
+              <span>Agendados</span>
+
+              <strong id="analytics-scheduled-contents">
+                —
+              </strong>
+
+              <small>
+                Próximas publicações
+              </small>
+
+            </div>
+
+          </article>
+
+          <article class="analytics-kpi-card">
+
+            <div class="analytics-kpi-icon">
+              <i data-lucide="trending-up"></i>
+            </div>
+
+            <div>
+
+              <span>Taxa de publicação</span>
+
+              <strong id="analytics-publication-rate">
+                —
+              </strong>
+
+              <small>
+                Publicados sobre o total
+              </small>
+
+            </div>
+
+          </article>
+
+        </section>
+
+        <!-- Gráficos -->
+
+        <section class="analytics-main-grid">
+
+          <!-- Estado dos conteúdos -->
+
+          <article class="analytics-panel">
+
+            <header class="analytics-panel-header">
+
+              <div>
+
+                <span class="analytics-panel-eyebrow">
+                  Fluxo de trabalho
+                </span>
+
+                <h2>Estado dos conteúdos</h2>
+
+                <p>
+                  Distribuição dos conteúdos por etapa.
+                </p>
+
+              </div>
+
+              <i data-lucide="list-checks"></i>
+
+            </header>
+
+            <div
+              class="analytics-status-list"
+              id="analytics-status-list"
+            >
+              <div class="analytics-loading">
+                A carregar estados...
+              </div>
+            </div>
+
+          </article>
+
+          <!-- Atividade -->
+
+          <article class="analytics-panel">
+
+            <header class="analytics-panel-header">
+
+              <div>
+
+                <span class="analytics-panel-eyebrow">
+                  Produção
+                </span>
+
+                <h2>Conteúdos criados</h2>
+
+                <p>
+                  Quantidade criada em cada mês.
+                </p>
+
+              </div>
+
+              <i data-lucide="chart-column-big"></i>
+
+            </header>
+
+            <div
+              class="analytics-activity-chart"
+              id="analytics-activity-chart"
+            >
+              <div class="analytics-loading">
+                A carregar atividade...
+              </div>
+            </div>
+
+          </article>
+
+        </section>
+
+        <!-- Plataformas e recentes -->
+
+        <section class="analytics-secondary-grid">
+
+          <!-- Plataformas -->
+
+          <article class="analytics-panel">
+
+            <header class="analytics-panel-header">
+
+              <div>
+
+                <span class="analytics-panel-eyebrow">
+                  Distribuição
+                </span>
+
+                <h2>Plataformas</h2>
+
+                <p>
+                  Redes escolhidas nos conteúdos.
+                </p>
+
+              </div>
+
+              <i data-lucide="share-2"></i>
+
+            </header>
+
+            <div
+              class="analytics-platform-list"
+              id="analytics-platform-list"
+            >
+              <div class="analytics-loading">
+                A carregar plataformas...
+              </div>
+            </div>
+
+          </article>
+
+          <!-- Conteúdos recentes -->
+
+          <article class="analytics-panel analytics-recent-panel">
+
+            <header class="analytics-panel-header">
+
+              <div>
+
+                <span class="analytics-panel-eyebrow">
+                  Atividade recente
+                </span>
+
+                <h2>Últimos conteúdos</h2>
+
+                <p>
+                  Conteúdos atualizados recentemente.
+                </p>
+
+              </div>
+
+              <a
+                href="/html/dashboard/content.html"
+                class="analytics-panel-link"
+              >
+                Ver conteúdos
+
+                <i data-lucide="arrow-right"></i>
+              </a>
+
+            </header>
+
+            <div
+              class="analytics-recent-list"
+              id="analytics-recent-list"
+            >
+              <div class="analytics-loading">
+                A carregar conteúdos...
+              </div>
+            </div>
+
+          </article>
+
+        </section>
+
+        <!-- Métricas sociais -->
+
+        <section class="analytics-social-card">
+
+          <div class="analytics-social-icon">
+            <i data-lucide="bar-chart-3"></i>
+          </div>
+
+          <div class="analytics-social-content">
+
+            <span class="analytics-panel-eyebrow">
+              Próxima fase
+            </span>
+
+            <h2>Métricas das redes sociais</h2>
+
+            <p>
+              Alcance, curtidas, comentários, seguidores,
+              visualizações e cliques serão apresentados após
+              a conexão com as APIs oficiais das plataformas.
+            </p>
+
+            <div class="analytics-social-details">
+
+              <span>
+                <i data-lucide="instagram"></i>
+                Instagram
+              </span>
+
+              <span>
+                <i data-lucide="music-2"></i>
+                TikTok
+              </span>
+
+              <span>
+                <i data-lucide="youtube"></i>
+                YouTube
+              </span>
+
+            </div>
+
+          </div>
+
+          <a
+            href="/html/dashboard/settings.html#integrations"
+            class="btn btn-outline"
+          >
+            <i data-lucide="plug"></i>
+            Ver integrações
+          </a>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- Toasts -->
+
+  <div
+    class="analytics-toast-container"
+    id="analytics-toast-container"
+    aria-live="polite"
+  ></div>
+
+  <!-- Scripts -->
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="/js/services/supabase.js"></script>
+
+  <script src="/js/auth/auth-guard.js"></script>
+
+  <script src="/js/dashboard/analytics.js"></script>
+
+  <script src="/js/components/demo-account.js"></script>
+
+  <script src="/js/components/user-menu.js"></script>
+
+</body>
+
+</html>
