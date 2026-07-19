@@ -585,16 +585,16 @@
 
   function formatPlan(plan) {
     const plans = {
-      free: "Free",
+      free: "Básico",
       starter: "Starter",
       professional: "Professional",
-      business: "Business",
+      business: "Empresa",
     };
 
     return (
       plans[plan] ||
       plan ||
-      "Free"
+      "Básico"
     );
   }
 

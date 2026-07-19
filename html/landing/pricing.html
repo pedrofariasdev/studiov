@@ -134,11 +134,11 @@
       <section class="pricing-page-plans">
         <div class="container">
           <div class="pricing-page-grid">
-            <!-- Plano gratuito -->
+            <!-- Plano Básico -->
 
             <article class="pricing-page-card">
               <div class="pricing-page-card-header">
-                <span class="pricing-page-plan-type"> Grátis </span>
+                <span class="pricing-page-plan-type"> Básico </span>
 
                 <h2>Comece sem custos.</h2>
 
@@ -177,7 +177,7 @@
 
                 <li>
                   <i data-lucide="check"></i>
-                  Recursos limitados de IA
+                  20 gerações de posts com IA por mês
                 </li>
 
                 <li>
@@ -216,7 +216,7 @@
 
               <div class="pricing-page-divider"></div>
 
-              <p class="pricing-page-includes">Tudo do plano Grátis, mais:</p>
+              <p class="pricing-page-includes">Tudo do plano Básico, mais:</p>
 
               <ul class="pricing-page-features">
                 <li>
@@ -226,7 +226,7 @@
 
                 <li>
                   <i data-lucide="check"></i>
-                  Inteligência artificial avançada
+                  300 gerações de posts com IA por mês
                 </li>
 
                 <li>
@@ -251,11 +251,11 @@
               </ul>
             </article>
 
-            <!-- Plano Business -->
+            <!-- Plano Empresa -->
 
             <article class="pricing-page-card">
               <div class="pricing-page-card-header">
-                <span class="pricing-page-plan-type"> Business </span>
+                <span class="pricing-page-plan-type"> Empresa </span>
 
                 <h2>Para equipas e agências.</h2>
 
@@ -265,7 +265,7 @@
               <div class="pricing-page-custom-price">Personalizado</div>
 
               <a
-                href="mailto:vendas@studiov.pt?subject=Plano Business StudioV"
+                href="mailto:vendas@studiov.pt?subject=Plano Empresa StudioV"
                 class="btn btn-secondary"
               >
                 Falar com vendas
@@ -276,6 +276,11 @@
               <p class="pricing-page-includes">Tudo do plano Pro, mais:</p>
 
               <ul class="pricing-page-features">
+                <li>
+                  <i data-lucide="check"></i>
+                  1.000 gerações de posts com IA por mês
+                </li>
+
                 <li>
                   <i data-lucide="check"></i>
                   Múltiplos utilizadores
@@ -312,6 +317,63 @@
       </section>
 
       <!-- =================================================
+             Créditos extra
+        ================================================== -->
+
+      <section class="pricing-credits" id="creditos">
+        <div class="container">
+          <div class="pricing-credits-header">
+            <span class="pricing-comparison-eyebrow"> Créditos extra </span>
+
+            <h2>Continue a criar sem mudar de plano.</h2>
+
+            <p>
+              Compre gerações adicionais quando precisar. O limite mensal do plano é utilizado
+              primeiro e os créditos que sobrarem não expiram.
+            </p>
+          </div>
+
+          <div class="pricing-credits-grid">
+            <article class="pricing-credit-card">
+              <span>Pacote Essencial</span>
+              <strong>+10</strong>
+              <p>gerações de posts</p>
+              <div>€1,49</div>
+            </article>
+
+            <article class="pricing-credit-card">
+              <span>Pacote Criador</span>
+              <strong>+50</strong>
+              <p>gerações de posts</p>
+              <div>€5,99</div>
+            </article>
+
+            <article class="pricing-credit-card pricing-credit-card-featured">
+              <span>Melhor valor</span>
+              <strong>+100</strong>
+              <p>gerações de posts</p>
+              <div>€9,99</div>
+            </article>
+
+            <article class="pricing-credit-card">
+              <span>Pacote Escala</span>
+              <strong>+500</strong>
+              <p>gerações de posts</p>
+              <div>€39,99</div>
+            </article>
+          </div>
+
+          <div class="pricing-credits-note">
+            <i data-lucide="circle-check"></i>
+            <p>
+              1 crédito corresponde a 1 post criado com sucesso. Pedidos que falhem não consomem
+              créditos. A compra segura será disponibilizada no dashboard.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
              Comparação
         ================================================== -->
 
@@ -331,11 +393,11 @@
                 <tr>
                   <th scope="col">Recurso</th>
 
-                  <th scope="col">Grátis</th>
+                  <th scope="col">Básico</th>
 
                   <th scope="col">Pro</th>
 
-                  <th scope="col">Business</th>
+                  <th scope="col">Empresa</th>
                 </tr>
               </thead>
 
@@ -351,13 +413,13 @@
                 </tr>
 
                 <tr>
-                  <th scope="row">Inteligência artificial</th>
+                  <th scope="row">Gerações de posts com IA/mês</th>
 
-                  <td>Limitada</td>
+                  <td>20</td>
 
-                  <td>Avançada</td>
+                  <td>300</td>
 
-                  <td>Avançada</td>
+                  <td>1.000</td>
                 </tr>
 
                 <tr>
@@ -613,7 +675,9 @@
 
           if (billingNote) {
             billingNote.textContent =
-              selectedPeriod === "yearly" ? "Cobrado anualmente" : "Cobrado mensalmente";
+              selectedPeriod === "yearly"
+                ? "€180 cobrados anualmente"
+                : "Cobrado mensalmente";
           }
         });
       });

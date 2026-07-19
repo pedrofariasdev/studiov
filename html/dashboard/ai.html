@@ -324,6 +324,38 @@
                 </div>
               </div>
 
+              <aside class="ai-quota-card" id="ai-quota-card" aria-live="polite">
+                <div class="ai-quota-heading">
+                  <span class="ai-quota-icon" aria-hidden="true">
+                    <i data-lucide="gauge"></i>
+                  </span>
+
+                  <div>
+                    <span id="ai-quota-plan">Plano</span>
+                    <strong id="ai-quota-summary">A carregar o limite de gerações…</strong>
+                  </div>
+                </div>
+
+                <div
+                  class="ai-quota-progress"
+                  role="progressbar"
+                  aria-label="Gerações mensais utilizadas"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="0"
+                  id="ai-quota-progress"
+                >
+                  <span id="ai-quota-progress-bar"></span>
+                </div>
+
+                <div class="ai-quota-footer">
+                  <span id="ai-quota-credits">Créditos extra: 0</span>
+                  <a href="/html/landing/pricing.html#creditos">Ver pacotes</a>
+                </div>
+
+                <small id="ai-quota-reset">O limite do plano renova todos os meses.</small>
+              </aside>
+
               <form id="ai-post-form" class="ai-form" novalidate>
                 <div class="ai-field ai-field-full">
                   <div class="ai-label-row">
@@ -412,7 +444,12 @@
 
                 <div class="ai-form-error hidden" id="ai-form-error" role="alert"></div>
 
-                <button class="btn btn-primary ai-submit" id="ai-generate-button" type="submit">
+                <button
+                  class="btn btn-primary ai-submit"
+                  id="ai-generate-button"
+                  type="submit"
+                  disabled
+                >
                   <i data-lucide="sparkles"></i>
                   <span>Gerar post</span>
                 </button>

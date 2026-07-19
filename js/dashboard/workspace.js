@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return (
       billingSummary?.plan_name ||
       currentWorkspace?.plan ||
-      "Free"
+      "Básico"
     );
   }
 

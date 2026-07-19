@@ -31,44 +31,38 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const PLANNED_PAID_PLANS = [
     {
-      code: "starter",
-      name: "Starter",
+      code: "pro",
+      name: "Pro",
       description:
-        "Para criadores que estão a começar a organizar várias marcas.",
-      limits: {
-        brands: 3,
-        members: 2,
-        social_accounts: 5,
-        storage_bytes:
-          2 * 1024 * 1024 * 1024,
-      },
-    },
-
-    {
-      code: "professional",
-      name: "Professional",
-      description:
-        "Para profissionais e pequenas equipas de conteúdo.",
+        "Para criadores e profissionais que produzem conteúdo com frequência.",
+      currency: "EUR",
+      monthly_price_cents: 1900,
+      yearly_price_cents: 18000,
       limits: {
         brands: 10,
-        members: 5,
+        members: 1,
         social_accounts: 15,
         storage_bytes:
           10 * 1024 * 1024 * 1024,
+        ai_text_generations_monthly: 300,
       },
     },
 
     {
       code: "business",
-      name: "Business",
+      name: "Empresa",
       description:
-        "Para agências e equipas que gerenciam vários clientes.",
+        "Para equipas, agências e operações com maior volume de conteúdo.",
+      currency: "EUR",
+      monthly_price_cents: 0,
+      yearly_price_cents: 0,
       limits: {
         brands: 30,
         members: 15,
         social_accounts: 50,
         storage_bytes:
           50 * 1024 * 1024 * 1024,
+        ai_text_generations_monthly: 1000,
       },
     },
   ];
@@ -1301,6 +1295,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       `${formatStorage(
         limits.storage_bytes
       )} de armazenamento`,
+
+      `${
+        limits.ai_text_generations_monthly ??
+        "—"
+      } gerações de posts com IA/mês`,
     ];
   }
 
@@ -1383,7 +1382,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     100
                 )
               : plan.code === "free"
-                ? "Grátis"
+                ? "€0"
                 : "Preço a definir";
 
 
@@ -1582,7 +1581,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       currentBillingSummary
         ?.plan_name ||
       currentWorkspace?.plan ||
-      "Free";
+      "Básico";
 
 
     if (currentPlanName) {

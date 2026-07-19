@@ -29,6 +29,13 @@ document.addEventListener("DOMContentLoaded", () => {
     details: document.getElementById("ai-details"),
     formError: document.getElementById("ai-form-error"),
     generateButton: document.getElementById("ai-generate-button"),
+    quotaCard: document.getElementById("ai-quota-card"),
+    quotaPlan: document.getElementById("ai-quota-plan"),
+    quotaSummary: document.getElementById("ai-quota-summary"),
+    quotaProgress: document.getElementById("ai-quota-progress"),
+    quotaProgressBar: document.getElementById("ai-quota-progress-bar"),
+    quotaCredits: document.getElementById("ai-quota-credits"),
+    quotaReset: document.getElementById("ai-quota-reset"),
     resultEmpty: document.getElementById("ai-result-empty"),
     resultLoading: document.getElementById("ai-result-loading"),
     resultContent: document.getElementById("ai-result-content"),
@@ -43,6 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   let currentWorkspace = null;
+  let currentQuota = null;
+  let quotaReady = false;
   let isGenerating = false;
 
   initialize();
@@ -75,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currentWorkspace = workspace;
 
       updateDashboardIdentity(user, profile, workspace);
+      await loadGenerationQuota(workspace.id);
     } catch (error) {
       console.error("Erro ao preparar o criador de posts:", error);
 
@@ -179,6 +189,127 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  async function loadGenerationQuota(workspaceId) {
+    const { data, error } = await supabaseClient.rpc("get_ai_text_generation_quota", {
+      workspace_id_value: workspaceId,
+    });
+
+    if (error) {
+      renderQuotaError();
+      throw error;
+    }
+
+    renderQuota(data);
+  }
+
+  function renderQuota(quota) {
+    if (!quota || typeof quota !== "object") {
+      renderQuotaError();
+      return;
+    }
+
+    currentQuota = {
+      planName: String(quota.planName || "Plano"),
+      planUsed: toSafeNumber(quota.planUsed),
+      monthlyLimit: toSafeNumber(quota.monthlyLimit),
+      planRemaining: toSafeNumber(quota.planRemaining),
+      purchasedCredits: toSafeNumber(quota.purchasedCredits),
+      totalAvailable: toSafeNumber(quota.totalAvailable),
+      resetsAt: quota.resetsAt || null,
+    };
+    quotaReady = true;
+
+    const percentage = currentQuota.monthlyLimit
+      ? Math.min((currentQuota.planUsed / currentQuota.monthlyLimit) * 100, 100)
+      : 100;
+    const exhausted = currentQuota.totalAvailable <= 0;
+
+    elements.quotaCard?.classList.remove("is-error");
+    elements.quotaCard?.classList.toggle("is-exhausted", exhausted);
+
+    if (elements.quotaPlan) {
+      elements.quotaPlan.textContent = "Plano " + currentQuota.planName;
+    }
+
+    if (elements.quotaSummary) {
+      elements.quotaSummary.textContent = exhausted
+        ? "Limite mensal atingido"
+        : `${currentQuota.planUsed} de ${currentQuota.monthlyLimit} gerações usadas`;
+    }
+
+    if (elements.quotaProgress) {
+      elements.quotaProgress.setAttribute("aria-valuenow", String(Math.round(percentage)));
+    }
+
+    if (elements.quotaProgressBar) {
+      elements.quotaProgressBar.style.width = percentage + "%";
+    }
+
+    if (elements.quotaCredits) {
+      elements.quotaCredits.textContent = `Créditos extra: ${currentQuota.purchasedCredits}`;
+    }
+
+    if (elements.quotaReset) {
+      const resetDate = formatResetDate(currentQuota.resetsAt);
+      elements.quotaReset.textContent = resetDate
+        ? `O limite do plano renova a ${resetDate}. Os créditos extra não expiram.`
+        : "O limite do plano renova todos os meses. Os créditos extra não expiram.";
+    }
+
+    updateGenerateButtonState();
+  }
+
+  function renderQuotaError() {
+    quotaReady = false;
+    currentQuota = null;
+    elements.quotaCard?.classList.add("is-error");
+    elements.quotaCard?.classList.remove("is-exhausted");
+
+    if (elements.quotaPlan) {
+      elements.quotaPlan.textContent = "Limite indisponível";
+    }
+
+    if (elements.quotaSummary) {
+      elements.quotaSummary.textContent = "Não foi possível confirmar as gerações disponíveis.";
+    }
+
+    if (elements.quotaCredits) {
+      elements.quotaCredits.textContent = "Tente atualizar a página";
+    }
+
+    if (elements.quotaReset) {
+      elements.quotaReset.textContent = "Nenhuma geração será descontada sem confirmação.";
+    }
+
+    if (elements.quotaProgressBar) {
+      elements.quotaProgressBar.style.width = "0%";
+    }
+
+    updateGenerateButtonState();
+  }
+
+  function toSafeNumber(value) {
+    const number = Number(value);
+    return Number.isFinite(number) && number >= 0 ? number : 0;
+  }
+
+  function formatResetDate(value) {
+    if (!value) {
+      return "";
+    }
+
+    const date = new Date(`${value}T00:00:00`);
+
+    if (Number.isNaN(date.getTime())) {
+      return "";
+    }
+
+    return new Intl.DateTimeFormat("pt-PT", {
+      day: "numeric",
+      month: "long",
+    }).format(date);
+  }
+
   /* ========================================================
      Sidebar
   ======================================================== */
@@ -255,6 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setResultState("loading");
 
     const requestBody = {
+      workspaceId: currentWorkspace.id,
       topic: elements.topic.value.trim(),
       platform: elements.platform.value,
       objective: elements.objective.value,
@@ -277,6 +409,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       renderPost(data.post);
+      renderQuota(data.quota);
       setResultState("content");
 
       showToast(
@@ -342,7 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    elements.generateButton.disabled = loading;
+    updateGenerateButtonState();
     elements.generateButton.classList.toggle("is-loading", loading);
 
     const label = elements.generateButton.querySelector("span");
@@ -350,6 +483,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (label) {
       label.textContent = loading ? "A gerar…" : "Gerar post";
     }
+  }
+
+  function updateGenerateButtonState() {
+    if (!elements.generateButton) {
+      return;
+    }
+
+    elements.generateButton.disabled =
+      isGenerating || !quotaReady || !currentQuota || currentQuota.totalAvailable <= 0;
   }
 
   function showFormError(message) {
@@ -492,6 +634,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (response && typeof response.clone === "function") {
       try {
         const payload = await response.clone().json();
+
+        if (payload?.quota) {
+          renderQuota(payload.quota);
+        }
 
         if (payload?.message) {
           return payload.message;

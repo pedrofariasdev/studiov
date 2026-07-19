@@ -801,7 +801,7 @@
       )
     ) {
       return (
-        "O plano Free não está disponível. " +
+        "O plano Básico não está disponível. " +
         "Contacte o suporte da StudioV."
       );
     }
@@ -906,7 +906,7 @@
 
       /*
        * 2. Limpar todos os dados demonstrativos
-       *    e converter o workspace para Free.
+       *    e converter o workspace para o plano Básico.
        */
 
       await finalizeDemoWorkspace(

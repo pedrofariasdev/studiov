@@ -3,6 +3,7 @@ import { corsHeaders } from "../_shared/cors.ts";
 const OPENAI_MODEL = "gpt-5.6-luna";
 const OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses";
 const AUTH_USER_PATH = "/auth/v1/user";
+const SUPABASE_RPC_PATH = "/rest/v1/rpc/";
 
 const allowedPlatforms = new Set(["instagram", "facebook", "linkedin", "tiktok", "threads", "x"]);
 
@@ -57,6 +58,7 @@ const instructions = [
 ].join("\n");
 
 type GeneratePostPayload = {
+  workspaceId?: unknown;
   topic?: unknown;
   platform?: unknown;
   objective?: unknown;
@@ -70,6 +72,26 @@ type GeneratedPost = {
   caption: string;
   cta: string;
   hashtags: string[];
+};
+
+type QuotaSnapshot = {
+  planCode: string;
+  planName: string;
+  usageMonth: string;
+  resetsAt: string;
+  planUsed: number;
+  monthlyLimit: number;
+  planRemaining: number;
+  purchasedCredits: number;
+  totalAvailable: number;
+};
+
+type ReservationResult = {
+  allowed: boolean;
+  message?: string;
+  reservationId?: string;
+  source?: "plan" | "credits";
+  quota?: QuotaSnapshot;
 };
 
 Deno.serve(async (request: Request) => {
@@ -99,9 +121,9 @@ Deno.serve(async (request: Request) => {
     );
   }
 
-  const authenticationStatus = await validateAuthorization(authorization);
+  const authentication = await validateAuthorization(authorization);
 
-  if (authenticationStatus === "unavailable") {
+  if (authentication.status === "unavailable") {
     return jsonResponse(
       {
         message: "Não foi possível confirmar a sua sessão. Tente novamente.",
@@ -110,7 +132,7 @@ Deno.serve(async (request: Request) => {
     );
   }
 
-  if (authenticationStatus === "unauthorized") {
+  if (authentication.status === "unauthorized") {
     return jsonResponse(
       {
         message: "Inicie sessão para utilizar o criador de posts.",
@@ -120,9 +142,11 @@ Deno.serve(async (request: Request) => {
   }
 
   const apiKey = Deno.env.get("OPENAI_API_KEY");
+  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
-  if (!apiKey) {
-    console.error("OPENAI_API_KEY is not configured.");
+  if (!apiKey || !supabaseUrl || !serviceRoleKey) {
+    console.error("The AI service environment is not fully configured.");
 
     return jsonResponse(
       {
@@ -132,9 +156,35 @@ Deno.serve(async (request: Request) => {
     );
   }
 
+  let reservationId = "";
+
   try {
     const payload = (await request.json()) as GeneratePostPayload;
     const input = validatePayload(payload);
+    const reservation = await reserveGeneration({
+      supabaseUrl,
+      serviceRoleKey,
+      workspaceId: input.workspaceId,
+      userId: authentication.userId,
+    });
+
+    if (!reservation.allowed) {
+      return jsonResponse(
+        {
+          message:
+            reservation.message ||
+            "Atingiu o limite de gerações deste mês e não tem créditos extra.",
+          quota: reservation.quota || null,
+        },
+        429
+      );
+    }
+
+    if (!reservation.reservationId) {
+      throw new QuotaServiceError();
+    }
+
+    reservationId = reservation.reservationId;
 
     const openAiResponse = await fetch(OPENAI_RESPONSES_URL, {
       method: "POST",
@@ -173,6 +223,8 @@ Deno.serve(async (request: Request) => {
     const responsePayload = await readJson(openAiResponse);
 
     if (!openAiResponse.ok) {
+      await releaseGeneration(supabaseUrl, serviceRoleKey, reservationId);
+      reservationId = "";
       return handleOpenAiError(openAiResponse.status, responsePayload);
     }
 
@@ -180,6 +232,8 @@ Deno.serve(async (request: Request) => {
 
     if (!outputText) {
       console.error("OpenAI response did not include output text.");
+      await releaseGeneration(supabaseUrl, serviceRoleKey, reservationId);
+      reservationId = "";
 
       return jsonResponse(
         {
@@ -190,23 +244,41 @@ Deno.serve(async (request: Request) => {
     }
 
     const post = normalizeGeneratedPost(JSON.parse(outputText));
+    await finalizeGeneration(supabaseUrl, serviceRoleKey, reservationId, true);
+    reservationId = "";
 
     return jsonResponse(
       {
         post,
+        quota: reservation.quota || null,
         meta: {
           model: OPENAI_MODEL,
+          creditSource: reservation.source,
         },
       },
       200
     );
   } catch (error) {
+    if (reservationId) {
+      await releaseGeneration(supabaseUrl, serviceRoleKey, reservationId);
+      reservationId = "";
+    }
+
     if (error instanceof ClientInputError) {
       return jsonResponse(
         {
           message: error.message,
         },
         400
+      );
+    }
+
+    if (error instanceof QuotaServiceError) {
+      return jsonResponse(
+        {
+          message: "Não foi possível confirmar o limite de gerações. Tente novamente.",
+        },
+        503
       );
     }
 
@@ -237,6 +309,7 @@ function validatePayload(payload: GeneratePostPayload) {
     throw new ClientInputError("Envie os dados necessários para criar o post.");
   }
 
+  const workspaceId = readUuid(payload.workspaceId, "workspace");
   const topic = readText(payload.topic, "tema", 3, 500);
   const details = readOptionalText(payload.details, "pontos importantes", 1000);
   const platform = readChoice(payload.platform, "rede social", allowedPlatforms);
@@ -245,6 +318,7 @@ function validatePayload(payload: GeneratePostPayload) {
   const language = readChoice(payload.language, "idioma", allowedLanguages);
 
   return {
+    workspaceId,
     topic,
     details,
     platform,
@@ -260,7 +334,7 @@ async function validateAuthorization(authorization: string) {
 
   if (!supabaseUrl || !supabaseAnonKey) {
     console.error("Supabase authentication environment is not configured.");
-    return "unavailable" as const;
+    return { status: "unavailable" as const };
   }
 
   try {
@@ -272,13 +346,119 @@ async function validateAuthorization(authorization: string) {
       signal: AbortSignal.timeout(10_000),
     });
 
-    await authResponse.body?.cancel();
+    if (!authResponse.ok) {
+      await authResponse.body?.cancel();
+      return { status: "unauthorized" as const };
+    }
 
-    return authResponse.ok ? ("authenticated" as const) : ("unauthorized" as const);
+    const authPayload = await readJson(authResponse);
+    const userId =
+      authPayload && typeof authPayload === "object" ? (authPayload as { id?: unknown }).id : null;
+
+    if (typeof userId !== "string" || !isUuid(userId)) {
+      return { status: "unauthorized" as const };
+    }
+
+    return {
+      status: "authenticated" as const,
+      userId,
+    };
   } catch (error) {
     console.error("Supabase authentication check failed:", safeErrorName(error));
-    return "unavailable" as const;
+    return { status: "unavailable" as const };
   }
+}
+
+async function reserveGeneration(options: {
+  supabaseUrl: string;
+  serviceRoleKey: string;
+  workspaceId: string;
+  userId: string;
+}) {
+  try {
+    const response = await fetch(
+      options.supabaseUrl + SUPABASE_RPC_PATH + "reserve_ai_text_generation",
+      {
+        method: "POST",
+        headers: serviceRoleHeaders(options.serviceRoleKey),
+        body: JSON.stringify({
+          workspace_id_value: options.workspaceId,
+          actor_user_id_value: options.userId,
+        }),
+        signal: AbortSignal.timeout(10_000),
+      }
+    );
+    const payload = await readJson(response);
+
+    if (!response.ok || !payload || typeof payload !== "object") {
+      console.error("AI quota reservation failed:", response.status);
+      throw new QuotaServiceError();
+    }
+
+    return payload as ReservationResult;
+  } catch (error) {
+    if (error instanceof QuotaServiceError) {
+      throw error;
+    }
+
+    console.error("AI quota service is unavailable:", safeErrorName(error));
+    throw new QuotaServiceError();
+  }
+}
+
+async function finalizeGeneration(
+  supabaseUrl: string,
+  serviceRoleKey: string,
+  reservationId: string,
+  success: boolean
+) {
+  try {
+    const response = await fetch(supabaseUrl + SUPABASE_RPC_PATH + "finalize_ai_text_generation", {
+      method: "POST",
+      headers: serviceRoleHeaders(serviceRoleKey),
+      body: JSON.stringify({
+        reservation_id_value: reservationId,
+        success_value: success,
+      }),
+      signal: AbortSignal.timeout(10_000),
+    });
+
+    await response.body?.cancel();
+
+    if (!response.ok) {
+      console.error("AI quota finalization failed:", response.status);
+    }
+  } catch (error) {
+    console.error("AI quota finalization is unavailable:", safeErrorName(error));
+  }
+}
+
+async function releaseGeneration(
+  supabaseUrl: string,
+  serviceRoleKey: string,
+  reservationId: string
+) {
+  await finalizeGeneration(supabaseUrl, serviceRoleKey, reservationId, false);
+}
+
+function serviceRoleHeaders(serviceRoleKey: string) {
+  return {
+    apikey: serviceRoleKey,
+    Authorization: "Bearer " + serviceRoleKey,
+    "Content-Type": "application/json",
+  };
+}
+
+function readUuid(value: unknown, label: string) {
+  if (typeof value !== "string" || !isUuid(value)) {
+    throw new ClientInputError("Selecione um " + label + " válido.");
+  }
+
+  return value;
+}
+
+function isUuid(value: string) {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 }
 
 function readText(value: unknown, label: string, minimumLength: number, maximumLength: number) {
@@ -503,5 +683,12 @@ class ClientInputError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "ClientInputError";
+  }
+}
+
+class QuotaServiceError extends Error {
+  constructor() {
+    super("AI quota service unavailable.");
+    this.name = "QuotaServiceError";
   }
 }

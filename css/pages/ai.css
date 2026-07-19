@@ -151,6 +151,106 @@
   line-height: 1.25;
 }
 
+.ai-quota-card {
+  display: grid;
+  gap: 12px;
+
+  margin-bottom: 22px;
+  padding: 16px;
+
+  background: linear-gradient(135deg, rgba(109, 40, 217, 0.08), rgba(59, 130, 246, 0.05));
+  border: 1px solid rgba(109, 40, 217, 0.16);
+  border-radius: 16px;
+}
+
+.ai-quota-card.is-exhausted {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(217, 119, 6, 0.24);
+}
+
+.ai-quota-card.is-error {
+  background: rgba(239, 68, 68, 0.07);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.ai-quota-heading,
+.ai-quota-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ai-quota-heading {
+  justify-content: flex-start;
+}
+
+.ai-quota-icon {
+  display: grid;
+  place-items: center;
+
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+
+  color: var(--color-primary);
+  background: var(--color-background-surface-light);
+  border-radius: 12px;
+}
+
+.ai-quota-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.ai-quota-heading div {
+  display: grid;
+  gap: 2px;
+}
+
+.ai-quota-heading span,
+.ai-quota-card small {
+  color: var(--color-text-muted-light);
+  font-size: var(--font-size-caption);
+}
+
+.ai-quota-heading strong {
+  color: var(--color-text-primary-light);
+  font-size: var(--font-size-small);
+}
+
+.ai-quota-progress {
+  height: 7px;
+  overflow: hidden;
+
+  background: rgba(109, 40, 217, 0.12);
+  border-radius: var(--radius-full);
+}
+
+.ai-quota-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+
+  background: linear-gradient(90deg, var(--color-primary), #8b5cf6);
+  border-radius: inherit;
+  transition: width 240ms ease;
+}
+
+.ai-quota-footer {
+  color: var(--color-text-secondary-light);
+  font-size: var(--font-size-caption);
+}
+
+.ai-quota-footer a {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ai-quota-footer a:hover {
+  text-decoration: underline;
+}
+
 /* ==========================================================
    Formulário
 ========================================================== */
@@ -680,6 +780,12 @@
   .ai-panel-icon {
     width: 44px;
     height: 44px;
+  }
+
+  .ai-quota-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .ai-result-loading {
