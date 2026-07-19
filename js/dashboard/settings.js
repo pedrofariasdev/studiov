@@ -46,6 +46,11 @@ document.addEventListener("DOMContentLoaded", async function () {
           10 * 1024 * 1024 * 1024,
         ai_text_generations_monthly: 300,
       },
+      features: {
+        content_planner: true,
+        analytics: true,
+        team_management: false,
+      },
     },
 
     {
@@ -63,6 +68,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         storage_bytes:
           50 * 1024 * 1024 * 1024,
         ai_text_generations_monthly: 1000,
+      },
+      features: {
+        content_planner: true,
+        analytics: true,
+        team_management: true,
       },
     },
   ];
@@ -1279,14 +1289,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     const limits =
       plan?.limits || {};
 
-    return [
-      `${
-        limits.brands ?? "—"
-      } marcas`,
+    const features =
+      plan?.features || {};
 
+    const highlights = [
       `${
-        limits.members ?? "—"
-      } membros`,
+        limits.ai_text_generations_monthly ??
+        "—"
+      } gerações de posts com IA/mês`,
+
+      "Criação, calendário e publicações",
 
       `${
         limits.social_accounts ?? "—"
@@ -1295,12 +1307,28 @@ document.addEventListener("DOMContentLoaded", async function () {
       `${formatStorage(
         limits.storage_bytes
       )} de armazenamento`,
-
-      `${
-        limits.ai_text_generations_monthly ??
-        "—"
-      } gerações de posts com IA/mês`,
     ];
+
+    if (
+      features.content_planner === true &&
+      features.analytics === true
+    ) {
+      highlights.push(
+        "Planner e Analytics completos"
+      );
+    }
+
+    if (
+      features.team_management === true
+    ) {
+      highlights.push(
+        `${
+          limits.members ?? "—"
+        } membros com permissões`
+      );
+    }
+
+    return highlights;
   }
 
 

@@ -442,6 +442,13 @@ document.addEventListener(
 
           return currentUser;
         }
+
+        if (
+          window.studioVPageAccessDenied ===
+          true
+        ) {
+          return null;
+        }
       }
 
       const {

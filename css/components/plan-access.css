@@ -1,0 +1,259 @@
+/* ==========================================================
+   StudioV — Acesso por plano
+========================================================== */
+
+.plan-access-locked-control {
+  position: relative;
+  cursor: pointer;
+}
+
+.plan-access-hidden {
+  display: none !important;
+}
+
+.dashboard-summary-grid.plan-access-has-hidden-items,
+.quick-actions-grid.plan-access-has-hidden-items,
+.dashboard-columns.plan-access-has-hidden-items {
+  grid-template-columns:
+    repeat(auto-fit, minmax(240px, 1fr)) !important;
+}
+
+.sidebar-link.plan-access-locked-control {
+  color: var(--color-text-muted-dark);
+}
+
+.sidebar-link.plan-access-locked-control:hover {
+  color: var(--color-text-secondary-dark);
+}
+
+.plan-access-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 20px;
+  margin-left: auto;
+  padding: 2px 7px;
+
+  color: var(--color-accent);
+  background: rgba(139, 92, 246, 0.14);
+
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  border-radius: var(--radius-full);
+}
+
+.settings-navigation-item.plan-access-locked-control {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  opacity: 0.72;
+}
+
+.settings-navigation-item.plan-access-locked-control:hover {
+  opacity: 1;
+}
+
+.settings-navigation-item .plan-access-badge {
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary-border);
+}
+
+
+/* ==========================================================
+   Página bloqueada
+========================================================== */
+
+.dashboard-content.plan-access-page,
+main.plan-access-page {
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 88px);
+  padding: clamp(24px, 5vw, 64px);
+}
+
+.plan-access-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: min(100%, 620px);
+  padding: clamp(28px, 5vw, 52px);
+
+  color: var(--color-text-primary);
+  background:
+    radial-gradient(
+      circle at top,
+      var(--color-primary-soft),
+      transparent 52%
+    ),
+    var(--color-surface);
+
+  text-align: center;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.plan-access-message-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 54px;
+  height: 54px;
+  margin-bottom: 18px;
+
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+
+  border: 1px solid var(--color-primary-border);
+  border-radius: 16px;
+}
+
+.plan-access-message-icon svg {
+  width: 25px;
+  height: 25px;
+}
+
+.plan-access-message-eyebrow {
+  margin-bottom: 8px;
+
+  color: var(--color-primary);
+
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.plan-access-message h1,
+.plan-upgrade-dialog-card h2 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-heading);
+  letter-spacing: -0.02em;
+}
+
+.plan-access-message h1 {
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.15;
+}
+
+.plan-access-message p,
+.plan-upgrade-dialog-card p {
+  margin: 16px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.plan-access-message-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+
+/* ==========================================================
+   Janela de upgrade
+========================================================== */
+
+.plan-upgrade-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+
+  display: none;
+  place-items: center;
+
+  padding: 20px;
+
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.plan-upgrade-dialog.is-open {
+  display: grid;
+}
+
+.plan-upgrade-dialog-card {
+  position: relative;
+
+  width: min(100%, 500px);
+  padding: 34px;
+
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+
+  text-align: center;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.plan-upgrade-dialog-card
+.plan-access-message-icon {
+  margin-inline: auto;
+}
+
+.plan-upgrade-dialog-card h2 {
+  font-size: 26px;
+}
+
+.plan-upgrade-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  color: var(--color-text-muted);
+  background: transparent;
+
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.plan-upgrade-dialog-close:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface-hover);
+}
+
+.plan-upgrade-dialog-close svg {
+  width: 19px;
+  height: 19px;
+}
+
+@media (max-width: 560px) {
+  .plan-access-message-actions {
+    width: 100%;
+  }
+
+  .plan-access-message-actions .btn {
+    width: 100%;
+  }
+
+  .plan-upgrade-dialog-card {
+    padding: 30px 22px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plan-access-locked-control {
+    transition: none;
+  }
+}
