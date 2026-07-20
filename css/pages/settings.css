@@ -2044,3 +2044,415 @@ body[data-theme="dark"]
     width: max-content;
   }
 }
+
+/* ==========================================================
+   Créditos extras
+========================================================== */
+
+.settings-credit-packs-card {
+  overflow: hidden;
+}
+
+.settings-credit-balance {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  gap: 3px;
+
+  flex-shrink: 0;
+
+  padding: 10px 14px;
+
+  background: var(--settings-primary-light);
+
+  border: 1px solid var(--settings-primary-border);
+  border-radius: 12px;
+}
+
+.settings-credit-balance span {
+  color: var(--settings-text-secondary);
+
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.settings-credit-balance strong {
+  color: var(--settings-primary);
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+
+/* ==========================================================
+   Grelha de pacotes
+========================================================== */
+
+.settings-credit-packs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+
+/* ==========================================================
+   Pacote individual
+========================================================== */
+
+.settings-credit-pack {
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  min-width: 0;
+  min-height: 215px;
+
+  padding: 18px;
+
+  background: var(--settings-surface-soft);
+
+  border: 1px solid var(--settings-border);
+  border-radius: 15px;
+
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.settings-credit-pack:hover {
+  border-color: var(--settings-primary-border);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 28px rgba(109, 40, 217, 0.09);
+}
+
+
+/* ==========================================================
+   Cabeçalho do pacote
+========================================================== */
+
+.settings-credit-pack-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.settings-credit-pack-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  color: var(--settings-primary);
+  background: var(--settings-primary-light);
+
+  border-radius: 12px;
+}
+
+.settings-credit-pack-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.settings-credit-pack-label {
+  color: var(--settings-primary);
+
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+
+/* ==========================================================
+   Informações do pacote
+========================================================== */
+
+.settings-credit-pack h4 {
+  margin: 0;
+
+  color: var(--settings-text);
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.settings-credit-pack-description {
+  margin: 0;
+
+  color: var(--settings-text-secondary);
+
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.settings-credit-pack-price {
+  display: block;
+
+  margin-top: auto;
+
+  color: var(--settings-text);
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.settings-credit-pack .btn {
+  width: 100%;
+  min-height: 42px;
+
+  margin-top: 2px;
+}
+
+
+/* ==========================================================
+   Estado indisponível
+========================================================== */
+
+.settings-credit-pack .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* ==========================================================
+   Tema escuro
+========================================================== */
+
+html[data-theme="dark"]
+.settings-credit-pack,
+body[data-theme="dark"]
+.settings-credit-pack {
+  background: var(--settings-surface-soft);
+
+  border-color: var(--settings-border);
+}
+
+html[data-theme="dark"]
+.settings-credit-balance,
+body[data-theme="dark"]
+.settings-credit-balance {
+  background: rgba(139, 92, 246, 0.14);
+
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+
+/* ==========================================================
+   Responsividade dos créditos
+========================================================== */
+
+@media (max-width: 1200px) {
+  .settings-credit-packs-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .settings-credit-balance {
+    align-items: flex-start;
+
+    width: 100%;
+  }
+
+  .settings-credit-packs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-credit-pack {
+    min-height: 0;
+  }
+}
+
+/* ==========================================================
+   Modal de faturação
+========================================================== */
+
+.billing-modal-dialog {
+  width: min(100% - 32px, 560px);
+}
+
+.billing-modal-heading {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+}
+
+.billing-modal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  color: var(--settings-primary);
+  background: var(--settings-primary-light);
+
+  border: 1px solid var(--settings-primary-border);
+  border-radius: 13px;
+}
+
+.billing-modal-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+
+/* ==========================================================
+   Conteúdo do modal
+========================================================== */
+
+.billing-modal-content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+
+  padding: 22px 24px;
+}
+
+.billing-modal-summary {
+  overflow: hidden;
+
+  background: var(--settings-surface-soft);
+
+  border: 1px solid var(--settings-border);
+  border-radius: 14px;
+}
+
+.billing-modal-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  min-height: 54px;
+  padding: 14px 16px;
+}
+
+.billing-modal-summary-row + .billing-modal-summary-row {
+  border-top: 1px solid var(--settings-border);
+}
+
+.billing-modal-summary-row span {
+  color: var(--settings-text-secondary);
+
+  font-size: 0.8rem;
+}
+
+.billing-modal-summary-row strong {
+  color: var(--settings-text);
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  text-align: right;
+}
+
+.billing-modal-summary-row[hidden] {
+  display: none;
+}
+
+
+/* ==========================================================
+   Informação de segurança
+========================================================== */
+
+.billing-modal-information {
+  margin: 0;
+}
+
+.billing-modal-information p {
+  margin-top: 4px;
+}
+
+
+/* ==========================================================
+   Estado de carregamento
+========================================================== */
+
+#billing-confirm-button.is-loading {
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+#billing-confirm-button.is-loading svg {
+  animation: billing-button-spin 0.8s linear infinite;
+}
+
+@keyframes billing-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ==========================================================
+   Mobile
+========================================================== */
+
+@media (max-width: 650px) {
+  .billing-modal-content {
+    padding: 18px;
+  }
+
+  .billing-modal-heading {
+    padding-right: 8px;
+  }
+
+  .billing-modal-summary-row {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 5px;
+  }
+
+  .billing-modal-summary-row strong {
+    text-align: left;
+  }
+}
+
+/* ==========================================================
+   Modal — fundo mais sólido
+========================================================== */
+
+.settings-modal-backdrop {
+  background: rgba(15, 23, 42, 0.78);
+
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.settings-modal-dialog {
+  background-color: #ffffff;
+  opacity: 1;
+
+  box-shadow:
+    0 32px 90px rgba(15, 23, 42, 0.42),
+    0 12px 35px rgba(15, 23, 42, 0.18);
+}
+
+html[data-theme="dark"] .settings-modal-dialog,
+body[data-theme="dark"] .settings-modal-dialog {
+  background-color: #111827;
+}

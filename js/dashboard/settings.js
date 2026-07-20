@@ -84,8 +84,15 @@ document.addEventListener("DOMContentLoaded", async function () {
   let currentWorkspaceId = null;
   let currentWorkspace = null;
 
-  let currentBillingSummary = null;
-  let availableBillingPlans = [];
+let currentBillingSummary = null;
+let availableBillingPlans = [];
+
+let availableCreditPacks = [];
+let currentCreditBalance = 0;
+
+let selectedBillingAction = null;
+let billingReturnStatus = null;
+
 
   let workspaceMembers = [];
   let workspaceMemberProfiles =
@@ -193,6 +200,78 @@ document.addEventListener("DOMContentLoaded", async function () {
   const plansGrid =
     document.getElementById(
       "settings-plans-grid"
+    );
+
+  const creditPacksGrid =
+    document.getElementById(
+      "settings-credit-packs-grid"
+    );
+
+  const creditBalanceElement =
+    document.getElementById(
+      "settings-credit-balance"
+    );
+
+  const billingActionModal =
+    document.getElementById(
+      "billing-action-modal"
+    );
+
+  const billingModalTitle =
+    document.getElementById(
+      "billing-modal-title"
+    );
+
+  const billingModalDescription =
+    document.getElementById(
+      "billing-modal-description"
+    );
+
+  const billingModalItemLabel =
+    document.getElementById(
+      "billing-modal-item-label"
+    );
+
+  const billingModalItemName =
+    document.getElementById(
+      "billing-modal-item-name"
+    );
+
+  const billingModalItemPrice =
+    document.getElementById(
+      "billing-modal-item-price"
+    );
+
+  const billingModalExtraRow =
+    document.getElementById(
+      "billing-modal-extra-row"
+    );
+
+  const billingModalExtraLabel =
+    document.getElementById(
+      "billing-modal-extra-label"
+    );
+
+  const billingModalExtraValue =
+    document.getElementById(
+      "billing-modal-extra-value"
+    );
+
+  const billingConfirmButton =
+    document.getElementById(
+      "billing-confirm-button"
+    );
+
+  const billingConfirmButtonText =
+    document.getElementById(
+      "billing-confirm-button-text"
+    );
+
+  const closeBillingModalButtons =
+    Array.from(
+      document.querySelectorAll(
+        "[data-close-billing-modal]"
+      )
     );
 
   const membersList =
@@ -539,7 +618,16 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   function initializeNavigation() {
+    const queryParameters =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    billingReturnStatus =
+      queryParameters.get("payment");
+
     const requestedSection =
+      queryParameters.get("section") ||
       window.location.hash.replace("#", "");
 
     const sectionExists = sections.some(
@@ -1337,13 +1425,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       return;
     }
 
-
     const currentPlanCode =
-      currentBillingSummary
-        ?.plan_code ||
+      currentBillingSummary?.plan_code ||
       currentWorkspace?.plan ||
       "free";
-
 
     const databaseCodes =
       new Set(
@@ -1354,7 +1439,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         )
       );
 
-
     const plannedPlans =
       PLANNED_PAID_PLANS.filter(
         function (plan) {
@@ -1363,7 +1447,6 @@ document.addEventListener("DOMContentLoaded", async function () {
           );
         }
       );
-
 
     const plans = [
       ...availableBillingPlans.map(
@@ -1385,34 +1468,39 @@ document.addEventListener("DOMContentLoaded", async function () {
       ),
     ];
 
-
     plansGrid.innerHTML =
       plans
         .map(function (plan) {
           const isCurrent =
-            plan.code ===
-            currentPlanCode;
+            plan.code === currentPlanCode;
 
-          const price =
+          const monthlyPriceCents =
             Number(
               plan.monthly_price_cents
-            ) > 0
-              ? new Intl.NumberFormat(
-                  "pt-PT",
-                  {
-                    style: "currency",
-                    currency:
-                      plan.currency ||
-                      "EUR",
-                  }
-                ).format(
-                  plan.monthly_price_cents /
-                    100
+            ) || 0;
+
+          const yearlyPriceCents =
+            Number(
+              plan.yearly_price_cents
+            ) || 0;
+
+          const monthlyPrice =
+            monthlyPriceCents > 0
+              ? formatCurrencyFromCents(
+                  monthlyPriceCents,
+                  plan.currency || "EUR"
                 )
               : plan.code === "free"
                 ? "€0"
                 : "Preço a definir";
 
+          const yearlyPrice =
+            yearlyPriceCents > 0
+              ? formatCurrencyFromCents(
+                  yearlyPriceCents,
+                  plan.currency || "EUR"
+                )
+              : null;
 
           const highlights =
             getPlanHighlights(plan)
@@ -1420,6 +1508,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 return `
                   <li>
                     <i data-lucide="check"></i>
+
                     <span>
                       ${escapeHtml(item)}
                     </span>
@@ -1428,6 +1517,90 @@ document.addEventListener("DOMContentLoaded", async function () {
               })
               .join("");
 
+          let actionsHtml;
+
+          if (isCurrent) {
+            if (plan.code !== "free") {
+              actionsHtml = `
+                <button
+                  class="btn btn-outline"
+                  type="button"
+                  data-open-billing-portal
+                >
+                  <i data-lucide="credit-card"></i>
+
+                  Gerir subscrição
+                </button>
+              `;
+            } else {
+              actionsHtml = `
+                <button
+                  class="btn btn-outline"
+                  type="button"
+                  disabled
+                >
+                  Plano atual
+                </button>
+              `;
+            }
+          } else if (
+            plan.available &&
+            plan.code === "pro"
+          ) {
+            actionsHtml = `
+              <div
+                class="settings-form-actions"
+                style="margin-top: auto;"
+              >
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  data-subscribe-plan="${escapeHtml(
+                    plan.code
+                  )}"
+                  data-billing-interval="monthly"
+                >
+                  <i data-lucide="calendar-range"></i>
+
+                  Mensal — ${escapeHtml(
+                    monthlyPrice
+                  )}
+                </button>
+
+                <button
+                  class="btn btn-outline"
+                  type="button"
+                  data-subscribe-plan="${escapeHtml(
+                    plan.code
+                  )}"
+                  data-billing-interval="yearly"
+                >
+                  <i data-lucide="calendar-check"></i>
+
+                  Anual — ${escapeHtml(
+                    yearlyPrice ||
+                    "Indisponível"
+                  )}
+                </button>
+              </div>
+            `;
+
+
+          } else {
+            actionsHtml = `
+              <button
+                class="btn btn-outline"
+                type="button"
+                disabled
+              >
+                ${
+                  plan.code === "free"
+                    ? "Plano gratuito"
+                    : "Em breve"
+                }
+              </button>
+            `;
+          }
 
           return `
             <article
@@ -1440,7 +1613,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
               "
             >
-
               <div class="settings-plan-card-header">
 
                 <div>
@@ -1472,19 +1644,27 @@ document.addEventListener("DOMContentLoaded", async function () {
 
               </div>
 
-
               <p class="settings-plan-price">
-                ${escapeHtml(price)}
+                ${escapeHtml(monthlyPrice)}
 
                 ${
-                  Number(
-                    plan.monthly_price_cents
-                  ) > 0
+                  monthlyPriceCents > 0
                     ? "<small>/mês</small>"
                     : ""
                 }
               </p>
 
+              ${
+                yearlyPrice
+                  ? `
+                    <p class="settings-plan-description">
+                      Ou ${escapeHtml(
+                        yearlyPrice
+                      )} por ano.
+                    </p>
+                  `
+                  : ""
+              }
 
               <p class="settings-plan-description">
                 ${escapeHtml(
@@ -1493,38 +1673,16 @@ document.addEventListener("DOMContentLoaded", async function () {
                 )}
               </p>
 
-
               <ul class="settings-plan-features">
                 ${highlights}
               </ul>
 
-
-              <button
-                class="
-                  btn
-                  ${
-                    isCurrent
-                      ? "btn-outline"
-                      : "btn-primary"
-                  }
-                "
-                type="button"
-                disabled
-              >
-                ${
-                  isCurrent
-                    ? "Plano atual"
-                    : plan.available
-                      ? "Pagamento indisponível"
-                      : "Em breve"
-                }
-              </button>
+              ${actionsHtml}
 
             </article>
           `;
         })
         .join("");
-
 
     refreshIcons();
   }
@@ -1634,6 +1792,784 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     renderBillingPlans();
   }
+
+  /* =======================================================
+    Créditos extras
+  ======================================================= */
+
+  function formatCurrencyFromCents(
+    value,
+    currency = "EUR"
+  ) {
+    const cents = Number(value) || 0;
+
+    return new Intl.NumberFormat(
+      "pt-PT",
+      {
+        style: "currency",
+        currency,
+      }
+    ).format(cents / 100);
+  }
+
+
+  function renderCreditPacks() {
+    if (!creditPacksGrid) {
+      return;
+    }
+
+    if (availableCreditPacks.length === 0) {
+      creditPacksGrid.innerHTML = `
+        <div class="settings-empty-state">
+
+          <i data-lucide="coins"></i>
+
+          <strong>
+            Nenhum pacote disponível
+          </strong>
+
+          <p>
+            Os pacotes de créditos não estão disponíveis
+            neste momento.
+          </p>
+
+        </div>
+      `;
+
+      refreshIcons();
+      return;
+    }
+
+
+    creditPacksGrid.innerHTML =
+      availableCreditPacks
+        .map(function (pack) {
+          const credits =
+            Number(pack.credits) || 0;
+
+          const price =
+            formatCurrencyFromCents(
+              pack.price_cents,
+              pack.currency || "EUR"
+            );
+
+          return `
+            <article
+              class="settings-credit-pack"
+              data-credit-pack-code="${escapeHtml(
+                pack.code
+              )}"
+            >
+
+              <div class="settings-credit-pack-header">
+
+                <span class="settings-credit-pack-icon">
+                  <i data-lucide="sparkles"></i>
+                </span>
+
+                <span class="settings-credit-pack-label">
+                  Compra única
+                </span>
+
+              </div>
+
+
+              <h4>
+                ${escapeHtml(pack.name)}
+              </h4>
+
+
+              <p class="settings-credit-pack-description">
+                Adiciona ${credits} gerações de IA
+                ao saldo deste workspace.
+              </p>
+
+
+              <strong class="settings-credit-pack-price">
+                ${escapeHtml(price)}
+              </strong>
+
+
+              <button
+                class="btn btn-primary"
+                type="button"
+                data-buy-credit-pack="${escapeHtml(
+                  pack.code
+                )}"
+              >
+                <i data-lucide="shopping-cart"></i>
+
+                Comprar créditos
+              </button>
+
+            </article>
+          `;
+        })
+        .join("");
+
+
+    refreshIcons();
+  }
+
+
+  async function loadCreditInformation() {
+    if (!currentWorkspaceId) {
+      return;
+    }
+
+
+    const [
+      packsResponse,
+      balanceResponse,
+    ] = await Promise.all([
+
+      supabaseClient
+        .from("ai_credit_packs")
+        .select(`
+          id,
+          code,
+          name,
+          credits,
+          price_cents,
+          currency,
+          stripe_price_id,
+          is_public,
+          is_active,
+          sort_order
+        `)
+        .eq("is_active", true)
+        .eq("is_public", true)
+        .order(
+          "sort_order",
+          {
+            ascending: true,
+          }
+        ),
+
+
+      supabaseClient.rpc(
+        "get_workspace_ai_credit_status",
+        {
+          workspace_id_value:
+            currentWorkspaceId,
+        }
+      ),
+
+    ]);
+
+
+    if (packsResponse.error) {
+      console.warn(
+        "Não foi possível carregar os pacotes:",
+        packsResponse.error.message
+      );
+    }
+
+
+    if (balanceResponse.error) {
+      console.warn(
+        "Não foi possível carregar o saldo:",
+        balanceResponse.error.message
+      );
+    }
+
+
+    availableCreditPacks =
+      packsResponse.data || [];
+
+
+    const creditStatus =
+      Array.isArray(balanceResponse.data)
+        ? balanceResponse.data[0] || null
+        : balanceResponse.data || null;
+
+
+    currentCreditBalance =
+      Number(
+        creditStatus?.extra_credit_balance
+      ) || 0;
+
+
+    if (creditBalanceElement) {
+      creditBalanceElement.textContent =
+        `${currentCreditBalance} ${
+          currentCreditBalance === 1
+            ? "crédito"
+            : "créditos"
+        }`;
+    }
+
+
+    renderCreditPacks();
+  }
+
+  /* =======================================================
+    Modal de faturação
+  ======================================================= */
+
+  function openCreditPackModal(
+    creditPackCode
+  ) {
+    const pack =
+      availableCreditPacks.find(
+        function (item) {
+          return (
+            item.code ===
+            creditPackCode
+          );
+        }
+      );
+
+
+    if (!pack) {
+      showToast(
+        "error",
+        "Pacote não encontrado",
+        "Atualize a página e tente novamente."
+      );
+
+      return;
+    }
+
+
+    selectedBillingAction = {
+      type: "credit_pack",
+      code: pack.code,
+    };
+
+
+    const credits =
+      Number(pack.credits) || 0;
+
+    const price =
+      formatCurrencyFromCents(
+        pack.price_cents,
+        pack.currency || "EUR"
+      );
+
+
+    if (billingModalTitle) {
+      billingModalTitle.textContent =
+        "Comprar créditos";
+    }
+
+
+    if (billingModalDescription) {
+      billingModalDescription.textContent =
+        "Revise o pacote escolhido antes de continuar para o pagamento.";
+    }
+
+
+    if (billingModalItemLabel) {
+      billingModalItemLabel.textContent =
+        "Pacote";
+    }
+
+
+    if (billingModalItemName) {
+      billingModalItemName.textContent =
+        pack.name;
+    }
+
+
+    if (billingModalItemPrice) {
+      billingModalItemPrice.textContent =
+        price;
+    }
+
+
+    if (billingModalExtraLabel) {
+      billingModalExtraLabel.textContent =
+        "Créditos adicionados";
+    }
+
+
+    if (billingModalExtraValue) {
+      billingModalExtraValue.textContent =
+        `${credits} ${
+          credits === 1
+            ? "geração"
+            : "gerações"
+        }`;
+    }
+
+
+    if (billingModalExtraRow) {
+      billingModalExtraRow.hidden = false;
+    }
+
+
+    if (billingConfirmButtonText) {
+      billingConfirmButtonText.textContent =
+        "Continuar para pagamento";
+    }
+
+
+    billingActionModal?.classList.add(
+      "open"
+    );
+
+    billingActionModal?.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.style.overflow =
+      "hidden";
+
+
+    window.setTimeout(
+      function () {
+        billingConfirmButton?.focus();
+      },
+      100
+    );
+
+
+    refreshIcons();
+  }
+
+  function openSubscriptionModal(
+    planCode,
+    billingInterval
+  ) {
+    const plan =
+      availableBillingPlans.find(
+        function (item) {
+          return item.code === planCode;
+        }
+      );
+
+    if (!plan) {
+      showToast(
+        "error",
+        "Plano não encontrado",
+        "Atualize a página e tente novamente."
+      );
+
+      return;
+    }
+
+    if (
+      billingInterval !== "monthly" &&
+      billingInterval !== "yearly"
+    ) {
+      showToast(
+        "error",
+        "Periodicidade inválida",
+        "Escolha o pagamento mensal ou anual."
+      );
+
+      return;
+    }
+
+    const priceCents =
+      billingInterval === "monthly"
+        ? Number(
+            plan.monthly_price_cents
+          ) || 0
+        : Number(
+            plan.yearly_price_cents
+          ) || 0;
+
+    if (priceCents <= 0) {
+      showToast(
+        "error",
+        "Preço indisponível",
+        "Este plano ainda não possui um preço configurado."
+      );
+
+      return;
+    }
+
+    selectedBillingAction = {
+      type: "subscription",
+      code: plan.code,
+      billingInterval,
+    };
+
+    const intervalLabel =
+      billingInterval === "monthly"
+        ? "Mensal"
+        : "Anual";
+
+    const intervalDescription =
+      billingInterval === "monthly"
+        ? "Cobrança mensal"
+        : "Cobrança anual";
+
+    const price =
+      formatCurrencyFromCents(
+        priceCents,
+        plan.currency || "EUR"
+      );
+
+    if (billingModalTitle) {
+      billingModalTitle.textContent =
+        `Assinar plano ${plan.name}`;
+    }
+
+    if (billingModalDescription) {
+      billingModalDescription.textContent =
+        "Revise a subscrição escolhida antes de continuar para o pagamento.";
+    }
+
+    if (billingModalItemLabel) {
+      billingModalItemLabel.textContent =
+        "Plano";
+    }
+
+    if (billingModalItemName) {
+      billingModalItemName.textContent =
+        `${plan.name} — ${intervalLabel}`;
+    }
+
+    if (billingModalItemPrice) {
+      billingModalItemPrice.textContent =
+        `${price}${
+          billingInterval === "monthly"
+            ? "/mês"
+            : "/ano"
+        }`;
+    }
+
+    if (billingModalExtraLabel) {
+      billingModalExtraLabel.textContent =
+        "Periodicidade";
+    }
+
+    if (billingModalExtraValue) {
+      billingModalExtraValue.textContent =
+        intervalDescription;
+    }
+
+    if (billingModalExtraRow) {
+      billingModalExtraRow.hidden = false;
+    }
+
+    if (billingConfirmButtonText) {
+      billingConfirmButtonText.textContent =
+        "Continuar para pagamento";
+    }
+
+    billingActionModal?.classList.add(
+      "open"
+    );
+
+    billingActionModal?.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.style.overflow =
+      "hidden";
+
+    window.setTimeout(
+      function () {
+        billingConfirmButton?.focus();
+      },
+      100
+    );
+
+    refreshIcons();
+  }
+
+
+  function closeBillingModal() {
+    if (!billingActionModal) {
+      return;
+    }
+
+
+    billingActionModal.classList.remove(
+      "open"
+    );
+
+    billingActionModal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.style.overflow = "";
+
+    selectedBillingAction = null;
+
+
+    if (billingModalExtraRow) {
+      billingModalExtraRow.hidden = true;
+    }
+  }
+
+
+  async function handleBillingConfirmation() {
+    if (
+      !selectedBillingAction ||
+      !currentWorkspaceId
+    ) {
+      return;
+    }
+
+    let requestBody;
+
+    if (
+      selectedBillingAction.type ===
+      "credit_pack"
+    ) {
+      const selectedPack =
+        availableCreditPacks.find(
+          function (pack) {
+            return (
+              pack.code ===
+              selectedBillingAction.code
+            );
+          }
+        );
+
+      if (!selectedPack) {
+        showToast(
+          "error",
+          "Pacote não encontrado",
+          "Atualize a página e tente novamente."
+        );
+
+        return;
+      }
+
+      requestBody = {
+        action_type: "credit_pack",
+        workspace_id:
+          currentWorkspaceId,
+        code: selectedPack.code,
+      };
+    } else if (
+      selectedBillingAction.type ===
+      "subscription"
+    ) {
+      const selectedPlan =
+        availableBillingPlans.find(
+          function (plan) {
+            return (
+              plan.code ===
+              selectedBillingAction.code
+            );
+          }
+        );
+
+      if (!selectedPlan) {
+        showToast(
+          "error",
+          "Plano não encontrado",
+          "Atualize a página e tente novamente."
+        );
+
+        return;
+      }
+
+      if (
+        selectedBillingAction
+          .billingInterval !==
+          "monthly" &&
+        selectedBillingAction
+          .billingInterval !==
+          "yearly"
+      ) {
+        showToast(
+          "error",
+          "Periodicidade inválida",
+          "Escolha o pagamento mensal ou anual."
+        );
+
+        return;
+      }
+
+      requestBody = {
+        action_type: "subscription",
+        workspace_id:
+          currentWorkspaceId,
+        code: selectedPlan.code,
+        billing_interval:
+          selectedBillingAction
+            .billingInterval,
+      };
+    } else {
+      showToast(
+        "error",
+        "Operação inválida",
+        "Não foi possível identificar a compra."
+      );
+
+      return;
+    }
+
+    if (billingConfirmButton) {
+      billingConfirmButton.disabled = true;
+
+      billingConfirmButton.classList.add(
+        "is-loading"
+      );
+    }
+
+    if (billingConfirmButtonText) {
+      billingConfirmButtonText.textContent =
+        "A abrir pagamento...";
+    }
+
+    try {
+      const {
+        data,
+        error,
+      } =
+        await supabaseClient.functions.invoke(
+          "create-checkout-session",
+          {
+            body: requestBody,
+          }
+        );
+
+      if (error) {
+        let errorMessage =
+          error.message ||
+          "Não foi possível abrir o pagamento.";
+
+        if (
+          error.context instanceof Response
+        ) {
+          try {
+            const errorPayload =
+              await error.context.json();
+
+            errorMessage =
+              errorPayload?.error ||
+              errorMessage;
+          } catch {
+            // Mantém a mensagem original.
+          }
+        }
+
+        throw new Error(errorMessage);
+      }
+
+      if (!data?.url) {
+        throw new Error(
+          "A Stripe não devolveu a página de pagamento."
+        );
+      }
+
+      window.location.assign(data.url);
+
+    } catch (error) {
+      console.error(
+        "Erro ao criar checkout:",
+        error
+      );
+
+      showToast(
+        "error",
+        "Pagamento indisponível",
+        error.message ||
+          "Tente novamente dentro de alguns instantes."
+      );
+
+      if (billingConfirmButton) {
+        billingConfirmButton.disabled = false;
+
+        billingConfirmButton.classList.remove(
+          "is-loading"
+        );
+      }
+
+      if (billingConfirmButtonText) {
+        billingConfirmButtonText.textContent =
+          "Continuar para pagamento";
+      }
+    }
+  }
+
+  async function handleOpenBillingPortal(
+      button
+    ) {
+      if (!currentWorkspaceId) {
+        showToast(
+          "error",
+          "Workspace não encontrado",
+          "Atualize a página e tente novamente."
+        );
+
+        return;
+      }
+
+      setButtonLoading(
+        button,
+        true,
+        "A abrir portal..."
+      );
+
+      try {
+        const {
+          data,
+          error,
+        } =
+          await supabaseClient.functions.invoke(
+            "create-billing-portal-session",
+            {
+              body: {
+                workspace_id:
+                  currentWorkspaceId,
+              },
+            }
+          );
+
+        if (error) {
+          let errorMessage =
+            error.message ||
+            "Não foi possível abrir o portal.";
+
+          if (
+            error.context instanceof Response
+          ) {
+            try {
+              const errorPayload =
+                await error.context.json();
+
+              errorMessage =
+                errorPayload?.error ||
+                errorMessage;
+            } catch {
+              // Mantém a mensagem original.
+            }
+          }
+
+          throw new Error(errorMessage);
+        }
+
+        if (!data?.url) {
+          throw new Error(
+            "A Stripe não devolveu a página do portal."
+          );
+        }
+
+        window.location.assign(data.url);
+
+      } catch (error) {
+        console.error(
+          "Erro ao abrir portal Stripe:",
+          error
+        );
+
+        showToast(
+          "error",
+          "Portal indisponível",
+          error.message ||
+            "Tente novamente dentro de alguns instantes."
+        );
+
+        setButtonLoading(
+          button,
+          false,
+          ""
+        );
+      }
+    }
 
   /* =======================================================
     Membros
@@ -2188,6 +3124,89 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
+  plansGrid?.addEventListener(
+    "click",
+    function (event) {
+      const portalButton =
+        event.target.closest(
+          "[data-open-billing-portal]"
+        );
+
+      if (
+        portalButton &&
+        plansGrid.contains(portalButton)
+      ) {
+        handleOpenBillingPortal(
+          portalButton
+        );
+
+        return;
+      }
+
+      const subscriptionButton =
+        event.target.closest(
+          "[data-subscribe-plan]"
+        );
+
+      if (
+        !subscriptionButton ||
+        !plansGrid.contains(
+          subscriptionButton
+        )
+      ) {
+        return;
+      }
+
+      openSubscriptionModal(
+        subscriptionButton.dataset
+          .subscribePlan,
+
+        subscriptionButton.dataset
+          .billingInterval
+      );
+    }
+  );
+
+
+  creditPacksGrid?.addEventListener(
+    "click",
+    function (event) {
+      const button =
+        event.target.closest(
+          "[data-buy-credit-pack]"
+        );
+
+
+      if (
+        !button ||
+        !creditPacksGrid.contains(button)
+      ) {
+        return;
+      }
+
+
+      openCreditPackModal(
+        button.dataset.buyCreditPack
+      );
+    }
+  );
+
+
+  closeBillingModalButtons.forEach(
+    function (button) {
+      button.addEventListener(
+        "click",
+        closeBillingModal
+      );
+    }
+  );
+
+
+  billingConfirmButton?.addEventListener(
+    "click",
+    handleBillingConfirmation
+  );
+
   /* =======================================================
      Eventos
   ======================================================= */
@@ -2225,11 +3244,23 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.addEventListener(
       "keydown",
       function (event) {
+        if (event.key !== "Escape") {
+          return;
+        }
+
+
         if (
-          event.key === "Escape" &&
-          passwordModal?.classList.contains(
-            "open"
-          )
+          billingActionModal
+            ?.classList.contains("open")
+        ) {
+          closeBillingModal();
+          return;
+        }
+
+
+        if (
+          passwordModal
+            ?.classList.contains("open")
         ) {
           closePasswordModal();
         }
@@ -2266,8 +3297,25 @@ document.addEventListener("DOMContentLoaded", async function () {
       await Promise.all([
         loadIntegrations(),
         loadBillingInformation(),
+        loadCreditInformation(),
         loadWorkspaceMembers(),
       ]);
+
+      if (billingReturnStatus === "success") {
+        showToast(
+          "success",
+          "Pagamento concluído",
+          "A Stripe confirmou o pagamento. O plano ou os créditos serão atualizados automaticamente."
+        );
+      } else if (
+        billingReturnStatus === "cancelled"
+      ) {
+        showToast(
+          "info",
+          "Pagamento cancelado",
+          "Nenhuma cobrança foi concluída."
+        );
+      }
 
       console.log(
         "Configurações carregadas com sucesso."

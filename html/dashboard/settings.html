@@ -1058,6 +1058,54 @@
 
               </div>
 
+              <div class="settings-card settings-credit-packs-card">
+
+                <div class="settings-card-heading settings-card-heading--between">
+
+                  <div>
+                    <h3>Créditos extras</h3>
+
+                    <p>
+                      Adicione gerações de IA ao workspace sem alterar
+                      o seu plano atual.
+                    </p>
+                  </div>
+
+
+                  <div class="settings-credit-balance">
+
+                    <span>
+                      Saldo disponível
+                    </span>
+
+                    <strong id="settings-credit-balance">
+                      A carregar...
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                <div
+                  class="settings-credit-packs-grid"
+                  id="settings-credit-packs-grid"
+                >
+
+                  <div class="settings-loading-row">
+
+                    <span class="settings-loading-icon"></span>
+
+                    <span>
+                      A carregar pacotes de créditos...
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
 
               <div class="settings-information-card">
 
@@ -1583,6 +1631,149 @@
 
             </form>
             </section>
+        </div>
+
+        <!-- Modal de faturação -->
+
+        <div
+          id="billing-action-modal"
+          class="settings-modal"
+          aria-hidden="true"
+        >
+          <div
+            class="settings-modal-backdrop"
+            data-close-billing-modal
+          ></div>
+
+          <section
+            class="settings-modal-dialog billing-modal-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="billing-modal-title"
+            aria-describedby="billing-modal-description"
+          >
+
+            <header class="settings-modal-header">
+
+              <div class="billing-modal-heading">
+
+                <span class="billing-modal-icon">
+                  <i
+                    id="billing-modal-icon"
+                    data-lucide="credit-card"
+                  ></i>
+                </span>
+
+                <div>
+                  <h2 id="billing-modal-title">
+                    Confirmar operação
+                  </h2>
+
+                  <p id="billing-modal-description">
+                    Confirme os detalhes antes de continuar.
+                  </p>
+                </div>
+
+              </div>
+
+              <button
+                class="settings-modal-close"
+                type="button"
+                aria-label="Fechar modal"
+                data-close-billing-modal
+              >
+                <i data-lucide="x"></i>
+              </button>
+
+            </header>
+
+
+            <div class="billing-modal-content">
+
+              <div class="billing-modal-summary">
+
+                <div class="billing-modal-summary-row">
+                  <span id="billing-modal-item-label">
+                    Item
+                  </span>
+
+                  <strong id="billing-modal-item-name">
+                    —
+                  </strong>
+                </div>
+
+
+                <div class="billing-modal-summary-row">
+                  <span>
+                    Valor
+                  </span>
+
+                  <strong id="billing-modal-item-price">
+                    —
+                  </strong>
+                </div>
+
+
+                <div
+                  class="billing-modal-summary-row"
+                  id="billing-modal-extra-row"
+                  hidden
+                >
+                  <span id="billing-modal-extra-label">
+                    Informação
+                  </span>
+
+                  <strong id="billing-modal-extra-value">
+                    —
+                  </strong>
+                </div>
+
+              </div>
+
+
+              <div class="settings-information-card billing-modal-information">
+
+                <i data-lucide="shield-check"></i>
+
+                <div>
+                  <strong>Pagamento seguro</strong>
+
+                  <p>
+                    O pagamento será processado pela Stripe.
+                    A StudioV não guarda os dados do seu cartão.
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <footer class="settings-modal-actions">
+
+              <button
+                class="btn btn-outline"
+                type="button"
+                data-close-billing-modal
+              >
+                Cancelar
+              </button>
+
+              <button
+                class="btn btn-primary"
+                id="billing-confirm-button"
+                type="button"
+              >
+                <i data-lucide="arrow-right"></i>
+
+                <span id="billing-confirm-button-text">
+                  Continuar para pagamento
+                </span>
+              </button>
+
+            </footer>
+
+          </section>
         </div>
 
 
