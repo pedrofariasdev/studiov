@@ -1,7 +1,10 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", async function () {
-  const supabaseClient = window.supabaseClient;
+document.addEventListener(
+  "DOMContentLoaded",
+  async function () {
+    const supabaseClient =
+      window.supabaseClient;
 
   /* =======================================================
      Configurações gerais
@@ -92,6 +95,7 @@ let currentCreditBalance = 0;
 
 let selectedBillingAction = null;
 let billingReturnStatus = null;
+let portalReturnStatus = null;
 
 
   let workspaceMembers = [];
@@ -197,6 +201,26 @@ let billingReturnStatus = null;
       "settings-current-plan-status"
     );
 
+  const billingAlert =
+    document.getElementById(
+      "settings-billing-alert"
+    );
+
+  const billingAlertTitle =
+    document.getElementById(
+      "settings-billing-alert-title"
+    );
+
+  const billingAlertMessage =
+    document.getElementById(
+      "settings-billing-alert-message"
+    );
+
+  const billingAlertButton =
+    document.getElementById(
+      "settings-billing-alert-button"
+    );
+
   const plansGrid =
     document.getElementById(
       "settings-plans-grid"
@@ -211,6 +235,11 @@ let billingReturnStatus = null;
     document.getElementById(
       "settings-credit-balance"
     );
+
+    const invoicesList =
+  document.getElementById(
+    "settings-invoices-list"
+  );
 
   const billingActionModal =
     document.getElementById(
@@ -626,35 +655,54 @@ let billingReturnStatus = null;
     billingReturnStatus =
       queryParameters.get("payment");
 
-    const requestedSection =
-      queryParameters.get("section") ||
-      window.location.hash.replace("#", "");
+    portalReturnStatus =
+      queryParameters.get("portal");
 
-    const sectionExists = sections.some(
-      function (section) {
+    const sectionFromQuery =
+      queryParameters.get("section");
+
+    const sectionFromHash =
+      window.location.hash
+        .replace("#", "")
+        .trim();
+
+    const requestedSection =
+      sectionFromQuery ||
+      sectionFromHash ||
+      "appearance";
+
+    const sectionExists =
+      sections.some(function (section) {
         return (
           section.dataset.sectionName ===
           requestedSection
         );
-      }
-    );
+      });
 
-    openSettingsSection(
+    const initialSection =
       sectionExists
         ? requestedSection
-        : "appearance"
-    );
+        : "appearance";
 
-    navigationButtons.forEach(function (button) {
-      button.addEventListener(
-        "click",
-        function () {
-          openSettingsSection(
-            button.dataset.settingsSection
-          );
-        }
-      );
-    });
+    openSettingsSection(initialSection);
+
+    navigationButtons.forEach(
+      function (button) {
+        button.addEventListener(
+          "click",
+          function () {
+            const sectionName =
+              button.dataset.settingsSection;
+
+            if (!sectionName) {
+              return;
+            }
+
+            openSettingsSection(sectionName);
+          }
+        );
+      }
+    );
   }
 
     /* =======================================================
@@ -1776,17 +1824,105 @@ let billingReturnStatus = null;
     }
 
 
+    const cancelAtPeriodEnd =
+      currentBillingSummary
+        ?.cancel_at_period_end === true;
+
+    const currentPeriodEnd =
+      currentBillingSummary
+        ?.current_period_end || null;
+
+
+    const formattedPeriodEnd =
+      currentPeriodEnd
+        ? new Intl.DateTimeFormat(
+            "pt-PT",
+            {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            }
+          ).format(
+            new Date(currentPeriodEnd)
+          )
+        : null;
+
+
     if (currentPlanDescription) {
-      currentPlanDescription.textContent =
-        currentBillingSummary
-          ?.plan_description ||
-        "O workspace utiliza atualmente o plano ativo apresentado abaixo.";
+
+      if (
+        cancelAtPeriodEnd &&
+        formattedPeriodEnd
+      ) {
+
+        currentPlanDescription.textContent =
+          `O plano ${planName} permanece ativo até ${formattedPeriodEnd}.`;
+
+      } else {
+
+        currentPlanDescription.textContent =
+          currentBillingSummary
+            ?.plan_description ||
+          "O workspace utiliza atualmente o plano ativo apresentado abaixo.";
+
+      }
     }
 
 
     if (currentPlanStatus) {
+
       currentPlanStatus.textContent =
-        "Ativo";
+        cancelAtPeriodEnd
+          ? "Cancelamento agendado"
+          : "Ativo";
+
+    }
+
+    const subscriptionStatus =
+      currentBillingSummary
+        ?.subscription_status ||
+      "active";
+
+    const hasPaymentProblem =
+      subscriptionStatus === "past_due" ||
+      subscriptionStatus === "unpaid" ||
+      subscriptionStatus === "incomplete";
+
+
+    if (billingAlert) {
+      billingAlert.hidden =
+        !hasPaymentProblem;
+    }
+
+
+    if (
+      hasPaymentProblem &&
+      billingAlertTitle
+    ) {
+      billingAlertTitle.textContent =
+        subscriptionStatus === "unpaid"
+          ? "Pagamento não concluído"
+          : "Pagamento pendente";
+    }
+
+
+    if (
+      hasPaymentProblem &&
+      billingAlertMessage
+    ) {
+      billingAlertMessage.textContent =
+        "Não foi possível processar o pagamento da subscrição. Atualize o método de pagamento para evitar a perda de acesso.";
+    }
+
+
+    if (
+      currentPlanStatus &&
+      hasPaymentProblem
+    ) {
+      currentPlanStatus.textContent =
+        subscriptionStatus === "unpaid"
+          ? "Pagamento não concluído"
+          : "Pagamento pendente";
     }
 
 
@@ -2001,6 +2137,261 @@ let billingReturnStatus = null;
 
 
     renderCreditPacks();
+  }
+
+  function getInvoiceStatusLabel(status) {
+    const labels = {
+      paid: "Pago",
+      open: "Pendente",
+      draft: "Rascunho",
+      void: "Anulado",
+      uncollectible: "Não cobrável",
+    };
+
+    return labels[status] ||
+      status ||
+      "Desconhecido";
+  }
+
+
+  function formatInvoiceDate(value) {
+    if (!value) {
+      return "Data indisponível";
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return "Data indisponível";
+    }
+
+    return new Intl.DateTimeFormat(
+      "pt-PT",
+      {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }
+    ).format(date);
+  }
+
+
+  function renderBillingInvoices(invoices) {
+    if (!invoicesList) {
+      return;
+    }
+
+    if (!invoices.length) {
+      invoicesList.innerHTML = `
+        <div class="settings-empty-state">
+
+          <i data-lucide="receipt-text"></i>
+
+          <strong>
+            Nenhuma fatura encontrada
+          </strong>
+
+          <p>
+            As faturas dos pagamentos aparecerão aqui
+            assim que forem emitidas.
+          </p>
+
+        </div>
+      `;
+
+      refreshIcons();
+      return;
+    }
+
+
+    invoicesList.innerHTML =
+      invoices
+        .map(function (invoice) {
+          const amount =
+            formatCurrencyFromCents(
+              invoice.total_cents,
+              invoice.currency || "EUR"
+            );
+
+          const status =
+            getInvoiceStatusLabel(
+              invoice.status
+            );
+
+          const date =
+            formatInvoiceDate(
+              invoice.paid_at ||
+              invoice.issued_at ||
+              invoice.created_at
+            );
+
+          const invoiceNumber =
+            invoice.invoice_number ||
+            "Fatura Stripe";
+
+          const hostedInvoiceButton =
+            invoice.hosted_invoice_url
+              ? `
+                <a
+                  class="btn btn-outline"
+                  href="${escapeHtml(
+                    invoice.hosted_invoice_url
+                  )}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i data-lucide="external-link"></i>
+
+                  Ver fatura
+                </a>
+              `
+              : "";
+
+          const pdfButton =
+            invoice.invoice_pdf_url
+              ? `
+                <a
+                  class="btn btn-outline"
+                  href="${escapeHtml(
+                    invoice.invoice_pdf_url
+                  )}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i data-lucide="file-down"></i>
+
+                  PDF
+                </a>
+              `
+              : "";
+
+          return `
+            <article class="settings-invoice-row">
+
+              <div class="settings-invoice-icon">
+                <i data-lucide="receipt-text"></i>
+              </div>
+
+
+              <div class="settings-invoice-information">
+
+                <strong>
+                  ${escapeHtml(invoiceNumber)}
+                </strong>
+
+                <span>
+                  ${escapeHtml(date)}
+                </span>
+
+              </div>
+
+
+              <div class="settings-invoice-amount">
+
+                <strong>
+                  ${escapeHtml(amount)}
+                </strong>
+
+                <span
+                  class="
+                    settings-invoice-status
+                    settings-invoice-status--${escapeHtml(
+                      invoice.status || "unknown"
+                    )}
+                  "
+                >
+                  ${escapeHtml(status)}
+                </span>
+
+              </div>
+
+
+              <div class="settings-invoice-actions">
+                ${hostedInvoiceButton}
+                ${pdfButton}
+              </div>
+
+            </article>
+          `;
+        })
+        .join("");
+
+
+    refreshIcons();
+  }
+
+
+  async function loadBillingInvoices() {
+    if (
+      !currentWorkspaceId ||
+      !invoicesList
+    ) {
+      return;
+    }
+
+    const {
+      data,
+      error,
+    } =
+      await supabaseClient
+        .from("billing_invoices")
+        .select(`
+          id,
+          invoice_number,
+          currency,
+          status,
+          total_cents,
+          amount_paid_cents,
+          amount_due_cents,
+          issued_at,
+          paid_at,
+          hosted_invoice_url,
+          invoice_pdf_url,
+          created_at
+        `)
+        .eq(
+          "workspace_id",
+          currentWorkspaceId
+        )
+        .order(
+          "created_at",
+          {
+            ascending: false,
+          }
+        )
+        .limit(20);
+
+
+    if (error) {
+      console.error(
+        "Erro ao carregar faturas:",
+        error
+      );
+
+      invoicesList.innerHTML = `
+        <div class="settings-empty-state">
+
+          <i data-lucide="circle-alert"></i>
+
+          <strong>
+            Não foi possível carregar as faturas
+          </strong>
+
+          <p>
+            Atualize a página e tente novamente.
+          </p>
+
+        </div>
+      `;
+
+      refreshIcons();
+      return;
+    }
+
+
+    renderBillingInvoices(
+      data || []
+    );
   }
 
   /* =======================================================
@@ -2929,33 +3320,49 @@ let billingReturnStatus = null;
       "youtube",
     ];
 
-    const accountByPlatform = new Map();
+    const accountsByPlatform = new Map();
 
     accounts.forEach(function (account) {
-      if (!accountByPlatform.has(account.platform)) {
-        accountByPlatform.set(
+      if (!accountsByPlatform.has(account.platform)) {
+        accountsByPlatform.set(
           account.platform,
-          account
+          []
         );
       }
+
+      accountsByPlatform
+        .get(account.platform)
+        .push(account);
     });
 
     integrationsList.innerHTML =
       principalPlatforms
         .map(function (platform) {
-          const account =
-            accountByPlatform.get(platform);
+          const platformAccounts =
+            accountsByPlatform.get(platform) || [];
 
           const information =
             getPlatformInformation(platform);
 
           const isConnected =
-            account?.status === "active";
+            platformAccounts.some(
+              function (account) {
+                return account.status === "active";
+              }
+            );
 
           const accountLabel =
-            account?.username ||
-            account?.account_name ||
-            "Nenhuma conta conectada";
+            platformAccounts.length > 0
+              ? platformAccounts
+                  .map(function (account) {
+                    return (
+                      account.username ||
+                      account.account_name ||
+                      "Conta conectada"
+                    );
+                  })
+                  .join(", ")
+              : "Nenhuma conta conectada";
 
           return `
             <article class="settings-integration-row">
@@ -3002,25 +3409,45 @@ let billingReturnStatus = null;
       return;
     }
 
-    const {
-      data,
-      error,
-    } = await supabaseClient
-      .from("social_accounts")
-      .select(`
-        id,
-        platform,
-        account_name,
-        username,
-        status
-      `)
-      .eq(
-        "workspace_id",
-        currentWorkspaceId
-      )
-      .order("connected_at", {
+  const {
+    data,
+    error,
+  } = await supabaseClient
+    .from("social_accounts")
+    .select(`
+      id,
+      platform,
+      external_account_id,
+      account_name,
+      username,
+      status,
+      avatar_url,
+      profile_url,
+      connected_at
+    `)
+    .eq(
+      "workspace_id",
+      currentWorkspaceId
+    )
+    .order(
+      "connected_at",
+      {
         ascending: false,
-      });
+      }
+    );
+
+
+  console.log(
+    "Workspace atual:",
+    currentWorkspaceId
+  );
+
+  console.log(
+    "Integrações recebidas:",
+    data
+  );
+
+
 
     if (error) {
       console.warn(
@@ -3241,6 +3668,15 @@ let billingReturnStatus = null;
       handleSignOutAll
     );
 
+    billingAlertButton?.addEventListener(
+      "click",
+      function () {
+        handleOpenBillingPortal(
+          billingAlertButton
+        );
+      }
+    );
+
     document.addEventListener(
       "keydown",
       function (event) {
@@ -3298,8 +3734,33 @@ let billingReturnStatus = null;
         loadIntegrations(),
         loadBillingInformation(),
         loadCreditInformation(),
+        loadBillingInvoices(),
         loadWorkspaceMembers(),
       ]);
+
+      if (portalReturnStatus === "return") {
+        await Promise.all([
+          loadBillingInformation(),
+          loadBillingInvoices(),
+        ]);
+
+        showToast(
+          "success",
+          "Faturação atualizada",
+          "As informações da subscrição foram atualizadas."
+        );
+      }
+
+      if (
+        billingReturnStatus ||
+        portalReturnStatus
+      ) {
+        window.history.replaceState(
+          null,
+          "",
+          `${window.location.pathname}#billing`
+        );
+      }
 
       if (billingReturnStatus === "success") {
         showToast(
@@ -3320,6 +3781,7 @@ let billingReturnStatus = null;
       console.log(
         "Configurações carregadas com sucesso."
       );
+
     } catch (error) {
       console.error(
         "Erro ao carregar configurações:",

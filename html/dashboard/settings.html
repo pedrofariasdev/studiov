@@ -966,6 +966,8 @@
               data-section-name="billing"
               hidden
             >
+
+            
               <header class="settings-section-header">
 
                 <div class="settings-section-heading">
@@ -986,6 +988,38 @@
                 </div>
 
               </header>
+
+              <div
+                class="settings-billing-alert"
+                id="settings-billing-alert"
+                hidden
+              >
+                <span class="settings-billing-alert-icon">
+                  <i data-lucide="triangle-alert"></i>
+                </span>
+
+                <div class="settings-billing-alert-content">
+                  <strong id="settings-billing-alert-title">
+                    Pagamento pendente
+                  </strong>
+
+                  <p id="settings-billing-alert-message">
+                    Não foi possível processar o pagamento da subscrição.
+                  </p>
+                </div>
+
+                <button
+                  class="btn btn-outline"
+                  id="settings-billing-alert-button"
+                  type="button"
+                >
+                  <i data-lucide="credit-card"></i>
+
+                  Atualizar pagamento
+                </button>
+              </div>
+
+              
 
 
               <article class="settings-card settings-current-plan">
@@ -1107,30 +1141,41 @@
               </div>
 
 
-              <div class="settings-information-card">
+              <div class="settings-card settings-invoices-card">
 
-                <i data-lucide="info"></i>
+                <div class="settings-card-heading">
 
-                <div>
+                  <div>
+                    <h3>Histórico de faturas</h3>
 
-                  <strong>Compra online em preparação</strong>
+                    <p>
+                      Consulte os pagamentos realizados e descarregue
+                      as respetivas faturas.
+                    </p>
+                  </div>
 
-                  <p>
-                    Pacotes extra: +10 por €1,49, +50 por €5,99,
-                    +100 por €9,99 e +500 por €39,99. O pagamento
-                    seguro será ligado à Stripe antes de qualquer
-                    cobrança ser disponibilizada.
-                  </p>
+                </div>
+
+
+                <div
+                  class="settings-invoices-list"
+                  id="settings-invoices-list"
+                >
+
+                  <div class="settings-loading-row">
+
+                    <span class="settings-loading-icon"></span>
+
+                    <span>
+                      A carregar faturas...
+                    </span>
+
+                  </div>
 
                 </div>
 
               </div>
-
             </section>
-
-
-            <!-- Membros -->
-
             <section
               id="settings-section-members"
               class="settings-section"
@@ -1468,36 +1513,36 @@
 
             <!-- Integrações -->
             <section
-                id="settings-section-integrations"
-                class="settings-section"
-                data-section-name="integrations"
-                hidden
+              id="settings-section-integrations"
+              class="settings-section"
+              data-section-name="integrations"
+              hidden
             >
-                <header class="settings-section-header">
+              <header class="settings-section-header">
                 <div class="settings-section-heading">
-                    <span class="settings-section-icon">
+                  <span class="settings-section-icon">
                     <i data-lucide="plug"></i>
-                    </span>
+                  </span>
 
-                    <div>
+                  <div>
                     <h2>Integrações</h2>
 
                     <p>
-                        Consulte os serviços associados ao workspace atual.
+                      Consulte os serviços associados ao workspace atual.
                     </p>
-                    </div>
+                  </div>
                 </div>
-                </header>
+              </header>
 
-                <div class="settings-card">
+              <div class="settings-card">
                 <div class="settings-card-heading settings-card-heading--between">
-                    <div>
-                      <h3>Contas conectadas</h3>
+                  <div>
+                    <h3>Contas conectadas</h3>
 
-                      <p>
-                          Estado das plataformas ligadas às suas marcas.
-                      </p>
-                    </div>
+                    <p>
+                      Estado das plataformas ligadas às suas marcas.
+                    </p>
+                  </div>
 
                   <button
                     id="connect-social-account-button"
@@ -1511,36 +1556,33 @@
                 </div>
 
                 <div
-                    id="settings-integrations-list"
-                    class="settings-integrations-list"
+                  id="settings-integrations-list"
+                  class="settings-integrations-list"
                 >
-                    <div class="settings-loading-row">
+                  <div class="settings-loading-row">
                     <span class="settings-loading-icon"></span>
 
                     <span>
-                        A carregar integrações...
+                      A carregar integrações...
                     </span>
-                    </div>
+                  </div>
                 </div>
-                </div>
+              </div>
 
-                <div class="settings-information-card">
+              <div class="settings-information-card">
                 <i data-lucide="info"></i>
 
                 <div>
-                    <strong>Integrações sociais</strong>
+                  <strong>Integrações sociais</strong>
 
-                    <p>
+                  <p>
                     As conexões reais com Instagram, Facebook, LinkedIn,
                     TikTok e outras plataformas serão disponibilizadas
                     gradualmente através das APIs oficiais.
-                    </p>
+                  </p>
                 </div>
-                </div>
+              </div>
             </section>
-
-            </div>
-        </div>
 
 
         <!-- Modal de palavra-passe -->
