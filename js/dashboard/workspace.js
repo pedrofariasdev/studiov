@@ -290,6 +290,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const labels = {
       pending: "Pendente",
       active: "Conectada",
+      connected: "Conectada",
       expired: "Expirada",
       revoked: "Revogada",
       error: "Com erro",

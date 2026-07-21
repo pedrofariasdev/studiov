@@ -96,6 +96,8 @@ let currentCreditBalance = 0;
 let selectedBillingAction = null;
 let billingReturnStatus = null;
 let portalReturnStatus = null;
+let instagramReturnStatus = null;
+let instagramReturnReason = null;
 
 
   let workspaceMembers = [];
@@ -127,6 +129,31 @@ let portalReturnStatus = null;
   const languageSelect = document.getElementById(
     "settings-language"
   );
+
+  const connectSocialAccountButton =
+    document.getElementById(
+      "connect-social-account-button"
+    );
+
+  const socialIntegrationModal =
+    document.getElementById(
+      "social-integration-modal"
+    );
+
+  const closeSocialIntegrationModalButton =
+    document.getElementById(
+      "close-social-integration-modal"
+    );
+
+  const socialPlatformButtons =
+    document.querySelectorAll(
+      "[data-social-platform]"
+    );
+
+  const closeSocialModalButtons =
+    document.querySelectorAll(
+      "[data-close-social-modal]"
+    );
 
   const saveStatus = document.getElementById(
     "settings-save-status"
@@ -326,11 +353,6 @@ let portalReturnStatus = null;
   const inviteMemberButton =
     document.getElementById(
       "settings-invite-member-button"
-    );
-
-  const connectSocialAccountButton =
-    document.getElementById(
-      "connect-social-account-button"
     );
 
   const toastContainer = document.getElementById(
@@ -657,6 +679,12 @@ let portalReturnStatus = null;
 
     portalReturnStatus =
       queryParameters.get("portal");
+
+    instagramReturnStatus =
+      queryParameters.get("instagram");
+
+    instagramReturnReason =
+      queryParameters.get("reason");
 
     const sectionFromQuery =
       queryParameters.get("section");
@@ -3347,7 +3375,10 @@ let portalReturnStatus = null;
           const isConnected =
             platformAccounts.some(
               function (account) {
-                return account.status === "active";
+                return [
+                  "active",
+                  "connected",
+                ].includes(account.status);
               }
             );
 
@@ -3634,6 +3665,129 @@ let portalReturnStatus = null;
     handleBillingConfirmation
   );
 
+  function openSocialIntegrationModal() {
+    if (!socialIntegrationModal) return;
+
+    socialIntegrationModal.classList.add(
+      "is-open"
+    );
+
+    socialIntegrationModal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.classList.add(
+      "social-modal-open"
+    );
+
+    refreshIcons();
+  }
+
+  function closeSocialIntegrationModal() {
+    if (!socialIntegrationModal) return;
+
+    socialIntegrationModal.classList.remove(
+      "is-open"
+    );
+
+    socialIntegrationModal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.classList.remove(
+      "social-modal-open"
+    );
+  }
+
+  async function handleSocialPlatformSelection(event) {
+    const platformButton =
+      event.currentTarget;
+
+    const platform =
+      platformButton.dataset.socialPlatform;
+
+    if (platform !== "instagram") {
+      showToast(
+        "info",
+        "Integração em preparação",
+        `A conexão com ${platform} ainda não está disponível.`
+      );
+      return;
+    }
+
+    if (!currentWorkspaceId) {
+      showToast(
+        "error",
+        "Workspace indisponível",
+        "Selecione um workspace antes de conectar o Instagram."
+      );
+      return;
+    }
+
+    platformButton.disabled = true;
+    platformButton.setAttribute(
+      "aria-busy",
+      "true"
+    );
+
+    try {
+      const returnUrl =
+        window.location.origin +
+        window.location.pathname;
+      const {
+        data,
+        error,
+      } = await supabaseClient.functions.invoke(
+        "instagram-oauth-start",
+        {
+          body: {
+            workspaceId: currentWorkspaceId,
+            returnUrl,
+          },
+        }
+      );
+
+      if (error) {
+        throw error;
+      }
+
+      const authorizationUrl =
+        new URL(data?.authorizationUrl || "");
+
+      if (
+        authorizationUrl.protocol !== "https:" ||
+        authorizationUrl.hostname !==
+          "www.instagram.com"
+      ) {
+        throw new Error(
+          "A resposta de autorização é inválida."
+        );
+      }
+
+      window.location.assign(
+        authorizationUrl.toString()
+      );
+    } catch (error) {
+      console.error(
+        "Erro ao iniciar OAuth do Instagram:",
+        error
+      );
+
+      platformButton.disabled = false;
+      platformButton.removeAttribute(
+        "aria-busy"
+      );
+
+      showToast(
+        "error",
+        "Não foi possível conectar",
+        "Atualize a página e tente novamente."
+      );
+    }
+  }
+
   /* =======================================================
      Eventos
   ======================================================= */
@@ -3663,6 +3817,34 @@ let portalReturnStatus = null;
       }
     );
 
+    connectSocialAccountButton?.addEventListener(
+      "click",
+      openSocialIntegrationModal
+    );
+
+    closeSocialIntegrationModalButton?.addEventListener(
+      "click",
+      closeSocialIntegrationModal
+    );
+
+    closeSocialModalButtons.forEach(
+      function (button) {
+        button.addEventListener(
+          "click",
+          closeSocialIntegrationModal
+        );
+      }
+    );
+
+    socialPlatformButtons.forEach(
+      function (button) {
+        button.addEventListener(
+          "click",
+          handleSocialPlatformSelection
+        );
+      }
+    );
+
     signOutAllButton?.addEventListener(
       "click",
       handleSignOutAll
@@ -3682,6 +3864,10 @@ let portalReturnStatus = null;
       function (event) {
         if (event.key !== "Escape") {
           return;
+        }
+
+        if (event.key === "Escape") {
+          closeSocialIntegrationModal();
         }
 
 
@@ -3753,12 +3939,17 @@ let portalReturnStatus = null;
 
       if (
         billingReturnStatus ||
-        portalReturnStatus
+        portalReturnStatus ||
+        instagramReturnStatus
       ) {
         window.history.replaceState(
           null,
           "",
-          `${window.location.pathname}#billing`
+          `${window.location.pathname}#${
+            instagramReturnStatus
+              ? "integrations"
+              : "billing"
+          }`
         );
       }
 
@@ -3775,6 +3966,33 @@ let portalReturnStatus = null;
           "info",
           "Pagamento cancelado",
           "Nenhuma cobrança foi concluída."
+        );
+      }
+
+      if (instagramReturnStatus === "connected") {
+        showToast(
+          "success",
+          "Instagram conectado",
+          "A conta foi ligada e guardada com segurança."
+        );
+      } else if (
+        instagramReturnStatus === "cancelled"
+      ) {
+        showToast(
+          "info",
+          "Ligação cancelada",
+          "A conta do Instagram não foi conectada."
+        );
+      } else if (instagramReturnStatus === "error") {
+        const invalidState =
+          instagramReturnReason === "invalid_state";
+
+        showToast(
+          "error",
+          "Não foi possível conectar",
+          invalidState
+            ? "O pedido expirou ou já foi utilizado. Tente conectar novamente."
+            : "O Instagram não concluiu a autorização. Tente novamente."
         );
       }
 

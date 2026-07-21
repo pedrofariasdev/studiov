@@ -2980,3 +2980,311 @@ input:checked
     );
 }
 
+/* ==================================================
+   Modal de integração social
+================================================== */
+
+.social-integration-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.social-integration-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.social-integration-modal__backdrop {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.social-integration-modal__dialog {
+  position: relative;
+  z-index: 1;
+
+  width: min(100%, 580px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 24px;
+
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.2),
+    0 8px 24px rgba(15, 23, 42, 0.12);
+
+  transform: translateY(18px) scale(0.98);
+
+  transition: transform 0.2s ease;
+}
+
+.social-integration-modal.is-open
+  .social-integration-modal__dialog {
+  transform: translateY(0) scale(1);
+}
+
+.social-integration-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+
+  padding: 28px 28px 20px;
+
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+}
+
+.social-integration-modal__header h2 {
+  margin: 0 0 6px;
+
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary, #0f172a);
+}
+
+.social-integration-modal__header p {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary, #64748b);
+}
+
+.social-integration-modal__close {
+  flex-shrink: 0;
+
+  width: 40px;
+  height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  color: var(--text-secondary, #64748b);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.social-integration-modal__close:hover {
+  color: var(--text-primary, #0f172a);
+  background: var(--surface-secondary, #f8fafc);
+  border-color: var(--border-color, #e2e8f0);
+}
+
+.social-integration-modal__close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.social-integration-modal__platforms {
+  display: grid;
+  gap: 12px;
+
+  padding: 24px 28px;
+}
+
+.social-platform-option {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 16px;
+
+  padding: 16px;
+
+  text-align: left;
+
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.social-platform-option:hover {
+  transform: translateY(-2px);
+
+  background: var(--surface-secondary, #f8fafc);
+  border-color: var(--primary-color, #7c3aed);
+
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.social-platform-option:focus-visible {
+  outline: 3px solid rgba(124, 58, 237, 0.22);
+  outline-offset: 2px;
+}
+
+.social-platform-option__icon {
+  width: 48px;
+  height: 48px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--primary-color, #7c3aed);
+  background: rgba(124, 58, 237, 0.1);
+  border-radius: 14px;
+}
+
+.social-platform-option__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.social-platform-option__content {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.social-platform-option__content strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary, #0f172a);
+}
+
+.social-platform-option__content small {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary, #64748b);
+}
+
+.social-platform-option__arrow {
+  width: 18px;
+  height: 18px;
+
+  color: var(--text-secondary, #94a3b8);
+}
+
+.social-integration-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 20px 28px 28px;
+
+  border-top: 1px solid var(--border-color, #e2e8f0);
+}
+
+/* Bloqueia a rolagem da página com o modal aberto */
+body.social-modal-open {
+  overflow: hidden;
+}
+
+/* Tema escuro */
+[data-theme="dark"] .social-integration-modal__dialog {
+  background: #111827;
+  border-color: #263244;
+}
+
+[data-theme="dark"] .social-integration-modal__header,
+[data-theme="dark"] .social-integration-modal__footer {
+  border-color: #263244;
+}
+
+[data-theme="dark"] .social-integration-modal__header h2,
+[data-theme="dark"] .social-platform-option__content strong {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .social-integration-modal__header p,
+[data-theme="dark"] .social-platform-option__content small {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .social-platform-option {
+  background: #111827;
+  border-color: #263244;
+}
+
+[data-theme="dark"] .social-platform-option:hover {
+  background: #172033;
+  border-color: #8b5cf6;
+}
+
+[data-theme="dark"] .social-integration-modal__close:hover {
+  color: #f8fafc;
+  background: #172033;
+  border-color: #263244;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .social-integration-modal {
+    align-items: flex-end;
+
+    padding: 0;
+  }
+
+  .social-integration-modal__dialog {
+    width: 100%;
+    max-height: 90vh;
+
+    border-radius: 24px 24px 0 0;
+  }
+
+  .social-integration-modal__header {
+    padding: 22px 20px 18px;
+  }
+
+  .social-integration-modal__platforms {
+    padding: 20px;
+  }
+
+  .social-integration-modal__footer {
+    padding: 18px 20px 24px;
+  }
+
+  .social-platform-option {
+    grid-template-columns: 44px minmax(0, 1fr) 18px;
+
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .social-platform-option__icon {
+    width: 44px;
+    height: 44px;
+  }
+}

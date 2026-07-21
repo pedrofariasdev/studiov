@@ -1829,9 +1829,173 @@
 
         </div>
 
+      </div>
+
       </main>
 
     </div>
+
+  <!-- Modal para conectar conta social -->
+  <div
+    id="social-integration-modal"
+    class="social-integration-modal"
+    aria-hidden="true"
+  >
+    <div
+      class="social-integration-modal__backdrop"
+      data-close-social-modal
+    ></div>
+
+    <div
+      class="social-integration-modal__dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="social-integration-modal-title"
+    >
+      <header class="social-integration-modal__header">
+        <div>
+          <h2 id="social-integration-modal-title">
+            Conectar conta
+          </h2>
+
+          <p>
+            Escolha a plataforma que deseja conectar à StudioV.
+          </p>
+        </div>
+
+        <button
+          id="close-social-integration-modal"
+          class="social-integration-modal__close"
+          type="button"
+          aria-label="Fechar modal"
+        >
+          <i data-lucide="x"></i>
+        </button>
+      </header>
+
+      <div class="social-integration-modal__platforms">
+        <button
+          class="social-platform-option"
+          type="button"
+          data-social-platform="instagram"
+        >
+          <span class="social-platform-option__icon">
+            <i data-lucide="camera"></i>
+          </span>
+
+          <span class="social-platform-option__content">
+            <strong>Conectar conta Instagram</strong>
+            <small>
+              Conecte uma conta profissional do Instagram.
+            </small>
+          </span>
+
+          <i
+            class="social-platform-option__arrow"
+            data-lucide="chevron-right"
+          ></i>
+        </button>
+
+        <button
+          class="social-platform-option"
+          type="button"
+          data-social-platform="facebook"
+        >
+          <span class="social-platform-option__icon">
+            <i data-lucide="users"></i>
+          </span>
+
+          <span class="social-platform-option__content">
+            <strong>Facebook</strong>
+            <small>
+              Conecte uma página do Facebook.
+            </small>
+          </span>
+
+          <i
+            class="social-platform-option__arrow"
+            data-lucide="chevron-right"
+          ></i>
+        </button>
+
+        <button
+          class="social-platform-option"
+          type="button"
+          data-social-platform="linkedin"
+        >
+          <span class="social-platform-option__icon">
+            <i data-lucide="briefcase-business"></i>
+          </span>
+
+          <span class="social-platform-option__content">
+            <strong>LinkedIn</strong>
+            <small>
+              Conecte um perfil ou uma página empresarial.
+            </small>
+          </span>
+
+          <i
+            class="social-platform-option__arrow"
+            data-lucide="chevron-right"
+          ></i>
+        </button>
+
+        <button
+          class="social-platform-option"
+          type="button"
+          data-social-platform="tiktok"
+        >
+          <span class="social-platform-option__icon">
+            <i data-lucide="music-2"></i>
+          </span>
+
+          <span class="social-platform-option__content">
+            <strong>TikTok</strong>
+            <small>
+              Conecte uma conta do TikTok.
+            </small>
+          </span>
+
+          <i
+            class="social-platform-option__arrow"
+            data-lucide="chevron-right"
+          ></i>
+        </button>
+
+        <button
+          class="social-platform-option"
+          type="button"
+          data-social-platform="youtube"
+        >
+          <span class="social-platform-option__icon">
+            <i data-lucide="play"></i>
+          </span>
+
+          <span class="social-platform-option__content">
+            <strong>YouTube</strong>
+            <small>
+              Conecte um canal do YouTube.
+            </small>
+          </span>
+
+          <i
+            class="social-platform-option__arrow"
+            data-lucide="chevron-right"
+          ></i>
+        </button>
+      </div>
+
+      <footer class="social-integration-modal__footer">
+        <button
+          class="btn btn-outline"
+          type="button"
+          data-close-social-modal
+        >
+          Cancelar
+        </button>
+      </footer>
+    </div>
+  </div>
 
   <!-- Scripts -->
 
