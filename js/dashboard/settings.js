@@ -98,6 +98,9 @@ let billingReturnStatus = null;
 let portalReturnStatus = null;
 let instagramReturnStatus = null;
 let instagramReturnReason = null;
+let facebookReturnStatus = null;
+let facebookReturnReason = null;
+let facebookReturnPages = null;
 
 
   let workspaceMembers = [];
@@ -685,6 +688,15 @@ let instagramReturnReason = null;
 
     instagramReturnReason =
       queryParameters.get("reason");
+
+    facebookReturnStatus =
+      queryParameters.get("facebook");
+
+    facebookReturnReason =
+      queryParameters.get("reason");
+
+    facebookReturnPages =
+      queryParameters.get("pages");
 
     const sectionFromQuery =
       queryParameters.get("section");
@@ -3701,12 +3713,97 @@ let instagramReturnReason = null;
     );
   }
 
+  async function handleFacebookOAuth(platformButton) {
+    if (!currentWorkspaceId) {
+      showToast(
+        "error",
+        "Workspace indisponÃ­vel",
+        "Selecione um workspace antes de conectar o Facebook."
+      );
+      return;
+    }
+
+    platformButton.disabled = true;
+    platformButton.setAttribute(
+      "aria-busy",
+      "true"
+    );
+
+    try {
+      const returnUrl =
+        window.location.origin +
+        window.location.pathname;
+      const brandId =
+        platformButton.dataset.brandId?.trim();
+      const body = {
+        workspaceId: currentWorkspaceId,
+        returnUrl,
+      };
+
+      if (brandId) {
+        body.brandId = brandId;
+      }
+
+      const {
+        data,
+        error,
+      } = await supabaseClient.functions.invoke(
+        "facebook-oauth-start",
+        { body }
+      );
+
+      if (error) {
+        throw error;
+      }
+
+      const authorizationUrl =
+        new URL(data?.authorizationUrl || "");
+      const isFacebookHost =
+        authorizationUrl.hostname === "facebook.com" ||
+        authorizationUrl.hostname.endsWith(".facebook.com");
+
+      if (
+        authorizationUrl.protocol !== "https:" ||
+        !isFacebookHost
+      ) {
+        throw new Error(
+          "A resposta de autorizaÃ§Ã£o Ã© invÃ¡lida."
+        );
+      }
+
+      window.location.assign(
+        authorizationUrl.toString()
+      );
+    } catch (error) {
+      console.error(
+        "Erro ao iniciar OAuth do Facebook:",
+        error
+      );
+
+      platformButton.disabled = false;
+      platformButton.removeAttribute(
+        "aria-busy"
+      );
+
+      showToast(
+        "error",
+        "NÃ£o foi possÃ­vel conectar",
+        "Atualize a pÃ¡gina e tente novamente."
+      );
+    }
+  }
+
   async function handleSocialPlatformSelection(event) {
     const platformButton =
       event.currentTarget;
 
     const platform =
       platformButton.dataset.socialPlatform;
+
+    if (platform === "facebook") {
+      await handleFacebookOAuth(platformButton);
+      return;
+    }
 
     if (platform !== "instagram") {
       showToast(
@@ -3940,13 +4037,15 @@ let instagramReturnReason = null;
       if (
         billingReturnStatus ||
         portalReturnStatus ||
-        instagramReturnStatus
+        instagramReturnStatus ||
+        facebookReturnStatus
       ) {
         window.history.replaceState(
           null,
           "",
           `${window.location.pathname}#${
-            instagramReturnStatus
+            instagramReturnStatus ||
+            facebookReturnStatus
               ? "integrations"
               : "billing"
           }`
@@ -3993,6 +4092,47 @@ let instagramReturnReason = null;
           invalidState
             ? "O pedido expirou ou já foi utilizado. Tente conectar novamente."
             : "O Instagram não concluiu a autorização. Tente novamente."
+        );
+      }
+
+      if (facebookReturnStatus === "connected") {
+        await loadIntegrations();
+
+        const connectedPages =
+          Number.parseInt(facebookReturnPages, 10);
+        const pagesMessage =
+          Number.isInteger(connectedPages) &&
+          connectedPages > 0
+            ? `${connectedPages} ${
+                connectedPages === 1
+                  ? "pÃ¡gina foi conectada"
+                  : "pÃ¡ginas foram conectadas"
+              } e jÃ¡ estÃ£o disponÃ­veis.`
+            : "As pÃ¡ginas autorizadas jÃ¡ estÃ£o disponÃ­veis.";
+
+        showToast(
+          "success",
+          "Facebook conectado",
+          pagesMessage
+        );
+      } else if (
+        facebookReturnStatus === "cancelled"
+      ) {
+        showToast(
+          "info",
+          "LigaÃ§Ã£o cancelada",
+          "Nenhuma pÃ¡gina do Facebook foi conectada."
+        );
+      } else if (facebookReturnStatus === "error") {
+        const invalidState =
+          facebookReturnReason === "invalid_state";
+
+        showToast(
+          "error",
+          "NÃ£o foi possÃ­vel conectar",
+          invalidState
+            ? "O pedido expirou ou jÃ¡ foi utilizado. Tente conectar novamente."
+            : "O Facebook nÃ£o concluiu a autorizaÃ§Ã£o. Tente novamente."
         );
       }
 
