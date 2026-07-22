@@ -101,6 +101,8 @@ let instagramReturnReason = null;
 let facebookReturnStatus = null;
 let facebookReturnReason = null;
 let facebookReturnPages = null;
+let youtubeReturnStatus = null;
+let youtubeReturnReason = null;
 
 
   let workspaceMembers = [];
@@ -697,6 +699,12 @@ let facebookReturnPages = null;
 
     facebookReturnPages =
       queryParameters.get("pages");
+
+    youtubeReturnStatus =
+          queryParameters.get("youtube");
+
+    youtubeReturnReason =
+          queryParameters.get("reason");
 
     const sectionFromQuery =
       queryParameters.get("section");
@@ -3713,6 +3721,101 @@ let facebookReturnPages = null;
     );
   }
 
+  async function handleYoutubeOAuth(platformButton) {
+
+    if (!currentWorkspaceId) {
+      showToast(
+        "error",
+        "Workspace indisponível",
+        "Selecione um workspace antes de conectar o YouTube."
+      );
+      return;
+    }
+
+
+    platformButton.disabled = true;
+
+    platformButton.setAttribute(
+      "aria-busy",
+      "true"
+    );
+
+
+    try {
+
+      const returnUrl =
+        window.location.origin +
+        window.location.pathname;
+
+
+      const {
+        data,
+        error,
+      } =
+      await supabaseClient.functions.invoke(
+        "youtube-oauth-start",
+        {
+          body:{
+            workspaceId:
+              currentWorkspaceId,
+
+            returnUrl
+          }
+        }
+      );
+
+
+      if(error){
+        throw error;
+      }
+
+
+      const authorizationUrl =
+        new URL(
+          data?.authorizationUrl || ""
+        );
+
+
+      if(
+        authorizationUrl.protocol !== "https:" ||
+        !authorizationUrl.hostname.includes(
+          "google.com"
+        )
+      ){
+        throw new Error(
+          "URL Google inválida."
+        );
+      }
+
+
+      window.location.assign(
+        authorizationUrl.toString()
+      );
+
+
+    } catch(error){
+
+      console.error(
+        "Erro ao iniciar OAuth YouTube:",
+        error
+      );
+
+
+      platformButton.disabled = false;
+
+      platformButton.removeAttribute(
+        "aria-busy"
+      );
+
+
+      showToast(
+        "error",
+        "Não foi possível conectar",
+        "Atualize a página e tente novamente."
+      );
+    }
+  }
+
   async function handleFacebookOAuth(platformButton) {
     if (!currentWorkspaceId) {
       showToast(
@@ -3799,6 +3902,12 @@ let facebookReturnPages = null;
 
     const platform =
       platformButton.dataset.socialPlatform;
+
+    if (platform === "youtube") {
+      await handleYoutubeOAuth(platformButton);
+      return;
+    }
+
 
     if (platform === "facebook") {
       await handleFacebookOAuth(platformButton);

@@ -5,11 +5,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Entrar | StudioV</title>
+    <title>Criar conta | StudioV</title>
 
     <meta
       name="description"
-      content="Entre na sua conta StudioV para gerir marcas, conteúdos, calendário e inteligência artificial."
+      content="Crie a sua conta StudioV para gerir marcas, conteúdos, calendário e inteligência artificial."
     />
 
     <meta name="robots" content="noindex, nofollow" />
@@ -131,16 +131,16 @@
             <p>Introduza os seus dados para entrar na StudioV.</p>
           </div>
 
-          <form class="auth-form" id="login-form" novalidate>
+          <form class="auth-form" id="register-form" novalidate>
             <div class="auth-field">
-              <label for="login-email"> Email </label>
+              <label for="register-email"> Email </label>
 
               <div class="auth-input-wrapper">
                 <i data-lucide="mail"></i>
 
                 <input
                   type="email"
-                  id="login-email"
+                  id="register-email"
                   name="email"
                   placeholder="nome@exemplo.com"
                   autocomplete="email"
@@ -149,12 +149,12 @@
                 />
               </div>
 
-              <small class="auth-field-error" id="login-email-error"></small>
+              <small class="auth-field-error" id="register-email-error"></small>
             </div>
 
             <div class="auth-field">
               <div class="auth-label-row">
-                <label for="login-password"> Palavra-passe </label>
+                <label for="register-password"> Palavra-passe </label>
               </div>
 
               <div class="auth-input-wrapper">
@@ -162,17 +162,17 @@
 
                 <input
                   type="password"
-                  id="login-password"
+                  id="register-password"
                   name="password"
                   placeholder="Introduza a sua palavra-passe"
-                  autocomplete="current-password"
+                  autocomplete="new-password"
                   minlength="6"
                   required
                 />
 
                 <button
                   class="auth-password-toggle"
-                  id="login-password-toggle"
+                  id="register-password-toggle"
                   type="button"
                   aria-label="Mostrar palavra-passe"
                   aria-pressed="false"
@@ -181,36 +181,39 @@
                 </button>
               </div>
 
-              <div class="auth-field">
-                <div class="auth-label-row">
-                  <label for="login-password"> Repita a Palavra-passe </label>
-                </div>
+              <small class="auth-field-error" id="register-password-error"></small>
+            </div>
 
-                <div class="auth-input-wrapper">
-                  <i data-lucide="lock-keyhole"></i>
+            <div class="auth-field">
+              <div class="auth-label-row">
+                <label for="register-password-confirm"> Repita a palavra-passe </label>
+              </div>
 
-                  <input
-                    type="password"
-                    id="login-password"
-                    name="password"
-                    placeholder="Repita a sua palavra-passe"
-                    autocomplete="current-password"
-                    minlength="6"
-                    required
-                  />
+              <div class="auth-input-wrapper">
+                <i data-lucide="lock-keyhole"></i>
 
-                  <button
-                    class="auth-password-toggle"
-                    id="login-password-toggle"
-                    type="button"
-                    aria-label="Mostrar palavra-passe"
-                    aria-pressed="false"
-                  >
+                <input
+                  type="password"
+                  id="register-password-confirm"
+                  name="password_confirmation"
+                  placeholder="Repita a sua palavra-passe"
+                  autocomplete="new-password"
+                  minlength="6"
+                  required
+                />
+
+                <button
+                  class="auth-password-toggle"
+                  id="register-password-confirm-toggle"
+                  type="button"
+                  aria-label="Mostrar confirmação da palavra-passe"
+                  aria-pressed="false"
+                >
                   <i data-lucide="eye"></i>
                 </button>
               </div>
 
-              <small class="auth-field-error" id="login-password-error"></small>
+              <small class="auth-field-error" id="register-password-confirm-error"></small>
             </div>
 
             <label class="auth-checkbox">
@@ -223,18 +226,18 @@
               <span> Manter sessão iniciada </span>
             </label>
 
-            <div class="auth-general-error hidden" id="login-general-error" role="alert"></div>
+            <div class="auth-general-error hidden" id="register-general-error" role="alert"></div>
 
             <button
               class="btn btn-primary auth-submit-button"
-              id="login-submit-button"
+              id="register-submit-button"
               type="submit"
             >
-              <span id="login-submit-text"> Criar conta </span>
+              <span id="register-submit-text"> Criar conta </span>
 
               <span
                 class="auth-button-loader hidden"
-                id="login-button-loader"
+                id="register-button-loader"
                 aria-hidden="true"
               ></span>
             </button>
@@ -244,7 +247,7 @@
             <span>ou</span>
           </div>
 
-          <button class="auth-provider-button" id="google-login-button" type="button">
+          <button class="auth-provider-button" id="google-register-button" type="button">
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
               <path
                 fill="#4285F4"
@@ -267,11 +270,11 @@
               ></path>
             </svg>
 
-            Entrar com Google
+            Criar conta com Google
           </button>
 
           <p class="auth-register-text">
-            Ja tem uma conta?
+            Já tem uma conta?
 
             <a href="/html/auth/login.html"> Fazer login </a>
           </p>
@@ -307,7 +310,7 @@
 
     <script src="/js/services/supabase.js"></script>
 
-    <!-- Login -->
+    <!-- Registo -->
     <script src="/js/auth/register.js"></script>
   </body>
 </html>

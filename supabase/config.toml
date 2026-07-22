@@ -385,10 +385,34 @@ deno_version = 2
 [functions.generate-post]
 verify_jwt = true
 
+[functions.create-checkout-session]
+verify_jwt = true
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.create-billing-portal-session]
+verify_jwt = true
+
 [functions.instagram-oauth-start]
 verify_jwt = true
 
 [functions.instagram-oauth-callback]
+verify_jwt = false
+
+[functions.instagram-oauth-config-check]
+verify_jwt = true
+
+[functions.facebook-oauth-start]
+verify_jwt = true
+
+[functions.facebook-oauth-callback]
+verify_jwt = false
+
+[functions.youtube-oauth-start]
+verify_jwt = true
+
+[functions.youtube-oauth-callback]
 verify_jwt = false
 
 # [edge_runtime.secrets]
